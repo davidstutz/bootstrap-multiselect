@@ -86,7 +86,7 @@
 			
 			$('option[value="' + $(this).val() + '"]', select).attr('selected', checked);
 			
-			$('.dropdown-toggle', container).html(options.text($('option:selected', select)) + '<b class="caret"></b>');
+			$('.dropdown-toggle', container).html(options.text($('option:selected', select)) + ' <b class="caret"></b>');
 		});
 		
 		$('li a', container).on('click', function(event) {
