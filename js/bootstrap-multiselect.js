@@ -21,11 +21,30 @@
 	"use strict"; // jshint ;_;
 
 	var Multiselect = function(element, options) {
+		var defaults = {
+			button: 'btn',
+			width: 'auto',
+			text: function(options) {
+				if (options.length == 0) {
+					return 'None selected';
+				}
+				else if (options.length > 3) {
+					return options.length + ' selected';
+				}
+				else {
+					var selected = '';
+					options.each(function() {
+						selected += $(this).text() + ', ';
+					});
+					return selected.substr(0, selected.length -2);
+				}
+			}
+		};
+		
+		options = $.extend(defaults, options);
+		
 		var select = element,
-			options =  $.extend($.fn.multiselect.options, options),
-			button = $('<span class="dropdown"><a style="width:' + options.width + '" class="btn dropdown-toggle" data-toggle="dropdown">' + ($('option:selected', select).length > 0 ? $.fn.multiselect.options.selected($('option:selected', select)) : $.fn.multiselect.options.none) + ' <b class="caret"></b></a><ul class="dropdown-menu" role="menu"></ul></span>');
-					
-		$(select).hide();
+			container = $('<span class="dropdown"><a style="width:' + options.width + '" class="dropdown-toggle ' + options.button + '" data-toggle="dropdown">' + options.text($('option:selected', select)) + ' <b class="caret"></b></a><ul class="dropdown-menu" role="menu"></ul></span>');
 		
 		if (!$(select).attr('multiple')) {
 			$(select).attr('multiple', true);
@@ -36,14 +55,10 @@
 				$(this).attr('selected', true);
 			}
 			
-			$('ul', button).append('<li><a href="#"><label class="checkbox"><input type="checkbox" value="' + $(this).val() + '"> ' + $(this).text() + '</label></a></li>');
-		});
-		
-		$(select).after(button);
-		
-		$('option', select).each(function() {
+			$('ul', container).append('<li><a href="#"><label class="checkbox"><input type="checkbox" value="' + $(this).val() + '"> ' + $(this).text() + '</label></a></li>');
+			
 			var selected = $(this).attr('selected') || false,
-				checkbox = $('li input[value="' + $(this).val() + '"]', button);
+				checkbox = $('li input[value="' + $(this).val() + '"]', container);
 				
 			checkbox.attr('checked', selected);
 			
@@ -52,11 +67,14 @@
 			}
 		});
 		
-		$('.dropdown-toggle', button).dropdown();
+		$(select).hide()
+			.after(container);
 		
-		$('li label', button).css({'cursor': 'pointer'});
+		$('.dropdown-toggle', container).dropdown();
 		
-		$('li input[type="checkbox"]', button).on('change', function(event) {
+		$('li label', container).css({'cursor': 'pointer'});
+		
+		$('li input[type="checkbox"]', container).on('change', function(event) {
 			var checked = $(this).attr('checked') || false;
 			
 			if (checked) {
@@ -68,10 +86,10 @@
 			
 			$('option[value="' + $(this).val() + '"]', select).attr('selected', checked);
 			
-			$('.dropdown-toggle', button).html(($('option:selected', select).length > 0 ? $.fn.multiselect.options.selected($('option:selected', select)) : $.fn.multiselect.options.none) + ' <b class="caret"></b>');
+			$('.dropdown-toggle', container).html(options.text($('option:selected', select)) + '<b class="caret"></b>');
 		});
 		
-		$('li a', button).on('click', function(event) {
+		$('li a', container).on('click', function(event) {
 			event.stopImmediatePropagation();
 		});
 	};
@@ -87,25 +105,5 @@
 	}
 
 	Multiselect.prototype.constructor = Multiselect;
-	
-	$.fn.multiselect.options = {
-		// The width of the button.
-		width: 'auto',
-		// Text for button if no option is selected.
-		none: 'None selected',
-		// Must be a function returning the label for the button.
-		selected: function(options) {
-			if (options.length > 3) {
-				return options.length + ' selected';
-			}
-			else {
-				var selected = '';
-				options.each(function() {
-					selected += $(this).text() + ', ';
-				});
-				return selected.substr(0, selected.length -2);
-			}
-		},
-	}
 
 }(window.jQuery);

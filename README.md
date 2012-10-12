@@ -1,12 +1,36 @@
 # Bootstrap Multiselect
 
-Dropdown button overlay for using with selects.
+Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
 
-## Example
+## Usage
 
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+	
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('.multiselect').multiselect(options);
+			$('.multiselect').multiselect({
+				'button': 'btn',
+				'width': 'auto',
+				'text': function(options) {
+					if (options.length == 0) {
+						return 'None selected';
+					}
+					else if (options.length > 3) {
+						return options.length + ' selected';
+					}
+					else {
+						var selected = '';
+						options.each(function() {
+							selected += $(this).text() + ', ';
+						});
+						return selected.substr(0, selected.length -2);
+					}
+				}
+			});
 		});
 	</script>
 	
@@ -33,56 +57,61 @@ Dropdown button overlay for using with selects.
 		<button class="btn btn-success">Save</button>
 	</div>
 	
+## Examples
+
+	The download includes usage and styling examples.
+
 ## Configuration Options
 
-**none**
+**button**
 
-The text displayed if no option is selected.
+Define the appearance of the button using classes. See the [Bootstrap documentation](http://twitter.github.com/bootstrap/base-css.html#buttons) for more information.
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('.multiselect').multiselect({
-				'none': 'select something...'
-			});
+	$(document).ready(function() {
+		$('.multiselect').multiselect({
+			'none': 'select something...'
 		});
-	</script>
-	
-**selected**
-
-A function returning the string displayed if options are selected. All currently selected options are passed as argument.
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('.multiselect').multiselect({
-				'selected': function(options) {
-					if (options.length > 3) {
-						return options.length + ' selected';
-					}
-					else {
-						var selected = '';
-						options.each(function() {
-							selected += $(this).text() + ', ';
-						});
-						return selected.substr(0, selected.length -2);
-					}
-				},
-			});
-		});
-	</script>
+	});
 	
 **width**
 
-The width of the dropdown button.
+The width of the dropdown button. 
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('.multiselect').multiselect({
-				'width': 'auto', // Default
-				'width': '300px', // In pixels
-				'width': '50%', // In percentage
-			});
+	$(document).ready(function() {
+		$('.multiselect').multiselect({
+			'width': 'auto', // Default
 		});
-	</script>
+	});
+
+The width can be defined using all formats accepted by CSS:
+
+	100px
+	50%
+	auto
+	
+**text**
+
+Defining the text of the button. Must be a function returning a string. All currently selected options are passed as parameter.
+
+	$(document).ready(function() {
+		$('.multiselect').multiselect({
+			'text': function(options) {
+				if (options.length == 0) {
+					return 'None selected';
+				}
+				else if (options.length > 3) {
+					return options.length + ' selected';
+				}
+				else {
+					var selected = '';
+					options.each(function() {
+						selected += $(this).text() + ', ';
+					});
+					return selected.substr(0, selected.length -2);
+				}
+			},
+		});
+	});
 	
 ## License
 

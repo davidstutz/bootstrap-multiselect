@@ -18,7 +18,7 @@
 			<div class="hero-unit">
 				<h1>Bootstrap Multiselect</h1>
 				<p>
-					Dropdown button overlay for selects.
+					Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
 				</p>
 			</div>
 			<div class="page-header">
@@ -26,15 +26,25 @@
 			</div>
 			<script type="text/javascript">
 				$(document).ready(function() {
-					$('.multiselect').multiselect({
-						width: 'auto',
+					$('#example1').multiselect();
+					$('#example2').multiselect();
+					$('#example3').multiselect({
+						button: 'btn btn-link'
 					});
+					$('#example4').multiselect({
+						button: 'btn btn-small'
+					});
+					$('#example5').multiselect({
+						button: 'btn btn-primary disabled'
+					});
+					$('#example6').multiselect();
+					$('.example7').multiselect();
 				});
 			</script>
 			<table class="table table-striped">
 				<tr>
 					<td>
-						<select class="multiselect">
+						<select id="example1" class="multiselect">
 							<option value="cheese">Cheese</option>
 							<option value="tomatoes">Tomatoes</option>
 							<option value="mozarella">Mozzarella</option>
@@ -49,7 +59,7 @@
 				</tr>
 				<tr>
 					<td>
-						<select class="multiselect" multiple="multiple">
+						<select id="example3" class="multiselect" multiple="multiple">
 							<option value="cheese">Cheese</option>
 							<option value="tomatoes">Tomatoes</option>
 							<option value="mozarella">Mozzarella</option>
@@ -59,14 +69,45 @@
 						</select>
 					</td>
 					<td>
-						Simple multiple select.
+						As link using <code>btn btn-link</code>.
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select id="example4" class="multiselect" multiple="multiple">
+							<option value="cheese">Cheese</option>
+							<option value="tomatoes">Tomatoes</option>
+							<option value="mozarella">Mozzarella</option>
+							<option value="mushrooms">Mushrooms</option>
+							<option value="pepperoni">Pepperoni</option>
+							<option value="onions">Onions</option>
+						</select>
+					</td>
+					<td>
+						Small button using <code>btn btn-small</code>.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select id="example5" class="multiselect" multiple="multiple">
+							<option value="cheese">Cheese</option>
+							<option value="tomatoes">Tomatoes</option>
+							<option value="mozarella">Mozzarella</option>
+							<option value="mushrooms">Mushrooms</option>
+							<option value="pepperoni">Pepperoni</option>
+							<option value="onions">Onions</option>
+						</select>
+					</td>
+					<td>
+						Disabled using <code>btn btn-primary disabled</code>.
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<div class="input-prepend input-append">
 							<span class="add-on"><b class="icon-list-alt"></b></span>
-							<select class="multiselect" multiple="multiple">
+							<select id="example6" class="multiselect" multiple="multiple">
 								<option value="cheese">Cheese</option>
 								<option value="tomatoes">Tomatoes</option>
 								<option value="mozarella">Mozzarella</option>
@@ -86,7 +127,7 @@
 					<td>
 						<div class="input-prepend input-append">
 							<span class="add-on"><b class="icon-list-alt"></b></span>
-							<select class="multiselect" multiple="multiple">
+							<select class="example7" multiple="multiple">
 								<option value="cheese">Cheese</option>
 								<option value="tomatoes">Tomatoes</option>
 								<option value="mozarella">Mozzarella</option>
@@ -94,7 +135,7 @@
 								<option value="pepperoni">Pepperoni</option>
 								<option value="onions">Onions</option>
 							</select>
-							<select class="multiselect" multiple="multiple">
+							<select class="example7" multiple="multiple">
 								<option value="small">Small</option>
 								<option value="medium">Medium</option>
 								<option value="large">Large</option>
@@ -115,9 +156,33 @@
 				Basic markup used in the above examples:
 			</p>
 			<pre>
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap.min.css&quot; type=&quot;text/css&quot;&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/bootstrap-multiselect.js&quot;&gt;&lt;/script&gt;
+
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
-    $(&#39;.multiselect&#39;).multiselect();
+    $(&#39;.multiselect&#39;).multiselect({
+      &apos;button&apos;: &apos;btn&apos;,
+      &apos;width&apos;: &apos;auto&apos;,
+      &apos;text&apos;: function(options) {
+        if (options.length == 0) {
+          return &apos;None selected&apos;;
+        }
+        else if (options.length > 3) {
+          return options.length + &apos; selected&apos;;
+        }
+        else {
+          var selected = &apos;&apos;;
+          options.each(function() {
+            selected += $(this).text() + &apos;, &apos;;
+          });
+          return selected.substr(0, selected.length -2);
+        }
+      }
+    });
   });
 &lt;/script&gt;
 
@@ -157,30 +222,18 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><code>none</code></td>
-						<td>The text displayed if no option is selected.</td>
-						<td>
-							<pre>
-&lt;script type=&quot;text/javascript&quot;&gt;
-  $(document).ready(function() {
-    $(&#39;.multiselect&#39;).multiselect({
-      &apos;none&apos;: &apos;select something...&apos;
-    });
-  });
-&lt;/script&gt;
-							</pre>
-						</td>
-					</tr>
-					<tr>
-						<td><code>selected</code></td>
+						<td><code>text</code></td>
 						<td>A function returning the string displayed if options are selected. All currently selected options are passed as argument.</td>
 						<td>
 							<pre>
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      &apos;selected&apos;: function(options) {
-        if (options.length > 3) {
+      &apos;text&apos;: function(options) {
+        if (options.length == 0) {
+          return &apos;None selected&apos;;
+        }
+        else if (options.length > 3) {
           return options.length + &apos; selected&apos;;
         }
         else {
@@ -190,7 +243,22 @@
           });
           return selected.substr(0, selected.length -2);
         }
-      },
+      }
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>button</code></td>
+						<td>The width of the dropdown button.</td>
+						<td>
+							<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      &apos;button&apos;: &apos;btn-primary btn-large&apos;,
     });
   });
 &lt;/script&gt;
@@ -199,15 +267,21 @@
 					</tr>
 					<tr>
 						<td><code>width</code></td>
-						<td>The width of the dropdown button.</td>
+						<td>
+							The width of the dropdown button.
+							Allowed formats:
+							<ul>
+								<li><code>100px</code></li>
+								<li><code>50%</code></li>
+								<li><code>auto</code></li>
+							</ul>
+						</td>
 						<td>
 							<pre>
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      &apos;width&apos;: &apos;auto&apos;, // Default
-      &apos;width&apos;: &apos;300px&apos;, // In pixels
-      &apos;width&apos;: &apos;50%&apos;, // In percentage
+      &apos;width&apos;: &apos;300px&apos;,
     });
   });
 &lt;/script&gt;
