@@ -38,14 +38,20 @@
 					});
 					return selected.substr(0, selected.length -2);
 				}
-			}
+			},
+			container: '<div class="btn-group" />',
 		};
 		
 		options = $.extend(defaults, options);
 		
 		var select = element,
-			container = $('<span class="dropdown"><a style="width:' + options.width + '" class="dropdown-toggle ' + options.button + '" data-toggle="dropdown">' + options.text($('option:selected', select)) + ' <b class="caret"></b></a><ul class="dropdown-menu" role="menu"></ul></span>');
-		
+			button = $('<button style="width:' + options.width + '" class="dropdown-toggle ' + options.button + '" data-toggle="dropdown">' + options.text($('option:selected', select)) + ' <b class="caret"></b></button>')
+				.dropdown(),
+			ul = $('<ul class="dropdown-menu"></ul>'),
+			container = $(options.container)
+				.append(button)
+				.append(ul);
+			
 		if (!$(select).attr('multiple')) {
 			$(select).attr('multiple', true);
 		}
@@ -55,10 +61,10 @@
 				$(this).attr('selected', true);
 			}
 			
-			$('ul', container).append('<li><a href="#"><label class="checkbox"><input type="checkbox" value="' + $(this).val() + '"> ' + $(this).text() + '</label></a></li>');
+			$(ul).append('<li><a href="#"><label class="checkbox"><input type="checkbox" value="' + $(this).val() + '"> ' + $(this).text() + '</label></a></li>');
 			
 			var selected = $(this).attr('selected') || false,
-				checkbox = $('li input[value="' + $(this).val() + '"]', container);
+				checkbox = $('li input[value="' + $(this).val() + '"]', ul);
 				
 			checkbox.attr('checked', selected);
 			
@@ -70,11 +76,9 @@
 		$(select).hide()
 			.after(container);
 		
-		$('.dropdown-toggle', container).dropdown();
+		$('li label', ul).css({'cursor': 'pointer'});
 		
-		$('li label', container).css({'cursor': 'pointer'});
-		
-		$('li input[type="checkbox"]', container).on('change', function(event) {
+		$('li input[type="checkbox"]', ul).on('change', function(event) {
 			var checked = $(this).attr('checked') || false;
 			
 			if (checked) {
@@ -86,10 +90,10 @@
 			
 			$('option[value="' + $(this).val() + '"]', select).attr('selected', checked);
 			
-			$('.dropdown-toggle', container).html(options.text($('option:selected', select)) + ' <b class="caret"></b>');
+			$(button).html(options.text($('option:selected', select)) + ' <b class="caret"></b>');
 		});
 		
-		$('li a', container).on('click', function(event) {
+		$('li a', ul).on('click', function(event) {
 			event.stopImmediatePropagation();
 		});
 	};

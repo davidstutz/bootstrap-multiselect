@@ -2,7 +2,9 @@
 
 Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
 
-## Usage
+## Examples
+
+These examples can also be seen in action in index.html:
 
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
@@ -12,40 +14,25 @@ Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user inte
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('.multiselect').multiselect({
-				'button': 'btn',
-				'width': 'auto',
-				'text': function(options) {
-					if (options.length == 0) {
-						return 'None selected';
-					}
-					else if (options.length > 3) {
-						return options.length + ' selected';
-					}
-					else {
-						var selected = '';
-						options.each(function() {
-							selected += $(this).text() + ', ';
-						});
-						return selected.substr(0, selected.length -2);
-					}
-				}
+			$('#example1').multiselect();
+			$('#example2').multiselect();
+			$('#example3').multiselect({
+				button: 'btn btn-link'
+			});
+			$('#example4').multiselect({
+				button: 'btn btn-small'
+			});
+			$('#example5').multiselect({
+				button: 'btn btn-primary disabled'
+			});
+			$('#example6').multiselect();
+			$('.example7').multiselect({
+				container: '<span class="dropdown" />',
 			});
 		});
 	</script>
-	
-	<select class="multiselect" multiple="multiple">
-		<option value="cheese">Cheese</option>
-		<option value="tomatoes">Tomatoes</option>
-		<option value="mozarella">Mozzarella</option>
-		<option value="mushrooms">Mushrooms</option>
-		<option value="pepperoni">Pepperoni</option>
-		<option value="onions">Onions</option>
-	</select>
-	
-	<div class="input-prepend input-append">
-		<span class="add-on"><b class="icon-list-alt"></b></span>
-		<select class="multiselect" multiple="multiple">
+	<p>
+		<select id="example1" class="multiselect">
 			<option value="cheese">Cheese</option>
 			<option value="tomatoes">Tomatoes</option>
 			<option value="mozarella">Mozzarella</option>
@@ -53,13 +40,72 @@ Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user inte
 			<option value="pepperoni">Pepperoni</option>
 			<option value="onions">Onions</option>
 		</select>
-		<button class="btn btn-danger">Cancel</button>
-		<button class="btn btn-success">Save</button>
-	</div>
-	
-## Examples
-
-	The download includes usage and styling examples.
+	</p>
+	<p>
+		<select id="example3" class="multiselect" multiple="multiple">
+			<option value="cheese">Cheese</option>
+			<option value="tomatoes">Tomatoes</option>
+			<option value="mozarella">Mozzarella</option>
+			<option value="mushrooms">Mushrooms</option>
+			<option value="pepperoni">Pepperoni</option>
+			<option value="onions">Onions</option>
+		</select>
+	</p>
+	<p>
+		<select id="example4" class="multiselect" multiple="multiple">
+			<option value="cheese">Cheese</option>
+			<option value="tomatoes">Tomatoes</option>
+			<option value="mozarella">Mozzarella</option>
+			<option value="mushrooms">Mushrooms</option>
+			<option value="pepperoni">Pepperoni</option>
+			<option value="onions">Onions</option>
+		</select>
+	</p>
+	<p>
+		<select id="example5" class="multiselect" multiple="multiple">
+			<option value="cheese">Cheese</option>
+			<option value="tomatoes">Tomatoes</option>
+			<option value="mozarella">Mozzarella</option>
+			<option value="mushrooms">Mushrooms</option>
+			<option value="pepperoni">Pepperoni</option>
+			<option value="onions">Onions</option>
+		</select>
+	</p>
+	<p>
+		<div class="input-prepend input-append btn-toolbar">
+			<span class="add-on"><b class="icon-list-alt"></b></span>
+			<select id="example6" class="multiselect" multiple="multiple">
+				<option value="cheese">Cheese</option>
+				<option value="tomatoes">Tomatoes</option>
+				<option value="mozarella">Mozzarella</option>
+				<option value="mushrooms">Mushrooms</option>
+				<option value="pepperoni">Pepperoni</option>
+				<option value="onions">Onions</option>
+			</select>
+			<button class="btn btn-danger">Cancel</button>
+			<button class="btn btn-success">Save</button>
+		</div>
+	</p>
+	<p>
+		<div class="input-prepend input-append">
+			<span class="add-on"><b class="icon-list-alt"></b></span>
+			<select class="example7" multiple="multiple">
+				<option value="cheese">Cheese</option>
+				<option value="tomatoes">Tomatoes</option>
+				<option value="mozarella">Mozzarella</option>
+				<option value="mushrooms">Mushrooms</option>
+				<option value="pepperoni">Pepperoni</option>
+				<option value="onions">Onions</option>
+			</select>
+			<select class="example7" multiple="multiple">
+				<option value="small">Small</option>
+				<option value="medium">Medium</option>
+				<option value="large">Large</option>
+				<option value="extra">Extra Large</option>
+			</select>
+			<button class="btn btn-primary">Save</button>
+		</div>
+	</p>
 
 ## Configuration Options
 
@@ -111,6 +157,14 @@ Defining the text of the button. Must be a function returning a string. All curr
 				}
 			},
 		});
+	});
+	
+**container**
+
+The used container holding both the dropdown button and the dropdown menu.
+
+	$('.multiselect').multiselect({
+		container: '<span class="dropdown" />',
 	});
 	
 ## License

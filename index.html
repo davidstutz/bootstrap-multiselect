@@ -24,6 +24,9 @@
 			<div class="page-header">
 				<h1>Examples</h1>
 			</div>
+			<p>
+				The best way learning from the examples is using firebug, chrome developer tools or similar tools for your browser. Examine the generated markup and used javascript code.
+			</p>
 			<script type="text/javascript">
 				$(document).ready(function() {
 					$('#example1').multiselect();
@@ -38,7 +41,9 @@
 						button: 'btn btn-primary disabled'
 					});
 					$('#example6').multiselect();
-					$('.example7').multiselect();
+					$('.example7').multiselect({
+						container: '<span class="dropdown" />',
+					});
 				});
 			</script>
 			<table class="table table-striped">
@@ -69,8 +74,7 @@
 						</select>
 					</td>
 					<td>
-						As link using <code>btn btn-link</code>.
-						</ul>
+						As link using <code>button: 'btn btn-link'</code>.
 					</td>
 				</tr>
 				<tr>
@@ -85,7 +89,7 @@
 						</select>
 					</td>
 					<td>
-						Small button using <code>btn btn-small</code>.
+						Small button using <code>button: 'btn btn-small'</code>.
 					</td>
 				</tr>
 				<tr>
@@ -100,12 +104,12 @@
 						</select>
 					</td>
 					<td>
-						Disabled using <code>btn btn-primary disabled</code>.
+						Disabled using <code>button: 'btn btn-primary disabled'</code>.
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<div class="input-prepend input-append">
+						<div class="input-prepend input-append btn-toolbar">
 							<span class="add-on"><b class="icon-list-alt"></b></span>
 							<select id="example6" class="multiselect" multiple="multiple">
 								<option value="cheese">Cheese</option>
@@ -120,7 +124,7 @@
 						</div>
 					</td>
 					<td>
-						Multiple select within a group with add-ons.
+						Multiple select within a group with add-ons and default container for the plugin: <code>container: '&lt;div class="btn-group" /&gt;'</code>.
 					</td>
 				</tr>
 				<tr>
@@ -145,7 +149,7 @@
 						</div>
 					</td>
 					<td>
-						Multiple selects within a group.
+						Multiple selects within a group using <code>container: '&lt;span class="dropdown" /&gt;'</code>.
 					</td>
 				</tr>
 			</table>
@@ -216,7 +220,7 @@
 				<thead>
 					<tr>
 						<th>Option</th>
-						<th width="40%">Explanation</th>
+						<th width="30%">Explanation</th>
 						<th>Usage</th>
 					</tr>
 				</thead>
@@ -252,7 +256,7 @@
 					</tr>
 					<tr>
 						<td><code>button</code></td>
-						<td>The width of the dropdown button.</td>
+						<td>The width of the dropdown button. Default: <code>btn</code>.</td>
 						<td>
 							<pre>
 &lt;script type=&quot;text/javascript&quot;&gt;
@@ -268,7 +272,7 @@
 					<tr>
 						<td><code>width</code></td>
 						<td>
-							The width of the dropdown button.
+							The width of the dropdown button. Default: <code>auto</code>.
 							Allowed formats:
 							<ul>
 								<li><code>100px</code></li>
@@ -282,6 +286,23 @@
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
       &apos;width&apos;: &apos;300px&apos;,
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>container</code></td>
+						<td>
+							The used container holding both the dropdown button and the dropdown menu. Default: <code>&lt;div class="btn-group" /&gt;</code>.
+						</td>
+						<td>
+							<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      &apos;container&apos;: &apos;&lt;span class="dropdown" /&gt;&apos;,
     });
   });
 &lt;/script&gt;
