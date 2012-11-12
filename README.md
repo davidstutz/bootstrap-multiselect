@@ -167,6 +167,10 @@ The used container holding both the dropdown button and the dropdown menu.
 		container: '<span class="dropdown" />',
 	});
 	
+## Roadmap / Todo
+
+* This solution for multiple selects is not usable for mobile devices (especially with touchscreen). ALternatives: Using Popovers instead of Dropdowns or checking for mobile devices and displaying normal select field (one row) for mobile devices.
+	
 ## License
 
 Copyright 2012 David Stutz
