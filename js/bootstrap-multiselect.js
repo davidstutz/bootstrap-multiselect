@@ -21,9 +21,13 @@
 	"use strict"; // jshint ;_;
 
 	var Multiselect = function(element, options) {
+		// Default options:
 		var defaults = {
 			button: 'btn',
 			width: 'auto',
+			// Default text function will either print 'None selected' in case no option is selected,
+			// or a list of the selected options up to a length of 3 selected options.
+			// If more than 3 options are selected, the number of selected options is printed.
 			text: function(options) {
 				if (options.length == 0) {
 					return 'None selected';
@@ -45,17 +49,21 @@
 		options = $.extend(defaults, options);
 		
 		var select = element,
+			// Create the button with given classes and the inital text.
 			button = $('<button style="width:' + options.width + '" class="dropdown-toggle ' + options.button + '" data-toggle="dropdown">' + options.text($('option:selected', select)) + ' <b class="caret"></b></button>')
 				.dropdown(),
+			// The ul will hold all options and present the dropdown.
 			ul = $('<ul class="dropdown-menu"></ul>'),
 			container = $(options.container)
 				.append(button)
 				.append(ul);
-			
+		
+		// Manually add the multiple attribute, if its not already set.
 		if (!$(select).attr('multiple')) {
 			$(select).attr('multiple', true);
 		}
 		
+		// Build the dropdown.
 		$('option', select).each(function() {
 			if ($(this).is(':selected')) {
 				$(this).attr('selected', true);
@@ -78,6 +86,7 @@
 		
 		$('li label', ul).css({'cursor': 'pointer'});
 		
+		// Bind the change event on the dropdown elements.
 		$('li input[type="checkbox"]', ul).on('change', function(event) {
 			var checked = $(this).attr('checked') || false;
 			

@@ -4,7 +4,7 @@
 		<title>Bootstrap Multiselect</title>
 		<meta name="robots" content="noindex, nofollow" />
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-		<meta name="copyright" content="RS Computer" />
+		<meta name="copyright" content="David Stutz" />
 
 		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css">
@@ -14,6 +14,25 @@
 		<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
 	</head>
 	<body>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('#example1').multiselect();
+				$('#example2').multiselect();
+				$('#example3').multiselect({
+					button: 'btn btn-link'
+				});
+				$('#example4').multiselect({
+					button: 'btn btn-small'
+				});
+				$('#example5').multiselect({
+					button: 'btn btn-primary disabled'
+				});
+				$('#example6').multiselect();
+				$('.example7').multiselect({
+					container: '<span class="dropdown" />',
+				});
+			});
+		</script>
 		<div class="container">
 			<div class="hero-unit">
 				<h1>Bootstrap Multiselect</h1>
@@ -27,25 +46,6 @@
 			<p>
 				The best way learning from the examples is using firebug, chrome developer tools or similar tools for your browser. Examine the generated markup and used javascript code.
 			</p>
-			<script type="text/javascript">
-				$(document).ready(function() {
-					$('#example1').multiselect();
-					$('#example2').multiselect();
-					$('#example3').multiselect({
-						button: 'btn btn-link'
-					});
-					$('#example4').multiselect({
-						button: 'btn btn-small'
-					});
-					$('#example5').multiselect({
-						button: 'btn btn-primary disabled'
-					});
-					$('#example6').multiselect();
-					$('.example7').multiselect({
-						container: '<span class="dropdown" />',
-					});
-				});
-			</script>
 			<table class="table table-striped">
 				<tr>
 					<td>
