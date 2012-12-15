@@ -49,7 +49,7 @@
 			<table class="table table-striped">
 				<tr>
 					<td>
-						<select id="example1" class="multiselect">
+						<select id="example1">
 							<option value="cheese">Cheese</option>
 							<option value="tomatoes">Tomatoes</option>
 							<option value="mozarella">Mozzarella</option>
@@ -59,12 +59,27 @@
 						</select>
 					</td>
 					<td>
-						Normal select. The plugin will add the <code>multiple="multiple"</code> attribute automatically.
+						Normal select. The plugin will add the <code>multiple="multiple"</code> attribute automatically. The first option is selected automatically by the browser when ommitting the <code>multiple="multiple"</code> attribute.
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<select id="example3" class="multiselect" multiple="multiple">
+						<select id="example2" multiple="multiple">
+							<option value="cheese" selected>Cheese</option>
+							<option value="tomatoes" selected>Tomatoes</option>
+							<option value="mozarella" selected>Mozzarella</option>
+							<option value="mushrooms">Mushrooms</option>
+							<option value="pepperoni">Pepperoni</option>
+							<option value="onions">Onions</option>
+						</select>
+					</td>
+					<td>
+						Select with preselected options: <code>&lt;option value=&quot;cheese&quot; selected&gt;Cheese&lt;/option&gt;</code>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select id="example3" multiple="multiple">
 							<option value="cheese">Cheese</option>
 							<option value="tomatoes">Tomatoes</option>
 							<option value="mozarella">Mozzarella</option>
@@ -79,7 +94,7 @@
 				</tr>
 				<tr>
 					<td>
-						<select id="example4" class="multiselect" multiple="multiple">
+						<select id="example4" multiple="multiple">
 							<option value="cheese">Cheese</option>
 							<option value="tomatoes">Tomatoes</option>
 							<option value="mozarella">Mozzarella</option>
@@ -94,7 +109,7 @@
 				</tr>
 				<tr>
 					<td>
-						<select id="example5" class="multiselect" multiple="multiple">
+						<select id="example5" multiple="multiple">
 							<option value="cheese">Cheese</option>
 							<option value="tomatoes">Tomatoes</option>
 							<option value="mozarella">Mozzarella</option>
@@ -111,7 +126,7 @@
 					<td>
 						<div class="input-prepend input-append btn-toolbar">
 							<span class="add-on"><b class="icon-list-alt"></b></span>
-							<select id="example6" class="multiselect" multiple="multiple">
+							<select id="example6" multiple="multiple">
 								<option value="cheese">Cheese</option>
 								<option value="tomatoes">Tomatoes</option>
 								<option value="mozarella">Mozzarella</option>
@@ -140,9 +155,7 @@
 								<option value="onions">Onions</option>
 							</select>
 							<select class="example7" multiple="multiple">
-								<option value="small">Small</option>
-								<option value="medium">Medium</option>
-								<option value="large">Large</option>
+								<option value="large">Extra Cheese</option>
 								<option value="extra">Extra Large</option>
 							</select>
 							<button class="btn btn-primary">Save</button>
@@ -152,6 +165,42 @@
 						Multiple selects within a group using <code>container: '&lt;span class="dropdown" /&gt;'</code>.
 					</td>
 				</tr>
+			</table>
+			<div class="page-header">
+				<h1>Methods</h1>
+			</div>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#example8').multiselect({
+						container: '<span />',
+					});
+					$('#example8-destroy').on('click', function() {
+						$('#example8').multiselect('destroy');
+					});
+				});
+			</script>
+			<table class="table table-striped">
+				<tbody>
+					<tr>
+						<td><code>.multiselect('destroy')</code></td>
+						<td>
+							<div class="btn-group">
+								<select id="example8" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example8-destroy" class="btn btn-danger">Destroy/Unbind</button>
+							</div>
+						</td>
+						<td>
+							This method is used to destroy the plugin on the given element - meaning unbinding the plugin.
+						</td>
+					</tr>
+				</tbody>
 			</table>
 			<div class="page-header">
 				<h1>Code</h1>

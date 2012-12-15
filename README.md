@@ -32,7 +32,7 @@ These examples can also be seen in action in index.html:
 		});
 	</script>
 	<p>
-		<select id="example1" class="multiselect">
+		<select id="example1">
 			<option value="cheese">Cheese</option>
 			<option value="tomatoes">Tomatoes</option>
 			<option value="mozarella">Mozzarella</option>
@@ -42,7 +42,17 @@ These examples can also be seen in action in index.html:
 		</select>
 	</p>
 	<p>
-		<select id="example3" class="multiselect" multiple="multiple">
+		<select id="example2" multiple="multiple">
+			<option value="cheese" selected>Cheese</option>
+			<option value="tomatoes" selected>Tomatoes</option>
+			<option value="mozarella" selected>Mozzarella</option>
+			<option value="mushrooms">Mushrooms</option>
+			<option value="pepperoni">Pepperoni</option>
+			<option value="onions">Onions</option>
+		</select>
+	</p>
+	<p>
+		<select id="example3" multiple="multiple">
 			<option value="cheese">Cheese</option>
 			<option value="tomatoes">Tomatoes</option>
 			<option value="mozarella">Mozzarella</option>
@@ -52,7 +62,7 @@ These examples can also be seen in action in index.html:
 		</select>
 	</p>
 	<p>
-		<select id="example4" class="multiselect" multiple="multiple">
+		<select id="example4" multiple="multiple">
 			<option value="cheese">Cheese</option>
 			<option value="tomatoes">Tomatoes</option>
 			<option value="mozarella">Mozzarella</option>
@@ -62,7 +72,7 @@ These examples can also be seen in action in index.html:
 		</select>
 	</p>
 	<p>
-		<select id="example5" class="multiselect" multiple="multiple">
+		<select id="example5" multiple="multiple">
 			<option value="cheese">Cheese</option>
 			<option value="tomatoes">Tomatoes</option>
 			<option value="mozarella">Mozzarella</option>
@@ -74,7 +84,7 @@ These examples can also be seen in action in index.html:
 	<p>
 		<div class="input-prepend input-append btn-toolbar">
 			<span class="add-on"><b class="icon-list-alt"></b></span>
-			<select id="example6" class="multiselect" multiple="multiple">
+			<select id="example6" multiple="multiple">
 				<option value="cheese">Cheese</option>
 				<option value="tomatoes">Tomatoes</option>
 				<option value="mozarella">Mozzarella</option>
@@ -166,7 +176,13 @@ The used container holding both the dropdown button and the dropdown menu.
 	$('.multiselect').multiselect({
 		container: '<span class="dropdown" />',
 	});
-	
+
+## Methods
+
+**.multiselect('destroy')**
+
+This method will destroy - unbind - the plugin on the given element(s).
+
 ## Roadmap / Todo
 
 * This solution for multiple selects is not usable for mobile devices (especially with touchscreen). ALternatives: Using Popovers instead of Dropdowns or checking for mobile devices and displaying normal select field (one row) for mobile devices.

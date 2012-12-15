@@ -20,9 +20,64 @@
 
 	"use strict"; // jshint ;_;
 
-	var Multiselect = function(element, options) {
-		// Default options:
-		var defaults = {
+	function Multiselect(select, options) {
+		
+		this.options = this.getOptions(options);
+		this.select = $(select);
+		this.container = $(this.options.container)
+				.append('<button style="width:' + this.options.width + '" class="dropdown-toggle ' + this.options.button + '" data-toggle="dropdown">' + this.options.text($('option:selected', select)) + ' <b class="caret"></b></button>')
+				.append('<ul class="dropdown-menu"></ul>');
+		
+		// Manually add the multiple attribute, if its not already set.
+		if (!this.select.attr('multiple')) {
+			this.select.attr('multiple', true);
+		}
+		
+		// Build the dropdown.
+		$('option', this.select).each($.proxy(function(index, element) {
+			if ($(element).is(':selected')) {
+				$(element).attr('selected', true);
+			}
+			
+			$('ul', this.container).append('<li><a href="#" style="padding:0;"><label style="margin:0;padding: 3px 20px 3px 20px;width:100%;height:100%;cursor:pointer;"><input style="margin-bottom:5px;" type="checkbox" value="' + $(element).val() + '" /> ' + $(element).text() + '</label</a></li>');
+			
+			var selected = $(element).attr('selected') || false;
+			var checkbox = $('ul li input[value="' + $(element).val() + '"]', this.container);
+				
+			checkbox.attr('checked', selected);
+			
+			if (selected) {
+				checkbox.parents('li').addClass('active');
+			}
+		}, this));
+		
+		this.select.hide()
+			.after(this.container);
+		
+		// Bind the change event on the dropdown elements.
+		$('ul li input[type="checkbox"]', this.container).on('change', $.proxy(function(event) {
+			var checked = $(event.target).attr('checked') || false;
+			
+			if (checked) {
+				$(event.target).parents('li').addClass('active');
+			}
+			else {
+				$(event.target).parents('li').removeClass('active');
+			}
+			
+			$('option[value="' + $(event.target).val() + '"]', this.select).attr('selected', checked);
+			
+			$('button', this.container).html(this.options.text($('option:selected', this.select)) + ' <b class="caret"></b>');
+		}, this));
+		
+		$('ul li a').on('click', function(event) {
+			event.stopPropagation();
+		});
+	};
+
+	Multiselect.prototype = {
+		
+		defaults: {
 			button: 'btn',
 			width: 'auto',
 			// Default text function will either print 'None selected' in case no option is selected,
@@ -44,79 +99,38 @@
 				}
 			},
 			container: '<div class="btn-group" />',
-		};
-		
-		options = $.extend(defaults, options);
-		
-		var select = element,
-			// Create the button with given classes and the inital text.
-			button = $('<button style="width:' + options.width + '" class="dropdown-toggle ' + options.button + '" data-toggle="dropdown">' + options.text($('option:selected', select)) + ' <b class="caret"></b></button>')
-				.dropdown(),
-			// The ul will hold all options and present the dropdown.
-			ul = $('<ul class="dropdown-menu"></ul>'),
-			container = $(options.container)
-				.append(button)
-				.append(ul);
-		
-		// Manually add the multiple attribute, if its not already set.
-		if (!$(select).attr('multiple')) {
-			$(select).attr('multiple', true);
-		}
-		
-		// Build the dropdown.
-		$('option', select).each(function() {
-			if ($(this).is(':selected')) {
-				$(this).attr('selected', true);
-			}
-			
-			$(ul).append('<li><a href="#"><label class="checkbox"><input type="checkbox" value="' + $(this).val() + '"> ' + $(this).text() + '</label></a></li>');
-			
-			var selected = $(this).attr('selected') || false,
-				checkbox = $('li input[value="' + $(this).val() + '"]', ul);
-				
-			checkbox.attr('checked', selected);
-			
-			if (selected) {
-				checkbox.parents('li').addClass('active');
-			}
-		});
-		
-		$(select).hide()
-			.after(container);
-		
-		$('li label', ul).css({'cursor': 'pointer'});
-		
-		// Bind the change event on the dropdown elements.
-		$('li input[type="checkbox"]', ul).on('change', function(event) {
-			var checked = $(this).attr('checked') || false;
-			
-			if (checked) {
-				$(this).parents('li').addClass('active');
-			}
-			else {
-				$(this).parents('li').removeClass('active');
-			}
-			
-			$('option[value="' + $(this).val() + '"]', select).attr('selected', checked);
-			
-			$(button).html(options.text($('option:selected', select)) + ' <b class="caret"></b>');
-		});
-		
-		$('li a', ul).on('click', function(event) {
-			event.stopImmediatePropagation();
-		});
-	};
+		},
 
-	$.fn.multiselect = function (options) {
+		constructor: Multiselect,
+	
+		reset: function() {
+			
+		},
+		
+		// Destroy - unbind - the plugin.
+		destroy: function() {
+			this.container.remove();
+			this.select.show();
+		},
+		
+		// Get options by merging defaults and given options.
+		getOptions: function(options) {
+			return $.extend({}, this.defaults, options);
+		}
+	};
+	
+	$.fn.multiselect = function (option) {
 		return this.each(function () {
-			var data = $(this).data('multiselect');
+			var data = $(this).data('multiselect'),
+				options = typeof option == 'object' && option;
 		
 			if (!data) {
 				$(this).data('multiselect', (data = new Multiselect(this, options)));
 			}
+			
+			if (typeof option == 'string') {
+				data[option]();
+			}
 		});
 	}
-
-	Multiselect.prototype.constructor = Multiselect;
-
 }(window.jQuery);
