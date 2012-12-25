@@ -70,7 +70,7 @@
 			$('button', this.container).html(this.options.text($('option:selected', this.select)) + ' <b class="caret"></b>');
 		}, this));
 		
-		$('ul li a').on('click', function(event) {
+		this.container.find('ul li a').on('click', function(event) {
 			event.stopPropagation();
 		});
 	};
