@@ -17,7 +17,7 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#example1').multiselect({
-					onchange:function(){alert('change event invoked!');}
+					onchange:function(el, checked){alert('change event invoked!'); console.log(el, checked)}
 				});
 				$('#example2').multiselect();
 				$('#example3').multiselect({
