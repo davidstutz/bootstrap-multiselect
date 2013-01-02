@@ -16,7 +16,9 @@
 	<body>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$('#example1').multiselect();
+				$('#example1').multiselect({
+					onchange:function(){alert('change event invoked!');}
+				});
 				$('#example2').multiselect();
 				$('#example3').multiselect({
 					button: 'btn btn-link'
