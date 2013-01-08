@@ -65,9 +65,12 @@
 				$(event.target).parents('li').removeClass('active');
 			}
 			
-			$('option[value="' + $(event.target).val() + '"]', this.select).attr('selected', checked);
+			var $option = $('option[value="' + $(event.target).val() + '"]', this.select);
+			$option.attr('selected', checked);
 			
 			$('button', this.container).html(this.options.text($('option:selected', this.select)) + ' <b class="caret"></b>');
+			
+			this.options.onchange($option, checked);
 		}, this));
 		
 		$('ul li a', this.container).on('click', function(event) {
@@ -99,6 +102,7 @@
 				}
 			},
 			container: '<div class="btn-group" />',
+			onchange:function(){}
 		},
 
 		constructor: Multiselect,
