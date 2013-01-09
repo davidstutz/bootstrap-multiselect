@@ -11,6 +11,7 @@ A demo of different configurations can be found [here](http://davidstutz.github.
 These examples can also be seen in action in index.html:
 
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css">
 
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
