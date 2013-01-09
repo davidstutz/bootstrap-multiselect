@@ -173,8 +173,23 @@ Defining the text of the button. Must be a function returning a string. All curr
 
 The used container holding both the dropdown button and the dropdown menu.
 
-	$('.multiselect').multiselect({
-		container: '<span class="dropdown" />',
+	$(document).ready(function() {
+		$('.multiselect').multiselect({
+			container: '<span class="dropdown" />',
+		});
+	});
+
+**onchange**
+
+Assign an event handler to the change event:
+
+	$(document).ready(function() {
+		$('.multiselect').multiselect({
+			onchange:function(element, checked){
+				alert('Change event invoked!');
+				console.log(element);
+			}
+		});
 	});
 
 ## Methods
@@ -182,6 +197,10 @@ The used container holding both the dropdown button and the dropdown menu.
 **.multiselect('destroy')**
 
 This method will destroy - unbind - the plugin on the given element(s).
+
+**.multiselect('refresh')**
+
+Refresh the selected elements depending on the selected options within the select.
 
 ## Roadmap / Todo
 

@@ -117,6 +117,20 @@
 			this.select.show();
 		},
 		
+		// Refreshs the checked options based on the current state of the select.
+		refresh: function() {
+			$('option', this.select).each($.proxy(function(index, element) {
+				if ($(element).is(':selected')) {
+					$('ul li input[value="' + $(element).val() + '"]', this.container).attr('checked', true);
+				}
+				else {
+					$('ul li input[value="' + $(element).val() + '"]', this.container).attr('checked', false);
+				}
+			}, this));
+			
+			$('button', this.container).html(this.options.text($('option:selected', this.select)) + ' <b class="caret"></b>');
+		},
+		
 		// Get options by merging defaults and given options.
 		getOptions: function(options) {
 			return $.extend({}, this.defaults, options);

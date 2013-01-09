@@ -16,9 +16,7 @@
 	<body>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$('#example1').multiselect({
-					onchange:function(el, checked){alert('change event invoked!'); console.log(el, checked)}
-				});
+				$('#example1').multiselect();
 				$('#example2').multiselect();
 				$('#example3').multiselect({
 					button: 'btn btn-link'
@@ -32,6 +30,12 @@
 				$('#example6').multiselect();
 				$('.example7').multiselect({
 					container: '<span class="dropdown" />',
+				});
+				$('#example9').multiselect({
+					onchange:function(element, checked){
+						alert('Change event invoked!');
+						console.log(element);
+					}
 				});
 			});
 		</script>
@@ -167,6 +171,21 @@
 						Multiple selects within a group using <code>container: '&lt;span class="dropdown" /&gt;'</code>.
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<select id="example9" multiple="multiple">
+							<option value="cheese">Cheese</option>
+							<option value="tomatoes">Tomatoes</option>
+							<option value="mozarella">Mozzarella</option>
+							<option value="mushrooms">Mushrooms</option>
+							<option value="pepperoni">Pepperoni</option>
+							<option value="onions">Onions</option>
+						</select>
+					</td>
+					<td>
+						Using the <code>onchange</code> option you can add an event handler to the change event. The event handler gets the selected option as first parameter and a variable saying whether the option is checked or not as second one.
+					</td>
+				</tr>
 			</table>
 			<div class="page-header">
 				<h1>Methods</h1>
@@ -178,6 +197,23 @@
 					});
 					$('#example8-destroy').on('click', function() {
 						$('#example8').multiselect('destroy');
+					});
+					$('#example10').multiselect({
+						container: '<span />',
+					});
+					$('#example10-select').on('click', function() {
+						$('option[value="tomatoes"]', $('#example10')).attr('selected', true);
+						$('option[value="mushrooms"]', $('#example10')).attr('selected', true);
+						$('option[value="onions"]', $('#example10')).attr('selected', true);
+						alert('Selected Tomatoes, Mushrooms and Onions.');
+					});
+					$('#example10-deselect').on('click', function() {
+						$('option', $('#example10')).each(function(element) {
+							$(this).attr('selected', false);
+						})
+					});
+					$('#example10-refresh').on('click', function() {
+						$('#example10').multiselect('refresh');
 					});
 				});
 			</script>
@@ -200,6 +236,27 @@
 						</td>
 						<td>
 							This method is used to destroy the plugin on the given element - meaning unbinding the plugin.
+						</td>
+					</tr>
+					<tr>
+						<td><code>.multiselect('refresh')</code></td>
+						<td>
+							<div class="btn-group">
+								<select id="example10" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example10-select" class="btn">Select some options</button>
+								<button id="example10-deselect" class="btn">Deselect all</button>
+								<button id="example10-refresh" class="btn btn-primary">Refresh</button>
+							</div>
+						</td>
+						<td>
+							This method is used to refresh the checked checkboxes based on the currently selected options within the select. Click &apos;Select some options&apos; so select some of the options (meaning added the <code>selected</code> attribute to some of the options). Then click refresh. The plugin will update the checkboxes accordingly.
 						</td>
 					</tr>
 				</tbody>
@@ -354,6 +411,25 @@
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
       &apos;container&apos;: &apos;&lt;span class="dropdown" /&gt;&apos;,
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>onchange</code></td>
+						<td>
+							The used container holding both the dropdown button and the dropdown menu. Default: <code>&lt;div class="btn-group" /&gt;</code>.
+						</td>
+						<td>
+							<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      &apos;onchange&apos;: function(element, checked) {
+      	alert(&apos;Change event invoked!&apos;);
+      },
     });
   });
 &lt;/script&gt;
