@@ -25,7 +25,7 @@
 		this.options = this.getOptions(options);
 		this.select = $(select);
 		this.container = $(this.options.container)
-				.append('<button style="width:' + this.options.width + '" class="dropdown-toggle ' + this.options.button + '" data-toggle="dropdown">' + this.options.text($('option:selected', select)) + ' <b class="caret"></b></button>')
+				.append('<button type="button" style="width:' + this.options.width + '" class="dropdown-toggle ' + this.options.button + '" data-toggle="dropdown">' + this.options.text($('option:selected', select)) + ' <b class="caret"></b></button>')
 				.append('<ul class="dropdown-menu"></ul>');
 		
 		// Manually add the multiple attribute, if its not already set.
@@ -44,7 +44,7 @@
 			var selected = $(element).attr('selected') || false;
 			var checkbox = $('ul li input[value="' + $(element).val() + '"]', this.container);
 				
-			checkbox.attr('checked', selected);
+			checkbox.prop('checked', selected);
 			
 			if (selected) {
 				checkbox.parents('li').addClass('active');
@@ -56,7 +56,7 @@
 		
 		// Bind the change event on the dropdown elements.
 		$('ul li input[type="checkbox"]', this.container).on('change', $.proxy(function(event) {
-			var checked = $(event.target).attr('checked') || false;
+			var checked = $(event.target).prop('checked') || false;
 			
 			if (checked) {
 				$(event.target).parents('li').addClass('active');
@@ -65,12 +65,13 @@
 				$(event.target).parents('li').removeClass('active');
 			}
 			
-			var $option = $('option[value="' + $(event.target).val() + '"]', this.select);
-			$option.attr('selected', checked);
+			var option = $('option[value="' + $(event.target).val() + '"]', this.select);
+			option.attr('selected', checked);
 			
-			$('button', this.container).html(this.options.text($('option:selected', this.select)) + ' <b class="caret"></b>');
+			var options = $('option:selected', this.select);
+			$('button', this.container).html(this.options.text(options) + ' <b class="caret"></b>');
 			
-			this.options.onchange($option, checked);
+			this.options.onchange(option, checked);
 		}, this));
 		
 		$('ul li a', this.container).on('click', function(event) {
@@ -121,10 +122,10 @@
 		refresh: function() {
 			$('option', this.select).each($.proxy(function(index, element) {
 				if ($(element).is(':selected')) {
-					$('ul li input[value="' + $(element).val() + '"]', this.container).attr('checked', true);
+					$('ul li input[value="' + $(element).val() + '"]', this.container).prop('checked', true);
 				}
 				else {
-					$('ul li input[value="' + $(element).val() + '"]', this.container).attr('checked', false);
+					$('ul li input[value="' + $(element).val() + '"]', this.container).prop('checked', false);
 				}
 			}, this));
 			
