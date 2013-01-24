@@ -123,9 +123,11 @@
 			$('option', this.select).each($.proxy(function(index, element) {
 				if ($(element).is(':selected')) {
 					$('ul li input[value="' + $(element).val() + '"]', this.container).prop('checked', true);
+					$('ul li input[value="' + $(element).val() + '"]', this.container).parents('li').addClass('active');
 				}
 				else {
 					$('ul li input[value="' + $(element).val() + '"]', this.container).prop('checked', false);
+					$('ul li input[value="' + $(element).val() + '"]', this.container).parents('li').removeClass('active');
 				}
 			}, this));
 			
