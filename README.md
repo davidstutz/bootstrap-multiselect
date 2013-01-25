@@ -2,6 +2,8 @@
 
 Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
 
+**Note:** The option names may have changed due to the latest updates.
+
 ## Demo
 
 A demo of different configurations can be found [here](http://davidstutz.github.com/bootstrap-multiselect/).
@@ -22,17 +24,17 @@ These examples can also be seen in action in index.html:
 			$('#example1').multiselect();
 			$('#example2').multiselect();
 			$('#example3').multiselect({
-				button: 'btn btn-link'
+				buttonClass: 'btn btn-link'
 			});
 			$('#example4').multiselect({
-				button: 'btn btn-small'
+				buttonClass: 'btn btn-small'
 			});
 			$('#example5').multiselect({
-				button: 'btn btn-primary disabled'
+				buttonClass: 'btn btn-primary disabled'
 			});
 			$('#example6').multiselect();
 			$('.example7').multiselect({
-				container: '<span class="dropdown" />',
+				buttonContainer: '<span class="dropdown" />',
 			});
 		});
 	</script>
@@ -124,23 +126,23 @@ These examples can also be seen in action in index.html:
 
 ## Configuration Options
 
-**button**
+**buttonClass**
 
 Define the appearance of the button using classes. See the [Bootstrap documentation](http://twitter.github.com/bootstrap/base-css.html#buttons) for more information.
 
 	$(document).ready(function() {
 		$('.multiselect').multiselect({
-			'none': 'select something...'
+			buttonClass: 'btn btn-small'
 		});
 	});
 	
-**width**
+**buttonWidth**
 
 The width of the dropdown button. 
 
 	$(document).ready(function() {
 		$('.multiselect').multiselect({
-			'width': 'auto', // Default
+			buttonWidth: 'auto', // Default
 		});
 	});
 
@@ -150,50 +152,61 @@ The width can be defined using all formats accepted by CSS:
 	50%
 	auto
 	
-**text**
+**buttonText**
 
 Defining the text of the button. Must be a function returning a string. All currently selected options are passed as parameter.
 
 	$(document).ready(function() {
 		$('.multiselect').multiselect({
-			'text': function(options) {
+			buttonText: function(options) {
 				if (options.length == 0) {
-					return 'None selected';
+					return 'None selected <b class="caret"></b>';
 				}
 				else if (options.length > 3) {
-					return options.length + ' selected';
+					return options.length + ' selected <b class="caret"></b>';
 				}
 				else {
 					var selected = '';
 					options.each(function() {
 						selected += $(this).text() + ', ';
 					});
-					return selected.substr(0, selected.length -2);
+					return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
 				}
 			},
 		});
 	});
 	
-**container**
+**buttonContainer**
 
 The used container holding both the dropdown button and the dropdown menu.
 
 	$(document).ready(function() {
 		$('.multiselect').multiselect({
-			container: '<span class="dropdown" />',
+			buttonContainer: '<span class="dropdown" />',
 		});
 	});
 
-**onchange**
+**onChange**
 
 Assign an event handler to the change event:
 
 	$(document).ready(function() {
 		$('.multiselect').multiselect({
-			onchange:function(element, checked){
+			onChange:function(element, checked){
 				alert('Change event invoked!');
 				console.log(element);
 			}
+		});
+	});
+	
+**maxHeight**
+
+Define the maximum height property of the dropdown list. If the maximum height of the option list is exceeded a scrollbar will be displayed.
+
+	$(document).ready(function() {
+		$('.multiselect').multiselect({
+			// Or false for no maximum height.
+			maxHeight: 400,
 		});
 	});
 
