@@ -17,26 +17,40 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				$('#example1').multiselect();
+				
 				$('#example2').multiselect();
+				
 				$('#example3').multiselect({
-					button: 'btn btn-link'
+					buttonClass: 'btn btn-link'
 				});
+				
 				$('#example4').multiselect({
-					button: 'btn btn-small'
+					buttonClass: 'btn btn-small'
 				});
+				
 				$('#example5').multiselect({
-					button: 'btn btn-primary disabled'
+					buttonClass: 'btn btn-primary disabled'
 				});
+				
 				$('#example6').multiselect();
+				
 				$('.example7').multiselect({
-					container: '<span class="dropdown" />',
+					buttonContainer: '<span class="dropdown" />',
 				});
+				
 				$('#example9').multiselect({
-					onchange:function(element, checked){
+					onChange:function(element, checked){
 						alert('Change event invoked!');
 						console.log(element);
 					}
 				});
+				
+				for (var i = 1; i <= 100; i++) {
+					$('#example11').append('<option value="' + i + '">Options ' + i + '</option>');
+				}
+				$('#example11').multiselect({
+					maxHeight: 200,
+				})
 			});
 		</script>
 		<div class="container">
@@ -46,6 +60,9 @@
 					Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
 				</p>
 			</div>
+			<p class="alert alert-info">
+				<b>Note:</b> The option names may have changed due to the latest updates.
+			</p>
 			<div class="page-header">
 				<h1>Examples</h1>
 			</div>
@@ -95,7 +112,7 @@
 						</select>
 					</td>
 					<td>
-						As link using <code>button: 'btn btn-link'</code>.
+						As link using <code>buttonClass: &apos;btn btn-link&apos;</code>.
 					</td>
 				</tr>
 				<tr>
@@ -110,7 +127,7 @@
 						</select>
 					</td>
 					<td>
-						Small button using <code>button: 'btn btn-small'</code>.
+						Small button using <code>buttonClass: &apos;btn btn-small&apos;</code>.
 					</td>
 				</tr>
 				<tr>
@@ -125,7 +142,7 @@
 						</select>
 					</td>
 					<td>
-						Disabled using <code>button: 'btn btn-primary disabled'</code>.
+						Disabled using <code>buttonClass: &apos;btn btn-primary disabled&apos;</code>.
 					</td>
 				</tr>
 				<tr>
@@ -145,7 +162,7 @@
 						</div>
 					</td>
 					<td>
-						Multiple select within a group with add-ons and default container for the plugin: <code>container: '&lt;div class="btn-group" /&gt;'</code>.
+						Multiple select within a group with add-ons and default container for the plugin: <code>buttonContainer: &apos;&lt;div class="btn-group" /&gt;&apos;</code>.
 					</td>
 				</tr>
 				<tr>
@@ -168,7 +185,7 @@
 						</div>
 					</td>
 					<td>
-						Multiple selects within a group using <code>container: '&lt;span class="dropdown" /&gt;'</code>.
+						Multiple selects within a group using <code>buttonContainer: &apos;&lt;span class="dropdown" /&gt;&apos;</code>.
 					</td>
 				</tr>
 				<tr>
@@ -183,7 +200,17 @@
 						</select>
 					</td>
 					<td>
-						Using the <code>onchange</code> option you can add an event handler to the change event. The event handler gets the selected option as first parameter and a variable saying whether the option is checked or not as second one.
+						Using the <code>onChange</code> option you can add an event handler to the change event. The event handler gets the selected option as first parameter and a variable saying whether the option is checked or not as second one.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select id="example11" multiple="multiple">
+							
+						</select>
+					</td>
+					<td>
+						For long option lists the <code>maxheight</code> option can be set.
 					</td>
 				</tr>
 			</table>
@@ -193,24 +220,25 @@
 			<script type="text/javascript">
 				$(document).ready(function() {
 					$('#example8').multiselect({
-						container: '<span />',
+						buttonContainer: '<span />',
 					});
 					$('#example8-destroy').on('click', function() {
 						$('#example8').multiselect('destroy');
 					});
+					
 					$('#example10').multiselect({
-						container: '<span />',
+						buttonContainer: '<span />',
 					});
 					$('#example10-select').on('click', function() {
-						$('option[value="tomatoes"]', $('#example10')).attr('selected', true);
-						$('option[value="mushrooms"]', $('#example10')).attr('selected', true);
-						$('option[value="onions"]', $('#example10')).attr('selected', true);
+						$('option[value="tomatoes"]', $('#example10')).prop('selected', 'selected');
+						$('option[value="mushrooms"]', $('#example10')).prop('selected', 'selected');
+						$('option[value="onions"]', $('#example10')).prop('selected', 'selected');
 						alert('Selected Tomatoes, Mushrooms and Onions.');
 					});
 					$('#example10-deselect').on('click', function() {
 						$('option', $('#example10')).each(function(element) {
-							$(this).attr('selected', false);
-						})
+							$(this).removeAttr('selected');
+						});
 					});
 					$('#example10-refresh').on('click', function() {
 						$('#example10').multiselect('refresh');
@@ -278,21 +306,21 @@
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      &apos;button&apos;: &apos;btn&apos;,
-      &apos;width&apos;: &apos;auto&apos;,
-      &apos;text&apos;: function(options) {
+      buttonClass: &apos;btn&apos;,
+      buttonWidth: &apos;auto&apos;,
+      buttonText: function(options) {
         if (options.length == 0) {
-          return &apos;None selected&apos;;
+          return &apos;None selected &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
         }
         else if (options.length > 3) {
-          return options.length + &apos; selected&apos;;
+          return options.length + &apos; selected  &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
         }
         else {
           var selected = &apos;&apos;;
           options.each(function() {
             selected += $(this).text() + &apos;, &apos;;
           });
-          return selected.substr(0, selected.length -2);
+          return selected.substr(0, selected.length -2) + &apos; &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
         }
       }
     });
@@ -335,26 +363,26 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><code>text</code></td>
-						<td>A function returning the string displayed if options are selected. All currently selected options are passed as argument.</td>
+						<td><code>buttonText</code></td>
+						<td>A function returning the string displayed if options are selected. All currently selected options are passed as argument. In addition HTML can be added to the button, for example the caret icon seen in the examples.</td>
 						<td>
 							<pre>
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      &apos;text&apos;: function(options) {
+      buttonText: function(options) {
         if (options.length == 0) {
-          return &apos;None selected&apos;;
+          return &apos;None selected &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
         }
         else if (options.length > 3) {
-          return options.length + &apos; selected&apos;;
+          return options.length + &apos; selected  &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
         }
         else {
           var selected = &apos;&apos;;
           options.each(function() {
             selected += $(this).text() + &apos;, &apos;;
           });
-          return selected.substr(0, selected.length -2);
+          return selected.substr(0, selected.length -2) + &apos; &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
         }
       }
     });
@@ -364,14 +392,14 @@
 						</td>
 					</tr>
 					<tr>
-						<td><code>button</code></td>
+						<td><code>buttonClass</code></td>
 						<td>The width of the dropdown button. Default: <code>btn</code>.</td>
 						<td>
 							<pre>
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      &apos;button&apos;: &apos;btn-primary btn-large&apos;,
+      buttonClass: &apos;btn-primary btn-large&apos;,
     });
   });
 &lt;/script&gt;
@@ -379,7 +407,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><code>width</code></td>
+						<td><code>buttonWidth</code></td>
 						<td>
 							The width of the dropdown button. Default: <code>auto</code>.
 							Allowed formats:
@@ -394,7 +422,7 @@
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      &apos;width&apos;: &apos;300px&apos;,
+      buttonWidth: &apos;300px&apos;,
     });
   });
 &lt;/script&gt;
@@ -402,7 +430,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><code>container</code></td>
+						<td><code>buttonContainer</code></td>
 						<td>
 							The used container holding both the dropdown button and the dropdown menu. Default: <code>&lt;div class="btn-group" /&gt;</code>.
 						</td>
@@ -411,7 +439,7 @@
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      &apos;container&apos;: &apos;&lt;span class="dropdown" /&gt;&apos;,
+      buttonContainer: &apos;&lt;span class="dropdown" /&gt;&apos;,
     });
   });
 &lt;/script&gt;
@@ -419,18 +447,35 @@
 						</td>
 					</tr>
 					<tr>
-						<td><code>onchange</code></td>
+						<td><code>onChange</code></td>
 						<td>
-							The used container holding both the dropdown button and the dropdown menu. Default: <code>&lt;div class="btn-group" /&gt;</code>.
+							This event handler is triggered when the selected options are changed.
 						</td>
 						<td>
 							<pre>
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      &apos;onchange&apos;: function(element, checked) {
+      onChange: function(element, checked) {
       	alert(&apos;Change event invoked!&apos;);
       },
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>maxHeight</code></td>
+						<td>
+							Used for a long list of options this option defines the maximum height of the dropdown menu. If the size is exceeded a scrollbar will appear.
+						</td>
+						<td>
+							<pre>
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      maxHeight: 400,
     });
   });
 &lt;/script&gt;
