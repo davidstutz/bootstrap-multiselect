@@ -20,7 +20,7 @@
 
     "use strict"; // jshint ;_;
 
-    if(ko && ko.bindingHandlers && !ko.bindingHandlers.multiselect){
+    if(typeof ko != 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect){
         ko.bindingHandlers.multiselect = {
             init: function (element) {
                 var ms = $(element).data('multiselect');
@@ -71,7 +71,7 @@
             this.select.attr('multiple', true);
         }
 
-        this.addOptions(select, options);
+        this.buildDrowdown(select, this.options);
 
         this.select
             .hide()
@@ -79,8 +79,7 @@
     };
 
     Multiselect.prototype = {
-        addOptions: function(select, options){
-
+        buildDrowdown: function(select, options){
 
             // Build the dropdown.
             $('option', this.select).each($.proxy(function(index, element) {
@@ -121,7 +120,7 @@
                 else {
                     option.removeAttr('selected');
                 }
-                console.log(option);
+                
                 var options = $('option:selected', this.select);
                 $('button', this.container).html(this.options.buttonText(options));
 
@@ -132,6 +131,7 @@
                 event.stopPropagation();
             });
         },
+        
         defaults: {
             // Default text function will either print 'None selected' in case no option is selected,
             // or a list of the selected options up to a length of 3 selected options.
@@ -165,10 +165,6 @@
 
         constructor: Multiselect,
 
-        reset: function() {
-
-        },
-
         // Destroy - unbind - the plugin.
         destroy: function() {
             this.container.remove();
@@ -177,9 +173,6 @@
 
         // Refreshs the checked options based on the current state of the select.
         refresh: function() {
-            $('ul', this.container).html('');
-            this.addOptions(this.select, this.options);
-
             $('option', this.select).each($.proxy(function(index, element) {
                 if ($(element).is(':selected')) {
                     $('ul li input[value="' + $(element).val() + '"]', this.container).prop('checked', true);
@@ -193,6 +186,11 @@
 
             $('button', this.container).html(this.options.buttonText($('option:selected', this.select)));
         },
+
+		rebuild: function() {
+			$('ul', this.container).html('');
+            this.buildDrowdown(this.select, this.options);
+		},
 
         // Get options by merging defaults and given options.
         getOptions: function(options) {

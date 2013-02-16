@@ -243,6 +243,21 @@
 					$('#example10-refresh').on('click', function() {
 						$('#example10').multiselect('refresh');
 					});
+					
+					$('#example12').multiselect({
+						buttonContainer: '<span />',
+					});
+					$('#example12-rebuild').on('click', function() {
+						$('#example12').multiselect('rebuild');
+					});
+					$('#example12-add').on('click', function() {
+						$('#example12').append('<option value="add1">Addition 1</option><option value="add2">Addition 2</option><option value="add3">Addition 3</option>');
+					});
+					$('#example12-delete').on('click', function() {
+						$('option[value="add1"]', $('#example12')).remove();
+						$('option[value="add2"]', $('#example12')).remove();
+						$('option[value="add3"]', $('#example12')).remove();
+					});
 				});
 			</script>
 			<table class="table table-striped">
@@ -285,6 +300,27 @@
 						</td>
 						<td>
 							This method is used to refresh the checked checkboxes based on the currently selected options within the select. Click &apos;Select some options&apos; so select some of the options (meaning added the <code>selected</code> attribute to some of the options). Then click refresh. The plugin will update the checkboxes accordingly.
+						</td>
+					</tr>
+					<tr>
+						<td><code>.multiselect('rebuild')</code></td>
+						<td>
+							<div class="btn-group">
+								<select id="example12" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example12-add" class="btn">Add some options</button>
+								<button id="example12-delete" class="btn">Delete some options</button>
+								<button id="example12-rebuild" class="btn btn-primary">Rebuild</button>
+							</div>
+						</td>
+						<td>
+							Rebuilds the whole dropdown menu. All selected options will remain selected (if still existent!).
 						</td>
 					</tr>
 				</tbody>

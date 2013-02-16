@@ -220,6 +220,32 @@ This method will destroy - unbind - the plugin on the given element(s).
 
 Refresh the selected elements depending on the selected options within the select.
 
+**.multiselect('rebuild')**
+
+Rebuilds the whole dropdown menu. Selected options will still be selected.
+
+## Knockout JS Support
+
+Thanks to [Devristo](https://github.com/Devristo) this plugin supports [Knockout JS](http://knockoutjs.com/). For further discussion see [the pull requests](https://github.com/davidstutz/bootstrap-multiselect/pull/17).
+
+**Define select input**
+
+Note the multiselect: true binding!
+
+	<select class="multiSelect" data-bind="multiselect: true, options: Options, selectedOptions: SelectedOptions, optionsValue: $data" multiple="multiple"></select>
+	
+**Initialize Bootstrap-multiselect**
+
+	$(".multiSelect").multiselect();
+	
+**Apply Knockout view model**
+
+As usual.
+
+**Notes**
+
+It is important to initialize the multiselect before applying the view model, since the custom binding code will hook into the onChange method to update the binding.
+
 ## Roadmap / Todo
 
 * This solution for multiple selects is not usable for mobile devices (especially with touchscreen). ALternatives: Using Popovers instead of Dropdowns or checking for mobile devices and displaying normal select field (one row) for mobile devices.
