@@ -92,7 +92,9 @@
 
                 var selected = $(element).prop('selected') || false;
                 var checkbox = $('ul li input[value="' + $(element).val() + '"]', this.container);
-
+                if ($(element).is(':disabled')) {
+                    checkbox.attr('disabled', 'disabled').prop('disabled','disabled').parents('li').addClass('disabled')
+                }
                 checkbox.prop('checked', selected);
 
                 if (selected) {
