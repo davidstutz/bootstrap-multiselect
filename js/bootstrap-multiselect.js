@@ -62,7 +62,7 @@
             $('ul', this.container).css({
                 'max-height': this.options.maxHeight + 'px',
                 'overflow-y': 'auto',
-                'overflow-x': 'hidden',
+                'overflow-x': 'hidden'
             });
         }
 
@@ -160,7 +160,7 @@
             buttonContainer: '<div class="btn-group" />',
             // Maximum height of thet dropdown menu.
             // If maximum height is exceeded a scrollbar will be displayed.
-            maxHeight: 400,
+            maxHeight: 400
         },
 
         constructor: Multiselect,
