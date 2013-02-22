@@ -79,7 +79,41 @@
     };
 
     Multiselect.prototype = {
-        buildDrowdown: function(select, options){
+        
+        defaults: {
+            // Default text function will either print 'None selected' in case no option is selected,
+            // or a list of the selected options up to a length of 3 selected options.
+            // If more than 3 options are selected, the number of selected options is printed.
+            buttonText: function(options) {
+                if (options.length == 0) {
+                    return 'None selected <b class="caret"></b>';
+                }
+                else if (options.length > 3) {
+                    return options.length + ' selected <b class="caret"></b>';
+                }
+                else {
+                    var selected = '';
+                    options.each(function() {
+                        selected += $(this).text() + ', ';
+                    });
+                    return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
+                }
+            },
+            // Is triggered on change of the selected options.
+            onChange: function() {
+
+            },
+            buttonClass: 'btn',
+            buttonWidth: 'auto',
+            buttonContainer: '<div class="btn-group" />',
+            // Maximum height of thet dropdown menu.
+            // If maximum height is exceeded a scrollbar will be displayed.
+            maxHeight: 400
+        },
+
+        constructor: Multiselect,
+
+		buildDrowdown: function(select, options){
 
             // Build the dropdown.
             $('option', this.select).each($.proxy(function(index, element) {
@@ -92,9 +126,11 @@
 
                 var selected = $(element).prop('selected') || false;
                 var checkbox = $('ul li input[value="' + $(element).val() + '"]', this.container);
+                
                 if ($(element).is(':disabled')) {
                     checkbox.attr('disabled', 'disabled').prop('disabled','disabled').parents('li').addClass('disabled')
                 }
+                
                 checkbox.prop('checked', selected);
 
                 if (selected) {
@@ -133,39 +169,6 @@
                 event.stopPropagation();
             });
         },
-        
-        defaults: {
-            // Default text function will either print 'None selected' in case no option is selected,
-            // or a list of the selected options up to a length of 3 selected options.
-            // If more than 3 options are selected, the number of selected options is printed.
-            buttonText: function(options) {
-                if (options.length == 0) {
-                    return 'None selected <b class="caret"></b>';
-                }
-                else if (options.length > 3) {
-                    return options.length + ' selected <b class="caret"></b>';
-                }
-                else {
-                    var selected = '';
-                    options.each(function() {
-                        selected += $(this).text() + ', ';
-                    });
-                    return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
-                }
-            },
-            // Is triggered on change of the selected options.
-            onChange: function() {
-
-            },
-            buttonClass: 'btn',
-            buttonWidth: 'auto',
-            buttonContainer: '<div class="btn-group" />',
-            // Maximum height of thet dropdown menu.
-            // If maximum height is exceeded a scrollbar will be displayed.
-            maxHeight: 400
-        },
-
-        constructor: Multiselect,
 
         // Destroy - unbind - the plugin.
         destroy: function() {

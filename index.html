@@ -8,14 +8,18 @@
 
 		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 		<link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css">
+		<link rel="stylesheet" href="css/prettify.css" type="text/css">
 
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+		<script type="text/javascript" src="js/prettify.js"></script>
 	</head>
 	<body>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				window.prettyPrint() && prettyPrint();
+				
 				$('#example1').multiselect();
 				
 				$('#example2').multiselect();
@@ -51,6 +55,8 @@
 				$('#example11').multiselect({
 					maxHeight: 200,
 				})
+				
+				$('#example13').multiselect();
 			});
 		</script>
 		<div class="container">
@@ -213,6 +219,18 @@
 						For long option lists the <code>maxheight</code> option can be set.
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<select id="example13" multiple="multiple">
+							<option value="enabled1">Enabled 1</option>
+							<option value="enabled2">Enabled 2</option>
+							<option value="disabled2" disabled="disabled">Disabled 1</option>
+						</select>
+					</td>
+					<td>
+						The plugin supports disabled options, too: <code>disabled=&quot;disabled&quot;</code>
+					</td>
+				</tr>
 			</table>
 			<div class="page-header">
 				<h1>Methods</h1>
@@ -331,7 +349,7 @@
 			<p>
 				Basic markup used in the above examples:
 			</p>
-			<pre>
+			<pre class="prettyprint linenums">
 &lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap.min.css&quot; type=&quot;text/css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap-responsive.min.css&quot; type=&quot;text/css&quot;&gt;
 
@@ -402,7 +420,7 @@
 						<td><code>buttonText</code></td>
 						<td>A function returning the string displayed if options are selected. All currently selected options are passed as argument. In addition HTML can be added to the button, for example the caret icon seen in the examples.</td>
 						<td>
-							<pre>
+							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
@@ -431,7 +449,7 @@
 						<td><code>buttonClass</code></td>
 						<td>The width of the dropdown button. Default: <code>btn</code>.</td>
 						<td>
-							<pre>
+							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
@@ -454,7 +472,7 @@
 							</ul>
 						</td>
 						<td>
-							<pre>
+							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
@@ -471,7 +489,7 @@
 							The used container holding both the dropdown button and the dropdown menu. Default: <code>&lt;div class="btn-group" /&gt;</code>.
 						</td>
 						<td>
-							<pre>
+							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
@@ -488,7 +506,7 @@
 							This event handler is triggered when the selected options are changed.
 						</td>
 						<td>
-							<pre>
+							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
@@ -507,7 +525,7 @@
 							Used for a long list of options this option defines the maximum height of the dropdown menu. If the size is exceeded a scrollbar will appear.
 						</td>
 						<td>
-							<pre>
+							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
