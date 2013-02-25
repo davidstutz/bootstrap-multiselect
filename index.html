@@ -16,49 +16,6 @@
 		<script type="text/javascript" src="js/prettify.js"></script>
 	</head>
 	<body>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				window.prettyPrint() && prettyPrint();
-				
-				$('#example1').multiselect();
-				
-				$('#example2').multiselect();
-				
-				$('#example3').multiselect({
-					buttonClass: 'btn btn-link'
-				});
-				
-				$('#example4').multiselect({
-					buttonClass: 'btn btn-small'
-				});
-				
-				$('#example5').multiselect({
-					buttonClass: 'btn btn-primary disabled'
-				});
-				
-				$('#example6').multiselect();
-				
-				$('.example7').multiselect({
-					buttonContainer: '<span class="dropdown" />',
-				});
-				
-				$('#example9').multiselect({
-					onChange:function(element, checked){
-						alert('Change event invoked!');
-						console.log(element);
-					}
-				});
-				
-				for (var i = 1; i <= 100; i++) {
-					$('#example11').append('<option value="' + i + '">Options ' + i + '</option>');
-				}
-				$('#example11').multiselect({
-					maxHeight: 200,
-				})
-				
-				$('#example13').multiselect();
-			});
-		</script>
 		<div class="container">
 			<div class="hero-unit">
 				<h1>Bootstrap Multiselect</h1>
@@ -72,6 +29,65 @@
 			<div class="page-header">
 				<h1>Examples</h1>
 			</div>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					window.prettyPrint() && prettyPrint();
+					
+					$('#example1').multiselect();
+					
+					$('#example2').multiselect();
+					
+					$('#example3').multiselect({
+						buttonClass: 'btn btn-link'
+					});
+					
+					$('#example4').multiselect({
+						buttonClass: 'btn btn-small'
+					});
+					
+					$('#example5').multiselect({
+						buttonClass: 'btn btn-primary disabled'
+					});
+					
+					$('#example6').multiselect();
+					
+					$('.example7').multiselect({
+						buttonContainer: '<span class="dropdown" />',
+					});
+					
+					$('#example9').multiselect({
+						onChange:function(element, checked){
+							alert('Change event invoked!');
+							console.log(element);
+						}
+					});
+					
+					for (var i = 1; i <= 100; i++) {
+						$('#example11').append('<option value="' + i + '">Options ' + i + '</option>');
+					}
+					$('#example11').multiselect({
+						maxHeight: 200
+					})
+					
+					$('#example13').multiselect();
+					
+					$('#example14').multiselect({
+						buttonWidth: '500px',
+						buttonText: function(options) {
+			                if (options.length == 0) {
+			                    return 'None selected <b class="caret"></b>';
+			                }
+			                else {
+			                    var selected = '';
+			                    options.each(function() {
+			                        selected += $(this).text() + ', ';
+			                    });
+			                    return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
+			                }
+			            }
+					});
+				});
+			</script>
 			<p>
 				The best way learning from the examples is using firebug, chrome developer tools or similar tools for your browser. Examine the generated markup and used javascript code.
 			</p>
@@ -79,8 +95,8 @@
 				<tr>
 					<td>
 						<select id="example1">
-							<option value="cheese">Cheese</option>
-							<option value="tomatoes">Tomatoes</option>
+							<option value="cheese" selected>Cheese</option>
+							<option value="tomatoes" selected>Tomatoes</option>
 							<option value="mozarella">Mozzarella</option>
 							<option value="mushrooms">Mushrooms</option>
 							<option value="pepperoni">Pepperoni</option>
@@ -88,7 +104,7 @@
 						</select>
 					</td>
 					<td>
-						Normal select. The plugin will add the <code>multiple="multiple"</code> attribute automatically. The first option is selected automatically by the browser when ommitting the <code>multiple="multiple"</code> attribute.
+						Normal select. The plugin will add the <code>multiple="multiple"</code> attribute automatically. The first option is selected automatically by the browser when ommitting the <code>multiple</code> attribute. But note: If the <code>mutliple</code> attribute is omitted and more than one option is selected by default, the browser will select the last selected option before the plugin has the chance to add the <code>mutliple</code> attribute.
 					</td>
 				</tr>
 				<tr>
@@ -231,21 +247,97 @@
 						The plugin supports disabled options, too: <code>disabled=&quot;disabled&quot;</code>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<select id="example14" multiple="multiple">
+							<option value="cheese">Cheese</option>
+							<option value="tomatoes">Tomatoes</option>
+							<option value="mozarella">Mozzarella</option>
+							<option value="mushrooms">Mushrooms</option>
+							<option value="pepperoni">Pepperoni</option>
+							<option value="onions">Onions</option>
+						</select>
+					</td>
+					<td>
+						Use the <code>buttonWidth</code> option to adjust the width of the button.
+					</td>
+				</tr>
 			</table>
+			<div class="page-header">
+				<h1>Code</h1>
+			</div>
+			<p>
+				Basic markup used in the above examples:
+			</p>
+			<pre class="prettyprint linenums">
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap.min.css&quot; type=&quot;text/css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap-responsive.min.css&quot; type=&quot;text/css&quot;&gt;
+
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/bootstrap-multiselect.js&quot;&gt;&lt;/script&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      buttonClass: &apos;btn&apos;,
+      buttonWidth: &apos;auto&apos;,
+      buttonText: function(options) {
+        if (options.length == 0) {
+          return &apos;None selected &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
+        }
+        else if (options.length > 3) {
+          return options.length + &apos; selected  &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
+        }
+        else {
+          var selected = &apos;&apos;;
+          options.each(function() {
+            selected += $(this).text() + &apos;, &apos;;
+          });
+          return selected.substr(0, selected.length -2) + &apos; &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
+        }
+      }
+    });
+  });
+&lt;/script&gt;
+
+&lt;select class=&quot;multiselect&quot; multiple=&quot;multiple&quot;&gt;
+  &lt;option value=&quot;cheese&quot;&gt;Cheese&lt;/option&gt;
+  &lt;option value=&quot;tomatoes&quot;&gt;Tomatoes&lt;/option&gt;
+  &lt;option value=&quot;mozarella&quot;&gt;Mozzarella&lt;/option&gt;
+  &lt;option value=&quot;mushrooms&quot;&gt;Mushrooms&lt;/option&gt;
+  &lt;option value=&quot;pepperoni&quot;&gt;Pepperoni&lt;/option&gt;
+  &lt;option value=&quot;onions&quot;&gt;Onions&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;div class=&quot;input-prepend input-append&quot;&gt;
+  &lt;span class=&quot;add-on&quot;&gt;&lt;b class=&quot;icon-list-alt&quot;&gt;&lt;/b&gt;&lt;/span&gt;
+  &lt;select class=&quot;multiselect&quot; multiple=&quot;multiple&quot;&gt;
+    &lt;option value=&quot;cheese&quot;&gt;Cheese&lt;/option&gt;
+    &lt;option value=&quot;tomatoes&quot;&gt;Tomatoes&lt;/option&gt;
+    &lt;option value=&quot;mozarella&quot;&gt;Mozzarella&lt;/option&gt;
+    &lt;option value=&quot;mushrooms&quot;&gt;Mushrooms&lt;/option&gt;
+    &lt;option value=&quot;pepperoni&quot;&gt;Pepperoni&lt;/option&gt;
+    &lt;option value=&quot;onions&quot;&gt;Onions&lt;/option&gt;
+  &lt;/select&gt;
+  &lt;button class=&quot;btn btn-danger&quot;&gt;Cancel&lt;/button&gt;
+  &lt;button class=&quot;btn btn-success&quot;&gt;Save&lt;/button&gt;
+&lt;/div&gt;
+			</pre>
 			<div class="page-header">
 				<h1>Methods</h1>
 			</div>
 			<script type="text/javascript">
 				$(document).ready(function() {
 					$('#example8').multiselect({
-						buttonContainer: '<span />',
+						buttonContainer: '<span />'
 					});
 					$('#example8-destroy').on('click', function() {
 						$('#example8').multiselect('destroy');
 					});
 					
 					$('#example10').multiselect({
-						buttonContainer: '<span />',
+						buttonContainer: '<span />'
 					});
 					$('#example10-select').on('click', function() {
 						$('option[value="tomatoes"]', $('#example10')).prop('selected', 'selected');
@@ -263,7 +355,7 @@
 					});
 					
 					$('#example12').multiselect({
-						buttonContainer: '<span />',
+						buttonContainer: '<span />'
 					});
 					$('#example12-rebuild').on('click', function() {
 						$('#example12').multiselect('rebuild');
@@ -344,67 +436,6 @@
 				</tbody>
 			</table>
 			<div class="page-header">
-				<h1>Code</h1>
-			</div>
-			<p>
-				Basic markup used in the above examples:
-			</p>
-			<pre class="prettyprint linenums">
-&lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap.min.css&quot; type=&quot;text/css&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap-responsive.min.css&quot; type=&quot;text/css&quot;&gt;
-
-&lt;script type=&quot;text/javascript&quot; src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
-&lt;script type=&quot;text/javascript&quot; src=&quot;js/bootstrap-multiselect.js&quot;&gt;&lt;/script&gt;
-
-&lt;script type=&quot;text/javascript&quot;&gt;
-  $(document).ready(function() {
-    $(&#39;.multiselect&#39;).multiselect({
-      buttonClass: &apos;btn&apos;,
-      buttonWidth: &apos;auto&apos;,
-      buttonText: function(options) {
-        if (options.length == 0) {
-          return &apos;None selected &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
-        }
-        else if (options.length > 3) {
-          return options.length + &apos; selected  &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
-        }
-        else {
-          var selected = &apos;&apos;;
-          options.each(function() {
-            selected += $(this).text() + &apos;, &apos;;
-          });
-          return selected.substr(0, selected.length -2) + &apos; &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
-        }
-      }
-    });
-  });
-&lt;/script&gt;
-
-&lt;select class=&quot;multiselect&quot; multiple=&quot;multiple&quot;&gt;
-  &lt;option value=&quot;cheese&quot;&gt;Cheese&lt;/option&gt;
-  &lt;option value=&quot;tomatoes&quot;&gt;Tomatoes&lt;/option&gt;
-  &lt;option value=&quot;mozarella&quot;&gt;Mozzarella&lt;/option&gt;
-  &lt;option value=&quot;mushrooms&quot;&gt;Mushrooms&lt;/option&gt;
-  &lt;option value=&quot;pepperoni&quot;&gt;Pepperoni&lt;/option&gt;
-  &lt;option value=&quot;onions&quot;&gt;Onions&lt;/option&gt;
-&lt;/select&gt;
-
-&lt;div class=&quot;input-prepend input-append&quot;&gt;
-  &lt;span class=&quot;add-on&quot;&gt;&lt;b class=&quot;icon-list-alt&quot;&gt;&lt;/b&gt;&lt;/span&gt;
-  &lt;select class=&quot;multiselect&quot; multiple=&quot;multiple&quot;&gt;
-    &lt;option value=&quot;cheese&quot;&gt;Cheese&lt;/option&gt;
-    &lt;option value=&quot;tomatoes&quot;&gt;Tomatoes&lt;/option&gt;
-    &lt;option value=&quot;mozarella&quot;&gt;Mozzarella&lt;/option&gt;
-    &lt;option value=&quot;mushrooms&quot;&gt;Mushrooms&lt;/option&gt;
-    &lt;option value=&quot;pepperoni&quot;&gt;Pepperoni&lt;/option&gt;
-    &lt;option value=&quot;onions&quot;&gt;Onions&lt;/option&gt;
-  &lt;/select&gt;
-  &lt;button class=&quot;btn btn-danger&quot;&gt;Cancel&lt;/button&gt;
-  &lt;button class=&quot;btn btn-success&quot;&gt;Save&lt;/button&gt;
-&lt;/div&gt;
-			</pre>
-			<div class="page-header">
 				<h1>Options</h1>
 			</div>
 			<table class="table table-striped">
@@ -470,6 +501,7 @@
 								<li><code>50%</code></li>
 								<li><code>auto</code></li>
 							</ul>
+							If the width is defined using CSS the option should be set to <code>false</code>.
 						</td>
 						<td>
 							<pre class="prettyprint linenums">
@@ -538,6 +570,69 @@
 					</tr>
 				</tbody>
 			</table>
+			<div class="page-header">
+				<h1>Additional Styling</h1>
+			</div>
+			<p>For additionaly styling of the multiselect button the CSS class <code>multiselect</code> can be used.</p>
+			<style type="text/css">
+				.add-styling .multiselect {
+					width: 500px;
+					text-align: left;
+				}
+				.add-styling .multiselect b.caret {
+					position: absolute;
+					right: 5px;
+				}
+			</style>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#example15').multiselect({
+						buttonWidth: '500px',
+						buttonText: function(options) {
+			                if (options.length == 0) {
+			                    return 'None selected <b class="caret"></b>';
+			                }
+			                else {
+			                    var selected = '';
+			                    options.each(function() {
+			                        selected += $(this).text() + ', ';
+			                    });
+			                    return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
+			                }
+			            }
+					});
+				});
+			</script>
+			<div class="add-styling">
+				<table class="table table-striped">
+					<tr>
+						<td>
+							<select id="example15" multiple="multiple">
+								<option value="cheese">Cheese</option>
+								<option value="tomatoes">Tomatoes</option>
+								<option value="mozarella">Mozzarella</option>
+								<option value="mushrooms">Mushrooms</option>
+								<option value="pepperoni">Pepperoni</option>
+								<option value="onions">Onions</option>
+							</select>
+						</td>
+						<td>
+							Text alignment combined with fixed width.
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+	.multiselect {
+		text-align: left;
+	}
+	.multiselect b.caret {
+		float: right;
+	}
+							</pre>
+						</td>
+					</tr>
+				</table>
+			</div>
+			</p>
 			<hr>
 			<div>
 				&copy; 2012

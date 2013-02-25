@@ -152,6 +152,8 @@ The width can be defined using all formats accepted by CSS:
 	50%
 	auto
 	
+If the width is defined using CSS the option should be set to false.
+	
 **buttonText**
 
 Defining the text of the button. Must be a function returning a string. All currently selected options are passed as parameter.
@@ -223,6 +225,17 @@ Refresh the selected elements depending on the selected options within the selec
 **.multiselect('rebuild')**
 
 Rebuilds the whole dropdown menu. Selected options will still be selected.
+
+## Additional Styling
+
+Additional Styling can be done using the multiselect class:
+
+	.multiselect {
+		text-align: left;
+	}
+	.multiselect b.caret {
+		float: right;
+	}
 
 ## Knockout JS Support
 

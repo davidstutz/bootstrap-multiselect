@@ -50,12 +50,28 @@
     }
 
     function Multiselect(select, options) {
-
-        this.options = this.getOptions(options);
+		
+		this.options = this.getOptions(options);
         this.select = $(select);
+        
+        // Manually add the multiple attribute, if its not already set.
+        if (!this.select.attr('multiple')) {
+            this.select.attr('multiple', true);
+        }
+        
+        if (this.isMobile()) {
+			this.select.attr('rows', 1);
+		}
+		
         this.container = $(this.options.buttonContainer)
-            .append('<button type="button" class="dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText($('option:selected', select)) + '</button>')
+            .append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText($('option:selected', select)) + '</button>')
             .append('<ul class="dropdown-menu"></ul>');
+
+		if (this.options.buttonWidth) {
+			$('button', this.container).css({
+				'width': this.options.buttonWidth
+			});
+		}
 
         // Set max height of dropdown menu to activate auto scrollbar.
         if (this.options.maxHeight) {
@@ -64,11 +80,6 @@
                 'overflow-y': 'auto',
                 'overflow-x': 'hidden'
             });
-        }
-
-        // Manually add the multiple attribute, if its not already set.
-        if (!this.select.attr('multiple')) {
-            this.select.attr('multiple', true);
         }
 
         this.buildDrowdown(select, this.options);
@@ -110,6 +121,10 @@
             // If maximum height is exceeded a scrollbar will be displayed.
             maxHeight: 400
         },
+		
+		isMobile: function() {
+		   	return navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i);
+		},
 
         constructor: Multiselect,
 
