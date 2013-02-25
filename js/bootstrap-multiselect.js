@@ -58,10 +58,6 @@
         if (!this.select.attr('multiple')) {
             this.select.attr('multiple', true);
         }
-        
-        if (this.isMobile()) {
-			this.select.attr('rows', 1);
-		}
 		
         this.container = $(this.options.buttonContainer)
             .append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText($('option:selected', select)) + '</button>')
