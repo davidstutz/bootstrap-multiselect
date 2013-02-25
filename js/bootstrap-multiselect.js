@@ -43,7 +43,7 @@
             },
             update: function (element) {
                 var blockRefresh = $(element).data('blockRefresh') || false;
-                if (!blockRefresh) { $(element).multiselect("refresh"); }
+                if (!blockRefresh) { $(element).multiselect("rebuild"); }
                 $.data(element, 'blockRefresh', false);
             }
         };
