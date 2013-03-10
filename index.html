@@ -86,6 +86,12 @@
 			                }
 			            }
 					});
+					
+					$('#example16').multiselect({
+						onChange: function(option, checked) {
+							$('#example16').multiselect('select', option.val());
+						}
+					});
 				});
 			</script>
 			<p>
@@ -262,6 +268,23 @@
 						Use the <code>buttonWidth</code> option to adjust the width of the button.
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<div class="btn-group">
+							<select id="example16" multiple="multiple">
+								<option value="cheese">Cheese</option>
+								<option value="tomatoes">Tomatoes</option>
+								<option value="mozarella">Mozzarella</option>
+								<option value="mushrooms">Mushrooms</option>
+								<option value="pepperoni">Pepperoni</option>
+								<option value="onions">Onions</option>
+							</select>
+						</div>
+					</td>
+					<td>
+						Using the <code>onChange</code> option to prevent user from deselecting selected options.
+					</td>
+				</tr>
 			</table>
 			<div class="page-header">
 				<h1>Code</h1>
@@ -368,12 +391,32 @@
 						$('option[value="add2"]', $('#example12')).remove();
 						$('option[value="add3"]', $('#example12')).remove();
 					});
+					
+					$('#example17').multiselect({
+						buttonContainer: '<span />'
+					});
+					$('#example17-cheese').on('click', function() {
+						$('#example17').multiselect('select', 'cheese');
+					});
+					$('#example17-mushrooms').on('click', function() {
+						$('#example17').multiselect('select', 'mushrooms');
+					});
+					
+					$('#example18').multiselect({
+						buttonContainer: '<span />'
+					});
+					$('#example18-cheese').on('click', function() {
+						$('#example18').multiselect('deselect', 'cheese');
+					});
+					$('#example18-mushrooms').on('click', function() {
+						$('#example18').multiselect('deselect', 'mushrooms');
+					});
 				});
 			</script>
 			<table class="table table-striped">
 				<tbody>
 					<tr>
-						<td><code>.multiselect('destroy')</code></td>
+						<td width="20%"><code>.multiselect('destroy')</code></td>
 						<td>
 							<div class="btn-group">
 								<select id="example8" multiple="multiple">
@@ -431,6 +474,46 @@
 						</td>
 						<td>
 							Rebuilds the whole dropdown menu. All selected options will remain selected (if still existent!).
+						</td>
+					</tr>
+					<tr>
+						<td><code>.multiselect('select', value)</code></td>
+						<td>
+							<div class="btn-group">
+								<select id="example17" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example17-cheese" class="btn">Select cheese</button>
+								<button id="example17-mushrooms" class="btn">Select Mushrooms</button>
+							</div>
+						</td>
+						<td>
+							Selects an option by its value.
+						</td>
+					</tr>
+					<tr>
+						<td><code>.multiselect('select', value)</code></td>
+						<td>
+							<div class="btn-group">
+								<select id="example18" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example18-cheese" class="btn">Deselect cheese</button>
+								<button id="example18-mushrooms" class="btn">Deselect Mushrooms</button>
+							</div>
+						</td>
+						<td>
+							Deselect an option by its value.
 						</td>
 					</tr>
 				</tbody>

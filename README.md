@@ -226,6 +226,14 @@ Refresh the selected elements depending on the selected options within the selec
 
 Rebuilds the whole dropdown menu. Selected options will still be selected.
 
+**.multiselect('select', value)**
+
+Selects an option by its value.
+
+**.multiselect('deselect', value)**
+
+Deselects an option by its value.
+
 ## Additional Styling
 
 Additional Styling can be done using the multiselect class:
