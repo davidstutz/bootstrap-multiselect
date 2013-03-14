@@ -78,7 +78,7 @@
 			});
 		}
 
-		this.buildDrowdown(select, this.options);
+		this.buildDrowdown();
 
 		this.$select
 			.hide()
@@ -113,18 +113,14 @@
 			buttonClass: 'btn',
 			buttonWidth: 'auto',
 			buttonContainer: '<div class="btn-group" />',
-			// Maximum height of thet dropdown menu.
+			// Maximum height of the dropdown menu.
 			// If maximum height is exceeded a scrollbar will be displayed.
-			maxHeight: 400,
-			showGroups: false,
-		},
-		
-		isMobile: function() {
-			return navigator.userAgent.match(/Android|webOS|iPhone|iPad|iPod|BlackBerry/i);
+			maxHeight: false,
 		},
 
 		constructor: Multiselect,
 		
+		// Will build an dropdown element for the given option.
 		createOptionValue: function(element) {
 			if ($(element).is(':selected')) {
 				$(element).attr('selected', 'selected');
@@ -147,18 +143,22 @@
 			}
 		},
 
-		buildDrowdown: function(select, options){
-
-			// Build the dropdown.
-			if ((this.options.showGroups) && ($('optgroup', this.$select).length > 0)) {
+		// Build the dropdown and bind event handling.
+		buildDrowdown: function() {
+			
+			if ($('optgroup', this.$select).length > 0) {
 				$('optgroup', this.$select).each($.proxy(function(index, group) {
 					var groupName = $(group).prop('label');
+					// Add a header for the group.
 					$('ul', this.$container).append('<li><label style="margin:0;padding:3px 20px 3px 20px;width:100%;height:100%;" class="multiselect-group"> ' + groupName + '</label></li>');
+					
+					// Add the options of the group.
 					$('option', group).each($.proxy(function(index, element) {
 						this.createOptionValue(element);
 					}, this));
 				}, this));
-			} else {
+			}
+			else {
 				$('option', this.$select).each($.proxy(function(index, element) {
 					this.createOptionValue(element);
 				}, this));
@@ -218,6 +218,7 @@
 			$('button', this.$container).html(this.options.buttonText($('option:selected', this.$select)));
 		},
 		
+		// Select an option by its value.
 		select: function(value) {
 			var option = $('option[value="' + value + '"]', this.$select);
 			var checkbox = $('ul li input[value="' + value + '"]', this.$container);
@@ -232,6 +233,7 @@
 			$('button', this.$container).html(this.options.buttonText(options));
 		},
 		
+		// Deselect an option by its value.
 		deselect: function(value) {
 			var option = $('option[value="' + value + '"]', this.$select);
 			var checkbox = $('ul li input[value="' + value + '"]', this.$container);
@@ -246,6 +248,7 @@
 			$('button', this.$container).html(this.options.buttonText(options));
 		},
 		
+		// Rebuild the whole dropdown menu.
 		rebuild: function() {
 			$('ul', this.$container).html('');
 			this.buildDrowdown(this.$select, this.options);
@@ -261,11 +264,13 @@
 		return this.each(function () {
 			var data = $(this).data('multiselect'),
 				options = typeof option == 'object' && option;
-
+			
+			// Initialize the multiselect.
 			if (!data) {
 				$(this).data('multiselect', (data = new Multiselect(this, options)));
 			}
-
+			
+			// Call multiselect method.
 			if (typeof option == 'string') {
 				data[option](parameter);
 			}
