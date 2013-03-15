@@ -131,7 +131,7 @@
                     $(element).prop('selected', 'selected');
                 }
 
-                $('ul', this.$container).append('<li><a href="javascript:void(0);" style="padding:0;" tabindex="-1"><label style="margin:0;padding:3px 20px 3px 20px;width:100%;height:100%;cursor:pointer;"><input style="margin-bottom:5px;" type="checkbox" value="' + $(element).val() + '" tabindex="-1" /> ' + $(element).text() + '</label</a></li>');
+                $('ul', this.$container).append('<li><a href="javascript:void(0);" style="padding:0;" tabindex="-1"><label style="margin:0;padding:3px 20px 3px 20px;width:100%;height:100%;cursor:pointer;"><input style="margin-bottom:5px;" type="checkbox" value="' + $(element).val() + '" tabindex="-1" /> ' + $(element).text() + '</label></a></li>');
 
                 var selected = $(element).prop('selected') || false;
                 var checkbox = $('ul li input[value="' + $(element).val() + '"]', this.$container);
@@ -167,7 +167,7 @@
                 event.stopPropagation();
             });
 
-            $(this.$container).on('keydown', function(e) {
+            this.$container.on('keydown', function(e) {
                 if ((e.keyCode == 9 || e.keyCode == 27) && $(this).hasClass('open'))
                 {
                     // close on tab or escape
