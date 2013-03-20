@@ -60,7 +60,7 @@
 		}
 		
 		this.$container = $(this.options.buttonContainer)
-			.append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText($('option:selected', select)) + '</button>')
+			.append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText($('option:selected', select), this.$select) + '</button>')
 			.append('<ul class="dropdown-menu"></ul>');
 
 		if (this.options.buttonWidth) {
@@ -91,7 +91,7 @@
 			// Default text function will either print 'None selected' in case no option is selected,
 			// or a list of the selected options up to a length of 3 selected options.
 			// If more than 3 options are selected, the number of selected options is printed.
-			buttonText: function(options) {
+			buttonText: function(options, select) {
 				if (options.length == 0) {
 					return 'None selected <b class="caret"></b>';
 				}
@@ -186,7 +186,7 @@
 				}
 				
 				var options = $('option:selected', this.$select);
-				$('button', this.$container).html(this.options.buttonText(options));
+				$('button', this.$container).html(this.options.buttonText(options, this.$select));
 
 				this.options.onChange(option, checked);
 			}, this));
@@ -215,7 +215,7 @@
 				}
 			}, this));
 
-			$('button', this.$container).html(this.options.buttonText($('option:selected', this.$select)));
+			$('button', this.$container).html(this.options.buttonText($('option:selected', this.$select), this.$select));
 		},
 		
 		// Select an option by its value.
@@ -230,7 +230,7 @@
 			option.prop('selected', 'selected');
 			
 			var options = $('option:selected', this.$select);
-			$('button', this.$container).html(this.options.buttonText(options));
+			$('button', this.$container).html(this.options.buttonText(options, this.$select));
 		},
 		
 		// Deselect an option by its value.
@@ -245,7 +245,7 @@
 			option.removeProp('selected');
 			
 			var options = $('option:selected', this.$select);
-			$('button', this.$container).html(this.options.buttonText(options));
+			$('button', this.$container).html(this.options.buttonText(options, this.$select));
 		},
 		
 		// Rebuild the whole dropdown menu.

@@ -565,13 +565,13 @@
 				<tbody>
 					<tr>
 						<td><code>buttonText</code></td>
-						<td>A function returning the string displayed if options are selected. All currently selected options are passed as argument. In addition HTML can be added to the button, for example the caret icon seen in the examples.</td>
+						<td>A function returning the string displayed if options are selected. All currently selected options and the select are passed as argument. In addition HTML can be added to the button, for example the caret icon seen in the examples.</td>
 						<td>
 							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      buttonText: function(options) {
+      buttonText: function(options, select) {
         if (options.length == 0) {
           return &apos;None selected &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
         }

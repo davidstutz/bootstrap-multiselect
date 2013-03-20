@@ -156,11 +156,11 @@ If the width is defined using CSS the option should be set to false.
 	
 **buttonText**
 
-Defining the text of the button. Must be a function returning a string. All currently selected options are passed as parameter.
+Defining the text of the button. Must be a function returning a string. All currently selected options and the select are passed as parameter.
 
 	$(document).ready(function() {
 		$('.multiselect').multiselect({
-			buttonText: function(options) {
+			buttonText: function(options, select) {
 				if (options.length == 0) {
 					return 'None selected <b class="caret"></b>';
 				}
