@@ -92,6 +92,8 @@
 							$('#example16').multiselect('select', option.val());
 						}
 					});
+					
+					$('#example19').multiselect();
 				});
 			</script>
 			<p>
@@ -285,6 +287,30 @@
 						Using the <code>onChange</code> option to prevent user from deselecting selected options.
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<div class="btn-group">
+							<select id="example19" multiple="multiple">
+								<optgroup label="Mathematics">
+									<option value="analysis">Analysis</option>
+									<option value="algebra">Linear Algebra</option>
+									<option value="discrete">Discrete Mathematics</option>
+									<option value="numerical">Numerical Analysis</option>
+									<option value="probability">Probability Theory</option>
+								</optgroup>
+								<optgroup label="Computer Science">
+									<option value="programming">Introduction to Programming</option>
+									<option value="automata">Automata Theory</option>
+									<option value="complexity">Complexity Theory</option>
+									<option value="software">Software Engineering</option>
+								</optgroup>
+							</select>
+						</div>
+					</td>
+					<td>
+						Option groups are detected automatically and for each option group an header element is added: <code>&lt;optgroup label=&quot;Mathematics&quot;&gt;...&lt;/optgroup&gt;</code>
+					</td>
+				</tr>
 			</table>
 			<div class="page-header">
 				<h1>Code</h1>
@@ -305,6 +331,8 @@
     $(&#39;.multiselect&#39;).multiselect({
       buttonClass: &apos;btn&apos;,
       buttonWidth: &apos;auto&apos;,
+      buttonContainer: &apos;&lt;div class=&quot;btn-group&quot; /&gt;&apos;,
+      maxHeight: false,
       buttonText: function(options) {
         if (options.length == 0) {
           return &apos;None selected &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
@@ -413,6 +441,11 @@
 					});
 				});
 			</script>
+			<style type="text/css">
+				.multiselect-group {
+					font-weight: bold;
+				}
+			</style>
 			<table class="table table-striped">
 				<tbody>
 					<tr>
@@ -532,13 +565,13 @@
 				<tbody>
 					<tr>
 						<td><code>buttonText</code></td>
-						<td>A function returning the string displayed if options are selected. All currently selected options are passed as argument. In addition HTML can be added to the button, for example the caret icon seen in the examples.</td>
+						<td>A function returning the string displayed if options are selected. All currently selected options and the select are passed as argument. In addition HTML can be added to the button, for example the caret icon seen in the examples.</td>
 						<td>
 							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      buttonText: function(options) {
+      buttonText: function(options, select) {
         if (options.length == 0) {
           return &apos;None selected &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
         }
@@ -666,6 +699,10 @@
 					position: absolute;
 					right: 5px;
 				}
+				.add-styling .multiselect-group {
+					font-weight: bold;
+					text-decoration: underline;
+				}
 			</style>
 			<script type="text/javascript">
 				$(document).ready(function() {
@@ -691,25 +728,36 @@
 					<tr>
 						<td>
 							<select id="example15" multiple="multiple">
-								<option value="cheese">Cheese</option>
-								<option value="tomatoes">Tomatoes</option>
-								<option value="mozarella">Mozzarella</option>
-								<option value="mushrooms">Mushrooms</option>
-								<option value="pepperoni">Pepperoni</option>
-								<option value="onions">Onions</option>
+								<optgroup label="Mathematics">
+									<option value="analysis">Analysis</option>
+									<option value="algebra">Linear Algebra</option>
+									<option value="discrete">Discrete Mathematics</option>
+									<option value="numerical">Numerical Analysis</option>
+									<option value="probability">Probability Theory</option>
+								</optgroup>
+								<optgroup label="Computer Science">
+									<option value="programming">Introduction to Programming</option>
+									<option value="automata">Automata Theory</option>
+									<option value="complexity">Complexity Theory</option>
+									<option value="software">Software Engineering</option>
+								</optgroup>
 							</select>
 						</td>
 						<td>
-							Text alignment combined with fixed width.
+							Text alignment combined with fixed width and bold, underlined text for option group headers.
 						</td>
 						<td>
 							<pre class="prettyprint linenums">
-	.multiselect {
-		text-align: left;
-	}
-	.multiselect b.caret {
-		float: right;
-	}
+.multiselect {
+	text-align: left;
+}
+.multiselect b.caret {
+	float: right;
+}
+.multiselect-group {
+	font-weight: bold;
+	text-decoration: underline;
+}
 							</pre>
 						</td>
 					</tr>
@@ -717,10 +765,10 @@
 			</div>
 			</p>
 			<hr>
-			<div>
+			<p>
 				&copy; 2012
 				<a href="http://davidstutz.de">David Stutz</a> - <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>
-			</div>
+			</p>
 		</div>
 	</body>
 </html>
