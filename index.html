@@ -94,6 +94,10 @@
 					});
 					
 					$('#example19').multiselect();
+
+					$('#example20').multiselect({
+						selectedClass: null
+					});
 				});
 			</script>
 			<p>
@@ -311,6 +315,23 @@
 						Option groups are detected automatically and for each option group an header element is added: <code>&lt;optgroup label=&quot;Mathematics&quot;&gt;...&lt;/optgroup&gt;</code>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<div class="btn-group">
+							<select id="example20" multiple="multiple">
+								<option value="cheese">Cheese</option>
+								<option value="tomatoes">Tomatoes</option>
+								<option value="mozarella">Mozzarella</option>
+								<option value="mushrooms">Mushrooms</option>
+								<option value="pepperoni">Pepperoni</option>
+								<option value="onions">Onions</option>
+							</select>
+						</div>
+					</td>
+					<td>
+						Using the <code>selectedClass</code> option to turn off the active class for selected options.
+					</td>
+				</tr>
 			</table>
 			<div class="page-header">
 				<h1>Code</h1>
@@ -438,6 +459,10 @@
 					});
 					$('#example18-mushrooms').on('click', function() {
 						$('#example18').multiselect('deselect', 'mushrooms');
+					});
+
+					$('#example20').multiselect({
+						selectedClass: null
 					});
 				});
 			</script>
@@ -594,7 +619,7 @@
 					</tr>
 					<tr>
 						<td><code>buttonClass</code></td>
-						<td>The width of the dropdown button. Default: <code>btn</code>.</td>
+						<td>The class of the dropdown button. Default: <code>btn</code>.</td>
 						<td>
 							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
@@ -642,6 +667,21 @@
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
       buttonContainer: &apos;&lt;span class="dropdown" /&gt;&apos;,
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>selectedClass</code></td>
+						<td>The class applied to the parent &lt;li&gt; of selected items. Default: <code>active</code>.</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      selectedClass: null,
     });
   });
 &lt;/script&gt;
