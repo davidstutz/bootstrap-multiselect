@@ -78,7 +78,7 @@
 			});
 		}
 
-		this.buildDrowdown();
+		this.buildDropdown();
 
 		this.$select
 			.hide()
@@ -111,6 +111,7 @@
 				
 			},
 			buttonClass: 'btn',
+			selectedClass: 'active',
 			buttonWidth: 'auto',
 			buttonContainer: '<div class="btn-group" />',
 			// Maximum height of the dropdown menu.
@@ -127,7 +128,7 @@
 				$(element).prop('selected', 'selected');
 			}
 
-			$('ul', this.$container).append('<li><a href="javascript:void(0);" style="padding:0;"><label style="margin:0;padding:3px 20px 3px 20px;width:100%;height:100%;cursor:pointer;"><input style="margin-bottom:5px;" type="checkbox" value="' + $(element).val() + '" /> ' + $(element).text() + '</label></a></li>');
+			$('ul', this.$container).append('<li><a href="javascript:void(0);" style="padding:0;"><label style="margin:0;padding:3px 20px 3px 20px;height:100%;cursor:pointer;"><input style="margin-bottom:5px;" type="checkbox" value="' + $(element).val() + '" /> ' + $(element).text() + '</label></a></li>');
 
 			var selected = $(element).prop('selected') || false;
 			var checkbox = $('ul li input[value="' + $(element).val() + '"]', this.$container);
@@ -138,19 +139,19 @@
 			
 			checkbox.prop('checked', selected);
 
-			if (selected) {
-				checkbox.parents('li').addClass('active');
+			if (selected && this.options.selectedClass) {
+				checkbox.parents('li').addClass(this.options.selectedClass);
 			}
 		},
 
 		// Build the dropdown and bind event handling.
-		buildDrowdown: function() {
+		buildDropdown: function() {
 			
 			if ($('optgroup', this.$select).length > 0) {
 				$('optgroup', this.$select).each($.proxy(function(index, group) {
 					var groupName = $(group).prop('label');
 					// Add a header for the group.
-					$('ul', this.$container).append('<li><label style="margin:0;padding:3px 20px 3px 20px;width:100%;height:100%;" class="multiselect-group"> ' + groupName + '</label></li>');
+					$('ul', this.$container).append('<li><label style="margin:0;padding:3px 20px 3px 20px;height:100%;" class="multiselect-group"> ' + groupName + '</label></li>');
 					
 					// Add the options of the group.
 					$('option', group).each($.proxy(function(index, element) {
@@ -168,11 +169,13 @@
 			$('ul li input[type="checkbox"]', this.$container).on('change', $.proxy(function(event) {
 				var checked = $(event.target).prop('checked') || false;
 
-				if (checked) {
-					$(event.target).parents('li').addClass('active');
-				}
-				else {
-					$(event.target).parents('li').removeClass('active');
+				if (this.options.selectedClass) {
+					if (checked) {
+						$(event.target).parents('li').addClass(this.options.selectedClass);
+					}
+					else {
+						$(event.target).parents('li').removeClass(this.options.selectedClass);
+					}
 				}
 
 				var option = $('option[value="' + $(event.target).val() + '"]', this.$select);
@@ -194,6 +197,53 @@
 			$('ul li a', this.$container).on('click', function(event) {
 				event.stopPropagation();
 			});
+
+			this.$container.on('keydown', $.proxy(function(event) {
+				if ((event.keyCode == 9 || event.keyCode == 27) && this.$container.hasClass('open')) {
+					// close on tab or escape
+					$(this.$container).find(".multiselect.dropdown-toggle").click();
+				}
+				else {
+					var $items = $(this.$container).find("li:not(.divider):visible a");
+
+					if (!$items.length) {
+						return;
+					}
+
+					var index = $items.index($items.filter(':focus'));
+
+					if (event.keyCode == 38 && index > 0) {							// up
+						index--;
+					}
+					else if (event.keyCode == 40 && index < $items.length - 1) {	// down
+						index++;
+					}
+					else if (!~index) {
+						index = 0;
+					}
+
+					var $current = $items.eq(index);
+
+					$current.focus();
+
+					// override style for items in li:active
+					if (this.options.selectedClass == "active") {
+						$current.css("outline", "thin dotted #333").css("outline", "5px auto -webkit-focus-ring-color");
+
+						$items.not($current).css("outline", "");
+					}
+
+					if (event.keyCode == 32 || event.keyCode == 13) {
+						var $checkbox = $current.find('input[type="checkbox"]');
+
+						$checkbox.prop("checked", !$checkbox.prop("checked"));
+						$checkbox.change();
+					}
+
+					event.stopPropagation();
+					event.preventDefault();
+				}
+			}, this));
 		},
 
 		// Destroy - unbind - the plugin.
@@ -207,11 +257,17 @@
 			$('option', this.$select).each($.proxy(function(index, element) {
 				if ($(element).is(':selected')) {
 					$('ul li input[value="' + $(element).val() + '"]', this.$container).prop('checked', true);
-					$('ul li input[value="' + $(element).val() + '"]', this.$container).parents('li').addClass('active');
+
+					if (this.options.selectedClass) {
+						$('ul li input[value="' + $(element).val() + '"]', this.$container).parents('li').addClass(this.options.selectedClass);
+					}
 				}
 				else {
 					$('ul li input[value="' + $(element).val() + '"]', this.$container).prop('checked', false);
-					$('ul li input[value="' + $(element).val() + '"]', this.$container).parents('li').removeClass('active');
+
+					if (this.options.selectedClass) {
+						$('ul li input[value="' + $(element).val() + '"]', this.$container).parents('li').removeClass(this.options.selectedClass);
+					}
 				}
 			}, this));
 
@@ -223,7 +279,10 @@
 			var option = $('option[value="' + value + '"]', this.$select);
 			var checkbox = $('ul li input[value="' + value + '"]', this.$container);
 
-			checkbox.parents('li').addClass('active');
+			if (this.options.selectedClass) {
+				checkbox.parents('li').addClass(this.options.selectedClass);
+			}
+
 			checkbox.prop('checked', true);
 			
 			option.attr('selected', 'selected');
@@ -238,7 +297,10 @@
 			var option = $('option[value="' + value + '"]', this.$select);
 			var checkbox = $('ul li input[value="' + value + '"]', this.$container);
 
-			checkbox.parents('li').removeClass('active');
+			if (this.options.selectedClass) {
+				checkbox.parents('li').removeClass(this.options.selectedClass);
+			}
+
 			checkbox.prop('checked', false);
 			
 			option.removeAttr('selected');
@@ -251,7 +313,7 @@
 		// Rebuild the whole dropdown menu.
 		rebuild: function() {
 			$('ul', this.$container).html('');
-			this.buildDrowdown(this.$select, this.options);
+			this.buildDropdown(this.$select, this.options);
 		},
 
 		// Get options by merging defaults and given options.
