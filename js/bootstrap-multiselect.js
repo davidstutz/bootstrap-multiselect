@@ -101,7 +101,9 @@
 				else {
 					var selected = '';
 					options.each(function() {
-						selected += $(this).text() + ', ';
+						var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
+
+						selected += label + ', ';
 					});
 					return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
 				}
@@ -128,11 +130,17 @@
 				$(element).prop('selected', 'selected');
 			}
 
-			$('ul', this.$container).append('<li><a href="javascript:void(0);" style="padding:0;"><label style="margin:0;padding:3px 20px 3px 20px;height:100%;cursor:pointer;"><input style="margin-bottom:5px;" type="checkbox" value="' + $(element).val() + '" /> ' + $(element).text() + '</label></a></li>');
+			var label = ($(element).attr('label') !== undefined) ?  $(element).attr('label') : $(element).text();
+			var value = $(element).val();
+			var li = $('<li><a href="javascript:void(0);" style="padding:0;"><label style="margin:0;padding:3px 20px 3px 20px;height:100%;cursor:pointer;"><input style="margin-bottom:5px;" type="checkbox" /></label></a></li>');
 
 			var selected = $(element).prop('selected') || false;
-			var checkbox = $('ul li input[value="' + $(element).val() + '"]', this.$container);
-			
+			var checkbox = $('input', li);
+			checkbox.val(value);
+			$('label', li).append(" " + label);
+
+			$('ul', this.$container).append(li);
+
 			if ($(element).is(':disabled')) {
 				checkbox.attr('disabled', 'disabled').prop('disabled', 'disabled').parents('li').addClass('disabled')
 			}
@@ -145,25 +153,29 @@
 		},
 
 		// Build the dropdown and bind event handling.
-		buildDropdown: function() {
-			
-			if ($('optgroup', this.$select).length > 0) {
-				$('optgroup', this.$select).each($.proxy(function(index, group) {
+		buildDropdown: function () {
+			this.$select.children().each($.proxy(function (index, element) {
+				var tag = $(element).prop('tagName').toLowerCase();
+				if (tag == 'optgroup') {
+					var group = element;
 					var groupName = $(group).prop('label');
 					// Add a header for the group.
-					$('ul', this.$container).append('<li><label style="margin:0;padding:3px 20px 3px 20px;height:100%;" class="multiselect-group"> ' + groupName + '</label></li>');
-					
+					var li = $('<li><label style="margin:0;padding:3px 20px 3px 20px;height:100%;" class="multiselect-group"></label></li>');
+					$('label', li).text(groupName);
+					$('ul', this.$container).append(li);
 					// Add the options of the group.
-					$('option', group).each($.proxy(function(index, element) {
+					$('option', group).each($.proxy(function (index, element) {
 						this.createOptionValue(element);
 					}, this));
-				}, this));
-			}
-			else {
-				$('option', this.$select).each($.proxy(function(index, element) {
+				}
+				else if (tag == 'option') {
 					this.createOptionValue(element);
-				}, this));
-			}
+				}
+				else
+				{
+					// ignore illegal tags
+				}
+			}, this));
 
 			// Bind the change event on the dropdown elements.
 			$('ul li input[type="checkbox"]', this.$container).on('change', $.proxy(function(event) {
@@ -178,7 +190,7 @@
 					}
 				}
 
-				var option = $('option[value="' + $(event.target).val() + '"]', this.$select);
+				var option = $('option', this.$select).filter(function () { return $(this).val() == $(event.target).val(); })
 
 				if (checked) {
 					option.attr('selected', 'selected');
@@ -256,18 +268,20 @@
 		// Refreshs the checked options based on the current state of the select.
 		refresh: function() {
 			$('option', this.$select).each($.proxy(function(index, element) {
+				var input = $('ul li input', this.$container).filter(function () { return $(this).val() == $(element).val(); });
+
 				if ($(element).is(':selected')) {
-					$('ul li input[value="' + $(element).val() + '"]', this.$container).prop('checked', true);
+					input.prop('checked', true);
 
 					if (this.options.selectedClass) {
-						$('ul li input[value="' + $(element).val() + '"]', this.$container).parents('li').addClass(this.options.selectedClass);
+						input.parents('li').addClass(this.options.selectedClass);
 					}
 				}
 				else {
-					$('ul li input[value="' + $(element).val() + '"]', this.$container).prop('checked', false);
+					input.prop('checked', false);
 
 					if (this.options.selectedClass) {
-						$('ul li input[value="' + $(element).val() + '"]', this.$container).parents('li').removeClass(this.options.selectedClass);
+						input.parents('li').removeClass(this.options.selectedClass);
 					}
 				}
 			}, this));
@@ -277,8 +291,8 @@
 		
 		// Select an option by its value.
 		select: function(value) {
-			var option = $('option[value="' + value + '"]', this.$select);
-			var checkbox = $('ul li input[value="' + value + '"]', this.$container);
+			var option = $('option', this.$select).filter(function () { return $(this).val() == value; });
+			var checkbox = $('ul li input', this.$select).filter(function () { return $(this).val() == value; });
 
 			if (this.options.selectedClass) {
 				checkbox.parents('li').addClass(this.options.selectedClass);
@@ -295,8 +309,8 @@
 		
 		// Deselect an option by its value.
 		deselect: function(value) {
-			var option = $('option[value="' + value + '"]', this.$select);
-			var checkbox = $('ul li input[value="' + value + '"]', this.$container);
+			var option = $('option', this.$select).filter(function () { return $(this).val() == value; });
+			var checkbox = $('ul li input', this.$container).filter(function () { return $(this).val() == value; });
 
 			if (this.options.selectedClass) {
 				checkbox.parents('li').removeClass(this.options.selectedClass);
