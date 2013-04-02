@@ -60,7 +60,7 @@
 		}
 		
 		this.$container = $(this.options.buttonContainer)
-			.append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText($('option:selected', select), this.$select) + '</button>')
+			.append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText($('option[selected]', select), this.$select) + '</button>')
 			.append('<ul class="dropdown-menu"></ul>');
 
 		if (this.options.buttonWidth) {
@@ -188,7 +188,7 @@
 					option.removeAttr('selected');
 				}
 				
-				var options = $('option:selected', this.$select);
+				var options = $('option[selected]', this.$select);
 				$('button', this.$container).html(this.options.buttonText(options, this.$select));
 
 				this.options.onChange(option, checked);
@@ -198,6 +198,7 @@
 				event.stopPropagation();
 			});
 
+			// Keyboard support.
 			this.$container.on('keydown', $.proxy(function(event) {
 				if ((event.keyCode == 9 || event.keyCode == 27) && this.$container.hasClass('open')) {
 					// close on tab or escape
@@ -271,7 +272,7 @@
 				}
 			}, this));
 
-			$('button', this.$container).html(this.options.buttonText($('option:selected', this.$select), this.$select));
+			$('button', this.$container).html(this.options.buttonText($('option[selected]', this.$select), this.$select));
 		},
 		
 		// Select an option by its value.
@@ -288,7 +289,7 @@
 			option.attr('selected', 'selected');
 			option.prop('selected', 'selected');
 			
-			var options = $('option:selected', this.$select);
+			var options = $('option[selected]', this.$select);
 			$('button', this.$container).html(this.options.buttonText(options, this.$select));
 		},
 		
@@ -306,7 +307,7 @@
 			option.removeAttr('selected');
 			option.removeProp('selected');
 			
-			var options = $('option:selected', this.$select);
+			var options = $('option[selected]', this.$select);
 			$('button', this.$container).html(this.options.buttonText(options, this.$select));
 		},
 		
@@ -314,6 +315,8 @@
 		rebuild: function() {
 			$('ul', this.$container).html('');
 			this.buildDropdown(this.$select, this.options);
+			var options = $('option[selected]', this.$select);
+			$('button', this.$container).html(this.options.buttonText(options, this.$select));
 		},
 
 		// Get options by merging defaults and given options.
