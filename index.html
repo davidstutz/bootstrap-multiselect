@@ -98,6 +98,10 @@
 					$('#example20').multiselect({
 						selectedClass: null
 					});
+					
+					$('#example23').multiselect();
+					
+					$('#example24').multiselect();
 				});
 			</script>
 			<p>
@@ -318,6 +322,32 @@
 				<tr>
 					<td>
 						<div class="btn-group">
+							<select id="example23" multiple="multiple">
+								<option value="lab">Lab Course</option>
+								<option value="proseminar">Proseminar</option>
+								<optgroup label="Mathematics">
+									<option value="analysis">Analysis</option>
+									<option value="algebra">Linear Algebra</option>
+									<option value="discrete">Discrete Mathematics</option>
+									<option value="numerical">Numerical Analysis</option>
+									<option value="probability">Probability Theory</option>
+								</optgroup>
+								<optgroup label="Computer Science">
+									<option value="programming">Introduction to Programming</option>
+									<option value="automata">Automata Theory</option>
+									<option value="complexity">Complexity Theory</option>
+									<option value="software">Software Engineering</option>
+								</optgroup>
+							</select>
+						</div>
+					</td>
+					<td>
+						Option groups and options without any group are supported simultaneously.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="btn-group">
 							<select id="example20" multiple="multiple">
 								<option value="cheese">Cheese</option>
 								<option value="tomatoes">Tomatoes</option>
@@ -330,6 +360,22 @@
 					</td>
 					<td>
 						Using the <code>selectedClass</code> option to turn off the active class for selected options.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="btn-group">
+							<select id="example24" multiple="multiple">
+								<option value="analysis" label="Ana">Analysis</option>
+								<option value="algebra" label="LA">Linear Algebra</option>
+								<option value="discrete" label="Discrete">Discrete Mathematics</option>
+								<option value="numerical" label="NumA">Numerical Analysis</option>
+								<option value="probability" label="Proba">Probability Theory</option>
+							</select>
+						</div>
+					</td>
+					<td>
+						Specifiy an alternaitve label for the options: <code>&lt;option label=&quot;label&quot;&gt;&lt;/option&gt;</code>
 					</td>
 				</tr>
 			</table>
@@ -413,8 +459,14 @@
 					});
 					$('#example10-select').on('click', function() {
 						$('option[value="tomatoes"]', $('#example10')).prop('selected', 'selected');
+						$('option[value="tomatoes"]', $('#example10')).attr('selected', 'selected');
+						
 						$('option[value="mushrooms"]', $('#example10')).prop('selected', 'selected');
+						$('option[value="mushrooms"]', $('#example10')).attr('selected', 'selected');
+						
 						$('option[value="onions"]', $('#example10')).prop('selected', 'selected');
+						$('option[value="onions"]', $('#example10')).attr('selected', 'selected');
+						
 						alert('Selected Tomatoes, Mushrooms and Onions.');
 					});
 					$('#example10-deselect').on('click', function() {
@@ -669,7 +721,6 @@
 				                }
 				                else {
 				                    $("#example22").multiselect('select', element.val());
-				                    return false;
 				                }
 				            }
 						}

@@ -60,7 +60,7 @@
 		}
 		
 		this.$container = $(this.options.buttonContainer)
-			.append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText($('option[selected]', select), this.$select) + '</button>')
+			.append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText(this.getSelected(), this.$select) + '</button>')
 			.append('<ul class="dropdown-menu"></ul>');
 
 		if (this.options.buttonWidth) {
@@ -129,7 +129,8 @@
 				$(element).attr('selected', 'selected');
 				$(element).prop('selected', 'selected');
 			}
-
+			
+			// Support the label attribute on options.
 			var label = ($(element).attr('label') !== undefined) ?  $(element).attr('label') : $(element).text();
 			var value = $(element).val();
 			var li = $('<li><a href="javascript:void(0);" style="padding:0;"><label style="margin:0;padding:3px 20px 3px 20px;height:100%;cursor:pointer;"><input style="margin-bottom:5px;" type="checkbox" /></label></a></li>');
@@ -155,14 +156,17 @@
 		// Build the dropdown and bind event handling.
 		buildDropdown: function () {
 			this.$select.children().each($.proxy(function (index, element) {
+				// Support optgroups and options without a group simultaneously.
 				var tag = $(element).prop('tagName').toLowerCase();
 				if (tag == 'optgroup') {
 					var group = element;
 					var groupName = $(group).prop('label');
+					
 					// Add a header for the group.
 					var li = $('<li><label style="margin:0;padding:3px 20px 3px 20px;height:100%;" class="multiselect-group"></label></li>');
 					$('label', li).text(groupName);
 					$('ul', this.$container).append(li);
+					
 					// Add the options of the group.
 					$('option', group).each($.proxy(function (index, element) {
 						this.createOptionValue(element);
@@ -200,7 +204,8 @@
 					option.removeAttr('selected');
 				}
 				
-				var options = $('option[selected]', this.$select);
+				var options = this.getSelected();
+				
 				$('button', this.$container).html(this.options.buttonText(options, this.$select));
 
 				this.options.onChange(option, checked);
@@ -213,7 +218,7 @@
 			// Keyboard support.
 			this.$container.on('keydown', $.proxy(function(event) {
 				if ((event.keyCode == 9 || event.keyCode == 27) && this.$container.hasClass('open')) {
-					// close on tab or escape
+					// Close on tab or escape.
 					$(this.$container).find(".multiselect.dropdown-toggle").click();
 				}
 				else {
@@ -225,10 +230,12 @@
 
 					var index = $items.index($items.filter(':focus'));
 
-					if (event.keyCode == 38 && index > 0) {							// up
+					// Navigation up.
+					if (event.keyCode == 38 && index > 0) {
 						index--;
 					}
-					else if (event.keyCode == 40 && index < $items.length - 1) {	// down
+					// Navigate down.
+					else if (event.keyCode == 40 && index < $items.length - 1) {
 						index++;
 					}
 					else if (!~index) {
@@ -239,7 +246,7 @@
 
 					$current.focus();
 
-					// override style for items in li:active
+					// Override style for items in li:active.
 					if (this.options.selectedClass == "active") {
 						$current.css("outline", "thin dotted #333").css("outline", "5px auto -webkit-focus-ring-color");
 
@@ -285,15 +292,16 @@
 					}
 				}
 			}, this));
-
-			$('button', this.$container).html(this.options.buttonText($('option[selected]', this.$select), this.$select));
+			
+			var options = this.getSelected();
+			$('button', this.$container).html(this.options.buttonText(options, this.$select));
 		},
 		
 		// Select an option by its value.
 		select: function(value) {
 			var option = $('option', this.$select).filter(function () { return $(this).val() == value; });
-			var checkbox = $('ul li input', this.$select).filter(function () { return $(this).val() == value; });
-
+			var checkbox = $('ul li input', this.$container).filter(function () { return $(this).val() == value; });
+			
 			if (this.options.selectedClass) {
 				checkbox.parents('li').addClass(this.options.selectedClass);
 			}
@@ -303,7 +311,7 @@
 			option.attr('selected', 'selected');
 			option.prop('selected', 'selected');
 			
-			var options = $('option[selected]', this.$select);
+			var options = this.getSelected();
 			$('button', this.$container).html(this.options.buttonText(options, this.$select));
 		},
 		
@@ -321,7 +329,7 @@
 			option.removeAttr('selected');
 			option.removeProp('selected');
 			
-			var options = $('option[selected]', this.$select);
+			var options = this.getSelected();
 			$('button', this.$container).html(this.options.buttonText(options, this.$select));
 		},
 		
@@ -329,13 +337,25 @@
 		rebuild: function() {
 			$('ul', this.$container).html('');
 			this.buildDropdown(this.$select, this.options);
-			var options = $('option[selected]', this.$select);
+			var options = this.getSelected();
 			$('button', this.$container).html(this.options.buttonText(options, this.$select));
 		},
 
 		// Get options by merging defaults and given options.
 		getOptions: function(options) {
 			return $.extend({}, this.defaults, options);
+		},
+		
+		// For IE 9 support.
+		getSelected: function() {
+			if (navigator.appName == 'Microsoft Internet Explorer') {
+			    var regex  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+			    if (regex.exec(navigator.userAgent) != null) {
+			    	return $('option:selected', this.$select);
+			  	}
+			}
+		
+			return $('option[selected]', this.$select);
 		}
 	};
 
