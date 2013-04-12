@@ -188,6 +188,10 @@ The used container holding both the dropdown button and the dropdown menu.
 		});
 	});
 
+**dropRight**
+
+Define if the menu should drop to the right of the button or not, by adding `pull-right` class to `<ul class="dropdown-menu">`. Default is false.
+
 **onChange**
 
 Assign an event handler to the change event:

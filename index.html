@@ -102,6 +102,8 @@
 					$('#example23').multiselect();
 					
 					$('#example24').multiselect();
+
+                                        $('#example25').multiselect({dropRight: true});
 				});
 			</script>
 			<p>
@@ -378,6 +380,24 @@
 						Specifiy an alternaitve label for the options: <code>&lt;option label=&quot;label&quot;&gt;&lt;/option&gt;</code>
 					</td>
 				</tr>
+                                <tr>
+                                        <td>
+						<div class="pull-left">
+                                                	<div class="btn-group">
+                                                        	<select id="example25" multiple="multiple">
+                                                                	<option value="analysis" label="Ana">Analysis</option>
+	                                                                <option value="algebra" label="LA">Linear Algebra</option>
+        	                                                        <option value="discrete" label="Discrete">Discrete Mathematics</option>
+                	                                                <option value="numerical" label="NumA">Numerical Analysis</option>
+                        	                                        <option value="probability" label="Proba">Probability Theory</option>
+                                	                        </select>
+                                        	        </div>
+						</div>
+                                        </td>
+                                        <td>
+                                                Make the menu drop right instead of dropping left with <code>dropRight</code>.
+                                        </td>
+                                </tr>
 			</table>
 			<div class="page-header">
 				<h1>Code</h1>

@@ -61,7 +61,7 @@
 		
 		this.$container = $(this.options.buttonContainer)
 			.append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText(this.getSelected(), this.$select) + '</button>')
-			.append('<ul class="dropdown-menu"></ul>');
+			.append('<ul class="dropdown-menu' + (this.options.dropRight ? ' pull-right' : '') + '"></ul>');
 
 		if (this.options.buttonWidth) {
 			$('button', this.$container).css({
@@ -113,6 +113,7 @@
 				
 			},
 			buttonClass: 'btn',
+                        dropRight: false,
 			selectedClass: 'active',
 			buttonWidth: 'auto',
 			buttonContainer: '<div class="btn-group" />',
