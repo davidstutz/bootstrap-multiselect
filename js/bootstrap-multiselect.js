@@ -203,7 +203,7 @@
 					var $optionsNotThis = this.$container.find("input").not($(event.target));
 
 					if (!this.options.multiple)	{
-						$optionsNotThis.prop("checked", false).change();
+						$optionsNotThis.prop("checked", false);
 
 						// It's a single selection, so close.
 						$(this.$container).find(".multiselect.dropdown-toggle").click();
@@ -222,6 +222,8 @@
 				$('button', this.$container).html(this.options.buttonText(options, this.$select));
 
 				this.options.onChange(option, checked);
+
+				this.$select.change();
 			}, this));
 
 			$('ul li a', this.$container).on('click', function(event) {
