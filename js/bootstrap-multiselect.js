@@ -204,6 +204,9 @@
 
 					if (!this.options.multiple)	{
 						$optionsNotThis.prop("checked", false).change();
+
+						// It's a single selection, so close.
+						$(this.$container).find(".multiselect.dropdown-toggle").click();
 					}
 
 					if (this.options.selectedClass == "active") {
