@@ -249,6 +249,10 @@ Additional Styling can be done using the multiselect class:
 		float: right;
 	}
 
+## Usage via data attributes
+
+To hook up the control via data attributes, add the `data-role="multiselect"` attribute to your `<select>`. All selects with that attribute will be automatically wired up on jQuery load.
+
 ## Knockout JS Support
 
 Thanks to [Devristo](https://github.com/Devristo) this plugin supports [Knockout JS](http://knockoutjs.com/). For further discussion see [the pull requests](https://github.com/davidstutz/bootstrap-multiselect/pull/17).
