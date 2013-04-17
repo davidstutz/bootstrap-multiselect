@@ -200,11 +200,19 @@
 					option.attr('selected', 'selected');
 					option.prop('selected', 'selected');
 
-					var $optionsNotThis = this.$container.find("input").not($(event.target));
+					var $optionsNotThis = $('option', this.$select).not($(option));
 
 					if (!this.options.multiple)	{
-						$optionsNotThis.prop("checked", false);
+						var $checkboxesNotThis = $('input', this.$container).not($(event.target));
 
+						if (this.options.selectedClass) {
+							$($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
+						}
+
+						$($checkboxesNotThis).prop('checked', false);
+
+						$optionsNotThis.removeAttr('selected').removeProp('selected');
+						
 						// It's a single selection, so close.
 						$(this.$container).find(".multiselect.dropdown-toggle").click();
 					}
