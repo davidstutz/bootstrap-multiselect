@@ -54,10 +54,7 @@
 		this.options = this.getOptions(options);
 		this.$select = $(select);
 		
-		// Manually add the multiple attribute, if its not already set.
-		if (!this.$select.attr('multiple')) {
-			this.$select.attr('multiple', true);
-		}
+		this.options.multiple = this.$select.attr('multiple') == "multiple";
 		
 		this.$container = $(this.options.buttonContainer)
 			.append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText(this.getSelected(), this.$select) + '</button>')
@@ -113,7 +110,7 @@
 				
 			},
 			buttonClass: 'btn',
-                        dropRight: false,
+			dropRight: false,
 			selectedClass: 'active',
 			buttonWidth: 'auto',
 			buttonContainer: '<div class="btn-group" />',
@@ -134,7 +131,9 @@
 			// Support the label attribute on options.
 			var label = ($(element).attr('label') !== undefined) ?  $(element).attr('label') : $(element).text();
 			var value = $(element).val();
-			var li = $('<li><a href="javascript:void(0);" style="padding:0;"><label style="margin:0;padding:3px 20px 3px 20px;height:100%;cursor:pointer;"><input style="margin-bottom:5px;" type="checkbox" /></label></a></li>');
+			var inputType = this.options.multiple ? "checkbox" : "radio";
+
+			var li = $('<li><a href="javascript:void(0);" style="padding:0;"><label style="margin:0;padding:3px 20px 3px 20px;height:100%;cursor:pointer;"><input style="margin-bottom:5px;" type="' + inputType + '" /></label></a></li>');
 
 			var selected = $(element).prop('selected') || false;
 			var checkbox = $('input', li);
@@ -183,7 +182,7 @@
 			}, this));
 
 			// Bind the change event on the dropdown elements.
-			$('ul li input[type="checkbox"]', this.$container).on('change', $.proxy(function(event) {
+			$('ul li input', this.$container).on('change', $.proxy(function(event) {
 				var checked = $(event.target).prop('checked') || false;
 
 				if (this.options.selectedClass) {
@@ -200,6 +199,27 @@
 				if (checked) {
 					option.attr('selected', 'selected');
 					option.prop('selected', 'selected');
+
+					var $optionsNotThis = $('option', this.$select).not($(option));
+
+					if (!this.options.multiple)	{
+						var $checkboxesNotThis = $('input', this.$container).not($(event.target));
+
+						if (this.options.selectedClass) {
+							$($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
+						}
+
+						$($checkboxesNotThis).prop('checked', false);
+
+						$optionsNotThis.removeAttr('selected').removeProp('selected');
+						
+						// It's a single selection, so close.
+						$(this.$container).find(".multiselect.dropdown-toggle").click();
+					}
+
+					if (this.options.selectedClass == "active") {
+						$optionsNotThis.parents("a").css("outline", "");
+					}					
 				}
 				else {
 					option.removeAttr('selected');
@@ -210,6 +230,8 @@
 				$('button', this.$container).html(this.options.buttonText(options, this.$select));
 
 				this.options.onChange(option, checked);
+
+				this.$select.change();
 			}, this));
 
 			$('ul li a', this.$container).on('click', function(event) {
@@ -255,7 +277,7 @@
 					}
 
 					if (event.keyCode == 32 || event.keyCode == 13) {
-						var $checkbox = $current.find('input[type="checkbox"]');
+						var $checkbox = $current.find('input');
 
 						$checkbox.prop("checked", !$checkbox.prop("checked"));
 						$checkbox.change();
@@ -350,10 +372,10 @@
 		// For IE 9 support.
 		getSelected: function() {
 			if (navigator.appName == 'Microsoft Internet Explorer') {
-			    var regex  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-			    if (regex.exec(navigator.userAgent) != null) {
-			    	return $('option:selected', this.$select);
-			  	}
+				var regex  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+				if (regex.exec(navigator.userAgent) != null) {
+					return $('option:selected', this.$select);
+				}
 			}
 		
 			return $('option[selected]', this.$select);
