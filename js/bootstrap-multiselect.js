@@ -398,4 +398,9 @@
 			}
 		});
 	}
+	
+    $(function()
+    {
+        $("select[data-role=multiselect]").multiselect();
+    });
 }(window.jQuery);
