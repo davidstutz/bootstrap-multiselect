@@ -161,7 +161,7 @@
 		// Build the dropdown and bind event handling.
 		buildDropdown: function () {
 		    //If options.includeSelectAllOption === true, add the include all checkbox
-		    if (this.options.includeSelectAllOption) {
+		    if (this.options.includeSelectAllOption && this.options.multiple) {
 		        this.createSelectAllOption();
 		    }
 			this.$select.children().each($.proxy(function (index, element) {
