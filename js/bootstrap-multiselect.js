@@ -117,10 +117,15 @@
 			// Maximum height of the dropdown menu.
 			// If maximum height is exceeded a scrollbar will be displayed.
 			maxHeight: false,
+			includeSelectAllOption: false
 		},
 
 		constructor: Multiselect,
 		
+	    // Add the [] Select all option
+		createSelectAllOption: function () {
+		    $(this.$select).html('<option value="select-all-option"> Select all</option>' + this.$select.html());
+		},
 		// Will build an dropdown element for the given option.
 		createOptionValue: function(element) {
 			if ($(element).is(':selected')) {
@@ -155,6 +160,10 @@
 
 		// Build the dropdown and bind event handling.
 		buildDropdown: function () {
+		    //If options.includeSelectAllOption === true, add the include all checkbox
+		    if (this.options.includeSelectAllOption) {
+		        this.createSelectAllOption();
+		    }
 			this.$select.children().each($.proxy(function (index, element) {
 				// Support optgroups and options without a group simultaneously.
 				var tag = $(element).prop('tagName').toLowerCase();
@@ -184,7 +193,7 @@
 			// Bind the change event on the dropdown elements.
 			$('ul li input', this.$container).on('change', $.proxy(function(event) {
 				var checked = $(event.target).prop('checked') || false;
-
+				var isSelectAllOption = $(event.target).val() == 'select-all-option';
 				if (this.options.selectedClass) {
 					if (checked) {
 						$(event.target).parents('li').addClass(this.options.selectedClass);
@@ -194,23 +203,22 @@
 					}
 				}
 
-				var option = $('option', this.$select).filter(function () { return $(this).val() == $(event.target).val(); })
-
+				var option = $('option', this.$select).filter(function() { return $(this).val() == $(event.target).val(); });
+				var $optionsNotThis = $('option', this.$select).not($(option));
+				var $checkboxesNotThis = $('input', this.$container).not($(event.target));
+				if (isSelectAllOption) {
+				    $checkboxesNotThis.filter(function () { return $(this).is(':checked') != checked; }).trigger('click');
+				}
 				if (checked) {
 					option.attr('selected', 'selected');
 					option.prop('selected', 'selected');
-
-					var $optionsNotThis = $('option', this.$select).not($(option));
-
 					if (!this.options.multiple)	{
-						var $checkboxesNotThis = $('input', this.$container).not($(event.target));
-
 						if (this.options.selectedClass) {
 							$($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
 						}
 
 						$($checkboxesNotThis).prop('checked', false);
-
+ 
 						$optionsNotThis.removeAttr('selected').removeProp('selected');
 						
 						// It's a single selection, so close.
@@ -374,11 +382,11 @@
 			if (navigator.appName == 'Microsoft Internet Explorer') {
 				var regex  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
 				if (regex.exec(navigator.userAgent) != null) {
-					return $('option:selected', this.$select);
+					return $('option:selected[value!="select-all-option"]', this.$select);
 				}
 			}
 		
-			return $('option[selected]', this.$select);
+			return $('option[selected][value!="select-all-option"]', this.$select);
 		}
 	};
 
