@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 	<head>
 		<title>Bootstrap Multiselect</title>
@@ -103,7 +103,9 @@
 					
 					$('#example24').multiselect();
 
-                                        $('#example25').multiselect({dropRight: true});
+					$('#example25').multiselect({ dropRight: true });
+
+					$('#example27').multiselect({ includeSelectAllOption: true });
 				});
 			</script>
 			<p>
@@ -125,19 +127,34 @@
 						Normal select. The plugin will do single selection using radio buttons rather than multiple selection using checkboxes.
 					</td>
 				</tr>
-				<tr>
+			    <tr>
+			        <td>
+			            <select id="example2" multiple="multiple">
+			                <option value="cheese" selected>Cheese</option>
+			                <option value="tomatoes" selected>Tomatoes</option>
+			                <option value="mozarella" selected>Mozzarella</option>
+			                <option value="mushrooms">Mushrooms</option>
+			                <option value="pepperoni">Pepperoni</option>
+			                <option value="onions">Onions</option>
+			            </select>
+			        </td>
+			        <td>
+			            Select with preselected options: <code>&lt;option value=&quot;cheese&quot; selected&gt;Cheese&lt;/option&gt;</code>
+			        </td>
+			    </tr>
+                <tr>
 					<td>
-						<select id="example2" multiple="multiple">
-							<option value="cheese" selected>Cheese</option>
-							<option value="tomatoes" selected>Tomatoes</option>
-							<option value="mozarella" selected>Mozzarella</option>
+						<select id="example27" multiple="multiple">
+							<option value="cheese">Cheese</option>
+							<option value="tomatoes">Tomatoes</option>
+							<option value="mozarella">Mozzarella</option>
 							<option value="mushrooms">Mushrooms</option>
 							<option value="pepperoni">Pepperoni</option>
 							<option value="onions">Onions</option>
 						</select>
 					</td>
 					<td>
-						Select with preselected options: <code>&lt;option value=&quot;cheese&quot; selected&gt;Cheese&lt;/option&gt;</code>
+						Multiselect with a 'Select all' option
 					</td>
 				</tr>
 				<tr>
