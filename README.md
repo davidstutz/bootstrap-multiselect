@@ -192,6 +192,10 @@ The used container holding both the dropdown button and the dropdown menu.
 
 Define if the menu should drop to the right of the button or not, by adding `pull-right` class to `<ul class="dropdown-menu">`. Default is false.
 
+**includeSelectAllOption**
+
+Define if a `<option value="select-all-option"> Select all</option>` should be appended at the beginning of the options list. When this item is clicked, it will check/uncheck other items. This only works when `multiple="multiple"` is enabled. Default is false.
+
 **onChange**
 
 Assign an event handler to the change event:
