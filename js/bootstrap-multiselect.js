@@ -30,13 +30,9 @@
 
 		        ko.applyBindingsToNode(element, { options: options, optionsValue: optionsValue, optionsText: optionsText }, viewModel);
 		        $(element).multiselect(ko.utils.unwrapObservable(multiSelectData.initOptions));
-		        var ms = $(element).data('multiselect');
-		        console.log(ms);
 		    },
 		    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-				var blockRefresh = $(element).data('blockRefresh') || false;
-				if (!blockRefresh) { $(element).multiselect("rebuild"); }
-				$.data(element, 'blockRefresh', false);
+
 			}
 		};
 	}
@@ -151,7 +147,7 @@
 		// Build the dropdown and bind event handling.
 		buildDropdown: function () {
 			//If options.includeSelectAllOption === true, add the include all checkbox
-			if (this.options.includeSelectAllOption && this.options.multiple) {
+		    if (this.options.includeSelectAllOption && this.options.multiple) {
 				this.$select.prepend('<option value="select-all-option">' + this.options.selectAllText + '</option>');
 			}
 			
