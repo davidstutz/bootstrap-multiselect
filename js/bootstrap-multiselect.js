@@ -22,26 +22,18 @@
 
 	if(typeof ko != 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect){
 		ko.bindingHandlers.multiselect = {
-			init: function (element) {
-				var ms = $(element).data('multiselect');
+		    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+		        var multiSelectData = valueAccessor();
+		        var options = ko.utils.unwrapObservable(multiSelectData.options);
+		        var optionsText = allBindingsAccessor().optionsText;
+		        var optionsValue = allBindingsAccessor().optionsValue;
 
-				if(!ms)
-					throw new Error("Bootstrap-multiselect's multiselect() has to be called on element before applying the Knockout View model!");
-
-				var prev = ms.options.onChange;
-
-				ms.options.onChange = function(option, checked){
-					// We dont want to refresh the multiselect since it would delete / recreate all items
-					$(element).data('blockRefresh', true);
-
-					// Force the binding to be updated by triggering the change event on the select element
-					$(element).trigger('change');
-
-					// Call any defined change handler
-					return prev(option, checked);
-				}
-			},
-			update: function (element) {
+		        ko.applyBindingsToNode(element, { options: options, optionsValue: optionsValue, optionsText: optionsText }, viewModel);
+		        $(element).multiselect(ko.utils.unwrapObservable(multiSelectData.initOptions));
+		        var ms = $(element).data('multiselect');
+		        console.log(ms);
+		    },
+		    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 				var blockRefresh = $(element).data('blockRefresh') || false;
 				if (!blockRefresh) { $(element).multiselect("rebuild"); }
 				$.data(element, 'blockRefresh', false);
