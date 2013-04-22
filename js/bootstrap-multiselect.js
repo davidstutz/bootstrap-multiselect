@@ -129,8 +129,7 @@
 		// Will build an dropdown element for the given option.
 		createOptionValue: function(element) {
 			if ($(element).is(':selected')) {
-				$(element).attr('selected', 'selected');
-				$(element).prop('selected', 'selected');
+				$(element).attr('selected', 'selected').prop('selected', true);
 			}
 			
 			// Support the label attribute on options.
@@ -148,7 +147,7 @@
 			$('ul', this.$container).append(li);
 
 			if ($(element).is(':disabled')) {
-				checkbox.attr('disabled', 'disabled').prop('disabled', 'disabled').parents('li').addClass('disabled')
+				checkbox.attr('disabled', 'disabled').prop('disabled', true).parents('li').addClass('disabled');
 			}
 			
 			checkbox.prop('checked', selected);
@@ -206,12 +205,13 @@
 				var option = $('option', this.$select).filter(function() { return $(this).val() == $(event.target).val(); });
 				var $optionsNotThis = $('option', this.$select).not($(option));
 				var $checkboxesNotThis = $('input', this.$container).not($(event.target));
+
 				if (isSelectAllOption) {
 				    $checkboxesNotThis.filter(function () { return $(this).is(':checked') != checked; }).trigger('click');
 				}
 				if (checked) {
-					option.attr('selected', 'selected');
-					option.prop('selected', 'selected');
+					option.attr('selected', 'selected').prop('selected', true);
+
 					if (!this.options.multiple)	{
 						if (this.options.selectedClass) {
 							$($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
@@ -219,7 +219,7 @@
 
 						$($checkboxesNotThis).prop('checked', false);
  
-						$optionsNotThis.removeAttr('selected').removeProp('selected');
+						$optionsNotThis.removeAttr('selected').prop('selected', false);
 						
 						// It's a single selection, so close.
 						$(this.$container).find(".multiselect.dropdown-toggle").click();
@@ -339,8 +339,7 @@
 
 			checkbox.prop('checked', true);
 			
-			option.attr('selected', 'selected');
-			option.prop('selected', 'selected');
+			option.attr('selected', 'selected').prop('selected', true);
 			
 			var options = this.getSelected();
 			$('button', this.$container).html(this.options.buttonText(options, this.$select));
@@ -357,8 +356,7 @@
 
 			checkbox.prop('checked', false);
 			
-			option.removeAttr('selected');
-			option.removeProp('selected');
+			option.removeAttr('selected').prop('selected', false);
 			
 			var options = this.getSelected();
 			$('button', this.$container).html(this.options.buttonText(options, this.$select));
