@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap Multiselect</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="copyright" content="David Stutz" />
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css">
+    <link rel="stylesheet" href="css/prettify.css" type="text/css">
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/knockout-2.2.1.debug.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+    <script type="text/javascript" src="js/prettify.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="hero-unit">
+            <h1>Bootstrap Multiselect</h1>
+            <p>
+                Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
+            </p>
+        </div>
+        <p class="alert alert-info">
+            <b>Note:</b> The option names may have changed due to the latest updates.
+        </p>
+        <div class="page-header">
+            <h1>Examples</h1>
+        </div>
+        <p>
+            The best way learning from the examples is using firebug, chrome developer tools or similar tools for your browser. Examine the generated markup and used javascript code.
+        </p>
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <select multiple="multiple" data-bind="multiselect: { initOptions: multiSelectInitOptions, options: items() }, optionsText: 'text', optionsValue: 'id'">
+                    </select>
+
+                    <select multiple="multiple" data-bind="options: items(), optionsText: 'text', optionsValue: 'id'">
+                    </select><br />
+                    <span data-bind="text: ko.toJSON(items())" />
+                </td>
+                <td>Normal select. The plugin will do single selection using radio buttons rather than multiple selection using checkboxes.
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <p>
+            &copy; 2012
+                <a href="http://davidstutz.de">David Stutz</a> - <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>
+        </p>
+    </div>
+</body>
+</html>
+<script>
+    var viewModel = function () {
+        var self = this;
+        self.items = ko.observableArray([
+             { id: 1, text: 'item 1' },
+            { id: 2, text: 'item 2' },
+            { id: 3, text: 'item 3' },
+            { id: 4, text: 'item 4' },
+            { id: 5, text: 'item 5' },
+        ]);
+
+        self.multiSelectInitOptions = {
+            includeSelectAllOption: true
+        };
+        return self;
+    };
+
+    var vm = new viewModel();
+    ko.applyBindings(vm);
+</script>
