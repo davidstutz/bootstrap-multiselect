@@ -39,8 +39,7 @@
                     <select multiple="multiple" data-bind="multiselect: { initOptions: multiSelectInitOptions, options: items() }, optionsText: 'text', optionsValue: 'id'">
                     </select>
 
-                    <select multiple="multiple" data-bind="options: items(), optionsText: 'text', optionsValue: 'id'">
-                    </select><br />
+                    <br />
                     <span data-bind="text: ko.toJSON(items())" />
                 </td>
                 <td>Normal select. The plugin will do single selection using radio buttons rather than multiple selection using checkboxes.
