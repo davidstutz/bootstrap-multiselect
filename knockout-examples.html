@@ -73,4 +73,10 @@
 
     var vm = new viewModel();
     ko.applyBindings(vm);
+
+    //simulating changes on the observable
+    var t = setInterval(function () {
+        if (vm.items().length >= 15) clearInterval(t);
+        vm.items.push({ id: vm.items().length + 1, text: 'item ' + (vm.items().length + 1) });
+    }, 1000);
 </script>
