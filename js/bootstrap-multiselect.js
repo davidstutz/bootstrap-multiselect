@@ -122,9 +122,9 @@
 
 		constructor: Multiselect,
 		
-	    // Add the [] Select all option
+		// Add the [] Select all option
 		createSelectAllOption: function () {
-		    $(this.$select).html('<option value="select-all-option"> Select all</option>' + this.$select.html());
+			$(this.$select).html('<option value="select-all-option"> Select all</option>' + this.$select.html());
 		},
 		// Will build an dropdown element for the given option.
 		createOptionValue: function(element) {
@@ -159,10 +159,10 @@
 
 		// Build the dropdown and bind event handling.
 		buildDropdown: function () {
-		    //If options.includeSelectAllOption === true, add the include all checkbox
-		    if (this.options.includeSelectAllOption && this.options.multiple) {
-		        this.createSelectAllOption();
-		    }
+			//If options.includeSelectAllOption === true, add the include all checkbox
+			if (this.options.includeSelectAllOption && this.options.multiple) {
+				this.createSelectAllOption();
+			}
 			this.$select.children().each($.proxy(function (index, element) {
 				// Support optgroups and options without a group simultaneously.
 				var tag = $(element).prop('tagName').toLowerCase();
@@ -207,12 +207,13 @@
 				var $checkboxesNotThis = $('input', this.$container).not($(event.target));
 
 				if (isSelectAllOption) {
-				    $checkboxesNotThis.filter(function () { return $(this).is(':checked') != checked; }).trigger('click');
+					$checkboxesNotThis.filter(function () { return $(this).is(':checked') != checked; }).trigger('click');
 				}
 				if (checked) {
-					option.attr('selected', 'selected').prop('selected', true);
+				    option.prop('selected', true);
 
-					if (!this.options.multiple)	{
+				    if (!this.options.multiple)
+				    {
 						if (this.options.selectedClass) {
 							$($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
 						}
@@ -220,7 +221,7 @@
 						$($checkboxesNotThis).prop('checked', false);
  
 						$optionsNotThis.removeAttr('selected').prop('selected', false);
-						
+
 						// It's a single selection, so close.
 						$(this.$container).find(".multiselect.dropdown-toggle").click();
 					}
@@ -228,9 +229,10 @@
 					if (this.options.selectedClass == "active") {
 						$optionsNotThis.parents("a").css("outline", "");
 					}					
+
 				}
 				else {
-					option.removeAttr('selected');
+					option.removeAttr('selected').prop('selected', false);
 				}
 				
 				var options = this.getSelected();
@@ -377,14 +379,14 @@
 		
 		// For IE 9 support.
 		getSelected: function() {
-			if (navigator.appName == 'Microsoft Internet Explorer') {
-				var regex  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-				if (regex.exec(navigator.userAgent) != null) {
-					return $('option:selected[value!="select-all-option"]', this.$select);
-				}
-			}
+			//if (navigator.appName == 'Microsoft Internet Explorer') {
+			//	var regex  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+			//	if (regex.exec(navigator.userAgent) != null) {
+			//		return $('option:selected[value!="select-all-option"]', this.$select);
+			//	}
+			//}
 		
-			return $('option[selected][value!="select-all-option"]', this.$select);
+			return $('option:selected[value!="select-all-option"]', this.$select);
 		}
 	};
 
@@ -405,8 +407,8 @@
 		});
 	}
 	
-    $(function()
-    {
-        $("select[data-role=multiselect]").multiselect();
-    });
+	$(function()
+	{
+		$("select[data-role=multiselect]").multiselect();
+	});
 }(window.jQuery);
