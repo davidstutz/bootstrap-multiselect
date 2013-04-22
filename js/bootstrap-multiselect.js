@@ -117,14 +117,15 @@
 			// Maximum height of the dropdown menu.
 			// If maximum height is exceeded a scrollbar will be displayed.
 			maxHeight: false,
-			includeSelectAllOption: false
+			includeSelectAllOption: false,
+			selectAllText: 'Select all'
 		},
 
 		constructor: Multiselect,
 		
 	    // Add the [] Select all option
 		createSelectAllOption: function () {
-		    $(this.$select).html('<option value="select-all-option"> Select all</option>' + this.$select.html());
+		    $(this.$select).html('<option value="select-all-option"> ' + this.options.selectAllText+'</option>' + this.$select.html());
 		},
 		// Will build an dropdown element for the given option.
 		createOptionValue: function(element) {
