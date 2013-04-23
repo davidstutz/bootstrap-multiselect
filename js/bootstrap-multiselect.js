@@ -22,30 +22,24 @@
 
 	if(typeof ko != 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect){
 		ko.bindingHandlers.multiselect = {
-			init: function (element) {
-				var ms = $(element).data('multiselect');
+		    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+		    },
+		    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+		        var multiSelectData = valueAccessor();
+		        var options = multiSelectData.options;
+		        var optionsText = allBindingsAccessor().optionsText;
+		        var optionsValue = allBindingsAccessor().optionsValue;
 
-				if(!ms)
-					throw new Error("Bootstrap-multiselect's multiselect() has to be called on element before applying the Knockout View model!");
+		        ko.applyBindingsToNode(element, { options: options, optionsValue: optionsValue, optionsText: optionsText }, viewModel);
 
-				var prev = ms.options.onChange;
+		        var ms = $(element).data('multiselect');
 
-				ms.options.onChange = function(option, checked){
-					// We dont want to refresh the multiselect since it would delete / recreate all items
-					$(element).data('blockRefresh', true);
-
-					// Force the binding to be updated by triggering the change event on the select element
-					$(element).trigger('change');
-
-					// Call any defined change handler
-					return prev(option, checked);
-				}
-			},
-			update: function (element) {
-				var blockRefresh = $(element).data('blockRefresh') || false;
-				if (!blockRefresh) { $(element).multiselect("rebuild"); }
-				$.data(element, 'blockRefresh', false);
-			}
+		        if (ms) {
+		            $(element).multiselect('rebuild');
+		        } else {
+		            $(element).multiselect(ko.utils.unwrapObservable(multiSelectData.initOptions));
+		        }
+		    }
 		};
 	}
 
@@ -158,11 +152,12 @@
 
 		// Build the dropdown and bind event handling.
 		buildDropdown: function () {
+		    var alreadyHasSelectAll = this.$select[0][0].value == 'select-all-option';
 			//If options.includeSelectAllOption === true, add the include all checkbox
-			if (this.options.includeSelectAllOption && this.options.multiple) {
+		    if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
 				this.$select.prepend('<option value="select-all-option">' + this.options.selectAllText + '</option>');
-			}
-			
+		    }
+		
 			this.$select.children().each($.proxy(function (index, element) {
 				// Support optgroups and options without a group simultaneously.
 				var tag = $(element).prop('tagName').toLowerCase();
@@ -366,7 +361,7 @@
 		
 		// Rebuild the whole dropdown menu.
 		rebuild: function() {
-			$('ul', this.$container).html('');
+		    $('ul', this.$container).html('');
 			this.buildDropdown(this.$select, this.options);
 			this.updateButtonText();
 		},
@@ -381,35 +376,27 @@
 			$('button', this.$container).html(this.options.buttonText(options, this.$select));
 		},
 		
-		// For IE 9 support.
-		getSelected: function() {
-			//if (navigator.appName == 'Microsoft Internet Explorer') {
-			//	var regex  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-			//	if (regex.exec(navigator.userAgent) != null) {
-			//		return $('option:selected[value!="select-all-option"]', this.$select);
-			//	}
-			//}
-		
+		getSelected: function() {	
 			return $('option:selected[value!="select-all-option"]', this.$select);
 		}
 	};
 
-	$.fn.multiselect = function (option, parameter) {
-		return this.each(function () {
-			var data = $(this).data('multiselect'),
-				options = typeof option == 'object' && option;
-			
-			// Initialize the multiselect.
-			if (!data) {
-				$(this).data('multiselect', (data = new Multiselect(this, options)));
-			}
-			
-			// Call multiselect method.
-			if (typeof option == 'string') {
-				data[option](parameter);
-			}
-		});
-	}
+    $.fn.multiselect = function(option, parameter) {
+        return this.each(function() {
+            var data = $(this).data('multiselect'),
+                options = typeof option == 'object' && option;
+
+            // Initialize the multiselect.
+            if (!data) {
+                $(this).data('multiselect', (data = new Multiselect(this, options)));
+            }
+
+            // Call multiselect method.
+            if (typeof option == 'string') {
+                data[option](parameter);
+            }
+        });
+    };
 	
 	$(function() {
 		$("select[data-role=multiselect]").multiselect();
