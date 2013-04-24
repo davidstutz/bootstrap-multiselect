@@ -208,7 +208,7 @@
 					$checkboxesNotThis.filter(function () { return $(this).is(':checked') != checked; }).trigger('click');
 				}
 				if (checked) {
-					$option.attr('selected', 'selected');
+					//$option.attr('selected', 'selected');
 				    $option.prop('selected', true);
 
 				    if (!this.options.multiple)
