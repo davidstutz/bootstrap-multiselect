@@ -208,11 +208,12 @@
 					$checkboxesNotThis.filter(function () { return $(this).is(':checked') != checked; }).trigger('click');
 				}
 				if (checked) {
-					$option.attr('selected', 'selected');
 				    $option.prop('selected', true);
 
-				    if (!this.options.multiple)
-				    {
+				    if (this.options.multiple) {
+						$option.attr('selected', 'selected');
+				    }
+				    else {
 						if (this.options.selectedClass) {
 							$($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
 						}
