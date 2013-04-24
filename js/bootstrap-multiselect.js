@@ -242,7 +242,7 @@
 				this.$select.change();
 			}, this));
 
-			$('ul li a', this.$container).on('click', function(event) {
+			$('ul li a', this.$container).on('touchstart click', function(event) {
 				event.stopPropagation();
 			});
 
