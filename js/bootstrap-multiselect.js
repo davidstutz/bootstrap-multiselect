@@ -47,12 +47,28 @@
 		
 		this.options = this.getOptions(options);
 		this.$select = $(select);
+	    this.query = '';
 		
 		this.options.multiple = this.$select.attr('multiple') == "multiple";
 		
 		this.$container = $(this.options.buttonContainer)
 			.append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText(this.getSelected(), this.$select) + '</button>')
 			.append('<ul class="dropdown-menu' + (this.options.dropRight ? ' pull-right' : '') + '"></ul>');
+	    
+		if (this.options.enableFiltering) {
+		    $('ul', this.$container).prepend('<div class="input-prepend" style="padding:3px;"><span class="add-on"><i class="icon-search"></i></span><input id="multiselect-default-search" type="text" placeholder="' + this.options.filterPlaceholder + '"></div>');
+		    $('#multiselect-default-search', this.$container).val(this.query).click(function (event) {
+		        event.stopPropagation();
+		    }).keydown($.proxy(function (event) {
+		        // This is useful to catch "keydown" events after the browser has updated the control
+		        setTimeout($.proxy(function () {
+		            var inputValue = event.target.value;
+		            if (inputValue != this.query) {
+		                this.query = inputValue;
+		            }
+		        }, this), 0);
+		    }, this));
+		}
 
 		if (this.options.buttonWidth) {
 			$('button', this.$container).css({
@@ -67,6 +83,8 @@
 				'overflow-y': 'auto',
 				'overflow-x': 'hidden'
 			});
+
+			$('input[type="text"]', this.$container).width('75%');
 		}
 
 		this.buildDropdown();
@@ -114,7 +132,9 @@
 			// If maximum height is exceeded a scrollbar will be displayed.
 			maxHeight: false,
 			includeSelectAllOption: false,
-			selectAllText: ' Select all'
+			selectAllText: ' Select all',
+			enableFiltering: false,
+			filterPlaceholder: 'Search'
 		},
 
 		constructor: Multiselect,
@@ -248,7 +268,8 @@
 			});
 
 			// Keyboard support.
-			this.$container.on('keydown', $.proxy(function(event) {
+			this.$container.on('keydown', $.proxy(function (event) {
+			    if ($('input[type="text"]', this.$container).is(':focus')) return;
 				if ((event.keyCode == 9 || event.keyCode == 27) && this.$container.hasClass('open')) {
 					// Close on tab or escape.
 					$(this.$container).find(".multiselect.dropdown-toggle").click();

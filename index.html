@@ -109,6 +109,8 @@
 					$('#example25').multiselect({ dropRight: true });
 
 					$('#example27').multiselect({ includeSelectAllOption: true });
+
+					$('#example28').multiselect({ includeSelectAllOption: true, enableFiltering: true, maxHeight:100 });
 				});
 			</script>
 			<p>
@@ -145,9 +147,24 @@
 			            Select with preselected options: <code>&lt;option value=&quot;cheese&quot; selected&gt;Cheese&lt;/option&gt;</code>
 			        </td>
 			    </tr>
-                <tr>
+			    <tr>
+			        <td>
+			            <select id="example27" multiple="multiple">
+			                <option value="cheese">Cheese</option>
+			                <option value="tomatoes">Tomatoes</option>
+			                <option value="mozarella">Mozzarella</option>
+			                <option value="mushrooms">Mushrooms</option>
+			                <option value="pepperoni">Pepperoni</option>
+			                <option value="onions">Onions</option>
+			            </select>
+			        </td>
+			        <td>
+			            Multiselect with a 'Select all' option
+			        </td>
+			    </tr>
+                       <tr>
 					<td>
-						<select id="example27" multiple="multiple">
+						<select id="example28" multiple="multiple">
 							<option value="cheese">Cheese</option>
 							<option value="tomatoes">Tomatoes</option>
 							<option value="mozarella">Mozzarella</option>
@@ -157,7 +174,7 @@
 						</select>
 					</td>
 					<td>
-						Multiselect with a 'Select all' option
+						Multiselect with a 'Select all' option and filtering enabled
 					</td>
 				</tr>
 				<tr>
