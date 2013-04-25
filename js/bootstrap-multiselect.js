@@ -323,6 +323,13 @@
 						$input.parents('li').removeClass(this.options.selectedClass);
 					}
 				}
+
+				if ($(element).is(":disabled"))	{
+				    input.attr('disabled', 'disabled').prop('disabled', true).parents('li').addClass('disabled');
+				}
+				else {
+				    input.removeAttr('disabled').prop('disabled', false).parents('li').removeClass('disabled');
+				}				
 			}, this));
 			
 			this.updateButtonText();
