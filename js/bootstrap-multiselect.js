@@ -57,7 +57,13 @@
 	        });
 	    };
 		this.query = '';
-	    this.searchTimeout = null;
+		this.searchTimeout = null;
+		this.asyncFunction = function (callback, timeout, self) {
+		    var args = Array.prototype.slice.call(arguments, 3);
+		    return setTimeout(function () {
+		        callback.apply(self || window, args);
+		    }, timeout);
+		};
 		
 		this.options.multiple = this.$select.attr('multiple') == "multiple";
 		
@@ -72,21 +78,23 @@
 		    }).keydown($.proxy(function (event) {
 		        // This is useful to catch "keydown" events after the browser has updated the control
 		        clearTimeout(this.searchTimeout);
-		        this.searchTimeout = setTimeout($.proxy(function () {
+		        this.searchTimeout = this.asyncFunction($.proxy(function () {
 		            var inputValue = event.target.value;
 		            if (inputValue != this.query) {
 		                this.query = inputValue;
 		                this.$select.empty();
 
 		                var filteredValues = this.getFilteredOptions();
-
+		                var newOptions = '';
 		                for (var i = 0; i < filteredValues.length; i++) {
 		                    var option = filteredValues[i];
-		                    this.$select.append($('<option></option>').attr('value', option.value).text(option.text));
+		                    newOptions += '<option value="'+option.value+'">'+option.text+'</option>';
 		                }
+		                console.log(newOptions);
+		                this.$select.html(newOptions);
 		                this.rebuild();
 		            }
-		        }, this), 300);
+		        }, this), 300, this);
 		    }, this));
 		}
 
