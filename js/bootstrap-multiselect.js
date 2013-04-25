@@ -47,7 +47,17 @@
 		
 		this.options = this.getOptions(options);
 		this.$select = $(select);
-	    this.query = '';
+		this.originalOptions = this.$select.clone()[0].options; //we have to clone to create a new reference
+		this.getFilteredOptions = function () {
+		    if (this.query == '') return this.originalOptions;
+		    var query = this.query;
+		    
+		    return $(this.originalOptions).filter(function () {
+		        return this.text.substring(0, query.length) == query
+	        });
+	    };
+		this.query = '';
+	    this.searchTimeout = null;
 		
 		this.options.multiple = this.$select.attr('multiple') == "multiple";
 		
@@ -61,12 +71,22 @@
 		        event.stopPropagation();
 		    }).keydown($.proxy(function (event) {
 		        // This is useful to catch "keydown" events after the browser has updated the control
-		        setTimeout($.proxy(function () {
+		        clearTimeout(this.searchTimeout);
+		        this.searchTimeout = setTimeout($.proxy(function () {
 		            var inputValue = event.target.value;
 		            if (inputValue != this.query) {
 		                this.query = inputValue;
+		                this.$select.empty();
+
+		                var filteredValues = this.getFilteredOptions();
+
+		                for (var i = 0; i < filteredValues.length; i++) {
+		                    var option = filteredValues[i];
+		                    this.$select.append($('<option></option>').attr('value', option.value).text(option.text));
+		                }
+		                this.rebuild();
 		            }
-		        }, this), 0);
+		        }, this), 300);
 		    }, this));
 		}
 
