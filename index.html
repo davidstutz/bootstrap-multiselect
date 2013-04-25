@@ -19,7 +19,12 @@
 		</style>
 	</head>
 	<body>
-		<div class="container">
+	    <div class="container">
+	        <script>
+	            $('.dropdown input, .dropdown label').click(function (e) {
+	                e.stopPropagation();
+	            });
+        	</script>
 			<div class="hero-unit">
 				<h1>Bootstrap Multiselect</h1>
 				<p>
@@ -33,50 +38,50 @@
 				<h1>Examples</h1>
 			</div>
 			<script type="text/javascript">
-				$(document).ready(function() {
-					window.prettyPrint() && prettyPrint();
+			    $(document).ready(function() {
+			        window.prettyPrint() && prettyPrint();
 					
-					$('#example1').multiselect();
+			        $('#example1').multiselect();
 					
-					$('#example2').multiselect();
+			        $('#example2').multiselect();
 					
-					$('#example3').multiselect({
-						buttonClass: 'btn btn-link'
-					});
+			        $('#example3').multiselect({
+			            buttonClass: 'btn btn-link'
+			        });
 					
-					$('#example4').multiselect({
-						buttonClass: 'btn btn-small'
-					});
+			        $('#example4').multiselect({
+			            buttonClass: 'btn btn-small'
+			        });
 					
-					$('#example5').multiselect({
-						buttonClass: 'btn btn-primary disabled'
-					});
+			        $('#example5').multiselect({
+			            buttonClass: 'btn btn-primary disabled'
+			        });
 					
-					$('#example6').multiselect();
+			        $('#example6').multiselect();
 					
-					$('.example7').multiselect({
-						buttonContainer: '<span class="dropdown" />',
-					});
+			        $('.example7').multiselect({
+			            buttonContainer: '<span class="dropdown" />',
+			        });
 					
-					$('#example9').multiselect({
-						onChange:function(element, checked){
-							alert('Change event invoked!');
-							console.log(element);
-						}
-					});
+			        $('#example9').multiselect({
+			            onChange:function(element, checked){
+			                alert('Change event invoked!');
+			                console.log(element);
+			            }
+			        });
 					
-					for (var i = 1; i <= 100; i++) {
-						$('#example11').append('<option value="' + i + '">Options ' + i + '</option>');
-					}
-					$('#example11').multiselect({
-						maxHeight: 200
-					})
+			        for (var i = 1; i <= 100; i++) {
+			            $('#example11').append('<option value="' + i + '">Options ' + i + '</option>');
+			        }
+			        $('#example11').multiselect({
+			            maxHeight: 200
+			        })
 					
-					$('#example13').multiselect();
+			        $('#example13').multiselect();
 					
-					$('#example14').multiselect({
-						buttonWidth: '500px',
-						buttonText: function(options) {
+			        $('#example14').multiselect({
+			            buttonWidth: '500px',
+			            buttonText: function(options) {
 			                if (options.length == 0) {
 			                    return 'None selected <b class="caret"></b>';
 			                }
@@ -88,30 +93,30 @@
 			                    return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
 			                }
 			            }
-					});
+			        });
 					
-					$('#example16').multiselect({
-						onChange: function(option, checked) {
-							$('#example16').multiselect('select', option.val());
-						}
-					});
+			        $('#example16').multiselect({
+			            onChange: function(option, checked) {
+			                $('#example16').multiselect('select', option.val());
+			            }
+			        });
 					
-					$('#example19').multiselect();
+			        $('#example19').multiselect();
 
-					$('#example20').multiselect({
-						selectedClass: null
-					});
+			        $('#example20').multiselect({
+			            selectedClass: null
+			        });
 					
-					$('#example23').multiselect();
+			        $('#example23').multiselect();
 					
-					$('#example24').multiselect();
+			        $('#example24').multiselect();
 
-					$('#example25').multiselect({ dropRight: true });
+			        $('#example25').multiselect({ dropRight: true });
 
-					$('#example27').multiselect({ includeSelectAllOption: true });
+			        $('#example27').multiselect({ includeSelectAllOption: true });
 
-					$('#example28').multiselect({ includeSelectAllOption: true, enableFiltering: true, maxHeight:100 });
-				});
+			        $('#example28').multiselect({ includeSelectAllOption: true, enableFiltering: true, maxHeight: 150 });
+			    });
 			</script>
 			<p>
 				The best way learning from the examples is using firebug, chrome developer tools or similar tools for your browser. Examine the generated markup and used javascript code.
@@ -518,73 +523,73 @@
 				<h1>Methods</h1>
 			</div>
 			<script type="text/javascript">
-				$(document).ready(function() {
-					$('#example8').multiselect({
-						buttonContainer: '<span />'
-					});
-					$('#example8-destroy').on('click', function() {
-						$('#example8').multiselect('destroy');
-					});
+			    $(document).ready(function() {
+			        $('#example8').multiselect({
+			            buttonContainer: '<span />'
+			        });
+			        $('#example8-destroy').on('click', function() {
+			            $('#example8').multiselect('destroy');
+			        });
 					
-					$('#example10').multiselect({
-						buttonContainer: '<span />'
-					});
-					$('#example10-select').on('click', function() {
-						$('option[value="tomatoes"]', $('#example10')).prop('selected', 'selected');
-						$('option[value="tomatoes"]', $('#example10')).attr('selected', 'selected');
+			        $('#example10').multiselect({
+			            buttonContainer: '<span />'
+			        });
+			        $('#example10-select').on('click', function() {
+			            $('option[value="tomatoes"]', $('#example10')).prop('selected', 'selected');
+			            $('option[value="tomatoes"]', $('#example10')).attr('selected', 'selected');
 						
-						$('option[value="mushrooms"]', $('#example10')).prop('selected', 'selected');
-						$('option[value="mushrooms"]', $('#example10')).attr('selected', 'selected');
+			            $('option[value="mushrooms"]', $('#example10')).prop('selected', 'selected');
+			            $('option[value="mushrooms"]', $('#example10')).attr('selected', 'selected');
 						
-						$('option[value="onions"]', $('#example10')).prop('selected', 'selected');
-						$('option[value="onions"]', $('#example10')).attr('selected', 'selected');
+			            $('option[value="onions"]', $('#example10')).prop('selected', 'selected');
+			            $('option[value="onions"]', $('#example10')).attr('selected', 'selected');
 						
-						alert('Selected Tomatoes, Mushrooms and Onions.');
-					});
-					$('#example10-deselect').on('click', function() {
-						$('option', $('#example10')).each(function(element) {
-							$(this).removeAttr('selected');
-						});
-					});
-					$('#example10-refresh').on('click', function() {
-						$('#example10').multiselect('refresh');
-					});
+			            alert('Selected Tomatoes, Mushrooms and Onions.');
+			        });
+			        $('#example10-deselect').on('click', function() {
+			            $('option', $('#example10')).each(function(element) {
+			                $(this).removeAttr('selected');
+			            });
+			        });
+			        $('#example10-refresh').on('click', function() {
+			            $('#example10').multiselect('refresh');
+			        });
 					
-					$('#example12').multiselect({
-						buttonContainer: '<span />'
-					});
-					$('#example12-rebuild').on('click', function() {
-						$('#example12').multiselect('rebuild');
-					});
-					$('#example12-add').on('click', function() {
-						$('#example12').append('<option value="add1">Addition 1</option><option value="add2">Addition 2</option><option value="add3">Addition 3</option>');
-					});
-					$('#example12-delete').on('click', function() {
-						$('option[value="add1"]', $('#example12')).remove();
-						$('option[value="add2"]', $('#example12')).remove();
-						$('option[value="add3"]', $('#example12')).remove();
-					});
+			        $('#example12').multiselect({
+			            buttonContainer: '<span />'
+			        });
+			        $('#example12-rebuild').on('click', function() {
+			            $('#example12').multiselect('rebuild');
+			        });
+			        $('#example12-add').on('click', function() {
+			            $('#example12').append('<option value="add1">Addition 1</option><option value="add2">Addition 2</option><option value="add3">Addition 3</option>');
+			        });
+			        $('#example12-delete').on('click', function() {
+			            $('option[value="add1"]', $('#example12')).remove();
+			            $('option[value="add2"]', $('#example12')).remove();
+			            $('option[value="add3"]', $('#example12')).remove();
+			        });
 					
-					$('#example17').multiselect({
-						buttonContainer: '<span />'
-					});
-					$('#example17-cheese').on('click', function() {
-						$('#example17').multiselect('select', 'cheese');
-					});
-					$('#example17-mushrooms').on('click', function() {
-						$('#example17').multiselect('select', 'mushrooms');
-					});
+			        $('#example17').multiselect({
+			            buttonContainer: '<span />'
+			        });
+			        $('#example17-cheese').on('click', function() {
+			            $('#example17').multiselect('select', 'cheese');
+			        });
+			        $('#example17-mushrooms').on('click', function() {
+			            $('#example17').multiselect('select', 'mushrooms');
+			        });
 					
-					$('#example18').multiselect({
-						buttonContainer: '<span />'
-					});
-					$('#example18-cheese').on('click', function() {
-						$('#example18').multiselect('deselect', 'cheese');
-					});
-					$('#example18-mushrooms').on('click', function() {
-						$('#example18').multiselect('deselect', 'mushrooms');
-					});
-				});
+			        $('#example18').multiselect({
+			            buttonContainer: '<span />'
+			        });
+			        $('#example18-cheese').on('click', function() {
+			            $('#example18').multiselect('deselect', 'cheese');
+			        });
+			        $('#example18-mushrooms').on('click', function() {
+			            $('#example18').multiselect('deselect', 'mushrooms');
+			        });
+			    });
 			</script>
 			<style type="text/css">
 			    .multiselect-group {
@@ -706,98 +711,98 @@
 				 * @param {jQuery} $el
 				 * @returns {bool}
 				 */
-				function multiselect_selected($el) {
-					var ret = true;
-					$('option', $el).each(function(element) {
-						if (!!!$(this).attr('selected')) {
-							ret = false;
-						}
-					});
-					return ret;
-				}
+			    function multiselect_selected($el) {
+			        var ret = true;
+			        $('option', $el).each(function(element) {
+			            if (!!!$(this).attr('selected')) {
+			                ret = false;
+			            }
+			        });
+			        return ret;
+			    }
 				 
-				/**
+			    /**
 				 * Selects all the options
 				 * @param {jQuery} $el
 				 * @returns {undefined}
 				 */
-				function multiselect_selectAll($el) {
-					$('option', $el).each(function(element) {
-						$el.multiselect('select', $(this).val());
-					});
-					console.log($('option[selected]', $el).length)
-				}
-				/**
+			    function multiselect_selectAll($el) {
+			        $('option', $el).each(function(element) {
+			            $el.multiselect('select', $(this).val());
+			        });
+			        console.log($('option[selected]', $el).length)
+			    }
+			    /**
 				 * Deselects all the options
 				 * @param {jQuery} $el
 				 * @returns {undefined}
 				 */
-				function multiselect_deselectAll($el) {
-					$('option', $el).each(function(element) {
-						$el.multiselect('deselect', $(this).val());
-					});
-					console.log($('option[selected]', $el).length)
-				}
+			    function multiselect_deselectAll($el) {
+			        $('option', $el).each(function(element) {
+			            $el.multiselect('deselect', $(this).val());
+			        });
+			        console.log($('option[selected]', $el).length)
+			    }
 				 
-				/**
+			    /**
 				 * Clears all the selected options
 				 * @param {jQuery} $el
 				 * @returns {undefined}
 				 */
-				function multiselect_toggle($el, $btn) {
-					if (multiselect_selected($el)) {
-						multiselect_deselectAll($el);
-						$btn.text("Select All");
-					}
-					else {
-						multiselect_selectAll($el);
-						$btn.text("Deselect All");
-					}
-				}
+			    function multiselect_toggle($el, $btn) {
+			        if (multiselect_selected($el)) {
+			            multiselect_deselectAll($el);
+			            $btn.text("Select All");
+			        }
+			        else {
+			            multiselect_selectAll($el);
+			            $btn.text("Deselect All");
+			        }
+			    }
 				 
-				$(document).ready(function() {
-					$('#example21').multiselect({
-						buttonContainer: '<span />'
-					});
-					$("#example21-toggle").click(function(e) {
-						e.preventDefault();
-						multiselect_toggle($("#example21"), $(this));
-					});
+			    $(document).ready(function() {
+			        $('#example21').multiselect({
+			            buttonContainer: '<span />'
+			        });
+			        $("#example21-toggle").click(function(e) {
+			            e.preventDefault();
+			            multiselect_toggle($("#example21"), $(this));
+			        });
 					
-					$('#example22').multiselect({
-				        buttonClass: 'btn',
-				        buttonWidth: 'auto',
-				        buttonText: function(options) {
-							if (options.length == 0) {
-					            return 'None selected <b class="caret"></b>';
-					        }
-					        else if (options.length > 6) {
-					            return options.length + ' selected  <b class="caret"></b>';
-					        }
-					        else {
-					            var selected = '';
-					            options.each(function() {
-					              selected += $(this).text() + ', ';
-					            });
+			        $('#example22').multiselect({
+			            buttonClass: 'btn',
+			            buttonWidth: 'auto',
+			            buttonText: function(options) {
+			                if (options.length == 0) {
+			                    return 'None selected <b class="caret"></b>';
+			                }
+			                else if (options.length > 6) {
+			                    return options.length + ' selected  <b class="caret"></b>';
+			                }
+			                else {
+			                    var selected = '';
+			                    options.each(function() {
+			                        selected += $(this).text() + ', ';
+			                    });
 	
-					            return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
-					        }
-				        },
-				        onChange: function(element, checked) {
-							if(checked == true) {
-				                //action taken here if true
-				            }
-							else if(checked == false) {
-				                if(confirm('Do you wish to deselect the element?')) {
-				                    //action taken here
-				                }
-				                else {
-				                    $("#example22").multiselect('select', element.val());
-				                }
-				            }
-						}
-				    });
-				});
+			                    return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
+			                }
+			            },
+			            onChange: function(element, checked) {
+			                if(checked == true) {
+			                    //action taken here if true
+			                }
+			                else if(checked == false) {
+			                    if(confirm('Do you wish to deselect the element?')) {
+			                        //action taken here
+			                    }
+			                    else {
+			                        $("#example22").multiselect('select', element.val());
+			                    }
+			                }
+			            }
+			        });
+			    });
 			</script>
 			<table class="table table-striped">
 				<tbody>
@@ -1113,10 +1118,10 @@
 			    }
 			</style>
 			<script type="text/javascript">
-				$(document).ready(function() {
-					$('#example15').multiselect({
-						buttonWidth: '500px',
-						buttonText: function(options) {
+			    $(document).ready(function() {
+			        $('#example15').multiselect({
+			            buttonWidth: '500px',
+			            buttonText: function(options) {
 			                if (options.length == 0) {
 			                    return 'None selected <b class="caret"></b>';
 			                }
@@ -1128,8 +1133,8 @@
 			                    return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
 			                }
 			            }
-					});
-				});
+			        });
+			    });
 			</script>
 			<div class="add-styling">
 				<table class="table table-striped">
