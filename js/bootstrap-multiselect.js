@@ -90,7 +90,6 @@
 		                    var option = filteredValues[i];
 		                    newOptions += '<option value="'+option.value+'">'+option.text+'</option>';
 		                }
-		                console.log(newOptions);
 		                this.$select.html(newOptions);
 		                this.rebuild();
 		            }
