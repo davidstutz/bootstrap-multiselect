@@ -47,8 +47,7 @@
             </tr> 
             <tr>
                 <td>
-                    <select multiple="multiple" data-bind="options: items, optionsText: 'text', optionsValue: 'id',selectedOptions: selectedItems, multiselect: multiSelectInitOptions">
-                    </select>
+                    <select multiple="multiple" data-bind="options: items, selectedOptions: selectedItems, multiselect: multiSelectInitOptions"></select>
                 </td>
                 <td><span data-bind="text: ko.toJSON(selectedItems())" /></td>
                 <td>Basic knockout multiselect example with select all options enabled. Notice that once an item is added to the collection, the select all option isn't checked anymore because it isn't true anymore.
@@ -69,11 +68,11 @@
     var viewModel = function () {
         var self = this;
         self.items = ko.observableArray([
-             { id: 1, text: 'Cheese' },
-            { id: 2, text: 'Tomatoes' },
-            { id: 3, text: 'Mozzarella' },
-            { id: 4, text: 'Mushrooms' },
-            { id: 5, text: 'Pepperoni' }
+             'Cheese',
+            'Tomatoes',
+            'Mozzarella',
+            'Mushrooms',
+            'Pepperoni' 
         ]);
 
         self.multiSelectInitOptions = {
@@ -84,7 +83,7 @@
         self.selectedItems = ko.observableArray([]);
 
         self.addItem = function() {
-            self.items.push({id: (self.items().length + 1), text: 'new item ' + (self.items().length+1)});
+            self.items.push('new item ' + (self.items().length + 1));
         };
         
         return self;

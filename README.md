@@ -273,7 +273,7 @@ Thanks to [Devristo](https://github.com/Devristo) and [Luis Rudge](https://githu
 
 Note the multiselect: true binding!
 
-	<select class="multiSelect" data-bind="options: items, optionsText: 'text', optionsValue: 'id',selectedOptions: selectedItems, multiselect: multiSelectInitOptions" multiple="multiple"></select>
+	<select multiple="multiple" data-bind="options: items, selectedOptions: selectedItems, multiselect: multiSelectInitOptions"></select>
 	
 **Apply Knockout view model**
 
