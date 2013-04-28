@@ -188,6 +188,10 @@ The used container holding both the dropdown button and the dropdown menu.
 		});
 	});
 
+**selectedClass**
+
+The class applied to the parent `<li>` of selected items. Default: active.
+
 **dropRight**
 
 Define if the menu should drop to the right of the button or not, by adding `pull-right` class to `<ul class="dropdown-menu">`. Default is false.
@@ -195,6 +199,10 @@ Define if the menu should drop to the right of the button or not, by adding `pul
 **includeSelectAllOption**
 
 Define if a `<option value="select-all-option"> Select all</option>` should be appended at the beginning of the options list. When this item is clicked, it will check/uncheck other items. This only works when `multiple="multiple"` is enabled. Default is false.
+
+**selectAllText**
+
+Defines the label of the select all option.
 
 **enableFiltering**
 
@@ -252,7 +260,7 @@ Deselects an option by its value.
 
 ## Additional Styling
 
-Additional Styling can be done using the multiselect class:
+Additional Styling can be done using the following classes:
 
 	.multiselect {
 		text-align: left;
@@ -260,8 +268,19 @@ Additional Styling can be done using the multiselect class:
 	.multiselect b.caret {
 		float: right;
 	}
+	.multiselect-group {
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	.multiselect-all label {
+		font-weight: bold;
+	}
+	.multiselect-search {
+		color: red;
+	}
+	
 
-## Usage via data attributes
+## Usage via Data Attributes
 
 To hook up the control via data attributes, add the `data-role="multiselect"` attribute to your `<select>`. All selects with that attribute will be automatically wired up on jQuery load.
 
@@ -287,10 +306,6 @@ Thanks to [@robwesterlund](https://twitter.com/robwesterlund) for the hint :)
 
 > **@robwesterlund** - *@luisrudge The reason is that the multiselect plugin works on the option elements which are in the DOM. However, if you place your bindingHandler before the options bindingHandler, there won't be any option elements in the DOM when you call the multiselect plugin.*
 
-## Roadmap / Todo
-
-* This solution for multiple selects is not usable for mobile devices (especially with touchscreen). ALternatives: Using Popovers instead of Dropdowns or checking for mobile devices and displaying normal select field (one row) for mobile devices.
-	
 ## License
 
 Copyright 2012 David Stutz
