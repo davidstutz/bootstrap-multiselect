@@ -25,19 +25,12 @@
 		    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 		    },
 		    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-		        var multiSelectData = valueAccessor();
-		        var options = multiSelectData.options;
-		        var optionsText = allBindingsAccessor().optionsText;
-		        var optionsValue = allBindingsAccessor().optionsValue;
-
-		        ko.applyBindingsToNode(element, { options: options, optionsValue: optionsValue, optionsText: optionsText }, viewModel);
-
 		        var ms = $(element).data('multiselect');
-
-		        if (ms) {
+		        if (!ms) {
+		            $(element).multiselect(ko.utils.unwrapObservable(valueAccessor()));
+		        } else if (allBindingsAccessor().options().length !== ms.originalOptions.length) {
+		            ms.updateOriginalOptions();
 		            $(element).multiselect('rebuild');
-		        } else {
-		            $(element).multiselect(ko.utils.unwrapObservable(multiSelectData.initOptions));
 		        }
 		    }
 		};
@@ -48,6 +41,9 @@
 		this.options = this.getOptions(options);
 		this.$select = $(select);
 		this.originalOptions = this.$select.clone()[0].options; //we have to clone to create a new reference
+	    this.updateOriginalOptions = function() {
+	        this.originalOptions = this.$select.clone()[0].options;
+	    };
 		this.getFilteredOptions = function () {
 		    if (this.query == '') return this.originalOptions;
 		    var query = this.query;
@@ -200,7 +196,7 @@
 
 		// Build the dropdown and bind event handling.
 		buildDropdown: function () {
-		    var alreadyHasSelectAll = this.$select[0][0].value == 'select-all-option';
+		    var alreadyHasSelectAll = this.$select[0][0] ? this.$select[0][0].value == 'select-all-option' : false;
 			//If options.includeSelectAllOption === true, add the include all checkbox
 		    if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
 				this.$select.prepend('<option value="select-all-option">' + this.options.selectAllText + '</option>');
@@ -433,7 +429,7 @@
 			$('button', this.$container).html(this.options.buttonText(options, this.$select));
 		},
 		
-		getSelected: function() {	
+		getSelected: function () {
 			return $('option:selected[value!="select-all-option"]', this.$select);
 		}
 	};
