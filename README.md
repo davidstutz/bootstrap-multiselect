@@ -196,6 +196,14 @@ Define if the menu should drop to the right of the button or not, by adding `pul
 
 Define if a `<option value="select-all-option"> Select all</option>` should be appended at the beginning of the options list. When this item is clicked, it will check/uncheck other items. This only works when `multiple="multiple"` is enabled. Default is false.
 
+**enableFiltering**
+
+Define if a text input should be created to filter results. Note that 'select all' option will select all **FILTERED** options. Default is false.
+
+**filterPlaceholder**
+
+Define the placeholder for the text input above. Note that 'select all' option will select all **FILTERED** options. Default is false.
+
 **onChange**
 
 Assign an event handler to the change event:
