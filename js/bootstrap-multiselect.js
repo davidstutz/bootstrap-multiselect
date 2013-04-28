@@ -48,14 +48,56 @@
 		
 		this.$container = $(this.options.buttonContainer)
 	        .append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText(this.getSelected(), this.$select) + '</button>')
-	        .append('<div class="multiselect-container dropdown-menu" style="position:absolute;"></div>');
+	        .append('<div class="multiselect-container dropdown-menu" style="position:absolute;"><ul style="list-style-type: none;margin:0;padding:0;"></ul></div>');
 
 		if (this.options.buttonWidth) {
 			$('button', this.$container).css({
 				'width': this.options.buttonWidth
 			});
 		}
+		
+		// Set max height of dropdown menu to activate auto scrollbar.
+		if (this.options.maxHeight) {
+		    $('.multiselect-container ul', this.$container).css({
+				'max-height': this.options.maxHeight + 'px',
+				'overflow-y': 'auto',
+				'overflow-x': 'hidden'
+			});
 
+			$('input[type="text"]', this.$container).width('75%');
+		}
+		
+		// Enable filtering.
+		if (this.options.enableFiltering) {
+		    $('.multiselect-container', this.$container).prepend('<div class="input-prepend" style="padding:3px;"><span class="add-on"><i class="icon-search"></i></span><input class="multiselect-search" type="text" placeholder="' + this.options.filterPlaceholder + '"></div>');
+		    
+		    $('.multiselect-search', this.$container).val(this.query).on('click', function (event) {
+		        event.stopPropagation();
+		    }).on('keydown', $.proxy(function (event) {
+		        // This is useful to catch "keydown" events after the browser has updated the control.
+		        clearTimeout(this.searchTimeout);
+		        
+		        this.searchTimeout = this.asyncFunction($.proxy(function () {
+		            var inputValue = event.target.value;
+		            
+		            if (inputValue != this.query) {
+		                this.query = inputValue;
+		                this.$select.empty();
+
+		                var filteredValues = this.getFilteredOptions();
+		                var newOptions = '';
+		                for (var i = 0; i < filteredValues.length; i++) {
+		                    var option = filteredValues[i];
+		                    newOptions += '<option value="' + option.value + '">' + option.text + '</option>';
+		                }
+		                
+		                this.$select.html(newOptions);
+		                this.rebuild();
+		            }
+		        }, this), 300, this);
+		    }, this));
+		}
+		
 		this.buildDropdown();
 		
 		this.updateButtonText();
@@ -142,20 +184,7 @@
 
 		// Build the dropdown and bind event handling.
 		buildDropdown: function () {
-			$('.multiselect-container', this.$container).html('<ul style="list-style-type: none;margin:0;padding:0;"></ul>');
-			
-			// Set max height of dropdown menu to activate auto scrollbar.
-			if (this.options.maxHeight) {
-			    $('.multiselect-container ul', this.$container).css({
-					'max-height': this.options.maxHeight + 'px',
-					'overflow-y': 'auto',
-					'overflow-x': 'hidden'
-				});
-	
-				$('input[type="text"]', this.$container).width('75%');
-			}
-			
-		    var alreadyHasSelectAll = this.$select[0][0] ? this.$select[0][0].value == 'select-all-option' : false;
+			var alreadyHasSelectAll = this.$select[0][0] ? this.$select[0][0].value == 'select-all-option' : false;
 		    
 			// If options.includeSelectAllOption === true, add the include all checkbox.
 		    if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
@@ -302,37 +331,6 @@
 					event.preventDefault();
 				}
 			}, this));
-			
-			// Enable filtering.
-			if (this.options.enableFiltering) {
-			    $('.multiselect-container', this.$container).prepend('<div class="input-prepend" style="padding:3px;"><span class="add-on"><i class="icon-search"></i></span><input class="multiselect-search" type="text" placeholder="' + this.options.filterPlaceholder + '"></div>');
-			    
-			    $('.multiselect-search', this.$container).val(this.query).on('click', function (event) {
-			        event.stopPropagation();
-			    }).on('keydown', $.proxy(function (event) {
-			        // This is useful to catch "keydown" events after the browser has updated the control.
-			        clearTimeout(this.searchTimeout);
-			        
-			        this.searchTimeout = this.asyncFunction($.proxy(function () {
-			            var inputValue = event.target.value;
-			            
-			            if (inputValue != this.query) {
-			                this.query = inputValue;
-			                this.$select.empty();
-	
-			                var filteredValues = this.getFilteredOptions();
-			                var newOptions = '';
-			                for (var i = 0; i < filteredValues.length; i++) {
-			                    var option = filteredValues[i];
-			                    newOptions += '<option value="' + option.value + '">' + option.text + '</option>';
-			                }
-			                
-			                this.$select.html(newOptions);
-			                this.rebuild();
-			            }
-			        }, this), 300, this);
-			    }, this));
-			}
 		},
 
 		// Destroy - unbind - the plugin.
@@ -347,7 +345,7 @@
 			    var $input = $('.multiselect-container ul li input', this.$container).filter(function () {
 					return $(this).val() == $(element).val();
 				});
-
+				console.log($input);
 				if ($(element).is(':selected')) {
 					$input.prop('checked', true);
 
@@ -364,10 +362,10 @@
 				}
 
 				if ($(element).is(":disabled"))	{
-				    input.attr('disabled', 'disabled').prop('disabled', true).parents('li').addClass('disabled');
+				    $input.attr('disabled', 'disabled').prop('disabled', true).parents('li').addClass('disabled');
 				}
 				else {
-				    input.removeAttr('disabled').prop('disabled', false).parents('li').removeClass('disabled');
+				    $input.removeAttr('disabled').prop('disabled', false).parents('li').removeClass('disabled');
 				}				
 			}, this));
 			
@@ -408,7 +406,7 @@
 		
 		// Rebuild the whole dropdown menu.
 		rebuild: function() {
-		    $('.multiselect-container', this.$container).html('');
+		    $('.multiselect-container ul', this.$container).html('');
 			this.buildDropdown(this.$select, this.options);
 			this.updateButtonText();
 		},

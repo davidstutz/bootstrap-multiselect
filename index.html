@@ -543,20 +543,20 @@
 			            buttonContainer: '<span />'
 			        });
 			        $('#example10-select').on('click', function() {
-			            $('option[value="tomatoes"]', $('#example10')).prop('selected', 'selected');
+			            $('option[value="tomatoes"]', $('#example10')).prop('selected', true);
 			            $('option[value="tomatoes"]', $('#example10')).attr('selected', 'selected');
 						
-			            $('option[value="mushrooms"]', $('#example10')).prop('selected', 'selected');
+			            $('option[value="mushrooms"]', $('#example10')).prop('selected', true);
 			            $('option[value="mushrooms"]', $('#example10')).attr('selected', 'selected');
 						
-			            $('option[value="onions"]', $('#example10')).prop('selected', 'selected');
+			            $('option[value="onions"]', $('#example10')).prop('selected', true);
 			            $('option[value="onions"]', $('#example10')).attr('selected', 'selected');
 						
 			            alert('Selected Tomatoes, Mushrooms and Onions.');
 			        });
 			        $('#example10-deselect').on('click', function() {
 			            $('option', $('#example10')).each(function(element) {
-			                $(this).removeAttr('selected');
+			                $(this).removeAttr('selected').prop('selected', false);
 			            });
 			        });
 			        $('#example10-refresh').on('click', function() {
