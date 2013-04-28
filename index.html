@@ -810,6 +810,16 @@
 			                }
 			            }
 			        });
+			        
+			        $('#example30-select-all').on('click', function() {
+			        	$('#example30').multiselect('select', 'multiselect-all');
+			        });
+			        
+			        $('#example30-deselect-all').on('click', function() {
+			        	$('#example30').multiselect('deselect', 'multiselect-all');
+			        });
+			        
+			        $('#example30').multiselect();
 			    });
 			</script>
 			<table class="table table-striped">
@@ -949,6 +959,31 @@
 				}
 			}
 		});
+	});
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="btn-group">
+								<select id="example30" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example30-select-all" class="btn btn-primary">Select all</button>
+								<button id="example30-deselect-all" class="btn">Deselect all</button>
+							</div>
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+	$(document).ready(function() {
+		
 	});
 &lt;/script&gt;
 							</pre>
@@ -1133,6 +1168,23 @@
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
       selectAllText: true
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>selectAllValue</code></td>
+						<td>
+							The value by which the select all option is identified.
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      selectAllValue: 'multiselect-all',
     });
   });
 &lt;/script&gt;

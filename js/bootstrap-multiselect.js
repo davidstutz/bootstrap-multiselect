@@ -144,6 +144,7 @@
 			maxHeight: false,
 			includeSelectAllOption: false,
 			selectAllText: ' Select all',
+			selectAllValue: 'multiselect-all',
 			enableFiltering: false,
 			filterPlaceholder: 'Search'
 		},
@@ -166,7 +167,7 @@
 			var selected = $(element).prop('selected') || false;
 			var $checkbox = $('input', $li);
 			$checkbox.val(value);
-		    if (value == 'select-all-option') $checkbox.parent().parent().addClass('multiselect-all');
+		    if (value == this.options.selectAllValue) $checkbox.parent().parent().addClass('multiselect-all');
 			$('label', $li).append(" " + label);
 
 			$('.multiselect-container ul', this.$container).append($li);
@@ -184,7 +185,7 @@
 
 		// Build the dropdown and bind event handling.
 		buildDropdown: function () {
-			var alreadyHasSelectAll = this.$select[0][0] ? this.$select[0][0].value == 'select-all-option' : false;
+			var alreadyHasSelectAll = this.$select[0][0] ? this.$select[0][0].value == this.options.selectAllValue : false;
 		    
 			// If options.includeSelectAllOption === true, add the include all checkbox.
 		    if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
@@ -219,7 +220,7 @@
 			// Bind the change event on the dropdown elements.
 			$('.multiselect-container ul li input', this.$container).on('change', $.proxy(function (event) {
 				var checked = $(event.target).prop('checked') || false;
-				var isSelectAllOption = $(event.target).val() == 'select-all-option';
+				var isSelectAllOption = $(event.target).val() == this.options.selectAllValue;
 				
 				// Apply or unapply the configured selected class.
 				if (this.options.selectedClass) {
@@ -345,7 +346,7 @@
 			    var $input = $('.multiselect-container ul li input', this.$container).filter(function () {
 					return $(this).val() == $(element).val();
 				});
-				console.log($input);
+				
 				if ($(element).is(':selected')) {
 					$input.prop('checked', true);
 
@@ -374,8 +375,12 @@
 		
 		// Select an option by its value.
 		select: function(value) {
-			var $option = $('option', this.$select).filter(function () { return $(this).val() == value; });
-			var $checkbox = $('.multiselect-container ul li input', this.$container).filter(function () { return $(this).val() == value; });
+			var $option = $('option', this.$select).filter(function () {
+				return $(this).val() == value;
+			});
+			var $checkbox = $('.multiselect-container ul li input', this.$container).filter(function () {
+				return $(this).val() == value;
+			});
 			
 			if (this.options.selectedClass) {
 				$checkbox.parents('li').addClass(this.options.selectedClass);
@@ -390,8 +395,12 @@
 		
 		// Deselect an option by its value.
 		deselect: function(value) {
-			var $option = $('option', this.$select).filter(function () { return $(this).val() == value; });
-			var $checkbox = $('.multiselect-container ul li input', this.$container).filter(function () { return $(this).val() == value; });
+			var $option = $('option', this.$select).filter(function () {
+				return $(this).val() == value;
+			});
+			var $checkbox = $('.multiselect-container ul li input', this.$container).filter(function () {
+				return $(this).val() == value;
+			});
 
 			if (this.options.selectedClass) {
 				$checkbox.parents('li').removeClass(this.options.selectedClass);

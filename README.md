@@ -204,6 +204,10 @@ Define if a `<option value="select-all-option"> Select all</option>` should be a
 
 Defines the label of the select all option.
 
+**selectAllValue**
+
+The value by which the select all option is identified.
+
 **enableFiltering**
 
 Define if a text input should be created to filter results. Note that 'select all' option will select all **FILTERED** options. Default is false.
