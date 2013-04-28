@@ -267,17 +267,13 @@ To hook up the control via data attributes, add the `data-role="multiselect"` at
 
 ## Knockout JS Support
 
-Thanks to [Devristo](https://github.com/Devristo) this plugin supports [Knockout JS](http://knockoutjs.com/). For further discussion see [the pull requests](https://github.com/davidstutz/bootstrap-multiselect/pull/17).
+Thanks to [Devristo](https://github.com/Devristo) and [Luis Rudge](https://github.com/luisrudge) this plugin supports [Knockout JS](http://knockoutjs.com/). For further discussion see [the pull requests](https://github.com/davidstutz/bootstrap-multiselect/pull/17).
 
 **Define select input**
 
 Note the multiselect: true binding!
 
-	<select class="multiSelect" data-bind="multiselect: true, options: Options, selectedOptions: SelectedOptions, optionsValue: $data" multiple="multiple"></select>
-	
-**Initialize Bootstrap-multiselect**
-
-	$(".multiSelect").multiselect();
+	<select multiple="multiple" data-bind="options: items, selectedOptions: selectedItems, multiselect: multiSelectInitOptions"></select>
 	
 **Apply Knockout view model**
 
@@ -285,7 +281,11 @@ As usual.
 
 **Notes**
 
-It is important to initialize the multiselect before applying the view model, since the custom binding code will hook into the onChange method to update the binding.
+You have to declare your 'multiselect' binding handler **AFTER** your 'options' binding handler.
+
+Thanks to [@robwesterlund](https://twitter.com/robwesterlund) for the hint :)
+
+> **@robwesterlund** - *@luisrudge The reason is that the multiselect plugin works on the option elements which are in the DOM. However, if you place your bindingHandler before the options bindingHandler, there won't be any option elements in the DOM when you call the multiselect plugin.*
 
 ## Roadmap / Todo
 

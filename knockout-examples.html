@@ -15,6 +15,11 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
     <script type="text/javascript" src="js/prettify.js"></script>
+    <style>
+        table tr td {
+            width: 25%;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -35,21 +40,26 @@
         </p>
         <table class="table table-striped">
             <tr>
+                <td>Select</td>
+                <td>Selected values</td>
+                <td>Info</td>
+                <td></td>
+            </tr> 
+            <tr>
                 <td>
-                    <select multiple="multiple" data-bind="multiselect: { initOptions: multiSelectInitOptions, options: items() }, optionsText: 'text', optionsValue: 'id'">
-                    </select>
-
-                    <br />
-                    <span data-bind="text: ko.toJSON(items())" />
+                    <select multiple="multiple" data-bind="options: items, selectedOptions: selectedItems, multiselect: multiSelectInitOptions"></select>
                 </td>
+                <td><span data-bind="text: ko.toJSON(selectedItems())" /></td>
                 <td>Basic knockout multiselect example with select all options enabled. Notice that once an item is added to the collection, the select all option isn't checked anymore because it isn't true anymore.
+                </td>
+                <td><button data-bind="click: addItem" class="btn btn-primary">Add item</button>
                 </td>
             </tr>
         </table>
         <hr>
         <p>
             &copy; 2012
-                <a href="http://davidstutz.de">David Stutz</a> - <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>
+            <a href="http://davidstutz.de">David Stutz</a> - <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>
         </p>
     </div>
 </body>
@@ -58,25 +68,27 @@
     var viewModel = function () {
         var self = this;
         self.items = ko.observableArray([
-             { id: 1, text: 'item 1' },
-            { id: 2, text: 'item 2' },
-            { id: 3, text: 'item 3' },
-            { id: 4, text: 'item 4' },
-            { id: 5, text: 'item 5' },
+             'Cheese',
+            'Tomatoes',
+            'Mozzarella',
+            'Mushrooms',
+            'Pepperoni' 
         ]);
 
         self.multiSelectInitOptions = {
-            includeSelectAllOption: true
+            includeSelectAllOption: true,
+            enableFiltering:true
         };
+
+        self.selectedItems = ko.observableArray([]);
+
+        self.addItem = function() {
+            self.items.push('new item ' + (self.items().length + 1));
+        };
+        
         return self;
     };
 
     var vm = new viewModel();
     ko.applyBindings(vm);
-
-    //simulating changes on the observable
-    var t = setInterval(function () {
-        if (vm.items().length >= 15) clearInterval(t);
-        vm.items.push({ id: vm.items().length + 1, text: 'item ' + (vm.items().length + 1) });
-    }, 1000);
 </script>
