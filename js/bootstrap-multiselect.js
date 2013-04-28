@@ -135,6 +135,7 @@
 			var selected = $(element).prop('selected') || false;
 			var $checkbox = $('input', $li);
 			$checkbox.val(value);
+		    if (value == 'select-all-option') $checkbox.parent().parent().addClass('select-all-option');
 			$('label', $li).append(" " + label);
 
 			$('ul', this.$container).append($li);
