@@ -189,7 +189,7 @@
 		    
 			// If options.includeSelectAllOption === true, add the include all checkbox.
 		    if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
-				this.$select.prepend('<option value="select-all-option">' + this.options.selectAllText + '</option>');
+				this.$select.prepend('<option value="' + this.options.selectAllValue + '">' + this.options.selectAllText + '</option>');
 		    }
 		
 			this.$select.children().each($.proxy(function (index, element) {
@@ -432,7 +432,7 @@
 		
 		// Get all selected options.
 		getSelected: function () {
-			return $('option:selected[value!="select-all-option"]', this.$select);
+			return $('option:selected[value!="' + this.options.selectAllValue + '"]', this.$select);
 		},
 		
 		// Get filtered options.
