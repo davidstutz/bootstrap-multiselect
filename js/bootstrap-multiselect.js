@@ -439,11 +439,14 @@
 		getFilteredOptions: function () {
 		    if (this.query == '') return this.originalOptions;
 		    var query = this.query;
-		    
-		    return $(this.originalOptions).filter(function () {
-		        return this.text.substring(0, query.length) == query
-	        });
-	   },
+
+		    var options = [];
+		    $.each(this.originalOptions, function(index, option) {
+		        if (option.text.substring(0, query.length) == query) options.push(option);
+		    });
+
+		    return options;
+		},
 	   
 	   updateOriginalOptions: function() {
 	        this.originalOptions = this.$select.clone()[0].options;
