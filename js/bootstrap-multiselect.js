@@ -182,6 +182,10 @@
 				$checkbox.parents('li').addClass(this.options.selectedClass);
 			}
 		},
+		toggleActiveState: function (shouldBeActive) {
+		    if (shouldBeActive) $('button.multiselect.dropdown-toggle', this.$container).removeClass('disabled');
+		    else $('button.multiselect.dropdown-toggle', this.$container).addClass('disabled');
+		},
 
 		// Build the dropdown and bind event handling.
 		buildDropdown: function () {
@@ -191,6 +195,8 @@
 		    if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
 		        this.$select.prepend('<option value="' + this.options.selectAllValue + '">' + this.options.selectAllText + '</option>');
 		    }
+		    
+		    this.toggleActiveState(this.$select.attr('disabled') == undefined);
 		
 			this.$select.children().each($.proxy(function (index, element) {
 				// Support optgroups and options without a group simultaneously.
