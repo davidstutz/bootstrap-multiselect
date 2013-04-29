@@ -432,7 +432,7 @@
 		
 		// Get all selected options.
 		getSelected: function () {
-			return $('option:selected[value!="select-all-option"]', this.$select);
+		    return $('option:selected[value!="' + this.options.selectAllValue + '"]', this.$select);
 		},
 		
 		// Get filtered options.
