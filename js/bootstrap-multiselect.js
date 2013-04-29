@@ -28,7 +28,7 @@
 		        if (!ms) {
 		            $(element).multiselect(ko.utils.unwrapObservable(valueAccessor()));
 		        }
-		        else if (allBindingsAccessor().options().length !== ms.originalOptions.length) {
+		        else if (allBindingsAccessor().options && allBindingsAccessor().options().length !== ms.originalOptions.length) {
 		            ms.updateOriginalOptions();
 		            $(element).multiselect('rebuild');
 		        }
