@@ -442,7 +442,7 @@
 
 		    var options = [];
 		    $.each(this.originalOptions, function(index, option) {
-		        if (option.text.substring(0, query.length) == query) options.push(option);
+		        if (option.text.substring(0, query.length).toLowerCase() == query.toLowerCase()) options.push(option);
 		    });
 
 		    return options;
