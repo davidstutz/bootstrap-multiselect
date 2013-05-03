@@ -78,22 +78,24 @@
 		        clearTimeout(this.searchTimeout);
 		        
 		        this.searchTimeout = this.asyncFunction($.proxy(function () {
-		            var inputValue = event.target.value;
-		            
-		            if (inputValue != this.query) {
-		                this.query = inputValue;
-		                this.$select.empty();
-
-		                var filteredValues = this.getFilteredOptions();
-		                var newOptions = '';
-		                for (var i = 0; i < filteredValues.length; i++) {
-		                    var option = filteredValues[i];
-		                    newOptions += '<option value="' + option.value + '">' + option.text + '</option>';
-		                }
-		                
-		                this.$select.html(newOptions);
-		                this.rebuild();
-		            }
+					
+		            if (this.query != event.target.value) {
+		            	this.query = event.target.value;
+		            	
+		                $.each($('ul li', this.$container), $.proxy(function(index, element) {
+		                	var value = $('input', element).val();
+		                	if (value != this.options.selectAllValue) {
+			                	var $option = $('option[value="' + value + '"]', this.$select);
+			                	var label = $option.attr('label') || $option.text();
+						        if (label.substring(0, this.query.length).toLowerCase() != this.query.toLowerCase()) {
+						        	$(element).hide();
+						        }
+						        else {
+						        	$(element).show();
+						        }
+							}
+		                }, this));
+					}
 		        }, this), 300, this);
 		    }, this));
 		}
@@ -167,7 +169,11 @@
 			var selected = $(element).prop('selected') || false;
 			var $checkbox = $('input', $li);
 			$checkbox.val(value);
-		    if (value == this.options.selectAllValue) $checkbox.parent().parent().addClass('multiselect-all');
+			
+		    if (value == this.options.selectAllValue) {
+		    	$checkbox.parent().parent().addClass('multiselect-all');
+		    }
+		    
 			$('label', $li).append(" " + label);
 
 			$('.multiselect-container ul', this.$container).append($li);
@@ -444,19 +450,6 @@
 		// Get all selected options.
 		getSelected: function () {
 			return $('option:selected[value!="' + this.options.selectAllValue + '"]', this.$select);
-		},
-		
-		// Get filtered options.
-		getFilteredOptions: function () {
-		    if (this.query == '') return this.originalOptions;
-		    var query = this.query;
-
-		    var options = [];
-		    $.each(this.originalOptions, function(index, option) {
-		        if (option.text.substring(0, query.length).toLowerCase() == query.toLowerCase()) options.push(option);
-		    });
-
-		    return options;
 		},
 	   
 	   updateOriginalOptions: function() {
