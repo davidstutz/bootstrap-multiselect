@@ -44,16 +44,30 @@
                 <td>Selected values</td>
                 <td>Info</td>
                 <td></td>
-            </tr> 
-            <tr>
+            </tr>
+            <tr id="vm1">
                 <td>
                     <select multiple="multiple" data-bind="options: items, selectedOptions: selectedItems, multiselect: multiSelectInitOptions"></select>
                 </td>
                 <td><span data-bind="text: ko.toJSON(selectedItems())" /></td>
                 <td>Basic knockout multiselect example with select all options enabled. Notice that once an item is added to the collection, the select all option isn't checked anymore because it isn't true anymore.
                 </td>
-                <td><button data-bind="click: addItem" class="btn btn-primary">Add item</button>
+                <th><button data-bind="click: addItem" class="btn btn-primary">Add item</button></th>
+            </tr>
+            <tr id="vm2">
+                <td>
+                    <select multiple="multiple" data-bind="selectedOptions: selectedItems, multiselect: multiSelectInitOptions">
+                        <option value="cheese">Cheese</option>
+						<option value="tomatoes">Tomatoes</option>
+						<option value="mozarella">Mozzarella</option>
+						<option value="mushrooms">Mushrooms</option>
+						<option value="pepperoni">Pepperoni</option>
+						<option value="onions">Onions</option>
+                    </select>
                 </td>
+                <td><span data-bind="text: ko.toJSON(selectedItems())" /></td>
+                <td>Basic knockout multiselect example with html-based options list. Notice that once an item is added to the collection, the select all option isn't checked anymore because it isn't true anymore.</td>
+           		<td></td>
             </tr>
         </table>
         <hr>
@@ -65,15 +79,10 @@
 </body>
 </html>
 <script>
-    var viewModel = function () {
+    var viewModel1 = function () {
         var self = this;
-        self.items = ko.observableArray([
-             'Cheese',
-            'Tomatoes',
-            'Mozzarella',
-            'Mushrooms',
-            'Pepperoni' 
-        ]);
+        
+        self.items = ko.observableArray([]);
 
         self.multiSelectInitOptions = {
             includeSelectAllOption: true,
@@ -81,14 +90,31 @@
         };
 
         self.selectedItems = ko.observableArray([]);
-
+        
         self.addItem = function() {
             self.items.push('new item ' + (self.items().length + 1));
         };
         
         return self;
     };
+    
+    var viewModel2 = function () {
+        var self = this;
+        
+        self.items = ko.observableArray([]);
 
-    var vm = new viewModel();
-    ko.applyBindings(vm);
+        self.multiSelectInitOptions = {
+            includeSelectAllOption: true,
+            enableFiltering: true
+        };
+
+        self.selectedItems = ko.observableArray([]);
+		
+        return self;
+    };
+
+    var vm1 = new viewModel1();
+    var vm2 = new viewModel2();
+    ko.applyBindings(vm1, $('#vm1')[0]);
+    ko.applyBindings(vm2, $('#vm2')[0]);
 </script>

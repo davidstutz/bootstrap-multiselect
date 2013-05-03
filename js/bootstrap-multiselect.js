@@ -28,7 +28,7 @@
 		        if (!ms) {
 		            $(element).multiselect(ko.utils.unwrapObservable(valueAccessor()));
 		        }
-		        else if (allBindingsAccessor().options().length !== ms.originalOptions.length) {
+		        else if (allBindingsAccessor().options && allBindingsAccessor().options().length !== ms.originalOptions.length) {
 		            ms.updateOriginalOptions();
 		            $(element).multiselect('rebuild');
 		        }
@@ -182,7 +182,16 @@
 				$checkbox.parents('li').addClass(this.options.selectedClass);
 			}
 		},
-
+		
+		toggleActiveState: function (shouldBeActive) {
+			if (this.$select.attr('disabled') == undefined) {
+				$('button.multiselect.dropdown-toggle', this.$container).removeClass('disabled');
+			}
+			else {
+				$('button.multiselect.dropdown-toggle', this.$container).addClass('disabled');
+			}
+		}, 
+		
 		// Build the dropdown and bind event handling.
 		buildDropdown: function () {
 			var alreadyHasSelectAll = this.$select[0][0] ? this.$select[0][0].value == this.options.selectAllValue : false;
@@ -191,6 +200,8 @@
 		    if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
 				this.$select.prepend('<option value="' + this.options.selectAllValue + '">' + this.options.selectAllText + '</option>');
 		    }
+		
+			this.toggleActiveState();
 		
 			this.$select.children().each($.proxy(function (index, element) {
 				// Support optgroups and options without a group simultaneously.
