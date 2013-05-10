@@ -4,125 +4,11 @@ Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user inte
 
 **Note:** The option names may have changed due to the latest updates.
 
-## Demo
+## Demos
 
 A demo of different configurations can be found [here](http://davidstutz.github.com/bootstrap-multiselect/).
 
-## Examples
-
-These examples can also be seen in action in index.html:
-
-	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-	<link rel="stylesheet" href="css/bootstrap-responsive.min.css" type="text/css">
-
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#example1').multiselect();
-			$('#example2').multiselect();
-			$('#example3').multiselect({
-				buttonClass: 'btn btn-link'
-			});
-			$('#example4').multiselect({
-				buttonClass: 'btn btn-small'
-			});
-			$('#example5').multiselect({
-				buttonClass: 'btn btn-primary disabled'
-			});
-			$('#example6').multiselect();
-			$('.example7').multiselect({
-				buttonContainer: '<span class="dropdown" />',
-			});
-		});
-	</script>
-	<p>
-		<select id="example1">
-			<option value="cheese">Cheese</option>
-			<option value="tomatoes">Tomatoes</option>
-			<option value="mozarella">Mozzarella</option>
-			<option value="mushrooms">Mushrooms</option>
-			<option value="pepperoni">Pepperoni</option>
-			<option value="onions">Onions</option>
-		</select>
-	</p>
-	<p>
-		<select id="example2" multiple="multiple">
-			<option value="cheese" selected>Cheese</option>
-			<option value="tomatoes" selected>Tomatoes</option>
-			<option value="mozarella" selected>Mozzarella</option>
-			<option value="mushrooms">Mushrooms</option>
-			<option value="pepperoni">Pepperoni</option>
-			<option value="onions">Onions</option>
-		</select>
-	</p>
-	<p>
-		<select id="example3" multiple="multiple">
-			<option value="cheese">Cheese</option>
-			<option value="tomatoes">Tomatoes</option>
-			<option value="mozarella">Mozzarella</option>
-			<option value="mushrooms">Mushrooms</option>
-			<option value="pepperoni">Pepperoni</option>
-			<option value="onions">Onions</option>
-		</select>
-	</p>
-	<p>
-		<select id="example4" multiple="multiple">
-			<option value="cheese">Cheese</option>
-			<option value="tomatoes">Tomatoes</option>
-			<option value="mozarella">Mozzarella</option>
-			<option value="mushrooms">Mushrooms</option>
-			<option value="pepperoni">Pepperoni</option>
-			<option value="onions">Onions</option>
-		</select>
-	</p>
-	<p>
-		<select id="example5" multiple="multiple">
-			<option value="cheese">Cheese</option>
-			<option value="tomatoes">Tomatoes</option>
-			<option value="mozarella">Mozzarella</option>
-			<option value="mushrooms">Mushrooms</option>
-			<option value="pepperoni">Pepperoni</option>
-			<option value="onions">Onions</option>
-		</select>
-	</p>
-	<p>
-		<div class="input-prepend input-append btn-toolbar">
-			<span class="add-on"><b class="icon-list-alt"></b></span>
-			<select id="example6" multiple="multiple">
-				<option value="cheese">Cheese</option>
-				<option value="tomatoes">Tomatoes</option>
-				<option value="mozarella">Mozzarella</option>
-				<option value="mushrooms">Mushrooms</option>
-				<option value="pepperoni">Pepperoni</option>
-				<option value="onions">Onions</option>
-			</select>
-			<button class="btn btn-danger">Cancel</button>
-			<button class="btn btn-success">Save</button>
-		</div>
-	</p>
-	<p>
-		<div class="input-prepend input-append">
-			<span class="add-on"><b class="icon-list-alt"></b></span>
-			<select class="example7" multiple="multiple">
-				<option value="cheese">Cheese</option>
-				<option value="tomatoes">Tomatoes</option>
-				<option value="mozarella">Mozzarella</option>
-				<option value="mushrooms">Mushrooms</option>
-				<option value="pepperoni">Pepperoni</option>
-				<option value="onions">Onions</option>
-			</select>
-			<select class="example7" multiple="multiple">
-				<option value="small">Small</option>
-				<option value="medium">Medium</option>
-				<option value="large">Large</option>
-				<option value="extra">Extra Large</option>
-			</select>
-			<button class="btn btn-primary">Save</button>
-		</div>
-	</p>
+For Knockout JS integration see some examples [here](http://davidstutz.github.io/bootstrap-multiselect/knockout-examples.html).
 
 ## Configuration Options
 
@@ -312,7 +198,7 @@ Thanks to [@robwesterlund](https://twitter.com/robwesterlund) for the hint :)
 
 ## License
 
-Copyright 2012 David Stutz
+Copyright 2012, 2013 David Stutz
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
