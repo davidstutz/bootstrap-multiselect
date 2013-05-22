@@ -47,8 +47,10 @@
 		this.options.multiple = this.$select.attr('multiple') == "multiple";
 		
 		this.$container = $(this.options.buttonContainer)
+                .append('<ul class="multiselect-container dropdown-menu" style="position:absolute; list-style-type: none;margin:0;padding:0;"></ul>')
 	        .append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText(this.getSelected(), this.$select) + '</button>')
-	        .append('<div class="multiselect-container dropdown-menu" style="position:absolute;"><ul style="list-style-type: none;margin:0;padding:0;"></ul></div>');
+	        
+                ;
 
 		if (this.options.buttonWidth) {
 			$('button', this.$container).css({
@@ -58,7 +60,7 @@
 		
 		// Set max height of dropdown menu to activate auto scrollbar.
 		if (this.options.maxHeight) {
-		    $('.multiselect-container ul', this.$container).css({
+		    $('.multiselect-container', this.$container).css({
 				'max-height': this.options.maxHeight + 'px',
 				'overflow-y': 'auto',
 				'overflow-x': 'hidden'
@@ -82,7 +84,7 @@
 		            if (this.query != event.target.value) {
 		            	this.query = event.target.value;
 		            	
-		                $.each($('ul li', this.$container), $.proxy(function(index, element) {
+		                $.each($('.multiselect-container li', this.$container), $.proxy(function(index, element) {
 		                	var value = $('input', element).val();
 		                	if (value != this.options.selectAllValue) {
 			                	var $option = $('option[value="' + value + '"]', this.$select);
@@ -148,7 +150,7 @@
 			selectAllText: ' Select all',
 			selectAllValue: 'multiselect-all',
 			enableFiltering: false,
-			filterPlaceholder: 'Search'
+			filterPlaceholder: 'Search',
 		},
 
 		constructor: Multiselect,
@@ -176,7 +178,7 @@
 		    
 			$('label', $li).append(" " + label);
 
-			$('.multiselect-container ul', this.$container).append($li);
+			$('.multiselect-container', this.$container).append($li);
 
 			if ($(element).is(':disabled')) {
 				$checkbox.attr('disabled', 'disabled').prop('disabled', true).parents('li').addClass('disabled');
@@ -219,7 +221,7 @@
 					// Add a header for the group.
 					var $li = $('<li><label style="margin:0;padding:3px 20px 3px 20px;height:100%;" class="multiselect-group"></label></li>');
 					$('label', $li).text(groupName);
-					$('.multiselect-container ul', this.$container).append($li);
+					$('.multiselect-container', this.$container).append($li);
 					
 					// Add the options of the group.
 					$('option', group).each($.proxy(function (index, element) {
@@ -235,7 +237,7 @@
 			}, this));
 			
 			// Bind the change event on the dropdown elements.
-			$('.multiselect-container ul li input', this.$container).on('change', $.proxy(function (event) {
+			$('.multiselect-container li input', this.$container).on('change', $.proxy(function (event) {
 				var checked = $(event.target).prop('checked') || false;
 				var isSelectAllOption = $(event.target).val() == this.options.selectAllValue;
 				
@@ -296,7 +298,7 @@
 				this.$select.change();
 			}, this));
 
-			$('.multiselect-container ul li a', this.$container).on('touchstart click', function (event) {
+			$('.multiselect-container li a', this.$container).on('touchstart click', function (event) {
 				event.stopPropagation();
 			});
 
@@ -360,7 +362,7 @@
 		// Refreshs the checked options based on the current state of the select.
 		refresh: function() {
 			$('option', this.$select).each($.proxy(function(index, element) {
-			    var $input = $('.multiselect-container ul li input', this.$container).filter(function () {
+			    var $input = $('.multiselect-container li input', this.$container).filter(function () {
 					return $(this).val() == $(element).val();
 				});
 				
@@ -395,7 +397,7 @@
 			var $option = $('option', this.$select).filter(function () {
 				return $(this).val() == value;
 			});
-			var $checkbox = $('.multiselect-container ul li input', this.$container).filter(function () {
+			var $checkbox = $('.multiselect-container li input', this.$container).filter(function () {
 				return $(this).val() == value;
 			});
 			
@@ -415,7 +417,7 @@
 			var $option = $('option', this.$select).filter(function () {
 				return $(this).val() == value;
 			});
-			var $checkbox = $('.multiselect-container ul li input', this.$container).filter(function () {
+			var $checkbox = $('.multiselect-container li input', this.$container).filter(function () {
 				return $(this).val() == value;
 			});
 
@@ -432,7 +434,7 @@
 		
 		// Rebuild the whole dropdown menu.
 		rebuild: function() {
-		    $('.multiselect-container ul', this.$container).html('');
+		    $('.multiselect-container', this.$container).html('');
 			this.buildDropdown(this.$select, this.options);
 			this.updateButtonText();
 		},
