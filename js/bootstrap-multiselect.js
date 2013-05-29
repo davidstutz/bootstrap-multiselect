@@ -47,7 +47,7 @@
 		this.options.multiple = this.$select.attr('multiple') == "multiple";
 		
 		this.$container = $(this.options.buttonContainer)
-                .append('<ul class="multiselect-container dropdown-menu" style="position:absolute; list-style-type: none;margin:0;padding:0;"></ul>')
+            .append('<ul class="multiselect-container dropdown-menu' + (this.options.dropRight ? ' pull-right' : '') + '" style="position:absolute; list-style-type: none;margin:0;padding:0;"></ul>')
 	        .append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText(this.getSelected(), this.$select) + '</button>')
 	        
                 ;

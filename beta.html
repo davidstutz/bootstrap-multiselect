@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bootstrap Multiselect</title>
+		<meta name="robots" content="noindex, nofollow" />
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="copyright" content="David Stutz" />
+
+		<link rel="stylesheet" href="css/bootstrap-2.3.2.min.css" type="text/css">
+		<link rel="stylesheet" href="css/prettify.css" type="text/css">
+
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap-2.3.2.js"></script>
+		<script type="text/javascript" src="js/bootstrap-multiselect.beta.js"></script>
+		<script type="text/javascript" src="js/prettify.js"></script>
+		<style>
+		    .multiselect-all label {
+		    	font-weight: bold;
+		    }
+		</style>
+	</head>
+	<body>
+		<a href="https://github.com/davidstutz/bootstrap-multiselect"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+		<div class="container-fluid" style="background:#F5F5F5;border-bottom:1px solid #DDDDDD;margin-bottom:16px;">
+			<div style="text-align:center;">
+				<h1 style="font-size:300%;margin: 26px 0px;">Bootstrap Multiselect</h1>
+				<p class="lead">
+					Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
+				</p>
+			</div>
+		</div>
+	    <div class="container">
+	    	<script type="text/javascript">
+	    		$(document).ready(function() {
+	    			$('#example').multiselect();
+	    		});
+	    	</script>
+	        <select id="example">
+	        	<optgroup label="1">
+	        		<option value="1">1</option>
+	        		<option value="2">2</option>
+	        	</optgroup>
+	        	<optgroup label="2">
+	        		<option value="3">3</option>
+	        		<option value="4">4</option>
+	        	</optgroup>
+	        	<optgroup label="3">
+	        		<option value="5">5</option>
+	        		<option value="6">6</option>
+	        	</optgroup>
+	        	<option value="7">7</option>
+	        	<option value="8">8</option>
+	        </select>
+		</div>
+		<div class="container-fluid">
+			<hr>
+			<p>
+				&copy; 2012, 2013
+				<a href="http://davidstutz.de">David Stutz</a> - <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>
+			</p>
+		</div>
+	</body>
+</html>
