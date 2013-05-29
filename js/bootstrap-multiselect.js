@@ -89,7 +89,8 @@
 		                	if (value != this.options.selectAllValue) {
 			                	var $option = $('option[value="' + value + '"]', this.$select);
 			                	var label = $option.attr('label') || $option.text();
-						        if (label.substring(0, this.query.length).toLowerCase() != this.query.toLowerCase()) {
+			                	
+						        if (value.indexOf(this.query) === -1) {
 						        	$(element).hide();
 						        }
 						        else {
