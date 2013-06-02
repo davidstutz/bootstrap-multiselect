@@ -102,6 +102,10 @@ Define if a text input should be created to filter results. Note that 'select al
 
 Define the placeholder for the text input above. Note that 'select all' option will select all **FILTERED** options. Default is false.
 
+**filterBehavior**
+
+Defines on which information the filtering is based: on the text of the options, the values or both. So possible options are: `text`, `value`, `both`
+
 **onChange**
 
 Assign an event handler to the change event:
