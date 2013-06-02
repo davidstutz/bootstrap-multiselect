@@ -87,15 +87,23 @@
 		                $.each($('.multiselect-container li', this.$container), $.proxy(function(index, element) {
 		                	var value = $('input', element).val();
 		                	if (value != this.options.selectAllValue) {
-			                	var $option = $('option[value="' + value + '"]', this.$select);
-			                	var label = $option.attr('label') || $option.text();
-			                	
-						        if (value.indexOf(this.query) === -1) {
-						        	$(element).hide();
-						        }
-						        else {
-						        	$(element).show();
-						        }
+		                		var text = $('label', element).text();
+			                	var value = $('input', element).val();
+			                	if (value && text && value != this.options.selectAllValue ) {
+			                		// by default lets assume that element is not interesting for this search
+			                		var showElement = false;
+			                		if ( (this.options.filterBehavior == 'text' || this.options.filterBehavior == 'both') && text.indexOf(this.query) > -1) {
+			                			showElement = true;
+			                		}
+			                		if ( (this.options.filterBehavior == 'value' || this.options.filterBehavior == 'both') && value.indexOf(this.query) > -1) {
+			                			showElement = true;
+			                		}
+			                		if (showElement) {
+			                			$(element).show();
+			                		} else {
+			                			$(element).hide();
+			                		}
+								}
 							}
 		                }, this));
 					}
@@ -152,6 +160,7 @@
 			selectAllValue: 'multiselect-all',
 			enableFiltering: false,
 			filterPlaceholder: 'Search',
+			filterBehavior: 'text', // possible options: 'text', 'value', 'both'
 		},
 
 		constructor: Multiselect,
