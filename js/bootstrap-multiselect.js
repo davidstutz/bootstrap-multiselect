@@ -367,6 +367,7 @@
 		destroy: function() {
 			this.$container.remove();
 			this.$select.show();
+			this.$select.removeData('multiselect');
 		},
 
 		// Refreshs the checked options based on the current state of the select.
