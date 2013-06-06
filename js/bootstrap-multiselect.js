@@ -49,11 +49,12 @@
 		this.$select = $(select);
 		
 		this.options.multiple = this.$select.attr('multiple') == "multiple";
+		this.options.disabled = (this.$select.attr('disabled') == "disabled") ? 'disabled="disabled"' : '';
 		
 		this.$container = $(this.options.buttonContainer)
-			.append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText(this.getSelected(), this.$select) + '</button>')
+			.append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown" '+ this.options.disabled +'>' + this.options.buttonText(this.getSelected(), this.$select) + '</button>')
 			.append('<ul class="dropdown-menu' + (this.options.dropRight ? ' pull-right' : '') + '"></ul>');
-
+			
 		if (this.options.buttonWidth) {
 			$('button', this.$container).css({
 				'width': this.options.buttonWidth
