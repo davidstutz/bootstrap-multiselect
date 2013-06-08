@@ -70,7 +70,7 @@
 		}
 		
 		// Enable filtering.
-		if (this.options.enableFiltering) {
+		if (this.options.enableFiltering || this.options.enableCaseInsensitiveFiltering) {
 		    $('.multiselect-container', this.$container).prepend('<div class="input-prepend" style="padding:3px;"><span class="add-on"><i class="icon-search"></i></span><input class="multiselect-search" type="text" placeholder="' + this.options.filterPlaceholder + '"></div>');
 		    
 		    $('.multiselect-search', this.$container).val(this.query).on('click', function (event) {
@@ -92,12 +92,18 @@
 			                	if (value && text && value != this.options.selectAllValue ) {
 			                		// by default lets assume that element is not interesting for this search
 			                		var showElement = false;
-			                		if ( (this.options.filterBehavior == 'text' || this.options.filterBehavior == 'both') && text.indexOf(this.query) > -1) {
-			                			showElement = true;
-			                		}
-			                		if ( (this.options.filterBehavior == 'value' || this.options.filterBehavior == 'both') && value.indexOf(this.query) > -1) {
-			                			showElement = true;
-			                		}
+                          var filterCandidate = '';
+                          if ( (this.options.filterBehavior == 'text' || this.options.filterBehavior == 'both')) {
+                            filterCandidate = text;
+                          }
+                          if ( (this.options.filterBehavior == 'value' || this.options.filterBehavior == 'both')) {
+                            filterCandidate = value;
+                          }
+                          if(this.options.enableCaseInsensitiveFiltering && filterCandidate.toLowerCase().indexOf(this.query.toLowerCase()) > -1) {
+                            showElement = true;
+                          } else if(filterCandidate.indexOf(this.query) > -1) {
+                            showElement = true;
+                          }
 			                		if (showElement) {
 			                			$(element).show();
 			                		} else {
@@ -159,7 +165,8 @@
 			selectAllText: ' Select all',
 			selectAllValue: 'multiselect-all',
 			enableFiltering: false,
-			filterPlaceholder: 'Search',
+      enableCaseInsensitiveFiltering: false,
+      filterPlaceholder: 'Search',
 			filterBehavior: 'text', // possible options: 'text', 'value', 'both'
 		},
 
