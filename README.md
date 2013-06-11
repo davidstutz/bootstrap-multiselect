@@ -98,6 +98,10 @@ The value by which the select all option is identified.
 
 Define if a text input should be created to filter results. Note that 'select all' option will select all **FILTERED** options. Default is false.
 
+**enableCaseInsensitiveFiltering**
+
+Define case insensitive text input filtering.  Default is false.
+
 **filterPlaceholder**
 
 Define the placeholder for the text input above. Note that 'select all' option will select all **FILTERED** options. Default is false.
