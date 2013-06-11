@@ -310,6 +310,7 @@
 
 			$('.multiselect-container li a', this.$container).on('touchstart click', function (event) {
 				event.stopPropagation();
+				$(event.target).blur();
 			});
 
 			// Keyboard support.
