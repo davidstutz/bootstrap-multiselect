@@ -7,6 +7,7 @@
 		<meta name="copyright" content="David Stutz" />
 
 		<link rel="stylesheet" href="css/bootstrap-2.3.2.min.css" type="text/css">
+		<link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
 		<link rel="stylesheet" href="css/prettify.css" type="text/css">
 
 		<script type="text/javascript" src="js/jquery-2.0.1.min.js"></script>
@@ -587,7 +588,8 @@
 			        });
 					
 			        $('#example12').multiselect({
-			            buttonContainer: '<span />'
+			            buttonContainer: '<span />',
+			            enableFiltering: true
 			        });
 			        $('#example12-rebuild').on('click', function() {
 			            $('#example12').multiselect('rebuild');
@@ -1297,7 +1299,7 @@
 			<div class="add-styling">
 				<table class="table table-striped">
 					<tr>
-						<td>
+						<td width="30%">
 							<select id="example15" multiple="multiple">
 								<optgroup label="Mathematics">
 									<option value="analysis">Analysis</option>
@@ -1314,10 +1316,10 @@
 								</optgroup>
 							</select>
 						</td>
-						<td>
+						<td width="30%">
 							Text alignment combined with fixed width and bold, underlined text for option group headers.
 						</td>
-						<td>
+						<td width="40%">
 							<pre class="prettyprint linenums">
 .multiselect {
 	text-align: left;
