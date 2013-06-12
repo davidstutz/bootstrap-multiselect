@@ -165,7 +165,7 @@
 			enableFiltering: false,
       enableCaseInsensitiveFiltering: false,
       filterPlaceholder: 'Search',
-			filterBehavior: 'text', // possible options: 'text', 'value', 'both'
+			filterBehavior: 'text' // possible options: 'text', 'value', 'both'
 		},
 
 		constructor: Multiselect,
