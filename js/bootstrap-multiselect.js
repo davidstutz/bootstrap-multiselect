@@ -120,7 +120,8 @@
             enableCaseInsensitiveFiltering : false,
             filterPlaceholder : 'Search',
             // possible options: 'text', 'value', 'both'
-            filterBehavior : 'text'
+            filterBehavior : 'text',
+            preventInputChangeEvent: false
         },
 
         constructor : Multiselect,
@@ -270,6 +271,10 @@
                 this.options.onChange($option, checked);
 
                 this.$select.change();
+
+                if(this.options.preventInputChangeEvent) {
+                    return false;
+                }
             }, this));
 
             $('.multiselect-container li a', this.$container).on('touchstart click', function(event) {
@@ -356,7 +361,7 @@
                                     // by default lets assume that element is not
                                     // interesting for this search
                                     var showElement = false;
-                                    
+
                                     var filterCandidate = '';
                                     if ((this.options.filterBehavior == 'text' || this.options.filterBehavior == 'both')) {
                                         filterCandidate = text;
@@ -364,14 +369,14 @@
                                     if ((this.options.filterBehavior == 'value' || this.options.filterBehavior == 'both')) {
                                         filterCandidate = value;
                                     }
-                                    
+
                                     if (this.options.enableCaseInsensitiveFiltering && filterCandidate.toLowerCase().indexOf(this.query.toLowerCase()) > -1) {
                                         showElement = true;
                                     }
                                     else if (filterCandidate.indexOf(this.query) > -1) {
                                         showElement = true;
                                     }
-                                    
+
                                     if (showElement) {
                                         $(element).show();
                                     }
@@ -471,7 +476,7 @@
             $('.multiselect-container', this.$container).html('');
             this.buildDropdown(this.$select, this.options);
             this.updateButtonText();
-            
+
             // Enable filtering.
             if (this.options.enableFiltering || this.options.enableCaseInsensitiveFiltering) {
                 this.buildFilter();
