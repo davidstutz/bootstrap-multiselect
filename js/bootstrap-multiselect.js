@@ -375,6 +375,11 @@
 			if(this.options.ajaxSearch && this.options.ajaxURL) {
 				// ajax search
 				var $addTo = $('.multiselect-container li.search-results', this.$container);
+				if($addTo.length == 0){
+					$addTo = $('.multiselect-container li:last', this.$container);
+					$addTo.addClass('search-results');
+				}
+
 				var $this = this;
 				$addTo.nextAll('li').not('.'+this.options.selectedClass).remove();
 				this.$select.find('.search-result').not(':selected').remove();
