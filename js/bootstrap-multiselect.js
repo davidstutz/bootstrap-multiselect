@@ -120,7 +120,15 @@
             enableCaseInsensitiveFiltering : false,
             filterPlaceholder : 'Search',
             // possible options: 'text', 'value', 'both'
-            filterBehavior : 'text'
+            filterBehavior : 'text',
+	    // ajax search
+	    ajaxSearch: false,
+	    ajaxURL: false,
+	    ajaxResultName: 'name',
+	    ajaxResultValue: 'value',
+	    ajaxErrorText: 'Error fetching data',
+	    ajaxNotFound: 'No match',
+	    ajaxTooMuchResults: 'Too much entries found',
         },
 
         constructor : Multiselect,
@@ -183,6 +191,13 @@
             this.toggleActiveState();
 
             this.$select.children().each($.proxy(function(index, element) {
+
+		    if ($(element).hasClass('divider')){
+			var $li = $('<li><hr></li>');
+			$li.prop('class',$(element).prop('class'));
+			$('.multiselect-container', this.$container).append($li);
+			return;
+		    }
                 // Support optgroups and options without a group simultaneously.
                 var tag = $(element).prop('tagName').toLowerCase();
                 if (tag == 'optgroup') {
@@ -190,7 +205,7 @@
                     var groupName = $(group).prop('label');
 
                     // Add a header for the group.
-                    var $li = $('<li><label class="multiselect-group"></label></li>');
+                    var $li = $('<li class="multiselect-group"><label class="multiselect-group"></label></li>');
                     $('label', $li).text(groupName);
                     $('.multiselect-container', this.$container).append($li);
 
@@ -209,7 +224,7 @@
             }, this));
 
             // Bind the change event on the dropdown elements.
-            $('.multiselect-container li input', this.$container).on('change', $.proxy(function(event) {
+            $('.multiselect-container', this.$container).on('change', 'li input', $.proxy(function(event) {
                 var checked = $(event.target).prop('checked') || false;
                 var isSelectAllOption = $(event.target).val() == this.options.selectAllValue;
 
@@ -272,7 +287,7 @@
                 this.$select.change();
             }, this));
 
-            $('.multiselect-container li a', this.$container).on('touchstart click', function(event) {
+            $('.multiselect-container', this.$container).on('touchstart click', 'li a', function(event) {
                 event.stopPropagation();
                 $(event.target).blur();
             });
@@ -346,41 +361,87 @@
 
                     if (this.query != event.target.value) {
                         this.query = event.target.value;
-
-                        $.each($('.multiselect-container li', this.$container), $.proxy(function(index, element) {
-                            var value = $('input', element).val();
-                            if (value != this.options.selectAllValue) {
-                                var text = $('label', element).text();
-                                var value = $('input', element).val();
-                                if (value && text && value != this.options.selectAllValue) {
-                                    // by default lets assume that element is not
-                                    // interesting for this search
-                                    var showElement = false;
-                                    
-                                    var filterCandidate = '';
-                                    if ((this.options.filterBehavior == 'text' || this.options.filterBehavior == 'both')) {
-                                        filterCandidate = text;
-                                    }
-                                    if ((this.options.filterBehavior == 'value' || this.options.filterBehavior == 'both')) {
-                                        filterCandidate = value;
-                                    }
-                                    
-                                    if (this.options.enableCaseInsensitiveFiltering && filterCandidate.toLowerCase().indexOf(this.query.toLowerCase()) > -1) {
-                                        showElement = true;
-                                    }
-                                    else if (filterCandidate.indexOf(this.query) > -1) {
-                                        showElement = true;
-                                    }
-                                    
-                                    if (showElement) {
-                                        $(element).show();
-                                    }
-                                    else {
-                                        $(element).hide();
-                                    }
-                                }
-                            }
-                        }, this));
+			if(this.options.ajaxSearch && this.options.ajaxURL) {
+				// ajax search
+				var $addTo = $('.multiselect-container li.search-results', this.$container);
+				var $this = this;
+				$addTo.nextAll('li').not('.'+this.options.selectedClass).remove();
+				this.$select.find('.search-result').not(':selected').remove();
+				
+				if(this.query)
+				$.ajax( this.options.ajaxURL, {
+					dataType: 'jsonp',
+					data: { query:$this.query },
+					success: function(data){
+						$addTo.nextAll('li').not('.'+$this.options.selectedClass).remove();
+						$this.$select.find('.search-result').not(':selected').remove();
+						if(! data.length ){
+							$addTo.after('<li><div class="label label-info" style="width:100%;border-radius:0;position:absolute;margin-top:-18px">'+ $this.options.ajaxNotFound +'</div></li>');
+						} else {
+							var opt = $addTo;
+							for(var i=0;i<(data.length>10?10:data.length);i++){
+								opt = $('<option class="search-result">'+ data[i][$this.options.ajaxResultName] +'</option>');
+								opt.val(data[i][$this.options.ajaxResultValue]);
+								$this.$select.append(opt);
+								$this.createOptionValue(opt);
+							}
+							if(data.length>10)
+							$('.multiselect-container', this.$container).append('<li><div class="label label-success" style="width:100%;border-radius:0;">'+ $this.options.ajaxTooMuchResults +'</div></li>');
+						}
+					},
+					error: function(){
+						$addTo.after('<li><div class="label label-important" style="width:100%;border-radius:0;position:absolute;margin-top:-18px">'+ $this.options.ajaxErrorText +'</div></li>');
+					}
+				} );
+			} else {
+				// local search
+				$.each($('.multiselect-container li', this.$container), $.proxy(function(index, element) {
+				    var value = $('input', element).val();
+				    if (value != this.options.selectAllValue) {
+					var text = $('label', element).text();
+					var value = $('input', element).val();
+					if (value && text && value != this.options.selectAllValue) {
+					    // by default lets assume that element is not
+					    // interesting for this search
+					    var showElement = false;
+					    
+					    var filterCandidate = '';
+					    if ((this.options.filterBehavior == 'text' || this.options.filterBehavior == 'both')) {
+						filterCandidate = text;
+					    }
+					    if ((this.options.filterBehavior == 'value' || this.options.filterBehavior == 'both')) {
+						filterCandidate = value;
+					    }
+					    
+					    if (this.options.enableCaseInsensitiveFiltering && filterCandidate.toLowerCase().indexOf(this.query.toLowerCase()) > -1) {
+						showElement = true;
+					    }
+					    else if (filterCandidate.indexOf(this.query) > -1) {
+						showElement = true;
+					    }
+					    
+					    if (showElement) {
+						$(element).show();
+					    }
+					    else {
+						$(element).hide();
+					    }
+					}
+				    }
+				}, this));
+				$.each($('li.multiselect-group'), $.proxy(function(index, element) {
+					    var showElement = true;
+					    var $next = $(element).nextAll(':visible:first');
+					    if( ($next.length==0) || $next.hasClass('multiselect-group')) showElement = false;
+					    if (showElement) {
+						$(element).show();
+					    }
+					    else {
+						$(element).hide();
+					    }
+					
+				}, this));
+			}
                     }
                 }, this), 300, this);
             }, this));
