@@ -245,7 +245,7 @@ The following parameters has been used for AJAX
 
 You can add a horizontal divider to a dropdown. Just add an option tag with a class name of `divider'.
 
-If you use AJAX search you SHOULD add class `search-results' to an option tag you want to search results has been added.
+If you use AJAX search you SHOULD add class `search-results' to an option tag you want to search results has been added after.
 
 
 
