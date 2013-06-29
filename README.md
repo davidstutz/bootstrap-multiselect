@@ -209,22 +209,35 @@ Thanks to [@robwesterlund](https://twitter.com/robwesterlund) for the hint :)
 The following parameters has been used for AJAX
 
 **ajaxSearch: false**
+
 	set to true to enable AJAX search
+
 **ajaxURL: false**
+
 	this should be a string contains URL of server-side
 	server should return a JSONP contains an array of found objects
 	query string to search should be passed as `query' parameter
+
 **ajaxResultName: 'name'**
+
 	this is a name of object key which will be shown as a title of
 	checkbox in search results
+
 **ajaxResultValue: 'value'**
+
 	this is a name of object key which will be used as a value of
 	checkbox in search results
+
 **ajaxErrorText: 'Error fetching data'**
+
 	an error message when server-side failed or timeout ocured
+
 **ajaxNotFound: 'No match'**
+
 	an error message when there's no results for query
+
 **ajaxTooMuchResults: 'Too much entries found'**
+
 	a warning message when too many results found
 	now is a hardcoded value of 10 entries we show this way
 
