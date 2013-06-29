@@ -241,6 +241,14 @@ The following parameters has been used for AJAX
 	a warning message when too many results found
 	now is a hardcoded value of 10 entries we show this way
 
+### Horizontal divider and a search results
+
+You can add a horizontal divider to a dropdown. Just add an option tag with a class name of `divider'.
+
+If you use AJAX search you SHOULD add class `search-results' to an option tag you want to search results has been added.
+
+
+
 ## License
 
 Copyright 2012, 2013 David Stutz
