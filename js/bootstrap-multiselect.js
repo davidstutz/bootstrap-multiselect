@@ -448,7 +448,7 @@
             $option.attr('selected', 'selected').prop('selected', true);
 
             this.updateButtonText();
-            this.options.onChange($option, checked);
+            this.options.onChange($option, true);
         },
 
         // Deselect an option by its value.
@@ -469,6 +469,7 @@
             $option.removeAttr('selected').prop('selected', false);
 
             this.updateButtonText();
+            this.options.onChange($option, false);
         },
 
         // Rebuild the whole dropdown menu.
