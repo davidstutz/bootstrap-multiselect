@@ -448,7 +448,7 @@
             $option.attr('selected', 'selected').prop('selected', true);
 
             this.updateButtonText();
-            this.options.onChange($option, checked);
+            this.options.onChange($option, true);
         },
 
         // Deselect an option by its value.
