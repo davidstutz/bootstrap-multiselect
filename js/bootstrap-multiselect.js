@@ -133,7 +133,7 @@
             }
 
             // Support the label attribute on options.
-            var label = $(element).attr('label') || $(element).text();
+            var label = $(element).attr('label') || $(element).html();
             var value = $(element).val();
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
