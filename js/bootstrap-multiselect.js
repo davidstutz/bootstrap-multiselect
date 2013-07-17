@@ -94,7 +94,7 @@
                 else {
                     var selected = '';
                     options.each(function() {
-                        var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
+                        var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).html();
 
                         selected += label + ', ';
                     });
