@@ -85,11 +85,11 @@
             // If more than 3 options are selected, the number of selected options is printed.
             buttonText : function(options, select) {
                 if (options.length == 0) {
-                    return 'None selected <b class="caret"></b>';
+                    return this.nonSelectedText + '<b class="caret"></b>';
                 }
                 else
                 if (options.length > 3) {
-                    return options.length + ' selected <b class="caret"></b>';
+                    return options.length + ' ' + this.nSelectedText + ' <b class="caret"></b>';
                 }
                 else {
                     var selected = '';
@@ -121,7 +121,9 @@
             filterPlaceholder : 'Search',
             // possible options: 'text', 'value', 'both'
             filterBehavior : 'text',
-            preventInputChangeEvent: false
+            preventInputChangeEvent: false,
+            nonSelectedText: 'None selected',
+            nSelectedText: 'selected'
         },
 
         constructor : Multiselect,
