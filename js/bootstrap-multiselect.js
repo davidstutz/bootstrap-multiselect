@@ -494,6 +494,11 @@
         updateButtonText : function() {
             var options = this.getSelected();
             $('button', this.$container).html(this.options.buttonText(options, this.$select));
+            var items = ''
+            this.$select.find('option:selected').each(function () {
+              items += $(this).text() + ', ';
+            });
+            $('button', this.$container).attr('title', items);
         },
 
         // Get all selected options.
