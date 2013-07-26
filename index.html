@@ -1028,6 +1028,27 @@
 							</pre>
 						</td>
 					</tr>
+                    <tr>
+						<td><code>buttonTitle</code></td>
+						<td>Function defining the title of the button. Similar to the <code>buttonText</code> option.</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&apos;.multiselect&apos;).multiselect({
+      buttonTitle: function(options, select) {
+        var selected = &apos;&apos;;
+        options.each(function () {
+          selected += $(this).text() + &apos;, &apos;;
+        });
+        return selected.substr(0, selected.length - 2);
+      },
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
 					<tr>
 						<td><code>buttonClass</code></td>
 						<td>The class of the dropdown button. Default: <code>btn</code>.</td>
@@ -1357,7 +1378,7 @@
 			<hr>
 			<p>
 				&copy; 2012, 2013
-				<a href="http://davidstutz.de">David Stutz</a> - <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>
+				<a href="http://davidstutz.de">David Stutz</a> - dual licensed: <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>, <a href="http://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a>
 			</p>
 		</div>
 	</body>
