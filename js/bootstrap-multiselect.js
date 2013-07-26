@@ -41,12 +41,19 @@
         this.$container = $(this.options.buttonContainer).append('<button type="button" class="multiselect dropdown-toggle ' + this.options.buttonClass + '" data-toggle="dropdown">' + this.options.buttonText(this.getSelected(), this.$select) + '</button>')
             .append('<ul class="multiselect-container dropdown-menu' + (this.options.dropRight ? ' pull-right' : '') + '"></ul>');
 
+        // Manually add button width if set.
         if (this.options.buttonWidth) {
             $('button', this.$container).css({
                 'width' : this.options.buttonWidth
             });
         }
-
+        
+        // Keep the tab index from the select.
+        var tabindex = this.$select.attr('tabindex');
+        if (tabindex) {
+            $('button', this.$container).attr('tabindex', tabindex);
+        }
+        
         // Set max height of dropdown menu to activate auto scrollbar.
         if (this.options.maxHeight) {
             // TODO: Add a class for this option to move the css declarations.

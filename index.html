@@ -135,6 +135,8 @@
 			        	enableFiltering: true,
 			        	maxHeight: 150
 			        });
+                    
+                    $('#example32').multiselect();
 			    });
 			</script>
 			<p>
@@ -480,6 +482,21 @@
 					</td>
 					<td>
 						The multiselect will adopt the state of the select: <code>&lt;select disabled&gt;&lt;/select&gt;</code>.
+					</td>
+				</tr>
+                <tr>
+					<td>
+						<select id="example32" multiple="multiple" tabindex="1">
+							<option value="cheese">Cheese</option>
+							<option value="tomatoes">Tomatoes</option>
+							<option value="mozarella">Mozzarella</option>
+							<option value="mushrooms">Mushrooms</option>
+							<option value="pepperoni">Pepperoni</option>
+							<option value="onions">Onions</option>
+						</select>
+					</td>
+					<td>
+						The buttin will keep the <code>tabindex</code> of the select.
 					</td>
 				</tr>
 			</table>
