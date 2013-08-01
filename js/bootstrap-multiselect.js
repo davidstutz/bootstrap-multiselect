@@ -66,7 +66,10 @@
 
         // Enable filtering.
         if (this.options.enableFiltering || this.options.enableCaseInsensitiveFiltering) {
-            this.buildFilter();
+            var enableFilterLength = Math.max(this.options.enableFiltering, this.options.enableCaseInsensitiveFiltering);
+            if (this.$select.find('option').length >= enableFilterLength) {
+                this.buildFilter();
+            }
         }
         
         // Build select all if enabled.
