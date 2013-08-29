@@ -120,7 +120,7 @@ The value by which the select all option is identified.
 
 **enableFiltering**
 
-Define if a text input should be created to filter results. Note that 'select all' option will select all **FILTERED** options. Default is false.
+Define if a text input should be created to filter results. Note that 'select all' option will select all **FILTERED** options. Default is false. When given an integer the filter will only be shown if the number of options exceeds the given number.
 
 **enableCaseInsensitiveFiltering**
 
@@ -128,7 +128,7 @@ Define case insensitive text input filtering.  Default is false.
 
 **filterPlaceholder**
 
-Define the placeholder for the text input above. Note that 'select all' option will select all **FILTERED** options. Default is false.
+Define the placeholder for the text input of the filter.
 
 **filterBehavior**
 
