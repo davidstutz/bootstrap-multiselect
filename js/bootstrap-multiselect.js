@@ -487,6 +487,8 @@
         // Rebuild the whole dropdown menu.
         rebuild: function() {
             $('.multiselect-container', this.$container).html('');
+            
+            this.buildSelectAll();
             this.buildDropdown(this.$select, this.options);
             this.updateButtonText();
 
