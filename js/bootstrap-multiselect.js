@@ -88,7 +88,7 @@
             // If more than 3 options are selected, the number of selected options is printed.
             buttonText: function(options, select) {
                 if (options.length == 0) {
-                    return this.nonSelectedText + '<b class="caret"></b>';
+                    return this.nonSelectedText + ' <b class="caret"></b>';
                 }
                 else
                 if (options.length > 3) {
