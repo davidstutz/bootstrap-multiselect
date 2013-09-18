@@ -6,24 +6,23 @@
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 		<meta name="copyright" content="David Stutz" />
 
-		<link rel="stylesheet" href="css/bootstrap-2.3.2.min.css" type="text/css">
+		<link rel="stylesheet" href="css/bootstrap-3.0.0.min.css" type="text/css">
 		<link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
 		<link rel="stylesheet" href="css/prettify.css" type="text/css">
 
 		<script type="text/javascript" src="js/jquery-2.0.1.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap-2.3.2.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap-3.0.0.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
 		<script type="text/javascript" src="js/prettify.js"></script>
 	</head>
 	<body>
 		<a href="https://github.com/davidstutz/bootstrap-multiselect"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
-		<div class="container-fluid" style="background:#F5F5F5;border-bottom:1px solid #DDDDDD;margin-bottom:16px;">
-			<div style="text-align:center;">
-				<h1 style="font-size:300%;margin: 26px 0px;">Bootstrap Multiselect</h1>
-				<p class="lead">
-					Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
-				</p>
-			</div>
+
+		<div class="jumbotron">
+		  <div class="container">
+		    <h1>Bootstrap Multiselect</h1>
+		    <p>Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.</p>
+		  </div>
 		</div>
 	    <div class="container">
 	        <script>
@@ -34,6 +33,12 @@
 			<p class="alert alert-info">
 				<b>Note:</b> The option names may have changed due to the latest updates.
 			</p>
+
+
+
+
+
+
 			<div class="page-header">
 				<h1>Examples</h1>
 			</div>
@@ -55,7 +60,7 @@
 			        });
 					
 			        $('#example4').multiselect({
-			            buttonClass: 'btn btn-small'
+			            buttonClass: 'btn btn-default btn-sm'
 			        });
 					
 			        $('#example5').multiselect({
@@ -63,10 +68,6 @@
 			        });
 					
 			        $('#example6').multiselect();
-					
-			        $('.example7').multiselect({
-			            buttonContainer: '<span class="dropdown" />',
-			        });
 					
 			        $('#example9').multiselect({
 			            onChange:function(element, checked){
@@ -223,7 +224,7 @@
 						</select>
 					</td>
 					<td>
-						Small button using <code>buttonClass: &apos;btn btn-small&apos;</code>.
+						Small button using <code>buttonClass: &apos;btn btn-default btn-sm&apos;</code>.
 					</td>
 				</tr>
 				<tr>
@@ -243,8 +244,8 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="input-prepend input-append btn-toolbar">
-							<span class="add-on"><b class="icon-list-alt"></b></span>
+						<div class="input-group btn-group">
+							<span class="input-group-addon"><b class="glyphicon glyphicon-list-alt"></b></span>
 							<select id="example6" multiple="multiple">
 								<option value="cheese">Cheese</option>
 								<option value="tomatoes">Tomatoes</option>
@@ -259,29 +260,6 @@
 					</td>
 					<td>
 						Multiple select within a group with add-ons and default container for the plugin: <code>buttonContainer: &apos;&lt;div class="btn-group" /&gt;&apos;</code>.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<div class="input-prepend input-append">
-							<span class="add-on"><b class="icon-list-alt"></b></span>
-							<select class="example7" multiple="multiple">
-								<option value="cheese">Cheese</option>
-								<option value="tomatoes">Tomatoes</option>
-								<option value="mozarella">Mozzarella</option>
-								<option value="mushrooms">Mushrooms</option>
-								<option value="pepperoni">Pepperoni</option>
-								<option value="onions">Onions</option>
-							</select>
-							<select class="example7" multiple="multiple">
-								<option value="large">Extra Cheese</option>
-								<option value="extra">Extra Large</option>
-							</select>
-							<button class="btn btn-primary">Save</button>
-						</div>
-					</td>
-					<td>
-						Multiple selects within a group using <code>buttonContainer: &apos;&lt;span class="dropdown" /&gt;&apos;</code>.
 					</td>
 				</tr>
 				<tr>
@@ -338,16 +316,14 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="btn-group">
-							<select id="example16" multiple="multiple">
-								<option value="cheese">Cheese</option>
-								<option value="tomatoes">Tomatoes</option>
-								<option value="mozarella">Mozzarella</option>
-								<option value="mushrooms">Mushrooms</option>
-								<option value="pepperoni">Pepperoni</option>
-								<option value="onions">Onions</option>
-							</select>
-						</div>
+						<select id="example16" multiple="multiple">
+							<option value="cheese">Cheese</option>
+							<option value="tomatoes">Tomatoes</option>
+							<option value="mozarella">Mozzarella</option>
+							<option value="mushrooms">Mushrooms</option>
+							<option value="pepperoni">Pepperoni</option>
+							<option value="onions">Onions</option>
+						</select>
 					</td>
 					<td>
 						Using the <code>onChange</code> option to prevent user from deselecting selected options.
@@ -355,23 +331,21 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="btn-group">
-							<select id="example19" multiple="multiple">
-								<optgroup label="Mathematics">
-									<option value="analysis">Analysis</option>
-									<option value="algebra">Linear Algebra</option>
-									<option value="discrete">Discrete Mathematics</option>
-									<option value="numerical">Numerical Analysis</option>
-									<option value="probability">Probability Theory</option>
-								</optgroup>
-								<optgroup label="Computer Science">
-									<option value="programming">Introduction to Programming</option>
-									<option value="automata">Automata Theory</option>
-									<option value="complexity">Complexity Theory</option>
-									<option value="software">Software Engineering</option>
-								</optgroup>
-							</select>
-						</div>
+						<select id="example19" multiple="multiple">
+							<optgroup label="Mathematics">
+								<option value="analysis">Analysis</option>
+								<option value="algebra">Linear Algebra</option>
+								<option value="discrete">Discrete Mathematics</option>
+								<option value="numerical">Numerical Analysis</option>
+								<option value="probability">Probability Theory</option>
+							</optgroup>
+							<optgroup label="Computer Science">
+								<option value="programming">Introduction to Programming</option>
+								<option value="automata">Automata Theory</option>
+								<option value="complexity">Complexity Theory</option>
+								<option value="software">Software Engineering</option>
+							</optgroup>
+						</select>
 					</td>
 					<td>
 						Option groups are detected automatically and for each option group an header element is added: <code>&lt;optgroup label=&quot;Mathematics&quot;&gt;...&lt;/optgroup&gt;</code>
@@ -379,25 +353,23 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="btn-group">
-							<select id="example23" multiple="multiple">
-								<option value="lab">Lab Course</option>
-								<option value="proseminar">Proseminar</option>
-								<optgroup label="Mathematics">
-									<option value="analysis">Analysis</option>
-									<option value="algebra">Linear Algebra</option>
-									<option value="discrete">Discrete Mathematics</option>
-									<option value="numerical">Numerical Analysis</option>
-									<option value="probability">Probability Theory</option>
-								</optgroup>
-								<optgroup label="Computer Science">
-									<option value="programming">Introduction to Programming</option>
-									<option value="automata">Automata Theory</option>
-									<option value="complexity">Complexity Theory</option>
-									<option value="software">Software Engineering</option>
-								</optgroup>
-							</select>
-						</div>
+						<select id="example23" multiple="multiple">
+							<option value="lab">Lab Course</option>
+							<option value="proseminar">Proseminar</option>
+							<optgroup label="Mathematics">
+								<option value="analysis">Analysis</option>
+								<option value="algebra">Linear Algebra</option>
+								<option value="discrete">Discrete Mathematics</option>
+								<option value="numerical">Numerical Analysis</option>
+								<option value="probability">Probability Theory</option>
+							</optgroup>
+							<optgroup label="Computer Science">
+								<option value="programming">Introduction to Programming</option>
+								<option value="automata">Automata Theory</option>
+								<option value="complexity">Complexity Theory</option>
+								<option value="software">Software Engineering</option>
+							</optgroup>
+						</select>
 					</td>
 					<td>
 						Option groups and options without any group are supported simultaneously.
@@ -405,16 +377,14 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="btn-group">
-							<select id="example20" multiple="multiple">
-								<option value="cheese">Cheese</option>
-								<option value="tomatoes">Tomatoes</option>
-								<option value="mozarella">Mozzarella</option>
-								<option value="mushrooms">Mushrooms</option>
-								<option value="pepperoni">Pepperoni</option>
-								<option value="onions">Onions</option>
-							</select>
-						</div>
+						<select id="example20" multiple="multiple">
+							<option value="cheese">Cheese</option>
+							<option value="tomatoes">Tomatoes</option>
+							<option value="mozarella">Mozzarella</option>
+							<option value="mushrooms">Mushrooms</option>
+							<option value="pepperoni">Pepperoni</option>
+							<option value="onions">Onions</option>
+						</select>
 					</td>
 					<td>
 						Using the <code>selectedClass</code> option to turn off the active class for selected options.
@@ -422,15 +392,13 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="btn-group">
-							<select id="example24" multiple="multiple">
-								<option value="analysis" label="Ana">Analysis</option>
-								<option value="algebra" label="LA">Linear Algebra</option>
-								<option value="discrete" label="Discrete">Discrete Mathematics</option>
-								<option value="numerical" label="NumA">Numerical Analysis</option>
-								<option value="probability" label="Proba">Probability Theory</option>
-							</select>
-						</div>
+						<select id="example24" multiple="multiple">
+							<option value="analysis" label="Ana">Analysis</option>
+							<option value="algebra" label="LA">Linear Algebra</option>
+							<option value="discrete" label="Discrete">Discrete Mathematics</option>
+							<option value="numerical" label="NumA">Numerical Analysis</option>
+							<option value="probability" label="Proba">Probability Theory</option>
+						</select>
 					</td>
 					<td>
 						Specifiy an alternaitve label for the options: <code>&lt;option label=&quot;label&quot;&gt;&lt;/option&gt;</code>
@@ -439,15 +407,13 @@
                 <tr>
                     <td>
 						<div class="pull-left">
-                        	<div class="btn-group">
-                                	<select id="example25" multiple="multiple">
-                                        	<option value="analysis" label="Ana">Analysis</option>
-                                            <option value="algebra" label="LA">Linear Algebra</option>
-                                            <option value="discrete" label="Discrete">Discrete Mathematics</option>
-                                            <option value="numerical" label="NumA">Numerical Analysis</option>
-	                                        <option value="probability" label="Proba">Probability Theory</option>
-        	                        </select>
-                	        </div>
+                        	<select id="example25" multiple="multiple">
+                                	<option value="analysis" label="Ana">Analysis</option>
+                                    <option value="algebra" label="LA">Linear Algebra</option>
+                                    <option value="discrete" label="Discrete">Discrete Mathematics</option>
+                                    <option value="numerical" label="NumA">Numerical Analysis</option>
+                                    <option value="probability" label="Proba">Probability Theory</option>
+	                        </select>
 						</div>
                     </td>
                     <td>
@@ -496,7 +462,7 @@
 						</select>
 					</td>
 					<td>
-						The buttin will keep the <code>tabindex</code> of the select.
+						The button will keep the <code>tabindex</code> of the select.
 					</td>
 				</tr>
 			</table>
@@ -507,8 +473,8 @@
 				Basic markup used in the above examples:
 			</p>
 			<pre class="prettyprint linenums">
-&lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap.min.css&quot; type=&quot;text/css&quot;&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap-responsive.min.css&quot; type=&quot;text/css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap.min.css&quot; type=&quot;text/css&quot;/&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap-multiselect.css&quot; type=&quot;text/css&quot;/&gt;
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
@@ -549,8 +515,8 @@
   &lt;option value=&quot;onions&quot;&gt;Onions&lt;/option&gt;
 &lt;/select&gt;
 
-&lt;div class=&quot;input-prepend input-append&quot;&gt;
-  &lt;span class=&quot;add-on&quot;&gt;&lt;b class=&quot;icon-list-alt&quot;&gt;&lt;/b&gt;&lt;/span&gt;
+&lt;div class=&quot;input-group btn-group&quot;&gt;
+  &lt;span class="input-group-addon"&gt;&lt;b class="glyphicon glyphicon-list-alt"&gt;&lt;/b&gt;&lt;/span&gt;
   &lt;select class=&quot;multiselect&quot; multiple=&quot;multiple&quot;&gt;
     &lt;option value=&quot;cheese&quot;&gt;Cheese&lt;/option&gt;
     &lt;option value=&quot;tomatoes&quot;&gt;Tomatoes&lt;/option&gt;
@@ -563,21 +529,25 @@
   &lt;button class=&quot;btn btn-success&quot;&gt;Save&lt;/button&gt;
 &lt;/div&gt;
 			</pre>
+
+
+
+
+
+
+
+
 			<div class="page-header">
 				<h1>Methods</h1>
 			</div>
 			<script type="text/javascript">
 			    $(document).ready(function() {
-			        $('#example8').multiselect({
-			            buttonContainer: '<span />'
-			        });
+			        $('#example8').multiselect();
 			        $('#example8-destroy').on('click', function() {
 			            $('#example8').multiselect('destroy');
 			        });
 					
-			        $('#example10').multiselect({
-			            buttonContainer: '<span />'
-			        });
+			        $('#example10').multiselect();
 			        $('#example10-select').on('click', function() {
 			            $('option[value="tomatoes"]', $('#example10')).prop('selected', true);
 			            $('option[value="tomatoes"]', $('#example10')).attr('selected', 'selected');
@@ -600,7 +570,6 @@
 			        });
 					
 			        $('#example12').multiselect({
-			            buttonContainer: '<span />',
 			            enableFiltering: true
 			        });
 			        $('#example12-rebuild').on('click', function() {
@@ -615,9 +584,7 @@
 			            $('option[value="add3"]', $('#example12')).remove();
 			        });
 					
-			        $('#example17').multiselect({
-			            buttonContainer: '<span />'
-			        });
+			        $('#example17').multiselect();
 			        $('#example17-cheese').on('click', function() {
 			            $('#example17').multiselect('select', 'cheese');
 			        });
@@ -625,9 +592,7 @@
 			            $('#example17').multiselect('select', 'mushrooms');
 			        });
 					
-			        $('#example18').multiselect({
-			            buttonContainer: '<span />'
-			        });
+			        $('#example18').multiselect();
 			        $('#example18-cheese').on('click', function() {
 			            $('#example18').multiselect('deselect', 'cheese');
 			        });
@@ -636,11 +601,6 @@
 			        });
 			    });
 			</script>
-			<style type="text/css">
-			    .multiselect-group {
-			        font-weight: bold;
-			    }
-			</style>
 			<table class="table table-striped">
 				<tbody>
 					<tr>
@@ -658,7 +618,7 @@
 								<button id="example8-destroy" class="btn btn-danger">Destroy/Unbind</button>
 							</div>
 						</td>
-						<td>
+						<td style="width:300px">
 							This method is used to destroy the plugin on the given element - meaning unbinding the plugin.
 						</td>
 					</tr>
@@ -674,8 +634,8 @@
 									<option value="pepperoni">Pepperoni</option>
 									<option value="onions">Onions</option>
 								</select>
-								<button id="example10-select" class="btn">Select some options</button>
-								<button id="example10-deselect" class="btn">Deselect all</button>
+								<button id="example10-select" class="btn btn-default">Select some options</button>
+								<button id="example10-deselect" class="btn btn-default">Deselect all</button>
 								<button id="example10-refresh" class="btn btn-primary">Refresh</button>
 							</div>
 						</td>
@@ -695,8 +655,8 @@
 									<option value="pepperoni">Pepperoni</option>
 									<option value="onions">Onions</option>
 								</select>
-								<button id="example12-add" class="btn">Add some options</button>
-								<button id="example12-delete" class="btn">Delete some options</button>
+								<button id="example12-add" class="btn btn-default">Add some options</button>
+								<button id="example12-delete" class="btn btn-default">Delete some options</button>
 								<button id="example12-rebuild" class="btn btn-primary">Rebuild</button>
 							</div>
 						</td>
@@ -716,8 +676,8 @@
 									<option value="pepperoni">Pepperoni</option>
 									<option value="onions">Onions</option>
 								</select>
-								<button id="example17-cheese" class="btn">Select cheese</button>
-								<button id="example17-mushrooms" class="btn">Select Mushrooms</button>
+								<button id="example17-cheese" class="btn btn-default">Select cheese</button>
+								<button id="example17-mushrooms" class="btn btn-default">Select Mushrooms</button>
 							</div>
 						</td>
 						<td>
@@ -736,8 +696,8 @@
 									<option value="pepperoni">Pepperoni</option>
 									<option value="onions">Onions</option>
 								</select>
-								<button id="example18-cheese" class="btn">Deselect cheese</button>
-								<button id="example18-mushrooms" class="btn">Deselect Mushrooms</button>
+								<button id="example18-cheese" class="btn btn-default">Deselect cheese</button>
+								<button id="example18-mushrooms" class="btn btn-default">Deselect Mushrooms</button>
 							</div>
 						</td>
 						<td>
@@ -747,6 +707,15 @@
 				</tbody>
 			</table>
 			
+
+
+
+
+
+
+
+
+
 			<div class="page-header">
 				<h1>Further Examples</h1>
 			</div>
@@ -806,9 +775,7 @@
 			    }
 				 
 			    $(document).ready(function() {
-			        $('#example21').multiselect({
-			            buttonContainer: '<span />'
-			        });
+			        $('#example21').multiselect();
 			        $("#example21-toggle").click(function(e) {
 			            e.preventDefault();
 			            multiselect_toggle($("#example21"), $(this));
@@ -816,7 +783,7 @@
 					
 			        $('#example22').multiselect({
 			            buttonClass: 'btn',
-			            buttonWidth: 'auto',
+						buttonWidth: 'auto',
 			            buttonText: function(options) {
 			                if (options.length == 0) {
 			                    return 'None selected <b class="caret"></b>';
@@ -862,7 +829,7 @@
 			<table class="table table-striped">
 				<tbody>
 					<tr>
-						<td>
+						<td style="width:250px">
 							<div class="btn-group">
 								<select id="example21" multiple="multiple">
 									<option value="cheese">Cheese</option>
@@ -878,125 +845,116 @@
 						<td>
 							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
-	/**
-	 * Gets whether all the options are selected
-	 * @param {jQuery} $el
-	 * @returns {bool}
-	 */
-	function multiselect_selected($el) {
-		var ret = true;
-		$('option', $el).each(function(element) {
-			if (!!!$(this).attr('selected')) {
-				ret = false;
-			}
-		});
-		return ret;
-	}
-	 
-	/**
-	 * Selects all the options
-	 * @param {jQuery} $el
-	 * @returns {undefined}
-	 */
-	function multiselect_selectAll($el) {
-		$('option', $el).each(function(element) {
-			$el.multiselect('select', $(this).val());
-		});
-		console.log($('option[selected]', $el).length)
-	}
-	/**
-	 * Deselects all the options
-	 * @param {jQuery} $el
-	 * @returns {undefined}
-	 */
-	function multiselect_deselectAll($el) {
-		$('option', $el).each(function(element) {
-			$el.multiselect('deselect', $(this).val());
-		});
-		console.log($('option[selected]', $el).length)
-	}
-	 
-	/**
-	 * Clears all the selected options
-	 * @param {jQuery} $el
-	 * @returns {undefined}
-	 */
-	function multiselect_toggle($el, $btn) {
-		if (multiselect_selected($el)) {
-			multiselect_deselectAll($el);
-			$btn.text(&quot;Select All&quot;);
-		}
-		else {
-			multiselect_selectAll($el);
-			$btn.text(&quot;Deselect All&quot;);
-		}
-	}
-	 
-	$(document).ready(function() {
-		$('#example21').multiselect({
-			buttonContainer: '&lt;span /&gt;'
-		});
-		$(&quot;#example21-toggle&quot;).click(function(e) {
-			e.preventDefault();
-			multiselect_toggle($(&quot;#example21&quot;), $(this));
-		});
-	});
+  /**
+   * Gets whether all the options are selected
+   * @param {jQuery} $el
+   * @returns {bool}
+   */
+  function multiselect_selected($el) {
+    var ret = true;
+    $('option', $el).each(function(element) {
+      if (!!!$(this).attr('selected')) {
+        ret = false;
+      }
+    });
+    return ret;
+  }
+   
+  /**
+   * Selects all the options
+   * @param {jQuery} $el
+   * @returns {undefined}
+   */
+  function multiselect_selectAll($el) {
+    $('option', $el).each(function(element) {
+      $el.multiselect('select', $(this).val());
+    });
+    console.log($('option[selected]', $el).length)
+  }
+  /**
+   * Deselects all the options
+   * @param {jQuery} $el
+   * @returns {undefined}
+   */
+  function multiselect_deselectAll($el) {
+    $('option', $el).each(function(element) {
+      $el.multiselect('deselect', $(this).val());
+    });
+    console.log($('option[selected]', $el).length)
+  }
+   
+  /**
+   * Clears all the selected options
+   * @param {jQuery} $el
+   * @returns {undefined}
+   */
+  function multiselect_toggle($el, $btn) {
+    if (multiselect_selected($el)) {
+      multiselect_deselectAll($el);
+      $btn.text(&quot;Select All&quot;);
+    }
+    else {
+      multiselect_selectAll($el);
+      $btn.text(&quot;Deselect All&quot;);
+    }
+  }
+   
+  $(document).ready(function() {
+    $('#example21').multiselect();
+    $(&quot;#example21-toggle&quot;).click(function(e) {
+      e.preventDefault();
+      multiselect_toggle($(&quot;#example21&quot;), $(this));
+    });
+  });
 &lt;/script&gt;
 							</pre>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<div class="btn-group">
-								<select id="example22" multiple="multiple">
-									<option value="cheese">Cheese</option>
-									<option value="tomatoes">Tomatoes</option>
-									<option value="mozarella">Mozzarella</option>
-									<option value="mushrooms">Mushrooms</option>
-									<option value="pepperoni">Pepperoni</option>
-									<option value="onions">Onions</option>
-								</select>
-							</div>
+							<select id="example22" multiple="multiple">
+								<option value="cheese">Cheese</option>
+								<option value="tomatoes">Tomatoes</option>
+								<option value="mozarella">Mozzarella</option>
+								<option value="mushrooms">Mushrooms</option>
+								<option value="pepperoni">Pepperoni</option>
+								<option value="onions">Onions</option>
+							</select>
 						</td>
 						<td>
 							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
-	$(document).ready(function() {
-		$('#example22').multiselect({
-			buttonClass: 'btn',
-			buttonWidth: 'auto',
-			buttonText: function(options) {
-				if (options.length == 0) {
-		            return 'None selected &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
-		        }
-		        else if (options.length &gt; 6) {
-		            return options.length + ' selected  &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
-		        }
-		        else {
-		            var selected = '';
-		            options.each(function() {
-						selected += $(this).text() + ', ';
-		            });
-		
-					return selected.substr(0, selected.length -2) + ' &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
-				}
-			},
-			onChange: function(element, checked) {
-				if(checked == true) {
-					//action taken here if true
-				}
-				else if(checked == false) {
-					if(confirm('Do you wish to deselect the element?')) {
-						//action taken here
-					}
-					else {
-						$(&quot;#example22&quot;).multiselect('select', element.val());
-						return false;
-					}
-				}
-			}
-		});
-	});
+  $(document).ready(function() {
+    $('#example22').multiselect({
+      buttonClass: 'btn',
+      buttonWidth: 'auto',
+      buttonText: function(options) {
+        if (options.length == 0) {
+          return 'None selected &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
+        } else if (options.length &gt; 6) {
+          return options.length + ' selected  &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
+        } else {
+          var selected = '';
+          options.each(function() {
+            selected += $(this).text() + ', ';
+          });
+          return selected.substr(0, selected.length -2) + ' &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
+        }
+      },
+      onChange: function(element, checked) {
+        if(checked == true) {
+          // action taken here if true
+        } else if (checked == false) {
+          if (confirm('Do you wish to deselect the element?')) {
+            // action taken here
+          } else {
+            $(&quot;#example22&quot;).multiselect('select', element.val());
+            return false;
+          }
+        }
+      }
+    });
+  });
 &lt;/script&gt;
 							</pre>
 						</td>
@@ -1004,6 +962,16 @@
 				</tbody>
 			</table>
 			
+
+
+
+
+
+
+
+
+
+
 			<div class="page-header">
 				<h1>Options</h1>
 			</div>
@@ -1074,7 +1042,7 @@
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      buttonClass: &apos;btn-primary btn-large&apos;
+      buttonClass: &apos;btn-primary btn-lg&apos;
     });
   });
 &lt;/script&gt;
@@ -1268,7 +1236,7 @@
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
-      enableFiltering: true
+      dropRight: true
     });
   });
 &lt;/script&gt;
@@ -1282,22 +1250,22 @@
 			</div>
 			<p>For additionaly styling of the multiselect button the CSS class <code>multiselect</code> can be used.</p>
 			<style type="text/css">
-			    .add-styling .multiselect {
+			    .add-styling-1 .multiselect {
 			        width: 500px;
 			        text-align: left;
 			    }
-			    .add-styling .multiselect b.caret {
-			        position: absolute;
-			        right: 5px;
-			    }
-			    .add-styling .multiselect-group {
+			    .add-styling-1 .multiselect b.caret {
+			    	float: right;
+					margin-top: 9px;
+				}
+			    .add-styling-1 .multiselect-group {
 			        font-weight: bold;
 			        text-decoration: underline;
 			    }
-			    .add-styling .multiselect-all {
+			    .add-styling-2 .multiselect-all {
 			        font-weight: bold;
 			    }
-			    .add-styling .multiselect-search {
+			    .add-styling-2 .multiselect-search {
 			        color: red;
 			    }
 			</style>
@@ -1331,7 +1299,7 @@
 			</script>
 			<div class="add-styling">
 				<table class="table table-striped">
-					<tr>
+					<tr class="add-styling-1">
 						<td width="30%">
 							<select id="example15" multiple="multiple">
 								<optgroup label="Mathematics">
@@ -1355,19 +1323,20 @@
 						<td width="40%">
 							<pre class="prettyprint linenums">
 .multiselect {
-	text-align: left;
+  text-align: left;
 }
 .multiselect b.caret {
-	float: right;
+  float: right;
+  margin-top: 9px;
 }
 .multiselect-group {
-	font-weight: bold;
-	text-decoration: underline;
+  font-weight: bold;
+  text-decoration: underline;
 }
 							</pre>
 						</td>
 					</tr>
-					<tr>
+					<tr class="add-styling-2">
 						<td>
 							<select id="example29" multiple="multiple">
 								
@@ -1379,10 +1348,10 @@
 						<td>
 							<pre class="prettyprint linenums">
 .multiselect-all label {
-	font-weight: bold;
+  font-weight: bold;
 }
 .multiselect-search {
-	color: red;
+  color: red;
 }
 							</pre>
 						</td>
@@ -1391,7 +1360,7 @@
 			</div>
 			</p>
 		</div>
-		<div class="container-fluid">
+		<div class="container">
 			<hr>
 			<p>
 				&copy; 2012, 2013

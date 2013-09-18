@@ -353,7 +353,7 @@
 
         // Build and bind filter.
         buildFilter: function() {
-            $('.multiselect-container', this.$container).prepend('<div class="input-prepend"><span class="add-on"><i class="icon-search"></i></span><input class="multiselect-search" type="text" placeholder="' + this.options.filterPlaceholder + '"></div>');
+            $('.multiselect-container', this.$container).prepend('<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text" placeholder="' + this.options.filterPlaceholder + '"></div>');
 
             $('.multiselect-search', this.$container).val(this.query).on('click', function(event) {
                 event.stopPropagation();
