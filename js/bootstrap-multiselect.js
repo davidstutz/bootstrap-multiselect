@@ -31,6 +31,7 @@
 
         this.options = this.getOptions(options);
         this.$select = $(select);
+        this.$select.prop('selected', []);
         this.originalOptions = this.$select.clone()[0].options;
         //we have to clone to create a new reference
         this.query = '';
@@ -286,6 +287,15 @@
                 this.options.onChange($option, checked);
 
                 this.$select.change();
+
+                var selected = [];
+
+                this.getSelected().each(function () {
+                    selected.push($(this).attr("value"));
+                });
+
+                this.$select.prop('selected', selected);
+
 
                 if(this.options.preventInputChangeEvent) {
                     return false;
