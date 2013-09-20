@@ -296,7 +296,6 @@
 
                 this.$select.prop('selected', selected);
 
-
                 if(this.options.preventInputChangeEvent) {
                     return false;
                 }
