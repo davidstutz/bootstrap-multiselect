@@ -240,7 +240,11 @@
                 }
 
                 var $option = $('option', this.$select).filter(function() {
-                    return $(this).val() == $(event.target).val();
+                  if (ko.bindingHandlers.multiselect && $(this).val() === '') {
+                    return $(this).text().trim() === $(event.target).parent().text().trim();
+                  }
+
+                  return $(this).val() == $(event.target).val();
                 });
 
                 var $optionsNotThis = $('option', this.$select).not($option);
@@ -448,9 +452,15 @@
         // Select an option by its value.
         select: function(value) {
             var $option = $('option', this.$select).filter(function() {
+                if (ko.bindingHandlers.multiselect && $(this).val() === '')
+                  return $(this).text().trim() === value;
+
                 return $(this).val() == value;
             });
             var $checkbox = $('.multiselect-container li input', this.$container).filter(function() {
+                if (ko.bindingHandlers.multiselect && $(this).val() === '')
+                  return $(this).parent().text().trim() === value;
+
                 return $(this).val() == value;
             });
 
@@ -469,9 +479,15 @@
         // Deselect an option by its value.
         deselect: function(value) {
             var $option = $('option', this.$select).filter(function() {
+                if (ko.bindingHandlers.multiselect && $(this).val() === '')
+                  return $(this).text().trim() === value;
+
                 return $(this).val() == value;
             });
             var $checkbox = $('.multiselect-container li input', this.$container).filter(function() {
+                if (ko.bindingHandlers.multiselect && $(this).val() === '')
+                  return $(this).parent().text().trim() === value;
+
                 return $(this).val() == value;
             });
 
