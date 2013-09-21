@@ -446,45 +446,61 @@
         },
 
         // Select an option by its value.
-        select: function(value) {
-            var $option = $('option', this.$select).filter(function() {
-                return $(this).val() == value;
-            });
-            var $checkbox = $('.multiselect-container li input', this.$container).filter(function() {
-                return $(this).val() == value;
-            });
-
-            if (this.options.selectedClass) {
-                $checkbox.parents('li').addClass(this.options.selectedClass);
+        select: function(selectValues) {
+            if(selectValues && !$.isArray(selectValues)) {
+                selectValues = [selectValues];
             }
 
-            $checkbox.prop('checked', true);
+            for(var i = 0; i < selectValues.length; i ++) {
+                var value = selectValues[i];
 
-            $option.attr('selected', 'selected').prop('selected', true);
+                var $option = $('option', this.$select).filter(function() {
+                    return $(this).val() == value;
+                });
+                var $checkbox = $('.multiselect-container li input', this.$container).filter(function() {
+                    return $(this).val() == value;
+                });
+
+                if (this.options.selectedClass) {
+                    $checkbox.parents('li').addClass(this.options.selectedClass);
+                }
+
+                $checkbox.prop('checked', true);
+
+                $option.attr('selected', 'selected').prop('selected', true);                
+                this.options.onChange($option, true);
+            }
 
             this.updateButtonText();
-            this.options.onChange($option, true);
         },
 
         // Deselect an option by its value.
-        deselect: function(value) {
-            var $option = $('option', this.$select).filter(function() {
-                return $(this).val() == value;
-            });
-            var $checkbox = $('.multiselect-container li input', this.$container).filter(function() {
-                return $(this).val() == value;
-            });
-
-            if (this.options.selectedClass) {
-                $checkbox.parents('li').removeClass(this.options.selectedClass);
+        deselect: function(deselectValues) {
+            if(deselectValues && !$.isArray(deselectValues)) {
+                deselectValues = [deselectValues];
             }
 
-            $checkbox.prop('checked', false);
+            for(var i = 0; i < deselectValues.length; i ++) {
+                var value = deselectValues[i];
 
-            $option.removeAttr('selected').prop('selected', false);
+                var $option = $('option', this.$select).filter(function() {
+                    return $(this).val() == value;
+                });
+                var $checkbox = $('.multiselect-container li input', this.$container).filter(function() {
+                    return $(this).val() == value;
+                });
+
+                if (this.options.selectedClass) {
+                    $checkbox.parents('li').removeClass(this.options.selectedClass);
+                }
+
+                $checkbox.prop('checked', false);
+
+                $option.removeAttr('selected').prop('selected', false);               
+                this.options.onChange($option, false);
+            }
 
             this.updateButtonText();
-            this.options.onChange($option, false);
         },
 
         // Rebuild the whole dropdown menu.
