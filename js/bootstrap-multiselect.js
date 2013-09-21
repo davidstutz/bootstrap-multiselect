@@ -501,6 +501,17 @@
             }
         },
 
+        dataprovider: function(dataprovider) {
+            var optionDOM = "";
+
+            dataprovider.forEach(function (option) {
+                optionDOM += '<option value="' + option.value + '">' + option.label + '</option>';
+            });
+
+            this.$select.html(optionDOM);
+            this.rebuild();
+        },
+
         // Get options by merging defaults and given options.
         getOptions: function(options) {
             return $.extend({}, this.defaults, options);
