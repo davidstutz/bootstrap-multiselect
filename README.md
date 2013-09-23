@@ -4,6 +4,12 @@ Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user inte
 
 **Note:** The option names may have changed due to the latest updates.
 
+Bootstrap 3 port by [Eduard Dudar](https://github.com/edudar).
+
+## Contribute
+
+Every pull request appreciated. Note that the master branch is used for the current bootstrap version. There is an additional branch for bootstrap 2.3.x.
+
 ## Demos
 
 A demo of different configurations can be found [here](http://davidstutz.github.com/bootstrap-multiselect/).
