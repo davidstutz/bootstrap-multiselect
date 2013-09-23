@@ -3,13 +3,9 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-
-  input[type="text"] {
-    width: 70%;
-  }
-
-  .input-prepend {
-    padding: 3px;
+  
+  .input-group {
+    margin: 5px;
   }
 
   > li {
@@ -19,21 +15,36 @@
       font-weight: bold;
     }
 
-    > label {
+    > label.multiselect-group {
       margin: 0;
       padding: 3px 20px 3px 20px;
       height: 100%;
-      cursor: pointer;
+      font-weight: bold;
+    }
 
-      &.multiselect-header {
+    > a {
+
+      > label {
         margin: 0;
-        padding: 3px 20px 3px 20px;
         height: 100%;
-      }
+        cursor: pointer;
+        font-weight: normal;
 
-      > input[type="checkbox"] {
-        margin-bottom:5px;
+        &.radio, &.checkbox {
+          margin: 0;
+        }
+
+        > input[type="checkbox"] {
+          margin-bottom:5px;
+        }
+
       }
     }
   }
 }
+
+.btn-group > .btn-group:nth-child(2) > .multiselect.btn {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
