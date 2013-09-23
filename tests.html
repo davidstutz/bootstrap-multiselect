@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bootstrap Multiselect Tests</title>
+		<meta name="robots" content="noindex, nofollow" />
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="copyright" content="David Stutz" />
+
+		<link rel="stylesheet" href="css/bootstrap-3.0.0.min.css" type="text/css">
+		<link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
+		<link rel="stylesheet" href="css/prettify.css" type="text/css">
+
+		<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap-3.0.0.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+		<script type="text/javascript" src="js/prettify.js"></script>
+    </head>
+    <body>
+        <a href="https://github.com/davidstutz/bootstrap-multiselect"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+        <div class="container">
+            <div class="page-header">
+                <h1>Bootstrap Multiselect Tests</h1>
+            </div>
+            
+            <table class="table table-striped table-hover">
+                <tbody>
+                    <tr id="test-build-tr" class="success">
+                        <th>Test build</th>
+                        <td>
+                            <select id="test-build-select" multiple="multiple">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td>Everything fine.</td>
+                    </tr>
+                    <tr id="test-build-selected-tr" class="success">
+                        <th>Test build with selected options</th>
+                        <td>
+                            <select id="test-build-selected-select" multiple="multiple">
+                                <option value="1" selected="selected">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td>Everything fine.</td>
+                    </tr>
+                    <tr id="test-select-tr" class="success">
+                        <th>Test select</th>
+                        <td>
+                            <select id="test-select-select" multiple="multiple">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td>Everything fine.</td>
+                    </tr>
+                    <tr id="test-deselect-tr" class="success">
+                        <th>Test deselect</th>
+                        <td>
+                            <select id="test-deselect-select" multiple="multiple">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td>Everything fine.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // Some simple useful functions for testing.
+                function checkCheckbox(ul, value) {
+                    return $('checkbox[value="1"]', element).is(':checked');
+                }
+                
+                // Test build of multiselect.
+                var build = function() {
+                    $('#test-build-select').multiselect();
+                    
+                    if ($('#test-build-select').length == 0) {
+                        return 'Select not present anymore.';
+                    }
+                    
+                    if ($('#test-build-select').css('display') != 'none') {
+                        return 'Select still visible (expected <code>display: none;</code>).';
+                    }
+                    
+                    if ($('#test-build-tr button.multiselect').length == 0) {
+                        return 'Multiselect button not present.';
+                    }
+                    
+                    if ($('#test-build-select option').length != 5) {
+                        return 'Not all options present anymore.';
+                    }
+                    
+                    if ($('#test-build-tr ul.multiselect-container').length == 0) {
+                        return 'Unordered list <code>.multiselect-container</code> not present.';
+                    }
+                    
+                    if ($('#test-build-tr ul.multiselect-container li').length != 5) {
+                        return 'No list item for each option present.';
+                    }
+                    
+                    if ($('#test-build-tr ul.multiselect-container li a').length != 5) {
+                        return 'Not all list items come with an anchor inside.';
+                    }
+                    
+                    return false;
+                }();
+                
+                if (build) {
+                    $('#test-build-tr').addClass('error');
+                    $('#test-build-tr td').last().html(build);
+                }
+                
+                var buildSelected = function() {
+                    $('#test-build-selected-select').multiselect();
+                    
+                    if ($('#test-build-selected-select option:selected').length != 1) {
+                        return 'Multiselect did not adopt selected options (1 selected option).';
+                    }
+                    
+                    if ($('#test-build-selected-tr ul.multiselect-container li.active').length != 1) {
+                        return 'Corresponding list item not set to <code>.active</code>.';
+                    }
+                    
+                    return false;
+                }();
+                
+                if (buildSelected) {
+                    $('#test-build-selected-tr').addClass('error');
+                    $('#test-build-selected-tr td').last().html(buildSelected);
+                }
+                
+                var select = function() {
+                    $('#test-deselect-select').multiselect();
+                    
+                    // Check for no selected options and no active li's.
+                    if ($('test-select-select option:selected').length > 0) {
+                        return 'There are already selected options (0 expected).';
+                    }
+                    
+                    if ($('#test-select-tr ul.multiselect-container li.active').length > 0) {
+                        return 'There are already active list items (0 expected).';
+                    }
+                    
+                    $('#test-select-select').multiselect('select', 1);
+                    
+                    if ($('#test-select-select option:selected').length != 1) {
+                        return 'Just selected an option - option not marked selected.';
+                    }
+                    
+                    if ($('#test-select-tr ul.multiselect-container li.active').length != 1) {
+                        return 'Just selected an option - list item not set active.';
+                    }
+                    
+                    if ($('#test-select-select option:selected').first().val() != 1) {
+                        return 'Wrong option selected.';
+                    }
+                    
+                    if (!checkCheckbox($('#test-select-select ul.multiselect-container'), 1)) {
+                        return 'Corresponding checkbox not checked.';
+                    }
+                    
+                    $('#test-select-select').multiselect('select', [2, 3]);
+                    
+                    if ($('#test-select-select option:selected').length != 3) {
+                        return 'Just selected two additional options - options not marked selected.';
+                    }
+                    
+                    if ($('#test-select-tr ul.multiselect-container li.active').length != 3) {
+                        return 'Just selected two additional options - list items not set active.';
+                    }
+                    
+                    if ($('#test-select-select option:selected')[1].val() != 2 || $('test-select-select option:selected')[2].val() != 3) {
+                        return 'Wrong options selected.';
+                    }
+                    
+                    if (!checkCheckbox($('#test-select-select ul.multiselect-container'), 2) || !checkCheckbox($('#test-select-select ul.multiselect-container'), 3)) {
+                        return 'Corresponding checkboxes not checked.';
+                    }
+                }();
+                
+                if (select) {
+                    $('#test-select-tr').addClass('error');
+                    $('#test-select-tr td').last().html(select);
+                }
+                
+                var deselect = function() {
+                    $('#test-deselect-select').multiselect();
+                    
+                    // Check for no selected options and no active li's.
+                    if ($('test-deselect-select option:selected').length != 3) {
+                        return 'There should be 3 options selected.';
+                    }
+                    
+                    if ($('#test-deselect-tr ul.multiselect-container li.active').length != 0) {
+                        return 'There should be 3 list items set to active.';
+                    }
+                    
+                    $('#test-deselect-select').multiselect('deselect', 1);
+                    
+                    if ($('#test-deselect-select option:selected').length != 2) {
+                        return 'Just deselected an option - option not marked deselected.';
+                    }
+                    
+                    if ($('#test-deselect-tr ul.multiselect-container li.active').length != 1) {
+                        return 'Just deselected an option - list item not set inactive.';
+                    }
+                    
+                    if ($('#test-deselect-select option:selected').first().val() != 1) {
+                        return 'Wrong option deselected.';
+                    }
+                    
+                    if (checkCheckbox($('#test-deselect-select ul.multiselect-container'), 1)) {
+                        return 'Corresponding checkbox not unchecked.';
+                    }
+                    
+                    $('#test-deselect-select').multiselect('deselect', [2, 3]);
+                    
+                    if ($('#test-deselect-select option:selected').length != 3) {
+                        return 'Just deselected two additional options - options not marked deselected.';
+                    }
+                    
+                    if ($('#test-deselect-tr ul.multiselect-container li.active').length != 3) {
+                        return 'Just deselected two additional options - list items not set unactive.';
+                    }
+                    
+                    if (checkCheckbox($('#test-deselect-select ul.multiselect-container'), 2) || checkCheckbox($('#test-deselect-select ul.multiselect-container'), 3)) {
+                        return 'Corresponding checkboxes not checked.';
+                    }
+                }();
+                
+                if (deselect) {
+                    $('#test-deselect-tr').addClass('error');
+                    $('#test-deselect-tr td').last().html(deselect);
+                }
+            });
+        </script>
+    </body>
+</html>
