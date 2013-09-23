@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
 		<link rel="stylesheet" href="css/prettify.css" type="text/css">
 
-		<script type="text/javascript" src="js/jquery-2.0.1.min.js"></script>
+		<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap-3.0.0.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
 		<script type="text/javascript" src="js/prettify.js"></script>
@@ -681,7 +681,7 @@
 							</div>
 						</td>
 						<td>
-							Selects an option by its value.
+							Selects an option by its value. Works also using an array of values.
 						</td>
 					</tr>
 					<tr>
@@ -701,20 +701,24 @@
 							</div>
 						</td>
 						<td>
-							Deselect an option by its value.
+							Deselect an option by its value. Works also using an array of values.
+						</td>
+					</tr>
+                    <tr>
+						<td><code>.multiselect('dataprovider', data)</code></td>
+						<td colspan="2">
+							Provides data for building the select's options the following way:
+                            <pre class="prettyprint linenums">
+var data = [
+    {label: &quot;ACNP&quot;, value: &quot;ACNP&quot;},
+    {label: &quot;test&quot;, value: &quot;test&quot;}
+];
+$(&quot;#multiselect&quot;).multiselect('dataprovider', data);
+                            </pre>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			
-
-
-
-
-
-
-
-
 
 			<div class="page-header">
 				<h1>Further Examples</h1>
@@ -1249,7 +1253,7 @@
 				<h1>Additional Styling</h1>
 			</div>
 			<p>For additionaly styling of the multiselect button the CSS class <code>multiselect</code> can be used.</p>
-			<style type="text/css">
+			<style media="screen" type="text/css">
 			    .add-styling-1 .multiselect {
 			        width: 500px;
 			        text-align: left;

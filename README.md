@@ -174,11 +174,21 @@ Rebuilds the whole dropdown menu. Selected options will still be selected.
 
 **.multiselect('select', value)**
 
-Selects an option by its value.
+Selects an option by its value. Works also using an array of values.
 
 **.multiselect('deselect', value)**
 
-Deselects an option by its value.
+Deselects an option by its value. Works also using an array of values.
+
+**.multiselect('dataprovider', data)**
+
+Build the select's options using the following scheme:
+
+    var data = [
+        {label: "ACNP", value: "ACNP"},
+        {label: "test", value: "test"}
+    ];
+    $("#multiselect").multiselect("dataprovider", data);
 
 ## Additional Styling
 

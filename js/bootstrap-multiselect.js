@@ -516,7 +516,8 @@
                 this.buildFilter();
             }
         },
-
+        
+        // Build select using the given data as options.
         dataprovider: function(dataprovider) {
             var optionDOM = "";
 
