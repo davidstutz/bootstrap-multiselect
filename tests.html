@@ -67,9 +67,9 @@
                         <th>Test deselect</th>
                         <td>
                             <select id="test-deselect-select" multiple="multiple">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                <option value="1" selected="selected">1</option>
+                                <option value="2" selected="selected">2</option>
+                                <option value="3" selected="selected">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
@@ -81,10 +81,6 @@
         </div>
         <script type="text/javascript">
             $(document).ready(function() {
-                // Some simple useful functions for testing.
-                function checkCheckbox(ul, value) {
-                    return $('checkbox[value="1"]', element).is(':checked');
-                }
                 
                 // Test build of multiselect.
                 var build = function() {
@@ -145,6 +141,7 @@
                     $('#test-build-selected-tr td').last().html(buildSelected);
                 }
                 
+                // Test select.
                 var select = function() {
                     $('#test-deselect-select').multiselect();
                     
@@ -171,10 +168,6 @@
                         return 'Wrong option selected.';
                     }
                     
-                    if (!checkCheckbox($('#test-select-select ul.multiselect-container'), 1)) {
-                        return 'Corresponding checkbox not checked.';
-                    }
-                    
                     $('#test-select-select').multiselect('select', [2, 3]);
                     
                     if ($('#test-select-select option:selected').length != 3) {
@@ -185,12 +178,19 @@
                         return 'Just selected two additional options - list items not set active.';
                     }
                     
-                    if ($('#test-select-select option:selected')[1].val() != 2 || $('test-select-select option:selected')[2].val() != 3) {
-                        return 'Wrong options selected.';
+                    var second = $('#test-select-select option:selected').get(1),
+                        third = $('#test-select-select option:selected').get(2);
+                    
+                    if (second == undefined || second.length == 0) {
+                        return 'Could not get second option.';
                     }
                     
-                    if (!checkCheckbox($('#test-select-select ul.multiselect-container'), 2) || !checkCheckbox($('#test-select-select ul.multiselect-container'), 3)) {
-                        return 'Corresponding checkboxes not checked.';
+                    if (third == undefined || third.length == 0) {
+                        return 'Could not get third option.';
+                    }
+                    
+                    if ($(second).val() != 2 || $(third).val() != 3) {
+                        return 'Wrong options selected.';
                     }
                 }();
                 
@@ -199,15 +199,16 @@
                     $('#test-select-tr td').last().html(select);
                 }
                 
+                // Test deselect.
                 var deselect = function() {
                     $('#test-deselect-select').multiselect();
                     
                     // Check for no selected options and no active li's.
-                    if ($('test-deselect-select option:selected').length != 3) {
+                    if ($('#test-deselect-select option:selected').length != 3) {
                         return 'There should be 3 options selected.';
                     }
                     
-                    if ($('#test-deselect-tr ul.multiselect-container li.active').length != 0) {
+                    if ($('#test-deselect-tr ul.multiselect-container li.active').length != 3) {
                         return 'There should be 3 list items set to active.';
                     }
                     
@@ -217,30 +218,22 @@
                         return 'Just deselected an option - option not marked deselected.';
                     }
                     
-                    if ($('#test-deselect-tr ul.multiselect-container li.active').length != 1) {
+                    if ($('#test-deselect-tr ul.multiselect-container li.active').length != 2) {
                         return 'Just deselected an option - list item not set inactive.';
                     }
                     
-                    if ($('#test-deselect-select option:selected').first().val() != 1) {
+                    if ($('#test-deselect-select option:selected').first().val() != 2) {
                         return 'Wrong option deselected.';
-                    }
-                    
-                    if (checkCheckbox($('#test-deselect-select ul.multiselect-container'), 1)) {
-                        return 'Corresponding checkbox not unchecked.';
                     }
                     
                     $('#test-deselect-select').multiselect('deselect', [2, 3]);
                     
-                    if ($('#test-deselect-select option:selected').length != 3) {
+                    if ($('#test-deselect-select option:selected').length > 0) {
                         return 'Just deselected two additional options - options not marked deselected.';
                     }
                     
-                    if ($('#test-deselect-tr ul.multiselect-container li.active').length != 3) {
+                    if ($('#test-deselect-tr ul.multiselect-container li.active').length > 0) {
                         return 'Just deselected two additional options - list items not set unactive.';
-                    }
-                    
-                    if (checkCheckbox($('#test-deselect-select ul.multiselect-container'), 2) || checkCheckbox($('#test-deselect-select ul.multiselect-container'), 3)) {
-                        return 'Corresponding checkboxes not checked.';
                     }
                 }();
                 
