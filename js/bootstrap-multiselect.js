@@ -1,5 +1,5 @@
 /**
- * bootstrap-multiselect.js 1.0.0
+ * bootstrap-multiselect.js
  * https://github.com/davidstutz/bootstrap-multiselect
  *
  * Copyright 2012, 2013 David Stutz
@@ -9,17 +9,15 @@
  */
 !function($) {"use strict";// jshint ;_;
 
-    if ( typeof ko != 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
+    if (typeof ko != 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
         ko.bindingHandlers.multiselect = {
-            init : function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            },
+            init : function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {},
             update : function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
                 var ms = $(element).data('multiselect');
                 if (!ms) {
                     $(element).multiselect(ko.utils.unwrapObservable(valueAccessor()));
                 }
-                else
-                if (allBindingsAccessor().options && allBindingsAccessor().options().length !== ms.originalOptions.length) {
+                else if (allBindingsAccessor().options && allBindingsAccessor().options().length !== ms.originalOptions.length) {
                     ms.updateOriginalOptions();
                     $(element).multiselect('rebuild');
                 }
@@ -90,18 +88,19 @@
                 if (options.length == 0) {
                     return this.nonSelectedText + ' <b class="caret"></b>';
                 }
-                else
-                if (options.length > 3) {
-                    return options.length + ' ' + this.nonSelectedText + ' <b class="caret"></b>';
-                }
                 else {
-                    var selected = '';
-                    options.each(function() {
-                        var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).html();
+                    if (options.length > 3) {
+                        return options.length + ' ' + this.nSelectedText + ' <b class="caret"></b>';
+                    }
+                    else {
+                        var selected = '';
+                        options.each(function() {
+                            var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).html();
 
-                        selected += label + ', ';
-                    });
-                    return selected.substr(0, selected.length - 2) + ' <b class="caret"></b>';
+                            selected += label + ', ';
+                        });
+                        return selected.substr(0, selected.length - 2) + ' <b class="caret"></b>';
+                    }
                 }
             },
             // Like the buttonText option to update the title of the button.
@@ -175,7 +174,22 @@
             }
         },
 
-        toggleActiveState: function(shouldBeActive) {
+        // Create optgroup.
+        createOptgroup: function(group) {
+            var groupName = $(group).prop('label');
+
+            // Add a header for the group.
+            var $li = $('<li><label class="multiselect-group"></label></li>');
+            $('label', $li).text(groupName);
+            $('.multiselect-container', this.$container).append($li);
+
+            // Add the options of the group.
+            $('option', group).each($.proxy(function(index, element) {
+                this.createOptionValue(element);
+            }, this));
+        },
+
+        toggleActiveState: function() {
             if (this.$select.attr('disabled') == undefined) {
                 $('button.multiselect.dropdown-toggle', this.$container).removeClass('disabled');
             }
@@ -202,26 +216,12 @@
                 // Support optgroups and options without a group simultaneously.
                 var tag = $(element).prop('tagName').toLowerCase();
                 if (tag == 'optgroup') {
-                    var group = element;
-                    var groupName = $(group).prop('label');
-
-                    // Add a header for the group.
-                    var $li = $('<li><label class="multiselect-group"></label></li>');
-                    $('label', $li).text(groupName);
-                    $('.multiselect-container', this.$container).append($li);
-
-                    // Add the options of the group.
-                    $('option', group).each($.proxy(function(index, element) {
-                        this.createOptionValue(element);
-                    }, this));
+                    this.createOptgroup(element);
                 }
-                else
-                if (tag == 'option') {
+                else if (tag == 'option') {
                     this.createOptionValue(element);
                 }
-                else {
-                    // Ignore illegal tags.
-                }
+                // Other illegal tags will be ignored.
             }, this));
 
             // Bind the change event on the dropdown elements.
@@ -238,7 +238,8 @@
                         $(event.target).parents('li').removeClass(this.options.selectedClass);
                     }
                 }
-
+                
+                // Get the corresponding option.
                 var $option = $('option', this.$select).filter(function() {
                     return $(this).val() == $(event.target).val();
                 });
@@ -257,15 +258,16 @@
                     $option.prop('selected', true);
 
                     if (this.options.multiple) {
+                        // Simply select additional option.
                         $option.attr('selected', 'selected');
                     }
                     else {
+                        // Unselect all other options and corresponding checkboxes.
                         if (this.options.selectedClass) {
                             $($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
                         }
 
                         $($checkboxesNotThis).prop('checked', false);
-
                         $optionsNotThis.removeAttr('selected').prop('selected', false);
 
                         // It's a single selection, so close.
@@ -275,9 +277,9 @@
                     if (this.options.selectedClass == "active") {
                         $optionsNotThis.parents("a").css("outline", "");
                     }
-
                 }
                 else {
+                    // Unselect option.
                     $option.removeAttr('selected').prop('selected', false);
                 }
 
@@ -319,12 +321,10 @@
                         index--;
                     }
                     // Navigate down.
-                    else
-                    if (event.keyCode == 40 && index < $items.length - 1) {
+                    else if (event.keyCode == 40 && index < $items.length - 1) {
                         index++;
                     }
-                    else
-                    if (!~index) {
+                    else if (!~index) {
                         index = 0;
                     }
 
@@ -358,8 +358,7 @@
             $('.multiselect-search', this.$container).val(this.query).on('click', function(event) {
                 event.stopPropagation();
             }).on('keydown', $.proxy(function(event) {
-                // This is useful to catch "keydown" events after the browser has
-                // updated the control.
+                // This is useful to catch "keydown" events after the browser has updated the control.
                 clearTimeout(this.searchTimeout);
 
                 this.searchTimeout = this.asyncFunction($.proxy(function() {
@@ -445,18 +444,21 @@
             this.updateButtonText();
         },
 
-        // Select an option by its value.
+        // Select an option by its value or multiple options using an array of values.
         select: function(selectValues) {
             if(selectValues && !$.isArray(selectValues)) {
                 selectValues = [selectValues];
             }
-
-            for(var i = 0; i < selectValues.length; i ++) {
+            
+            for (var i = 0; i < selectValues.length; i++) {
+                
                 var value = selectValues[i];
-
+                
+                // Find corresponding option.
                 var $option = $('option', this.$select).filter(function() {
                     return $(this).val() == value;
                 });
+                // Find corresponding checkbox.
                 var $checkbox = $('.multiselect-container li input', this.$container).filter(function() {
                     return $(this).val() == value;
                 });
@@ -474,15 +476,17 @@
             this.updateButtonText();
         },
 
-        // Deselect an option by its value.
+        // Deselect an option by its value or using an array of values.
         deselect: function(deselectValues) {
             if(deselectValues && !$.isArray(deselectValues)) {
                 deselectValues = [deselectValues];
             }
 
-            for(var i = 0; i < deselectValues.length; i ++) {
+            for (var i = 0; i < deselectValues.length; i++) {
+                
                 var value = deselectValues[i];
-
+                
+                // Find option and corresponding checkbox.
                 var $option = $('option', this.$select).filter(function() {
                     return $(this).val() == value;
                 });
@@ -508,7 +512,7 @@
             $('.multiselect-container', this.$container).html('');
             
             this.buildSelectAll();
-            this.buildDropdown(this.$select, this.options);
+            this.buildDropdown();
             this.updateButtonText();
 
             // Enable filtering.
@@ -520,7 +524,6 @@
         // Build select using the given data as options.
         dataprovider: function(dataprovider) {
             var optionDOM = "";
-
             dataprovider.forEach(function (option) {
                 optionDOM += '<option value="' + option.value + '">' + option.label + '</option>';
             });
@@ -533,7 +536,8 @@
         getOptions: function(options) {
             return $.extend({}, this.defaults, options);
         },
-
+        
+        // Update button text and button title.
         updateButtonText: function() {
             var options = this.getSelected();
             
@@ -579,7 +583,8 @@
     };
 
     $.fn.multiselect.Constructor = Multiselect;
-
+    
+    // Automatically init selects by their data-role.
     $(function() {
         $("select[data-role=multiselect]").multiselect();
     });
