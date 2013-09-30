@@ -67,6 +67,32 @@
                         </td>
                         <td>Everything fine.</td>
                     </tr>
+                    <tr id="test-build-select-all-tr" class="success">
+                        <th>Test build with select all</th>
+                        <td>
+                            <select id="test-build-select-all-select" multiple="multiple">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td>Everything fine.</td>
+                    </tr>
+                    <tr id="test-build-filter-tr" class="success">
+                        <th>Test build with filter</th>
+                        <td>
+                            <select id="test-build-filter-select" multiple="multiple">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td>Everything fine.</td>
+                    </tr>
                     <tr id="test-select-tr" class="success">
                         <th>Test select</th>
                         <td>
@@ -87,6 +113,40 @@
                                 <option value="1" selected="selected">1</option>
                                 <option value="2" selected="selected">2</option>
                                 <option value="3" selected="selected">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td>Everything fine.</td>
+                    </tr>
+                    <tr id="test-max-height-tr" class="success">
+                        <th>Test max height</th>
+                        <td>
+                            <select id="test-max-height-select" multiple="multiple">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                            </select>
+                        </td>
+                        <td>Everything fine.</td>
+                    </tr>
+                    <tr id="test-select-all-tr" class="success">
+                        <th>Test select all</th>
+                        <td>
+                            <select id="test-select-all-select" multiple="multiple">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
@@ -174,6 +234,8 @@
                     if ($(secondLabel).text() != $(second).prop('label')) {
                         return 'Second group labeled incorrectly.';
                     }
+                    
+                    return false;
                 }($('#test-build-optgroups-select'), $('#test-build-optgroups-tr'));
                 
                 if (buildOptgroups) {
@@ -198,6 +260,41 @@
                 if (buildSelected) {
                     $('#test-build-selected-tr').removeClass('success').addClass('danger');
                     $('#test-build-selected-tr td').last().html(buildSelected);
+                }
+                
+                var buildSelectAll = function(select, tr ) {
+                    var value = 'multiselect-select-all';
+                    select.multiselect({
+                        includeSelectAllOption: true,
+                        selectAllValue: value
+                    });
+                    
+                    if ($('.multiselect-container input[value="' + value + '"]', tr).length != 1) {
+                        return 'Expected exactly one input with value ' + value + ' as select all option.';
+                    }
+                    
+                    return false;
+                }($('#test-build-select-all-select'), $('#test-build-select-all-tr'));
+                
+                if (buildSelectAll) {
+                    $('#test-build-select-all-tr').removeClass('success').addClass('danger');
+                    $('#test-build-select-all-tr td').last().html(buildSelectAll);
+                }
+                
+                var buildFilter = function(select, tr) {
+                    select.multiselect({
+                        enableFiltering: true
+                    });
+                    
+                    if ($('.multiselect-search', tr).length != 1) {
+                        return 'No search input present.';
+                    }
+                    
+                }($('#test-build-filter-select'), $('#test-build-filter-tr'));
+                
+                if (buildFilter) {
+                    $('#test-build-filter-tr').removeClass('success').addClass('danger');
+                    $('#test-build-filter-tr td').last().html(buildFilter);
                 }
                 
                 // Test select.
@@ -251,6 +348,8 @@
                     if ($(second).val() != 2 || $(third).val() != 3) {
                         return 'Wrong options selected.';
                     }
+                    
+                    return false;
                 }($('#test-select-select'), $('#test-select-tr'));
                 
                 if (select) {
@@ -294,11 +393,64 @@
                     if ($('ul.multiselect-container li.active', tr).length > 0) {
                         return 'Just deselected two additional options - list items not set unactive.';
                     }
+                    
+                    return false;
                 }($('#test-deselect-select'), $('#test-deselect-tr'));
                 
                 if (deselect) {
                     $('#test-deselect-tr').removeClass('success').addClass('danger');
                     $('#test-deselect-tr td').last().html(deselect);
+                }
+                
+                var maxHeight = function(select, tr) {
+                    
+                    select.multiselect({
+                        maxHeight: 100,
+                    });
+                    
+                    var height = $('.multiselect-container', tr).css('max-height');
+                    if (height != '100px') {
+                        return 'Max height not set correctly (set: ' + height + ').';
+                    }
+                    
+                    return false;
+                }($('#test-max-height-select'), $('#test-max-height-tr'));
+                
+                if (maxHeight) {
+                    $('#test-max-height-tr').removeClass('success').addClass('danger');
+                    $('#test-max-height-tr td').last().html(maxHeight);
+                }
+                
+                var selectAll = function(select, tr) {
+                    var value = 'multiselect-select-all';
+                    select.multiselect({
+                        includeSelectAllOption: true,
+                        selectAllValue: value
+                    });
+                    
+                    if ($('option:selected', select).length > 0) {
+                        return 'Test expected 0 selected options as initial state (found ' + $('option:selected', select).length + ').';
+                    }
+                    
+                    // Trigger select all.
+                    $('.multiselect-container input[value="' + value + '"]', tr).click();
+                    
+                    if ($('option:selected', select).length != $('option', select).length) {
+                        return 'Not all options selected.';
+                    }
+                    
+                    $('.multiselect-container input[value="' + value + '"]', tr).click();
+                    
+                    if ($('option:selected', select).length > 0) {
+                        return 'There is some option selected (0 expected).';
+                    }
+                    
+                    return false;
+                }($('#test-select-all-select'), $('#test-select-all-tr'));
+                
+                if (selectAll) {
+                    $('#test-select-all-tr').removeClass('success').addClass('danger');
+                    $('#test-select-all-tr td').last().html(selectAll);
                 }
             });
         </script>
