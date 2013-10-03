@@ -802,14 +802,14 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                             case 2:
                                 rebuildMultiselect(firstConfigurationSet);
                                 
-                                $(this).text('Configuration Set 1');
+                                $(this).text('Configuration Set 2');
                                 set = 1;
                                 break;
                             case 1:
                             default:
                                 rebuildMultiselect(secondConfigurationSet);
                                 
-                                $(this).text('Configuration Set 2');
+                                $(this).text('Configuration Set 1');
                                 set = 2;
                                 break;
                             
@@ -820,7 +820,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			<table class="table table-striped">
 				<tbody>
 					<tr>
-						<td style="width:300px">
+						<td style="width:350px">
 							<div class="btn-group">
 								<select id="example21" multiple="multiple">
 									<option value="cheese">Cheese</option>
@@ -922,9 +922,11 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
       buttonText: function(options) {
         if (options.length == 0) {
           return 'None selected &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
-        } else if (options.length &gt; 6) {
+        }
+        else if (options.length &gt; 6) {
           return options.length + ' selected  &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
-        } else {
+        }
+        else {
           var selected = '';
           options.each(function() {
             selected += $(this).text() + ', ';
@@ -935,10 +937,12 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
       onChange: function(element, checked) {
         if(checked == true) {
           // action taken here if true
-        } else if (checked == false) {
+        }
+        else if (checked == false) {
           if (confirm('Do you wish to deselect the element?')) {
             // action taken here
-          } else {
+          }
+          else {
             $(&quot;#example22&quot;).multiselect('select', element.val());
             return false;
           }
@@ -963,6 +967,39 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                                 </select>
                                 <button id="example33-configuration-set" class="btn btn-primary">Configuration Set 2</button>
                             </div>
+                        </td>
+                        <td>
+                            <pre class="linenums prettyprint">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    var set = 1;
+    $('#example33').multiselect(firstConfigurationSet);
+                    
+    function rebuildMultiselect(options) {
+      $('#example33').multiselect('setOptions', options);
+      $('#example33').multiselect('rebuild');
+    }
+
+    $('#example33-configuration-set').on('click', function(event) {
+      switch (set) {
+        case 2:
+          rebuildMultiselect(firstConfigurationSet);
+
+          $(this).text('Configuration Set 2');
+          set = 1;
+          break;
+        case 1:
+        default:
+          rebuildMultiselect(secondConfigurationSet);
+
+          $(this).text('Configuration Set 1');
+          set = 2;
+          break;
+      }
+    });
+  });
+&lt;/script&gt;
+                            </pre>
                         </td>
                     </tr>
 				</tbody>
