@@ -367,7 +367,6 @@
         // Add the select all option to the select.
         buildSelectAll: function() {
             var alreadyHasSelectAll = this.$select[0][0] ? this.$select[0][0].value == this.options.selectAllValue : false;
-            console.log(this.options);
             // If options.includeSelectAllOption === true, add the include all checkbox.
             if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
                 this.$select.prepend('<option value="' + this.options.selectAllValue + '">' + this.options.selectAllText + '</option>');
