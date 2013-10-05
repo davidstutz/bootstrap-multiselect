@@ -5,7 +5,6 @@
  * Copyright 2012, 2013 David Stutz
  * 
  * Dual licensed under the BSD-3-Clause and the Apache License, Version 2.0.
- * See the README.
  */
 !function($) {
     
