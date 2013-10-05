@@ -223,7 +223,7 @@
                 }
 
                 if (checked) {
-                    $option.prop('selected', true);
+                    $option.attr('selected', true);
 
                     if (this.options.multiple) {
                         // Simply select additional option.
@@ -236,7 +236,7 @@
                         }
 
                         $($checkboxesNotThis).prop('checked', false);
-                        $optionsNotThis.removeAttr('selected').prop('selected', false);
+                        $optionsNotThis.removeAttr('selected').attr('selected', false);
 
                         // It's a single selection, so close.
                         this.$button.click();
@@ -248,7 +248,7 @@
                 }
                 else {
                     // Unselect option.
-                    $option.removeAttr('selected').prop('selected', false);
+                    $option.removeAttr('selected').attr('selected', false);
                 }
 
                 this.updateButtonText();
@@ -314,7 +314,7 @@
         // Will build an dropdown element for the given option.
         createOptionValue: function(element) {
             if ($(element).is(':selected')) {
-                $(element).attr('selected', 'selected').prop('selected', true);
+                $(element).attr('selected', 'selected').attr('selected', true);
             }
 
             // Support the label attribute on options.
@@ -495,7 +495,7 @@
 
                 $checkbox.prop('checked', true);
 
-                $option.attr('selected', 'selected').prop('selected', true);                
+                $option.attr('selected', 'selected').attr('selected', true);                
                 this.options.onChange($option, true);
             }
 
@@ -521,7 +521,7 @@
 
                 $checkbox.prop('checked', false);
 
-                $option.removeAttr('selected').prop('selected', false);               
+                $option.removeAttr('selected').attr('selected', false);               
                 this.options.onChange($option, false);
             }
 
