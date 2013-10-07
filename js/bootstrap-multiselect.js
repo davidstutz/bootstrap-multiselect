@@ -116,7 +116,7 @@
             button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
             ul: '<ul class="multiselect-container dropdown-menu"></ul>',
             filter: '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div>',
-            li: '<li><a href="javascript:void(0);"><label><input /></label></a></li>',
+            li: '<li><a href="javascript:void(0);"><label></label></a></li>',
             liGroup: '<li><label class="multiselect-group"></label></li>'
         },
         
@@ -323,7 +323,7 @@
 
             var $li = $(this.templates.li);
             $('label', $li).addClass(inputType);
-            $('input', $li).attr('type', inputType);
+            $('label', $li).append('<input type="' + inputType + '" />');
 
             var selected = $(element).prop('selected') || false;
             var $checkbox = $('input', $li);
