@@ -381,7 +381,8 @@
                 var enableFilterLength = Math.max(this.options.enableFiltering, this.options.enableCaseInsensitiveFiltering);
                 if (this.$select.find('option').length >= enableFilterLength) {
                     
-                    this.$filter = $(this.templates.filter).attr('placeholder', this.options.filterPlaceholder);
+                    this.$filter = $(this.templates.filter);
+                    $('input', this.$filter).attr('placeholder', this.options.filterPlaceholder);
                     this.$ul.prepend(this.$filter);
 
                     this.$filter.val(this.query).on('click', function(event) {
