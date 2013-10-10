@@ -579,7 +579,9 @@
 
         // Get all selected options.
         getSelected: function() {
-            return $('option:selected[value!="' + this.options.selectAllValue + '"]', this.$select);
+            return $('option[value!="' + this.options.selectAllValue + '"]', this.$select).filter(function() {
+                return $(this).attr('selected');
+            });
         },
         
         // Get the corresponding option by ts value.
