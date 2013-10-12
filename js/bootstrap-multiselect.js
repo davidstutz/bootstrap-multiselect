@@ -80,11 +80,16 @@
             },
             // Like the buttonText option to update the title of the button.
             buttonTitle: function(options, select) {
-                var selected = '';
-                options.each(function () {
-                    selected += $(this).text() + ', ';
-                });
-                return selected.substr(0, selected.length - 2);
+                if (options.length == 0) {
+                    return this.nonSelectedText;
+                }
+                else {
+                    var selected = '';
+                    options.each(function () {
+                        selected += $(this).text() + ', ';
+                    });
+                    return selected.substr(0, selected.length - 2);
+                }
             },
             // Is triggered on change of the selected options.
             onChange : function(option, checked) {
@@ -222,11 +227,11 @@
                 }
 
                 if (checked) {
-                    $option.attr('selected', true);
+                    $option.prop('selected', true);
 
                     if (this.options.multiple) {
                         // Simply select additional option.
-                        $option.attr('selected', 'selected');
+                        $option.prop('selected', 'selected');
                     }
                     else {
                         // Unselect all other options and corresponding checkboxes.
@@ -235,7 +240,7 @@
                         }
 
                         $($checkboxesNotThis).prop('checked', false);
-                        $optionsNotThis.removeAttr('selected').attr('selected', false);
+                        $optionsNotThis.prop('selected', false);
 
                         // It's a single selection, so close.
                         this.$button.click();
@@ -247,13 +252,13 @@
                 }
                 else {
                     // Unselect option.
-                    $option.removeAttr('selected').attr('selected', false);
+                    $option.prop('selected', false);
                 }
 
                 this.updateButtonText();
-                this.options.onChange($option, checked);
                 this.$select.change();
-
+                this.options.onChange($option, checked);
+                
                 if(this.options.preventInputChangeEvent) {
                     return false;
                 }
@@ -313,7 +318,7 @@
         // Will build an dropdown element for the given option.
         createOptionValue: function(element) {
             if ($(element).is(':selected')) {
-                $(element).attr('selected', 'selected').attr('selected', true);
+                $(element).prop('selected', 'selected').prop('selected', true);
             }
 
             // Support the label attribute on options.
@@ -469,7 +474,7 @@
                     $input.attr('disabled', 'disabled').prop('disabled', true).parents('li').addClass('disabled');
                 }
                 else {
-                    $input.removeAttr('disabled').prop('disabled', false).parents('li').removeClass('disabled');
+                    $input.prop('disabled', false).parents('li').removeClass('disabled');
                 }
             }, this));
 
@@ -494,8 +499,7 @@
                 }
 
                 $checkbox.prop('checked', true);
-
-                $option.attr('selected', 'selected').attr('selected', true);                
+                $option.prop('selected', true);                
                 this.options.onChange($option, true);
             }
 
@@ -520,8 +524,7 @@
                 }
 
                 $checkbox.prop('checked', false);
-
-                $option.removeAttr('selected').attr('selected', false);               
+                $option.prop('selected', false);               
                 this.options.onChange($option, false);
             }
 
@@ -568,7 +571,7 @@
         // Update button text and button title.
         updateButtonText: function() {
             var options = this.getSelected();
-            
+            console.log(options);
             // First update the displayed button text.
             $('button', this.$container).html(this.options.buttonText(options, this.$select));
             
@@ -579,8 +582,8 @@
 
         // Get all selected options.
         getSelected: function() {
-            return $('option[value!="' + this.options.selectAllValue + '"]', this.$select).filter(function() {
-                return $(this).attr('selected');
+            return $('option[value!="' + this.options.selectAllValue + '"]:selected', this.$select).filter(function() {
+                return $(this).prop('selected');
             });
         },
         

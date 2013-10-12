@@ -18,14 +18,32 @@
 	<body>
 		<a href="https://github.com/davidstutz/bootstrap-multiselect"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
-		<div class="jumbotron">
-		  <div class="container">
-		    <h1>Bootstrap Multiselect</h1>
-		    <p>Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.</p>
-		  </div>
-		</div>
-        
-	    <div class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="well well-sm" style="margin-top:12px;">
+                        <ul class="nav nav-list">
+                            <li><a href="#getting-started">Getting Started</a></li>
+                            <li><a href="#examples">Examples</a></li>
+                            <li><a href="#options">Options</a></li>
+                            <li><a href="#methods">Methods</a></li>
+                            <li><a href="#further-examples">Further Examples</a></li>
+                            <li><a href="#additional-styling">Additional Styling</a></li>
+                            <li class="divider"></li>
+                            <li><a href="tests.html">Tests</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="page-header">
+                        <h1>Bootstrap Multiselect</h1>
+                    </div>
+                    <p class="lead">
+                        Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
+                    </p>
+                </div>
+            </div>
+            
 	        <script>
 	            $('.dropdown input, .dropdown label').click(function (event) {
 	                event.stopPropagation();
@@ -37,9 +55,13 @@
 			</p>
             
             <div class="page-header">
-                <h1>Getting Started</h1>
+                <h1><a id="getting-started"></a>Getting Started</h1>
             </div>
             
+            <p>
+                The following code snippet will help you getting started.
+            </p>
+
             <pre class="prettyprint linenums">
 &lt;!-- Include Twitter Bootstrap and jQuery: --&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap.min.css&quot; type=&quot;text/css&quot;/&gt;
@@ -69,7 +91,7 @@
             </pre>
             
 			<div class="page-header">
-				<h1>Examples</h1>
+				<h1><a id="examples"></a>Examples</h1>
 			</div>
 			
 			<script type="text/javascript">
@@ -128,7 +150,9 @@
 					
 			        $('#example16').multiselect({
 			            onChange: function(option, checked) {
-			                $('#example16').multiselect('select', option.val());
+                            if (checked == false) {
+                                $('#example16').multiselect('select', option.val());
+                            }
 			            }
 			        });
 					
@@ -279,8 +303,6 @@
 								<option value="pepperoni">Pepperoni</option>
 								<option value="onions">Onions</option>
 							</select>
-							<button class="btn btn-danger">Cancel</button>
-							<button class="btn btn-success">Save</button>
 						</div>
 					</td>
 					<td>
@@ -492,521 +514,8 @@
 				</tr>
 			</table>
 
-			<div class="page-header">
-				<h1>Methods</h1>
-			</div>
-            
-			<script type="text/javascript">
-			    $(document).ready(function() {
-			        $('#example8').multiselect();
-			        $('#example8-destroy').on('click', function() {
-			            $('#example8').multiselect('destroy');
-			        });
-					
-			        $('#example10').multiselect();
-			        $('#example10-select').on('click', function() {
-			            $('option[value="tomatoes"]', $('#example10')).prop('selected', true);
-			            $('option[value="tomatoes"]', $('#example10')).attr('selected', 'selected');
-						
-			            $('option[value="mushrooms"]', $('#example10')).prop('selected', true);
-			            $('option[value="mushrooms"]', $('#example10')).attr('selected', 'selected');
-						
-			            $('option[value="onions"]', $('#example10')).prop('selected', true);
-			            $('option[value="onions"]', $('#example10')).attr('selected', 'selected');
-						
-			            alert('Selected Tomatoes, Mushrooms and Onions.');
-			        });
-			        $('#example10-deselect').on('click', function() {
-			            $('option', $('#example10')).each(function(element) {
-			                $(this).removeAttr('selected').prop('selected', false);
-			            });
-			        });
-			        $('#example10-refresh').on('click', function() {
-			            $('#example10').multiselect('refresh');
-			        });
-					
-			        $('#example12').multiselect({
-			            enableFiltering: true
-			        });
-			        $('#example12-rebuild').on('click', function() {
-			            $('#example12').multiselect('rebuild');
-			        });
-			        $('#example12-add').on('click', function() {
-			            $('#example12').append('<option value="add1">Addition 1</option><option value="add2">Addition 2</option><option value="add3">Addition 3</option>');
-			        });
-			        $('#example12-delete').on('click', function() {
-			            $('option[value="add1"]', $('#example12')).remove();
-			            $('option[value="add2"]', $('#example12')).remove();
-			            $('option[value="add3"]', $('#example12')).remove();
-			        });
-					
-			        $('#example17').multiselect();
-			        $('#example17-cheese').on('click', function() {
-			            $('#example17').multiselect('select', 'cheese');
-			        });
-			        $('#example17-mushrooms').on('click', function() {
-			            $('#example17').multiselect('select', 'mushrooms');
-			        });
-					
-			        $('#example18').multiselect();
-			        $('#example18-cheese').on('click', function() {
-			            $('#example18').multiselect('deselect', 'cheese');
-			        });
-			        $('#example18-mushrooms').on('click', function() {
-			            $('#example18').multiselect('deselect', 'mushrooms');
-			        });
-			    });
-			</script>
-			<table class="table table-striped">
-				<tbody>
-					<tr>
-						<td width="20%"><code>.multiselect('destroy')</code></td>
-						<td>
-							<div class="btn-group">
-								<select id="example8" multiple="multiple">
-									<option value="cheese">Cheese</option>
-									<option value="tomatoes">Tomatoes</option>
-									<option value="mozarella">Mozzarella</option>
-									<option value="mushrooms">Mushrooms</option>
-									<option value="pepperoni">Pepperoni</option>
-									<option value="onions">Onions</option>
-								</select>
-								<button id="example8-destroy" class="btn btn-danger">Destroy/Unbind</button>
-							</div>
-						</td>
-						<td style="width:300px">
-							This method is used to destroy the plugin on the given element - meaning unbinding the plugin.
-						</td>
-					</tr>
-					<tr>
-						<td><code>.multiselect('refresh')</code></td>
-						<td>
-							<div class="btn-group">
-								<select id="example10" multiple="multiple">
-									<option value="cheese">Cheese</option>
-									<option value="tomatoes">Tomatoes</option>
-									<option value="mozarella">Mozzarella</option>
-									<option value="mushrooms">Mushrooms</option>
-									<option value="pepperoni">Pepperoni</option>
-									<option value="onions">Onions</option>
-								</select>
-								<button id="example10-select" class="btn btn-default">Select some options</button>
-								<button id="example10-deselect" class="btn btn-default">Deselect all</button>
-								<button id="example10-refresh" class="btn btn-primary">Refresh</button>
-							</div>
-						</td>
-						<td>
-							This method is used to refresh the checked checkboxes based on the currently selected options within the select. Click &apos;Select some options&apos; so select some of the options (meaning added the <code>selected</code> attribute to some of the options). Then click refresh. The plugin will update the checkboxes accordingly.
-						</td>
-					</tr>
-					<tr>
-						<td><code>.multiselect('rebuild')</code></td>
-						<td>
-							<div class="btn-group">
-								<select id="example12" multiple="multiple">
-									<option value="cheese">Cheese</option>
-									<option value="tomatoes">Tomatoes</option>
-									<option value="mozarella">Mozzarella</option>
-									<option value="mushrooms">Mushrooms</option>
-									<option value="pepperoni">Pepperoni</option>
-									<option value="onions">Onions</option>
-								</select>
-								<button id="example12-add" class="btn btn-default">Add some options</button>
-								<button id="example12-delete" class="btn btn-default">Delete some options</button>
-								<button id="example12-rebuild" class="btn btn-primary">Rebuild</button>
-							</div>
-						</td>
-						<td>
-							Rebuilds the whole dropdown menu. All selected options will remain selected (if still existent!).
-						</td>
-					</tr>
-					<tr>
-						<td><code>.multiselect('select', value)</code></td>
-						<td>
-							<div class="btn-group">
-								<select id="example17" multiple="multiple">
-									<option value="cheese">Cheese</option>
-									<option value="tomatoes">Tomatoes</option>
-									<option value="mozarella">Mozzarella</option>
-									<option value="mushrooms">Mushrooms</option>
-									<option value="pepperoni">Pepperoni</option>
-									<option value="onions">Onions</option>
-								</select>
-								<button id="example17-cheese" class="btn btn-default">Select cheese</button>
-								<button id="example17-mushrooms" class="btn btn-default">Select Mushrooms</button>
-							</div>
-						</td>
-						<td>
-							Selects an option by its value. Works also using an array of values.
-						</td>
-					</tr>
-					<tr>
-						<td><code>.multiselect('deselect', value)</code></td>
-						<td>
-							<div class="btn-group">
-								<select id="example18" multiple="multiple">
-									<option value="cheese">Cheese</option>
-									<option value="tomatoes">Tomatoes</option>
-									<option value="mozarella">Mozzarella</option>
-									<option value="mushrooms">Mushrooms</option>
-									<option value="pepperoni">Pepperoni</option>
-									<option value="onions">Onions</option>
-								</select>
-								<button id="example18-cheese" class="btn btn-default">Deselect cheese</button>
-								<button id="example18-mushrooms" class="btn btn-default">Deselect Mushrooms</button>
-							</div>
-						</td>
-						<td>
-							Deselect an option by its value. Works also using an array of values.
-						</td>
-					</tr>
-                    <tr>
-						<td><code>.multiselect('dataprovider', data)</code></td>
-						<td colspan="2">
-							Provides data for building the select's options the following way:
-                            <pre class="prettyprint linenums">
-var data = [
-    {label: &quot;ACNP&quot;, value: &quot;ACNP&quot;},
-    {label: &quot;test&quot;, value: &quot;test&quot;}
-];
-$(&quot;#multiselect&quot;).multiselect('dataprovider', data);
-                            </pre>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<div class="page-header">
-				<h1>Further Examples</h1>
-			</div>
-			<script type="text/javascript">
-                // Example 21: select all and deselect all buttons.
- 				/**
-				 * Gets whether all the options are selected
-				 * @param {jQuery} $el
-				 * @returns {bool}
-				 */
-			    function multiselect_selected($el) {
-			        var ret = true;
-			        $('option', $el).each(function(element) {
-			            if (!!!$(this).attr('selected')) {
-			                ret = false;
-			            }
-			        });
-			        return ret;
-			    }
-				 
-			    /**
-				 * Selects all the options
-				 * @param {jQuery} $el
-				 * @returns {undefined}
-				 */
-			    function multiselect_selectAll($el) {
-			        $('option', $el).each(function(element) {
-			            $el.multiselect('select', $(this).val());
-			        });
-			        console.log($('option[selected]', $el).length)
-			    }
-			    /**
-				 * Deselects all the options
-				 * @param {jQuery} $el
-				 * @returns {undefined}
-				 */
-			    function multiselect_deselectAll($el) {
-			        $('option', $el).each(function(element) {
-			            $el.multiselect('deselect', $(this).val());
-			        });
-			        console.log($('option[selected]', $el).length)
-			    }
-				 
-			    /**
-				 * Clears all the selected options
-				 * @param {jQuery} $el
-				 * @returns {undefined}
-				 */
-			    function multiselect_toggle($el, $btn) {
-			        if (multiselect_selected($el)) {
-			            multiselect_deselectAll($el);
-			            $btn.text("Select All");
-			        }
-			        else {
-			            multiselect_selectAll($el);
-			            $btn.text("Deselect All");
-			        }
-			    }
-				 
-			    $(document).ready(function() {
-                    
-                    // Example 21: confirm a prompt to uncheck an option.
-			        $('#example21').multiselect();
-			        $("#example21-toggle").click(function(e) {
-			            e.preventDefault();
-			            multiselect_toggle($("#example21"), $(this));
-			        });
-					
-			        $('#example22').multiselect({
-			            buttonClass: 'btn',
-						buttonWidth: 'auto',
-			            buttonText: function(options) {
-			                if (options.length == 0) {
-			                    return 'None selected <b class="caret"></b>';
-			                }
-			                else if (options.length > 6) {
-			                    return options.length + ' selected  <b class="caret"></b>';
-			                }
-			                else {
-			                    var selected = '';
-			                    options.each(function() {
-			                        selected += $(this).text() + ', ';
-			                    });
-	
-			                    return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
-			                }
-			            },
-			            onChange: function(element, checked) {
-			                if(checked == true) {
-			                    //action taken here if true
-			                }
-			                else if(checked == false) {
-			                    if(confirm('Do you wish to deselect the element?')) {
-			                        //action taken here
-			                    }
-			                    else {
-			                        $("#example22").multiselect('select', element.val());
-			                    }
-			                }
-			            }
-			        });
-                    
-                    var firstConfigurationSet = {
-                        includeSelectAllOption: false,
-                        enableFiltering: false,
-                        enableCasInsensitiveFiltering: false
-                    };
-                    var secondConfigurationSet = {
-                        includeSelectAllOption: true,
-                        enableFiltering: true,
-                        enableCasInsensitiveFiltering: true
-                    };
-                    
-                    var set = 1;
-                    $('#example33').multiselect(firstConfigurationSet);
-                    
-                    function rebuildMultiselect(options) {
-                        $('#example33').multiselect('setOptions', options);
-                        $('#example33').multiselect('rebuild');
-                    }
-                    
-                    $('#example33-configuration-set').on('click', function(event) {
-                        switch (set) {
-                            case 2:
-                                rebuildMultiselect(firstConfigurationSet);
-                                
-                                $(this).text('Configuration Set 2');
-                                set = 1;
-                                break;
-                            case 1:
-                            default:
-                                rebuildMultiselect(secondConfigurationSet);
-                                
-                                $(this).text('Configuration Set 1');
-                                set = 2;
-                                break;
-                            
-                        }
-                    });
-			    });
-			</script>
-			<table class="table table-striped">
-				<tbody>
-					<tr>
-						<td style="width:350px">
-							<div class="btn-group">
-								<select id="example21" multiple="multiple">
-									<option value="cheese">Cheese</option>
-									<option value="tomatoes">Tomatoes</option>
-									<option value="mozarella">Mozzarella</option>
-									<option value="mushrooms">Mushrooms</option>
-									<option value="pepperoni">Pepperoni</option>
-									<option value="onions">Onions</option>
-								</select>
-								<button id="example21-toggle" class="btn btn-primary">Select All</button>
-							</div>
-						</td>
-						<td>
-							<pre class="prettyprint linenums">
-&lt;script type=&quot;text/javascript&quot;&gt;
-  /**
-   * Gets whether all the options are selected
-   * @param {jQuery} $el
-   * @returns {bool}
-   */
-  function multiselect_selected($el) {
-    var ret = true;
-    $('option', $el).each(function(element) {
-      if (!!!$(this).attr('selected')) {
-        ret = false;
-      }
-    });
-    return ret;
-  }
-   
-  /**
-   * Selects all the options
-   * @param {jQuery} $el
-   * @returns {undefined}
-   */
-  function multiselect_selectAll($el) {
-    $('option', $el).each(function(element) {
-      $el.multiselect('select', $(this).val());
-    });
-    console.log($('option[selected]', $el).length)
-  }
-  /**
-   * Deselects all the options
-   * @param {jQuery} $el
-   * @returns {undefined}
-   */
-  function multiselect_deselectAll($el) {
-    $('option', $el).each(function(element) {
-      $el.multiselect('deselect', $(this).val());
-    });
-    console.log($('option[selected]', $el).length)
-  }
-   
-  /**
-   * Clears all the selected options
-   * @param {jQuery} $el
-   * @returns {undefined}
-   */
-  function multiselect_toggle($el, $btn) {
-    if (multiselect_selected($el)) {
-      multiselect_deselectAll($el);
-      $btn.text(&quot;Select All&quot;);
-    }
-    else {
-      multiselect_selectAll($el);
-      $btn.text(&quot;Deselect All&quot;);
-    }
-  }
-   
-  $(document).ready(function() {
-    $('#example21').multiselect();
-    $(&quot;#example21-toggle&quot;).click(function(e) {
-      e.preventDefault();
-      multiselect_toggle($(&quot;#example21&quot;), $(this));
-    });
-  });
-&lt;/script&gt;
-							</pre>
-						</td>
-					</tr>
-					<tr>
-						<td>
-                            <select id="example22" multiple="multiple">
-                                <option value="cheese">Cheese</option>
-                                <option value="tomatoes">Tomatoes</option>
-                                <option value="mozarella">Mozzarella</option>
-                                <option value="mushrooms">Mushrooms</option>
-                                <option value="pepperoni">Pepperoni</option>
-                                <option value="onions">Onions</option>
-                            </select>
-						</td>
-						<td>
-							<pre class="prettyprint linenums">
-&lt;script type=&quot;text/javascript&quot;&gt;
-  $(document).ready(function() {
-    $('#example22').multiselect({
-      buttonClass: 'btn',
-      buttonWidth: 'auto',
-      buttonText: function(options) {
-        if (options.length == 0) {
-          return 'None selected &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
-        }
-        else if (options.length &gt; 6) {
-          return options.length + ' selected  &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
-        }
-        else {
-          var selected = '';
-          options.each(function() {
-            selected += $(this).text() + ', ';
-          });
-          return selected.substr(0, selected.length -2) + ' &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
-        }
-      },
-      onChange: function(element, checked) {
-        if(checked == true) {
-          // action taken here if true
-        }
-        else if (checked == false) {
-          if (confirm('Do you wish to deselect the element?')) {
-            // action taken here
-          }
-          else {
-            $(&quot;#example22&quot;).multiselect('select', element.val());
-            return false;
-          }
-        }
-      }
-    });
-  });
-&lt;/script&gt;
-							</pre>
-						</td>
-					</tr>
-                    <tr>
-                        <td>
-                            <div class="btn-group">
-                                <select id="example33" multiple="multiple">
-                                    <option value="cheese">Cheese</option>
-                                    <option value="tomatoes">Tomatoes</option>
-                                    <option value="mozarella">Mozzarella</option>
-                                    <option value="mushrooms">Mushrooms</option>
-                                    <option value="pepperoni">Pepperoni</option>
-                                    <option value="onions">Onions</option>
-                                </select>
-                                <button id="example33-configuration-set" class="btn btn-primary">Configuration Set 2</button>
-                            </div>
-                        </td>
-                        <td>
-                            <pre class="linenums prettyprint">
-&lt;script type=&quot;text/javascript&quot;&gt;
-  $(document).ready(function() {
-    var set = 1;
-    $('#example33').multiselect(firstConfigurationSet);
-                    
-    function rebuildMultiselect(options) {
-      $('#example33').multiselect('setOptions', options);
-      $('#example33').multiselect('rebuild');
-    }
-
-    $('#example33-configuration-set').on('click', function(event) {
-      switch (set) {
-        case 2:
-          rebuildMultiselect(firstConfigurationSet);
-
-          $(this).text('Configuration Set 2');
-          set = 1;
-          break;
-        case 1:
-        default:
-          rebuildMultiselect(secondConfigurationSet);
-
-          $(this).text('Configuration Set 1');
-          set = 2;
-          break;
-      }
-    });
-  });
-&lt;/script&gt;
-                            </pre>
-                        </td>
-                    </tr>
-				</tbody>
-			</table>
-
-			<div class="page-header">
-				<h1>Options</h1>
+            <div class="page-header">
+				<h1><a id="options"></a>Options</h1>
 			</div>
             
 			<table class="table table-striped">
@@ -1279,8 +788,605 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 					</tr>
 				</tbody>
 			</table>
+            
 			<div class="page-header">
-				<h1>Additional Styling</h1>
+				<h1><a id="methods"></a>Methods</h1>
+			</div>
+            
+			<script type="text/javascript">
+			    $(document).ready(function() {
+			        $('#example8').multiselect();
+			        $('#example8-destroy').on('click', function() {
+			            $('#example8').multiselect('destroy');
+			        });
+					
+			        $('#example10').multiselect();
+			        $('#example10-select').on('click', function() {
+			            $('option[value="tomatoes"]', $('#example10')).prop('selected', true);
+			            $('option[value="tomatoes"]', $('#example10')).attr('selected', 'selected');
+						
+			            $('option[value="mushrooms"]', $('#example10')).prop('selected', true);
+			            $('option[value="mushrooms"]', $('#example10')).attr('selected', 'selected');
+						
+			            $('option[value="onions"]', $('#example10')).prop('selected', true);
+			            $('option[value="onions"]', $('#example10')).attr('selected', 'selected');
+						
+			            alert('Selected Tomatoes, Mushrooms and Onions.');
+			        });
+			        $('#example10-deselect').on('click', function() {
+			            $('option', $('#example10')).each(function(element) {
+			                $(this).removeAttr('selected').prop('selected', false);
+			            });
+			        });
+			        $('#example10-refresh').on('click', function() {
+			            $('#example10').multiselect('refresh');
+			        });
+					
+			        $('#example12').multiselect({
+			            enableFiltering: true
+			        });
+			        $('#example12-rebuild').on('click', function() {
+			            $('#example12').multiselect('rebuild');
+			        });
+			        $('#example12-add').on('click', function() {
+			            $('#example12').append('<option value="add1">Addition 1</option><option value="add2">Addition 2</option><option value="add3">Addition 3</option>');
+			        });
+			        $('#example12-delete').on('click', function() {
+			            $('option[value="add1"]', $('#example12')).remove();
+			            $('option[value="add2"]', $('#example12')).remove();
+			            $('option[value="add3"]', $('#example12')).remove();
+			        });
+					
+			        $('#example17').multiselect();
+			        $('#example17-cheese').on('click', function() {
+			            $('#example17').multiselect('select', 'cheese');
+			        });
+			        $('#example17-mushrooms').on('click', function() {
+			            $('#example17').multiselect('select', 'mushrooms');
+			        });
+					
+			        $('#example18').multiselect();
+			        $('#example18-cheese').on('click', function() {
+			            $('#example18').multiselect('deselect', 'cheese');
+			        });
+			        $('#example18-mushrooms').on('click', function() {
+			            $('#example18').multiselect('deselect', 'mushrooms');
+			        });
+			    });
+			</script>
+			<table class="table table-striped">
+				<tbody>
+					<tr>
+						<td width="20%"><code>.multiselect('destroy')</code></td>
+						<td>
+							<div class="btn-group">
+								<select id="example8" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example8-destroy" class="btn btn-danger">Destroy/Unbind</button>
+							</div>
+						</td>
+						<td style="width:300px">
+							This method is used to destroy the plugin on the given element - meaning unbinding the plugin.
+						</td>
+					</tr>
+					<tr>
+						<td><code>.multiselect('refresh')</code></td>
+						<td>
+							<div class="btn-group">
+								<select id="example10" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example10-select" class="btn btn-default">Select some options</button>
+								<button id="example10-deselect" class="btn btn-default">Deselect all</button>
+								<button id="example10-refresh" class="btn btn-primary">Refresh</button>
+							</div>
+						</td>
+						<td>
+							This method is used to refresh the checked checkboxes based on the currently selected options within the select. Click &apos;Select some options&apos; so select some of the options (meaning added the <code>selected</code> attribute to some of the options). Then click refresh. The plugin will update the checkboxes accordingly.
+						</td>
+					</tr>
+					<tr>
+						<td><code>.multiselect('rebuild')</code></td>
+						<td>
+							<div class="btn-group">
+								<select id="example12" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example12-add" class="btn btn-default">Add some options</button>
+								<button id="example12-delete" class="btn btn-default">Delete some options</button>
+								<button id="example12-rebuild" class="btn btn-primary">Rebuild</button>
+							</div>
+						</td>
+						<td>
+							Rebuilds the whole dropdown menu. All selected options will remain selected (if still existent!).
+						</td>
+					</tr>
+					<tr>
+						<td><code>.multiselect('select', value)</code></td>
+						<td>
+							<div class="btn-group">
+								<select id="example17" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example17-cheese" class="btn btn-default">Select cheese</button>
+								<button id="example17-mushrooms" class="btn btn-default">Select Mushrooms</button>
+							</div>
+						</td>
+						<td>
+							Selects an option by its value. Works also using an array of values.
+						</td>
+					</tr>
+					<tr>
+						<td><code>.multiselect('deselect', value)</code></td>
+						<td>
+							<div class="btn-group">
+								<select id="example18" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example18-cheese" class="btn btn-default">Deselect cheese</button>
+								<button id="example18-mushrooms" class="btn btn-default">Deselect Mushrooms</button>
+							</div>
+						</td>
+						<td>
+							Deselect an option by its value. Works also using an array of values.
+						</td>
+					</tr>
+                    <tr>
+						<td><code>.multiselect('dataprovider', data)</code></td>
+						<td colspan="2">
+                            <p>
+                                Provides data for building the select's options the following way:
+                            </p>
+                            <pre class="prettyprint linenums">
+var data = [
+    {label: &quot;ACNP&quot;, value: &quot;ACNP&quot;},
+    {label: &quot;test&quot;, value: &quot;test&quot;}
+];
+$(&quot;#multiselect&quot;).multiselect('dataprovider', data);
+                            </pre>
+						</td>
+					</tr>
+                    <tr>
+						<td><code>.multiselect('setOptions', options)</code></td>
+						<td colspan="2">
+                            <p>
+                                Used to change configuration after initializing the multiselect. This may be useful in combination with <code>.multiselect('rebuild')</code>.
+                            </p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="page-header">
+				<h1><a id="further-examples"></a>Further Examples</h1>
+			</div>
+			<script type="text/javascript">
+ 				/**
+				 * Gets whether all the options are selected
+				 * @param {jQuery} $el
+				 * @returns {bool}
+				 */
+			    function multiselect_selected($el) {
+			        var ret = true;
+			        $('option', $el).each(function(element) {
+			            if (!!!$(this).prop('selected')) {
+			                ret = false;
+			            }
+			        });
+			        return ret;
+			    }
+				 
+			    /**
+				 * Selects all the options
+				 * @param {jQuery} $el
+				 * @returns {undefined}
+				 */
+			    function multiselect_selectAll($el) {
+			        $('option', $el).each(function(element) {
+			            $el.multiselect('select', $(this).val());
+			        });
+			    }
+			    /**
+				 * Deselects all the options
+				 * @param {jQuery} $el
+				 * @returns {undefined}
+				 */
+			    function multiselect_deselectAll($el) {
+			        $('option', $el).each(function(element) {
+			            $el.multiselect('deselect', $(this).val());
+			        });
+			    }
+				 
+			    /**
+				 * Clears all the selected options
+				 * @param {jQuery} $el
+				 * @returns {undefined}
+				 */
+			    function multiselect_toggle($el, $btn) {
+			        if (multiselect_selected($el)) {
+			            multiselect_deselectAll($el);
+			            $btn.text("Select All");
+			        }
+			        else {
+			            multiselect_selectAll($el);
+			            $btn.text("Deselect All");
+			        }
+			    }
+				 
+			    $(document).ready(function() {
+                    
+			        $('#example21').multiselect();
+			        $("#example21-toggle").click(function(e) {
+			            e.preventDefault();
+			            multiselect_toggle($("#example21"), $(this));
+			        });
+					
+			        $('#example22').multiselect({
+			            buttonClass: 'btn',
+						buttonWidth: 'auto',
+			            buttonText: function(options) {
+			                if (options.length == 0) {
+			                    return 'None selected <b class="caret"></b>';
+			                }
+			                else if (options.length > 6) {
+			                    return options.length + ' selected  <b class="caret"></b>';
+			                }
+			                else {
+			                    var selected = '';
+			                    options.each(function() {
+			                        selected += $(this).text() + ', ';
+			                    });
+	
+			                    return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
+			                }
+			            },
+			            onChange: function(element, checked) {
+			                if(checked == true) {
+			                    //action taken here if true
+			                }
+			                else if(checked == false) {
+			                    if(confirm('Do you wish to deselect the element?')) {
+			                        //action taken here
+			                    }
+			                    else {
+			                        $("#example22").multiselect('select', element.val());
+			                    }
+			                }
+			            }
+			        });
+                    
+                    var firstConfigurationSet = {
+                        includeSelectAllOption: false,
+                        enableFiltering: false,
+                        enableCasInsensitiveFiltering: false
+                    };
+                    var secondConfigurationSet = {
+                        includeSelectAllOption: true,
+                        enableFiltering: true,
+                        enableCasInsensitiveFiltering: true
+                    };
+                    
+                    var set = 1;
+                    $('#example33').multiselect(firstConfigurationSet);
+                    
+                    function rebuildMultiselect(options) {
+                        $('#example33').multiselect('setOptions', options);
+                        $('#example33').multiselect('rebuild');
+                    }
+                    
+                    $('#example33-configuration-set').on('click', function(event) {
+                        switch (set) {
+                            case 2:
+                                rebuildMultiselect(firstConfigurationSet);
+                                
+                                $(this).text('Configuration Set 2');
+                                set = 1;
+                                break;
+                            case 1:
+                            default:
+                                rebuildMultiselect(secondConfigurationSet);
+                                
+                                $(this).text('Configuration Set 1');
+                                set = 2;
+                                break;
+                            
+                        }
+                    });
+                    
+                    $('#example34').multiselect();
+  
+                    $('#example34-select').on('click', function() {
+                        $('#example34').multiselect('select', 'cheese');
+                        $('#example34').multiselect('select', 'tomatoes');
+                    });
+
+                    $('#example34-deselect').on('click', function() {
+                        $('#example34').multiselect('deselect', 'cheese');
+                        $('#example34').multiselect('deselect', 'tomatoes');
+                    });
+
+                    $('#example34-values').on('click', function() {
+                        $('#example34-text').text('Selected: ' + $('#example34').val()).addClass('alert alert-info');
+                    });
+			    });
+			</script>
+			<table class="table table-striped">
+				<tbody>
+                    <tr>
+						<td style="width:400px">
+                            <p>
+                                Use "Select" and "Deselect" to select or deselectcheese and tomatoes. Use "Values" to display the currently selected elements by using <code>$('.multiselect').val()</code>.
+                            </p>
+							<div class="btn-group">
+								<select id="example34" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example34-select" class="btn btn-primary">Select</button>
+								<button id="example34-deselect" class="btn btn-primary">Deselect</button>
+								<button id="example34-values" class="btn btn-primary">Values</button>
+							</div>
+                            <div id="example34-text" style="margin-top:6px;"></div>
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $('#example34').multiselect();
+  
+  $('#example34-select').on('click', function() {
+    $('#example34').multiselect('select', 'cheese');
+    $('#example34').multiselect('select', 'tomatoes');
+  });
+
+  $('#example34-deselect').on('click', function() {
+    $('#example34').multiselect('deselect', 'cheese');
+    $('#example34').multiselect('deselect', 'tomatoes');
+  });
+
+  $('#example34-values').on('click', function() {
+    $('#example34-text').text('Selected: ' + $('#example34').val()).addClass('alert alert-info');
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td>
+                            <p>
+                                Use the button to toggle the selection.
+                            </p>
+							<div class="btn-group">
+								<select id="example21" multiple="multiple">
+									<option value="cheese">Cheese</option>
+									<option value="tomatoes">Tomatoes</option>
+									<option value="mozarella">Mozzarella</option>
+									<option value="mushrooms">Mushrooms</option>
+									<option value="pepperoni">Pepperoni</option>
+									<option value="onions">Onions</option>
+								</select>
+								<button id="example21-toggle" class="btn btn-primary">Select All</button>
+							</div>
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  /**
+   * Gets whether all the options are selected
+   * @param {jQuery} $el
+   * @returns {bool}
+   */
+  function multiselect_selected($el) {
+    var ret = true;
+    $('option', $el).each(function(element) {
+      if (!!!$(this).prop('selected')) {
+        ret = false;
+      }
+    });
+    return ret;
+  }
+   
+  /**
+   * Selects all the options
+   * @param {jQuery} $el
+   * @returns {undefined}
+   */
+  function multiselect_selectAll($el) {
+    $('option', $el).each(function(element) {
+      $el.multiselect('select', $(this).val());
+    });
+  }
+  /**
+   * Deselects all the options
+   * @param {jQuery} $el
+   * @returns {undefined}
+   */
+  function multiselect_deselectAll($el) {
+    $('option', $el).each(function(element) {
+      $el.multiselect('deselect', $(this).val());
+    });
+  }
+   
+  /**
+   * Clears all the selected options
+   * @param {jQuery} $el
+   * @returns {undefined}
+   */
+  function multiselect_toggle($el, $btn) {
+    if (multiselect_selected($el)) {
+      multiselect_deselectAll($el);
+      $btn.text(&quot;Select All&quot;);
+    }
+    else {
+      multiselect_selectAll($el);
+      $btn.text(&quot;Deselect All&quot;);
+    }
+  }
+   
+  $(document).ready(function() {
+    $('#example21').multiselect();
+    $(&quot;#example21-toggle&quot;).click(function(e) {
+      e.preventDefault();
+      multiselect_toggle($(&quot;#example21&quot;), $(this));
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td>
+                            <p>
+                                When deselecting an option you will be asked for confirmation.
+                            </p>
+                            <select id="example22" multiple="multiple">
+                                <option value="cheese">Cheese</option>
+                                <option value="tomatoes">Tomatoes</option>
+                                <option value="mozarella">Mozzarella</option>
+                                <option value="mushrooms">Mushrooms</option>
+                                <option value="pepperoni">Pepperoni</option>
+                                <option value="onions">Onions</option>
+                            </select>
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $('#example22').multiselect({
+      buttonClass: 'btn',
+      buttonWidth: 'auto',
+      buttonText: function(options) {
+        if (options.length == 0) {
+          return 'None selected &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
+        }
+        else if (options.length &gt; 6) {
+          return options.length + ' selected  &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
+        }
+        else {
+          var selected = '';
+          options.each(function() {
+            selected += $(this).text() + ', ';
+          });
+          return selected.substr(0, selected.length -2) + ' &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;';
+        }
+      },
+      onChange: function(element, checked) {
+        if(checked == true) {
+          // action taken here if true
+        }
+        else if (checked == false) {
+          if (confirm('Do you wish to deselect the element?')) {
+            // action taken here
+          }
+          else {
+            $(&quot;#example22&quot;).multiselect('select', element.val());
+            return false;
+          }
+        }
+      }
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+                    <tr>
+                        <td>
+                            <p>
+                                Switching between different configuration sets is possible using a combination of <code>.multiselect('setOptions', options)</code> and <code>.multiselect('rebuild')</code>.
+                            </p>
+                            <div class="btn-group">
+                                <select id="example33" multiple="multiple">
+                                    <option value="cheese">Cheese</option>
+                                    <option value="tomatoes">Tomatoes</option>
+                                    <option value="mozarella">Mozzarella</option>
+                                    <option value="mushrooms">Mushrooms</option>
+                                    <option value="pepperoni">Pepperoni</option>
+                                    <option value="onions">Onions</option>
+                                </select>
+                                <button id="example33-configuration-set" class="btn btn-primary">Configuration Set 2</button>
+                            </div>
+                        </td>
+                        <td>
+                            <pre class="linenums prettyprint">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+
+    var firstConfigurationSet = {
+      includeSelectAllOption: false,
+      enableFiltering: false,
+      enableCasInsensitiveFiltering: false
+    };
+    var secondConfigurationSet = {
+      includeSelectAllOption: true,
+      enableFiltering: true,
+      enableCasInsensitiveFiltering: true
+    };
+
+    var set = 1;
+    $('#example33').multiselect(firstConfigurationSet);
+                    
+    function rebuildMultiselect(options) {
+      $('#example33').multiselect('setOptions', options);
+      $('#example33').multiselect('rebuild');
+    }
+
+    $('#example33-configuration-set').on('click', function(event) {
+      switch (set) {
+        case 2:
+          rebuildMultiselect(firstConfigurationSet);
+
+          $(this).text('Configuration Set 2');
+          set = 1;
+          break;
+        case 1:
+        default:
+          rebuildMultiselect(secondConfigurationSet);
+
+          $(this).text('Configuration Set 1');
+          set = 2;
+          break;
+      }
+    });
+  });
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
+				</tbody>
+			</table>
+
+			<div class="page-header">
+				<h1><a id="additional-styling"></a>Additional Styling</h1>
 			</div>
 			<p>For additionaly styling of the multiselect button the CSS class <code>multiselect</code> can be used.</p>
 			<style media="screen" type="text/css">
@@ -1392,7 +1498,6 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 					</tr>
 				</table>
 			</div>
-			</p>
 		</div>
 		<div class="container">
 			<hr>
