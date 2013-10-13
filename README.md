@@ -10,9 +10,9 @@ Bootstrap 3 port by [Eduard Dudar](https://github.com/edudar).
 
 Every pull request appreciated. Note that the master branch is used for the current bootstrap version. There is an additional branch for bootstrap 2.3.x.
 
-## Demos
+## Documentation and Demos
 
-A demo of different configurations can be found [here](http://davidstutz.github.com/bootstrap-multiselect/).
+Full documentation and demos of different configurations can be found [here](http://davidstutz.github.com/bootstrap-multiselect/).
 
 **Note**: The demo page is based on JQuery 2 - so for IE 6,7 and 8 the plugin will not work properly, see compatibility below.
 
