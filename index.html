@@ -857,7 +857,12 @@
 			<table class="table table-striped">
 				<tbody>
 					<tr>
-						<td width="20%"><code>.multiselect('destroy')</code></td>
+						<td>
+                            <p><code>.multiselect('destroy')</code></p>
+                            <p>
+                                This method is used to destroy the plugin on the given element - meaning unbinding the plugin.
+                            </p>
+                        </td>
 						<td>
 							<div class="btn-group">
 								<select id="example8" multiple="multiple">
@@ -871,12 +876,14 @@
 								<button id="example8-destroy" class="btn btn-danger">Destroy/Unbind</button>
 							</div>
 						</td>
-						<td style="width:300px">
-							This method is used to destroy the plugin on the given element - meaning unbinding the plugin.
-						</td>
 					</tr>
 					<tr>
-						<td><code>.multiselect('refresh')</code></td>
+						<td>
+                            <p><code>.multiselect('refresh')</code></p>
+                            <p>
+                                This method is used to refresh the checked checkboxes based on the currently selected options within the select. Click &apos;Select some options&apos; so select some of the options (meaning added the <code>selected</code> attribute to some of the options). Then click refresh. The plugin will update the checkboxes accordingly.
+                            </p>
+                        </td>
 						<td>
 							<div class="btn-group">
 								<select id="example10" multiple="multiple">
@@ -892,12 +899,14 @@
 								<button id="example10-refresh" class="btn btn-primary">Refresh</button>
 							</div>
 						</td>
-						<td>
-							This method is used to refresh the checked checkboxes based on the currently selected options within the select. Click &apos;Select some options&apos; so select some of the options (meaning added the <code>selected</code> attribute to some of the options). Then click refresh. The plugin will update the checkboxes accordingly.
-						</td>
 					</tr>
 					<tr>
-						<td><code>.multiselect('rebuild')</code></td>
+						<td>
+                            <p><code>.multiselect('rebuild')</code></p>
+                            <p>
+                                Rebuilds the whole dropdown menu. All selected options will remain selected (if still existent!).
+                            </p>
+                        </td>
 						<td>
 							<div class="btn-group">
 								<select id="example12" multiple="multiple">
@@ -913,12 +922,14 @@
 								<button id="example12-rebuild" class="btn btn-primary">Rebuild</button>
 							</div>
 						</td>
-						<td>
-							Rebuilds the whole dropdown menu. All selected options will remain selected (if still existent!).
-						</td>
 					</tr>
 					<tr>
-						<td><code>.multiselect('select', value)</code></td>
+						<td>
+                            <p><code>.multiselect('select', value)</code></p>
+                            <p>
+                                Selects an option by its value. Works also using an array of values.
+                            </p>
+                        </td>
 						<td>
 							<div class="btn-group">
 								<select id="example17" multiple="multiple">
@@ -933,12 +944,14 @@
 								<button id="example17-mushrooms" class="btn btn-default">Select Mushrooms</button>
 							</div>
 						</td>
-						<td>
-							Selects an option by its value. Works also using an array of values.
-						</td>
 					</tr>
 					<tr>
-						<td><code>.multiselect('deselect', value)</code></td>
+						<td>
+                            <p><code>.multiselect('deselect', value)</code></p>
+                            <p>
+                                Deselect an option by its value. Works also using an array of values.
+                            </p>
+                        </td>
 						<td>
 							<div class="btn-group">
 								<select id="example18" multiple="multiple">
@@ -953,13 +966,10 @@
 								<button id="example18-mushrooms" class="btn btn-default">Deselect Mushrooms</button>
 							</div>
 						</td>
-						<td>
-							Deselect an option by its value. Works also using an array of values.
-						</td>
 					</tr>
                     <tr>
-						<td><code>.multiselect('dataprovider', data)</code></td>
 						<td colspan="2">
+                            <p><code>.multiselect('dataprovider', data)</code></p>
                             <p>
                                 Provides data for building the select's options the following way:
                             </p>
@@ -973,12 +983,12 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 						</td>
 					</tr>
                     <tr>
-						<td><code>.multiselect('setOptions', options)</code></td>
 						<td colspan="2">
+                            <p><code>.multiselect('setOptions', options)</code></p>
                             <p>
                                 Used to change configuration after initializing the multiselect. This may be useful in combination with <code>.multiselect('rebuild')</code>.
                             </p>
-						</td>
+                        </td>
 					</tr>
 				</tbody>
 			</table>
@@ -1395,8 +1405,9 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			        text-align: left;
 			    }
 			    .add-styling-1 .multiselect b.caret {
-			    	float: right;
-					margin-top: 9px;
+                    position: absolute;
+                    top: 14px;
+                    right: 8px;
 				}
 			    .add-styling-1 .multiselect-group {
 			        font-weight: bold;
@@ -1412,19 +1423,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			<script type="text/javascript">
 			    $(document).ready(function() {
 			        $('#example15').multiselect({
-			            buttonWidth: '400px',
-			            buttonText: function(options) {
-			                if (options.length == 0) {
-			                    return 'None selected <b class="caret"></b>';
-			                }
-			                else {
-			                    var selected = '';
-			                    options.each(function() {
-			                        selected += $(this).text() + ', ';
-			                    });
-			                    return selected.substr(0, selected.length -2) + ' <b class="caret"></b>';
-			                }
-			            }
+			            buttonWidth: '400px'
 			        });
 			        
 			        for (var i = 1; i <= 100; i++) {
@@ -1433,14 +1432,18 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			        
 			        $('#example29').multiselect({
 			        	includeSelectAllOption: true,
-			        	enableFiltering: true
+			        	enableFiltering: true,
+                        maxHeight: 150
 			        });
 			    });
 			</script>
 			<div class="add-styling">
 				<table class="table table-striped">
 					<tr class="add-styling-1">
-						<td width="30%">
+						<td>
+                            <p>
+                                Text alignment combined with fixed width and bold, underlined text for option group headers.
+                            </p>
 							<select id="example15" multiple="multiple">
 								<optgroup label="Mathematics">
 									<option value="analysis">Analysis</option>
@@ -1457,17 +1460,15 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 								</optgroup>
 							</select>
 						</td>
-						<td width="30%">
-							Text alignment combined with fixed width and bold, underlined text for option group headers.
-						</td>
-						<td width="40%">
+						<td>
 							<pre class="prettyprint linenums">
 .multiselect {
   text-align: left;
 }
 .multiselect b.caret {
-  float: right;
-  margin-top: 9px;
+  position: absolute;
+  top: 14px;
+  right: 8px;
 }
 .multiselect-group {
   font-weight: bold;
@@ -1478,12 +1479,12 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 					</tr>
 					<tr class="add-styling-2">
 						<td>
-							<select id="example29" multiple="multiple">
+                            <p>
+                                Access the select all option by using the <code>.multiselect-all</code> class. The filter search field can be manipulated by using <code>.multiselect-search</code>;
+                            </p>
+                            <select id="example29" multiple="multiple">
 								
 							</select>
-						</td>
-						<td>
-							Access the select all option by using the <code>.multiselect-all</code> class. The filter search field can be manipulated by using <code>.multiselect-search</code>;
 						</td>
 						<td>
 							<pre class="prettyprint linenums">

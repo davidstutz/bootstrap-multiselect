@@ -231,7 +231,7 @@
 
                     if (this.options.multiple) {
                         // Simply select additional option.
-                        $option.prop('selected', 'selected');
+                        $option.prop('selected', true);
                     }
                     else {
                         // Unselect all other options and corresponding checkboxes.
@@ -318,7 +318,7 @@
         // Will build an dropdown element for the given option.
         createOptionValue: function(element) {
             if ($(element).is(':selected')) {
-                $(element).prop('selected', 'selected').prop('selected', true);
+                $(element).prop('selected', true);
             }
 
             // Support the label attribute on options.
