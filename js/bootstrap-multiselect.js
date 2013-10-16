@@ -571,7 +571,7 @@
         // Update button text and button title.
         updateButtonText: function() {
             var options = this.getSelected();
-            console.log(options);
+            
             // First update the displayed button text.
             $('button', this.$container).html(this.options.buttonText(options, this.$select));
             
