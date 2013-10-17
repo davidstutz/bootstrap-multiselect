@@ -110,10 +110,6 @@
 			            buttonClass: 'btn btn-default btn-sm'
 			        });
 					
-			        $('#example5').multiselect({
-			            buttonClass: 'btn btn-primary disabled'
-			        });
-					
 			        $('#example6').multiselect();
 					
 			        $('#example9').multiselect({
@@ -274,21 +270,6 @@
 					</td>
 					<td>
 						Small button using <code>buttonClass: &apos;btn btn-default btn-sm&apos;</code>.
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<select id="example5" multiple="multiple">
-							<option value="cheese">Cheese</option>
-							<option value="tomatoes">Tomatoes</option>
-							<option value="mozarella">Mozzarella</option>
-							<option value="mushrooms">Mushrooms</option>
-							<option value="pepperoni">Pepperoni</option>
-							<option value="onions">Onions</option>
-						</select>
-					</td>
-					<td>
-						Disabled using <code>buttonClass: &apos;btn btn-primary disabled&apos;</code>.
 					</td>
 				</tr>
 				<tr>
@@ -852,6 +833,16 @@
 			        $('#example18-mushrooms').on('click', function() {
 			            $('#example18').multiselect('deselect', 'mushrooms');
 			        });
+                    
+                    $('#example35').multiselect();
+                    $('#example35-disable').on('click', function() {
+                        $('#example35').multiselect('disable');
+                    });
+                    
+                    $('#example36').multiselect();
+                    $('#example36-enable').on('click', function() {
+                        $('#example36').multiselect('enable');
+                    });
 			    });
 			</script>
 			<table class="table table-striped">
@@ -988,6 +979,48 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                             <p>
                                 Used to change configuration after initializing the multiselect. This may be useful in combination with <code>.multiselect('rebuild')</code>.
                             </p>
+                        </td>
+					</tr>
+                    <tr>
+						<td>
+                            <p><code>.multiselect('disable')</code></p>
+                            <p>
+                                Disable both the underlying select and the dropdown button.
+                            </p>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <select id="example35" multiple="multiple">
+                                    <option value="cheese">Cheese</option>
+                                    <option value="tomatoes">Tomatoes</option>
+                                    <option value="mozarella">Mozzarella</option>
+                                    <option value="mushrooms">Mushrooms</option>
+                                    <option value="pepperoni">Pepperoni</option>
+                                    <option value="onions">Onions</option>
+                                </select>
+								<button id="example35-disable" class="btn btn-default">Disable</button>
+                            </div>
+                        </td>
+					</tr>
+                    <tr>
+						<td>
+                            <p><code>.multiselect('enable')</code></p>
+                            <p>
+                                Enable both the underlying select and the dropdown button.
+                            </p>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <select id="example36" multiple="multiple" disabled="disabled">
+                                    <option value="cheese">Cheese</option>
+                                    <option value="tomatoes">Tomatoes</option>
+                                    <option value="mozarella">Mozzarella</option>
+                                    <option value="mushrooms">Mushrooms</option>
+                                    <option value="pepperoni">Pepperoni</option>
+                                    <option value="onions">Onions</option>
+                                </select>
+								<button id="example36-enable" class="btn btn-default">Enable</button>
+                            </div>
                         </td>
 					</tr>
 				</tbody>
