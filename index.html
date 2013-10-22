@@ -629,12 +629,12 @@
 							</pre>
 						</td>
 					</tr>
-					<tr>
-						<td><code>onChange</code></td>
-						<td>
-							This event handler is triggered when the selected options are changed.
-						</td>
-						<td>
+                    <tr>
+                        <td><code>onChange</code></td>
+                        <td>
+                            This event handler is triggered when the selected options are changed.
+                        </td>
+                        <td>
 							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
@@ -646,8 +646,46 @@
   });
 &lt;/script&gt;
 							</pre>
-						</td>
-					</tr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>onDropdownShow</code></td>
+                        <td>
+                            This event handler is triggered when the dropdown are shown.
+                        </td>
+                        <td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      onDropdownShow: function(event) {
+      	alert(&apos;Show event invoked!&apos;);
+      }
+    });
+  });
+&lt;/script&gt;
+							</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>onDropdownHide</code></td>
+                        <td>
+                            This event handler is triggered when the dropdown are hidden.
+                        </td>
+                        <td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      onDropdownHide: function(event) {
+      	alert(&apos;Hide event invoked!&apos;);
+      }
+    });
+  });
+&lt;/script&gt;
+							</pre>
+                        </td>
+                    </tr>
 					<tr>
 						<td><code>maxHeight</code></td>
 						<td>

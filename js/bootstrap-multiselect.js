@@ -39,6 +39,8 @@
         
         this.options.multiple = this.$select.attr('multiple') == "multiple";
         this.options.onChange = $.proxy(this.options.onChange, this);
+        this.options.onDropdownShow = $.proxy(this.options.onDropdownShow, this);
+        this.options.onDropdownHide = $.proxy(this.options.onDropdownHide, this);
         
         // Build select all if enabled.
         this.buildContainer();
@@ -95,6 +97,14 @@
             onChange : function(option, checked) {
 
             },
+            // Triggered immediately when dropdown shown
+            onDropdownShow: function(event) {
+
+            },
+            // Triggered immediately when dropdown hidden
+            onDropdownHide: function(event) {
+
+            },
             buttonClass: 'btn',
             dropRight: false,
             selectedClass: 'active',
@@ -129,6 +139,8 @@
         
         buildContainer: function() {
             this.$container = $(this.options.buttonContainer);
+            this.$container.on('show.bs.dropdown', this.options.onDropdownShow);
+            this.$container.on('hide.bs.dropdown', this.options.onDropdownHide);
         },
         
         buildButton: function() {
