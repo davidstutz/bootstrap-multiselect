@@ -91,6 +91,10 @@
                     return selected.substr(0, selected.length - 2);
                 }
             },
+            // Create label
+            label: function( element ){
+                return $(element).attr('label') || $(element).html();
+            },
             // Is triggered on change of the selected options.
             onChange : function(option, checked) {
 
@@ -322,7 +326,7 @@
             }
 
             // Support the label attribute on options.
-            var label = $(element).attr('label') || $(element).html();
+            var label = this.options.label(element);
             var value = $(element).val();
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
