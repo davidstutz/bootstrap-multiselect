@@ -666,6 +666,44 @@
 						</td>
 					</tr>
 					<tr>
+						<td><code>onDropdownShow</code></td>
+						<td>
+							This event handler is triggered when the dropdown are shown.
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      onDropdownShow: function(event) {
+      	alert(&apos;Show event invoked!&apos;);
+      }
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
+						<td><code>onDropdownHide</code></td>
+						<td>
+							This event handler is triggered when the dropdown are hidden.
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      onDropdownHide: function(event) {
+      	alert(&apos;Hide event invoked!&apos;);
+      }
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>					
+					<tr>
 						<td><code>maxHeight</code></td>
 						<td>
 							Used for a long list of options this option defines the maximum height of the dropdown menu. If the size is exceeded a scrollbar will appear.
