@@ -637,7 +637,7 @@
             }
 
             // Call multiselect method.
-            if ( typeof option == 'string') {
+            if (typeof option == 'string') {
                 data[option](parameter);
             }
         });

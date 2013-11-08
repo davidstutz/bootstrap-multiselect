@@ -1177,6 +1177,68 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                     $('#example34-values').on('click', function() {
                         $('#example34-text').text('Selected: ' + $('#example34').val()).addClass('alert alert-info');
                     });
+                    
+                    $('#example37').multiselect({
+                        onChange: function(option, checked) {
+                            // Get selected options.
+                            var selectedOptions = $('#example37 option:selected');
+                            
+                            if (selectedOptions.length >= 4) {
+                                // Disable all other checkboxes.
+                                var nonSelectedOptions = $('#example37 option').filter(function() {
+                                    return !$(this).is(':selected');
+                                });
+                                
+                                var dropdown = $('#example37').siblings('.multiselect-container');
+                                nonSelectedOptions.each(function() {
+                                    var input = $('input[value="' + $(this).val() + '"]');
+                                    input.prop('disabled', true);
+                                    input.parent('li').addClass('disabled');
+                                });
+                            }
+                            else {
+                                // Enable all checkboxes.
+                                var dropdown = $('#example37').siblings('.multiselect-container');
+                                $('#example37 option').each(function() {
+                                    var input = $('input[value="' + $(this).val() + '"]');
+                                    input.prop('disabled', false);
+                                    input.parent('li').addClass('disabled');
+                                });
+                            }
+                        }
+                    });
+                    
+                    var orderCount = 0;
+                    $('#example38').multiselect({
+                        onChange: function(option, checked) {
+                            if (checked) {
+                                orderCount++;
+                                $(option).data('order', orderCount);
+                            }
+                            else {
+                                $(option).data('order', '');
+                            }
+                        }
+                    });
+                    
+                    $('#example38-order').on('click', function() {
+                        var selected = [];
+                        $('#example38 option:selected').each(function() {
+                            selected.push([$(this).val(), $(this).data('order')]);
+                        });
+                        
+                        selected.sort(function(a, b) {
+                            return a[1] - b[1];
+                        });
+                        
+                        var text = '';
+                        for (var i = 0; i < selected.length; i++) {
+                            text += selected[i][0] + ', ';
+                        }
+                        text = text.substring(0, text.length - 2);
+                        
+                        alert(text);
+                    });
 			    });
 			</script>
 			<table class="table table-striped">
@@ -1419,6 +1481,117 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
           set = 2;
           break;
       }
+    });
+  });
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                Limit the number of selected options using the <code>onChange</code> option. The user may only select a maximum of 4 options. Then all other options are disabled.
+                            </p>
+                            <div class="btn-group">
+                                <select id="example37" multiple="multiple">
+                                    <option value="cheese">Cheese</option>
+                                    <option value="tomatoes">Tomatoes</option>
+                                    <option value="mozarella">Mozzarella</option>
+                                    <option value="mushrooms">Mushrooms</option>
+                                    <option value="pepperoni">Pepperoni</option>
+                                    <option value="onions">Onions</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <pre class="linenums prettyprint">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $('#example37').multiselect({
+      onChange: function(option, checked) {
+        // Get selected options.
+        var selectedOptions = $('#example37 option:selected');
+
+        if (selectedOptions.length >= 4) {
+          // Disable all other checkboxes.
+          var nonSelectedOptions = $('#example37 option').filter(function() {
+            return !$(this).is(':selected');
+          });
+
+          var dropdown = $('#example37').siblings('.multiselect-container');
+          nonSelectedOptions.each(function() {
+            var input = $('input[value="' + $(this).val() + '"]');
+            input.prop('disabled', true);
+            input.parent('li').addClass('disabled');
+          });
+        }
+        else {
+          // Enable all checkboxes.
+          var dropdown = $('#example37').siblings('.multiselect-container');
+          $('#example37 option').each(function() {
+            var input = $('input[value="' + $(this).val() + '"]');
+            input.prop('disabled', false);
+            input.parent('li').addClass('disabled');
+          });
+        }
+      }
+    });
+  });
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                Record the order the options are selected. When selecting an item an ordering number will be incremented and saved within the option
+                            </p>
+                            <div class="btn-group">
+                                <select id="example38" multiple="multiple">
+                                    <option value="cheese">Cheese</option>
+                                    <option value="tomatoes">Tomatoes</option>
+                                    <option value="mozarella">Mozzarella</option>
+                                    <option value="mushrooms">Mushrooms</option>
+                                    <option value="pepperoni">Pepperoni</option>
+                                    <option value="onions">Onions</option>
+                                </select>
+                                <button id="example38-order" class="btn btn-primary">Order</button>
+                            </div>
+                        </td>
+                        <td>
+                            <pre class="linenums prettyprint">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    var orderCount = 0;
+    $('#example38').multiselect({
+      onChange: function(option, checked) {
+        if (checked) {
+          orderCount++;
+          $(option).data('order', orderCount);
+        }
+        else {
+          $(option).data('order', '');
+        }
+      }
+    });
+
+    $('#example38-order').on('click', function() {
+      var selected = [];
+      $('#example38 option:selected').each(function() {
+        selected.push([$(this).val(), $(this).data('order')]);
+      });
+
+      selected.sort(function(a, b) {
+        return a[1] - b[1];
+      });
+
+      var text = '';
+      for (var i = 0; i < selected.length; i++) {
+        text += selected[i][0] + ', ';
+      }
+      text = text.substring(0, text.length - 2);
+
+      alert(text);
     });
   });
 &lt;/script&gt;
