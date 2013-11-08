@@ -518,19 +518,38 @@
     $(&#39;.multiselect&#39;).multiselect({
       buttonText: function(options, select) {
         if (options.length == 0) {
-          return &apos;None selected &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
-        }
-        else if (options.length > 3) {
-          return options.length + &apos; selected  &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
+          return this.nonSelectedText + ' &lt;b class="caret"&gt;&lt;/b&gt;';
         }
         else {
-          var selected = &apos;&apos;;
-          options.each(function() {
-            selected += $(this).text() + &apos;, &apos;;
-          });
-          return selected.substr(0, selected.length -2) + &apos; &lt;b class="caret"&gt;&lt;/b&gt;&apos;;
+          if (options.length > this.numberDisplayed) {
+            return options.length + ' ' + this.nSelectedText + ' &lt;b class="caret"&gt;&lt;/b&gt;';
+          }
+          else {
+            var selected = '';
+            options.each(function() {
+              var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).html();
+
+              selected += label + ', ';
+            });
+            return selected.substr(0, selected.length - 2) + ' &lt;b class="caret"&gt;&lt;/b&gt;';
+          }
         }
       }
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+                    <tr>
+						<td><code>numberDisplayed</code></td>
+						<td>This option can be used to define the number of displayed option before the text defined in <code>nSelectedText</code> is used. This option may not be available when using a custom <code>buttonText</code> function.</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      numberDisplayed: 4
     });
   });
 &lt;/script&gt;
