@@ -615,6 +615,23 @@
 						</td>
 					</tr>
 					<tr>
+						<td><code>label</code></td>
+						<td>Function to write the label of the item.</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      label: function(element) {
+      	return $(element).html()+&#39; (&#39;+$(element).val()+&#39;)&#39;;
+      }
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
 						<td><code>selectedClass</code></td>
 						<td>The class applied to the parent &lt;li&gt; of selected items. Default: <code>active</code>.</td>
 						<td>
