@@ -1284,6 +1284,31 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                     
                     var orderCount = 0;
                     $('#example38').multiselect({
+                        buttonText: function(options) {
+			                if (options.length == 0) {
+			                    return 'None selected <b class="caret"></b>';
+			                }
+			                else if (options.length > 3) {
+			                    return options.length + ' selected  <b class="caret"></b>';
+			                }
+			                else {
+                                var selected = [];
+			                    options.each(function() {
+			                        selected.push([$(this).text(), $(this).data('order')]);
+			                    });
+                                ;
+                                selected.sort(function(a, b) {
+                                    return a[1] - b[1];
+                                })
+                                
+                                var text = '';
+                                for (var i = 0; i < selected.length; i++) {
+                                    text += selected[i][0] + ', ';
+                                }
+                                
+			                    return text.substr(0, text.length -2) + ' <b class="caret"></b>';
+			                }
+			            },
                         onChange: function(option, checked) {
                             if (checked) {
                                 orderCount++;
@@ -1638,6 +1663,31 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
   $(document).ready(function() {
     var orderCount = 0;
     $('#example38').multiselect({
+      buttonText: function(options) {
+        if (options.length == 0) {
+          return 'None selected <b class="caret"></b>';
+        }
+        else if (options.length > 3) {
+          return options.length + ' selected  <b class="caret"></b>';
+        }
+        else {
+          var selected = [];
+          options.each(function() {
+            selected.push([$(this).text(), $(this).data('order')]);
+          });
+          
+          selected.sort(function(a, b) {
+            return a[1] - b[1];
+          })
+
+          var text = '';
+          for (var i = 0; i < selected.length; i++) {
+            text += selected[i][0] + ', ';
+          }
+
+          return text.substr(0, text.length -2) + ' <b class="caret"></b>';
+        }
+      },
       onChange: function(option, checked) {
         if (checked) {
           orderCount++;

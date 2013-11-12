@@ -272,9 +272,9 @@
                     $option.prop('selected', false);
                 }
 
-                this.updateButtonText();
                 this.$select.change();
                 this.options.onChange($option, checked);
+                this.updateButtonText();
                 
                 if(this.options.preventInputChangeEvent) {
                     return false;
