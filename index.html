@@ -807,6 +807,23 @@
 							</pre>
 						</td>
 					</tr>
+                    <tr>
+						<td><code>enableCaseInsensitiveFiltering</code></td>
+						<td>
+							The same as <code>enableFiltering</code> but with case insensitive filtering.
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      enableCaseInsensitiveFiltering: true
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
 					<tr>
 						<td><code>filterPlaceholder</code></td>
 						<td>
@@ -1200,13 +1217,11 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                     
                     var firstConfigurationSet = {
                         includeSelectAllOption: false,
-                        enableFiltering: false,
-                        enableCasInsensitiveFiltering: false
+                        enableFiltering: false
                     };
                     var secondConfigurationSet = {
                         includeSelectAllOption: true,
-                        enableFiltering: true,
-                        enableCasInsensitiveFiltering: true
+                        enableFiltering: true
                     };
                     
                     var set = 1;
@@ -1547,13 +1562,11 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 
     var firstConfigurationSet = {
       includeSelectAllOption: false,
-      enableFiltering: false,
-      enableCasInsensitiveFiltering: false
+      enableFiltering: false
     };
     var secondConfigurationSet = {
       includeSelectAllOption: true,
-      enableFiltering: true,
-      enableCasInsensitiveFiltering: true
+      enableFiltering: true
     };
 
     var set = 1;
