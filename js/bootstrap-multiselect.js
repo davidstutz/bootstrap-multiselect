@@ -22,6 +22,9 @@
                     ms.updateOriginalOptions();
                     $(element).multiselect('rebuild');
                 }
+				else {
+                    ms.refresh();
+                }
             }
         };
     }
