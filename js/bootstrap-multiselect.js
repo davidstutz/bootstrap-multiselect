@@ -238,10 +238,18 @@
 
                 // Toggle all options if the select all option was changed.
                 if (isSelectAllOption) {
-                    $checkboxesNotThis.filter(function() {
-                        return $(this).is(':checked') != checked;
-                    }).trigger('click');
-                }
+                    if (this.$select[0][0].value == this.options.selectAllValue) {
+                        var values = [];
+                        var options = this.$select.children();
+                        for(var i = 0; i < $checkboxesNotThis.length; i++)
+                            if (options[i].value !== this.options.selectAllValue) 
+                                values.push(options[i].value);
+                        if (checked) 
+                            this.select(values);
+                        else
+                            this.deselect(values);
+                    }
+                 }
 
                 if (checked) {
                     $option.prop('selected', true);
