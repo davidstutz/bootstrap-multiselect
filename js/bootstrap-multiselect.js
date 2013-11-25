@@ -12,19 +12,22 @@
 
     if (typeof ko !== 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
         ko.bindingHandlers.multiselect = {
-            init : function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {},
-            update : function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-                var ms = $(element).data('multiselect');
-                if (!ms) {
-                    $(element).multiselect(ko.utils.unwrapObservable(valueAccessor()));
-                }
-                else if (allBindingsAccessor().options && allBindingsAccessor().options().length !== ms.originalOptions.length) {
-                    ms.updateOriginalOptions();
-                    $(element).multiselect('rebuild');
-                }
-				else {
-                    ms.refresh();
-                }
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {},
+            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+               var config = ko.utils.unwrapObservable(valueAccessor());
+               var selectOptions = allBindingsAccessor().options();
+               var ms = $(element).data('multiselect');
+
+               if (!ms) {
+                  $(element).multiselect(config);
+               }
+               else {
+                  ms.updateOriginalOptions();
+                  if (selectOptions && selectOptions.length !== ms.originalOptions.length) {
+                     $(element).multiselect('rebuild');
+                  }
+               }
             }
         };
     }
