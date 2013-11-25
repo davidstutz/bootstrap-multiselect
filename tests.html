@@ -138,19 +138,6 @@
                         </td>
                         <td>Everything fine.</td>
                     </tr>
-                    <tr id="test-select-all-tr" class="success">
-                        <th>Test select all</th>
-                        <td>
-                            <select id="test-select-all-select" multiple="multiple">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </td>
-                        <td>Everything fine.</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -161,31 +148,31 @@
                 var build = function(select, tr) {
                     select.multiselect();
                     
-                    if (select.length == 0) {
+                    if (select.length === 0) {
                         return 'Select not present anymore.';
                     }
                     
-                    if (select.css('display') != 'none') {
+                    if (select.css('display') !== 'none') {
                         return 'Select still visible (expected <code>display: none;</code>).';
                     }
                     
-                    if ($('button.multiselect', tr).length == 0) {
+                    if ($('button.multiselect', tr).length === 0) {
                         return 'Multiselect button not present.';
                     }
                     
-                    if ($('option', select).length != 5) {
+                    if ($('option', select).length !== 5) {
                         return 'Not all options present anymore.';
                     }
                     
-                    if ($('ul.multiselect-container', tr).length == 0) {
+                    if ($('ul.multiselect-container', tr).length === 0) {
                         return 'Unordered list <code>.multiselect-container</code> not present.';
                     }
                     
-                    if ($('ul.multiselect-container li', tr).length != 5) {
+                    if ($('ul.multiselect-container li', tr).length !== 5) {
                         return 'No list item for each option present.';
                     }
                     
-                    if ($('ul.multiselect-container li a', tr).length != 5) {
+                    if ($('ul.multiselect-container li a', tr).length !== 5) {
                         return 'Not all list items come with an anchor inside.';
                     }
                     
@@ -201,23 +188,23 @@
                 var buildOptgroups = function(select, tr) {
                     select.multiselect();
                     
-                    if ($('optgroup', select).length != 2) {
+                    if ($('optgroup', select).length !== 2) {
                         return 'Optgroups not present anymore (2 expected).';
                     }
                     
                     var first = $('optgroup', select).get(0);
                     var second = $('optgroup', select).get(1);
                     
-                    if ($('option', $(first)).length != 2) {
+                    if ($('option', $(first)).length !== 2) {
                         return 'First optgroup does not have 2 options.';
                     }
                     
-                    if ($('option', $(second)).length != 3) {
+                    if ($('option', $(second)).length !== 3) {
                         return 'Second optgroup does not have 3 options.';
                     }
                     
                     // Check the corresponding labels.
-                    if ($('label.multiselect-group', tr).length != 2) {
+                    if ($('label.multiselect-group', tr).length !== 2) {
                         return 'Expected 2 labels within the unordered list.';
                     }
                     
@@ -225,11 +212,11 @@
                     var firstLabel = $('label.multiselect-group', tr).get(0);
                     var secondLabel = $('label.multiselect-group', tr).get(1);
                     
-                    if ($(firstLabel).text() != $(first).prop('label')) {
+                    if ($(firstLabel).text() !== $(first).prop('label')) {
                         return 'First group labeled incorrectly.';
                     }
                     
-                    if ($(secondLabel).text() != $(second).prop('label')) {
+                    if ($(secondLabel).text() !== $(second).prop('label')) {
                         return 'Second group labeled incorrectly.';
                     }
                     
@@ -244,11 +231,11 @@
                 var buildSelected = function(select, tr ) {
                     select.multiselect();
                     
-                    if ($('option:selected', select).length != 1) {
+                    if ($('option:selected', select).length !== 1) {
                         return 'Multiselect did not adopt selected options (1 selected option).';
                     }
                     
-                    if ($('ul.multiselect-container li.active', tr).length != 1) {
+                    if ($('ul.multiselect-container li.active', tr).length !== 1) {
                         return 'Corresponding list item not set to <code>.active</code>.';
                     }
                     
@@ -267,7 +254,7 @@
                         selectAllValue: value
                     });
                     
-                    if ($('.multiselect-container input[value="' + value + '"]', tr).length != 1) {
+                    if ($('.multiselect-container input[value="' + value + '"]', tr).length !== 1) {
                         return 'Expected exactly one input with value ' + value + ' as select all option.';
                     }
                     
@@ -284,7 +271,7 @@
                         enableFiltering: true
                     });
                     
-                    if ($('.multiselect-search', tr).length != 1) {
+                    if ($('.multiselect-search', tr).length !== 1) {
                         return 'No search input present.';
                     }
                     
@@ -296,11 +283,11 @@
                 }
                 
                 // Test select.
-                var select = function(select, tr) {
-                    select.multiselect();
+                var select = function(selectElement, tr) {
+                    selectElement.multiselect();
                     
                     // Check for no selected options and no active li's.
-                    if ($('option:selected', select).length > 0) {
+                    if ($('option:selected', selectElement).length > 0) {
                         return 'There are already selected options (0 expected).';
                     }
                     
@@ -308,42 +295,42 @@
                         return 'There are already active list items (0 expected).';
                     }
                     
-                    select.multiselect('select', 1);
+                    selectElement.multiselect('select', '1');
                     
-                    if ($('option:selected', select).length != 1) {
+                    if ($('option:selected', selectElement).length !== 1) {
                         return 'Just selected an option - option not marked selected.';
                     }
                     
-                    if ($('ul.multiselect-container li.active', tr).length != 1) {
+                    if ($('ul.multiselect-container li.active', tr).length !== 1) {
                         return 'Just selected an option - list item not set active.';
                     }
                     
-                    if ($('option:selected', select).first().val() != 1) {
+                    if ($('option:selected', selectElement).first().val() !== '1') {
                         return 'Wrong option selected.';
                     }
                     
-                    select.multiselect('select', [2, 3]);
+                    selectElement.multiselect('select', ['2', '3']);
                     
-                    if ($('option:selected', select).length != 3) {
+                    if ($('option:selected', selectElement).length !== 3) {
                         return 'Just selected two additional options - options not marked selected.';
                     }
                     
-                    if ($('ul.multiselect-container li.active', tr).length != 3) {
+                    if ($('ul.multiselect-container li.active', tr).length !== 3) {
                         return 'Just selected two additional options - list items not set active.';
                     }
                     
-                    var second = $('option:selected', select).get(1),
-                        third = $('option:selected', select).get(2);
+                    var second = $('option:selected', selectElement).get(1),
+                        third = $('option:selected', selectElement).get(2);
                     
-                    if (second == undefined || second.length == 0) {
+                    if (second === undefined || second.length === 0) {
                         return 'Could not get second option.';
                     }
                     
-                    if (third == undefined || third.length == 0) {
+                    if (third === undefined || third.length === 0) {
                         return 'Could not get third option.';
                     }
                     
-                    if ($(second).val() != 2 || $(third).val() != 3) {
+                    if ($(second).val() !== '2' || $(third).val() !== '3') {
                         return 'Wrong options selected.';
                     }
                     
@@ -360,29 +347,29 @@
                     select.multiselect();
                     
                     // Check for no selected options and no active li's.
-                    if ($('option:selected', select).length != 3) {
+                    if ($('option:selected', select).length !== 3) {
                         return 'There should be 3 options selected.';
                     }
                     
-                    if ($('ul.multiselect-container li.active', tr).length != 3) {
+                    if ($('ul.multiselect-container li.active', tr).length !== 3) {
                         return 'There should be 3 list items set to active.';
                     }
                     
-                    select.multiselect('deselect', 1);
+                    select.multiselect('deselect', '1');
                     
-                    if ($('option:selected', select).length != 2) {
+                    if ($('option:selected', select).length !== 2) {
                         return 'Just deselected an option - option not marked deselected.';
                     }
                     
-                    if ($('ul.multiselect-container li.active', tr).length != 2) {
+                    if ($('ul.multiselect-container li.active', tr).length !== 2) {
                         return 'Just deselected an option - list item not set inactive.';
                     }
                     
-                    if ($('option:selected', select).first().val() != 2) {
+                    if ($('option:selected', select).first().val() !== '2') {
                         return 'Wrong option deselected.';
                     }
                     
-                    select.multiselect('deselect', [2, 3]);
+                    select.multiselect('deselect', ['2', '3']);
                     
                     if ($('option:selected', select).length > 0) {
                         return 'Just deselected two additional options - options not marked deselected.';
@@ -403,11 +390,11 @@
                 var maxHeight = function(select, tr) {
                     
                     select.multiselect({
-                        maxHeight: 100,
+                        maxHeight: 100
                     });
                     
                     var height = $('.multiselect-container', tr).css('max-height');
-                    if (height != '100px') {
+                    if (height !== '100px') {
                         return 'Max height not set correctly (set: ' + height + ').';
                     }
                     
@@ -417,38 +404,6 @@
                 if (maxHeight) {
                     $('#test-max-height-tr').removeClass('success').addClass('danger');
                     $('#test-max-height-tr td').last().html(maxHeight);
-                }
-                
-                var selectAll = function(select, tr) {
-                    var value = 'multiselect-select-all';
-                    select.multiselect({
-                        includeSelectAllOption: true,
-                        selectAllValue: value
-                    });
-                    
-                    if ($('option:selected', select).length > 0) {
-                        return 'Test expected 0 selected options as initial state (found ' + $('option:selected', select).length + ').';
-                    }
-                    
-                    // Trigger select all.
-                    $('.multiselect-container input[value="' + value + '"]', tr).click();
-                    
-                    if ($('option:selected', select).length != $('option', select).length) {
-                        return 'Not all options selected.';
-                    }
-                    
-                    $('.multiselect-container input[value="' + value + '"]', tr).click();
-                    
-                    if ($('option:selected', select).length > 0) {
-                        return 'There is some option selected (0 expected).';
-                    }
-                    
-                    return false;
-                }($('#test-select-all-select'), $('#test-select-all-tr'));
-                
-                if (selectAll) {
-                    $('#test-select-all-tr').removeClass('success').addClass('danger');
-                    $('#test-select-all-tr td').last().html(selectAll);
                 }
             });
         </script>
