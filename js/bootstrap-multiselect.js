@@ -115,7 +115,7 @@
             onDropdownHide: function(event) {
 
             },
-            buttonClass: 'btn',
+            buttonClass: 'btn btn-default',
             dropRight: false,
             selectedClass: 'active',
             buttonWidth: 'auto',
