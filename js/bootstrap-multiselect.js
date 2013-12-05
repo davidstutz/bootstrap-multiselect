@@ -16,7 +16,7 @@
             update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
                var config = ko.utils.unwrapObservable(valueAccessor());
-               var selectOptions = allBindingsAccessor().options();
+               var selectOptions = allBindingsAccessor().options;
                var ms = $(element).data('multiselect');
 
                if (!ms) {
@@ -24,7 +24,7 @@
                }
                else {
                   ms.updateOriginalOptions();
-                  if (selectOptions && selectOptions.length !== ms.originalOptions.length) {
+                  if (selectOptions && selectOptions().length !== ms.originalOptions.length) {
                      $(element).multiselect('rebuild');
                   }
                }
