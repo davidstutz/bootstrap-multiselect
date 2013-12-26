@@ -143,6 +143,7 @@
             ul: '<ul class="multiselect-container dropdown-menu"></ul>',
             filter: '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div>',
             li: '<li><a href="javascript:void(0);"><label></label></a></li>',
+            divider: '<li class="divider"></li>',
             liGroup: '<li><label class="multiselect-group"></label></li>'
         },
 
@@ -212,12 +213,19 @@
                 // Support optgroups and options without a group simultaneously.
                 var tag = $(element).prop('tagName')
                     .toLowerCase();
-                
+
                 if (tag === 'optgroup') {
                     this.createOptgroup(element);
                 }
                 else if (tag === 'option') {
-                    this.createOptionValue(element);
+
+                    if ($(element).data('role') === 'divider') {
+                        this.createDivider();
+                    }
+                    else {
+                        this.createOptionValue(element);
+                    }
+
                 }
                 // Other illegal tags will be ignored.
             }, this));
@@ -256,7 +264,7 @@
                                 values.push(options[i].value);
                             }
                         }
-                        
+
                         if (checked) {
                             this.select(values);
                         }
@@ -309,7 +317,7 @@
 
                 if (event.shiftKey) {
                     var checked = $(event.target).prop('checked') || false;
-                    
+
                     if (checked) {
                         var prev = $(event.target).parents('li:last')
                             .siblings('li[class="active"]:first');
@@ -336,7 +344,7 @@
                         }
                     }
                 }
-                
+
                 $(event.target).blur();
             });
 
@@ -429,6 +437,12 @@
             }
         },
 
+        // Create divider
+        createDivider: function(element) {
+            var $divider = $(this.templates.divider);
+            this.$ul.append($divider);
+        },
+
         // Create optgroup.
         createOptgroup: function(group) {
             var groupName = $(group).prop('label');
@@ -448,7 +462,7 @@
         // Add the select all option to the select.
         buildSelectAll: function() {
             var alreadyHasSelectAll = this.$select[0][0] ? this.$select[0][0].value === this.options.selectAllValue : false;
-            
+
             // If options.includeSelectAllOption === true, add the include all checkbox.
             if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
                 this.$select.prepend('<option value="' + this.options.selectAllValue + '">' + this.options.selectAllText + '</option>');
@@ -461,7 +475,7 @@
             // Build filter if filtering OR case insensitive filtering is enabled and the number of options exceeds (or equals) enableFilterLength.
             if (this.options.enableFiltering || this.options.enableCaseInsensitiveFiltering) {
                 var enableFilterLength = Math.max(this.options.enableFiltering, this.options.enableCaseInsensitiveFiltering);
-                
+
                 if (this.$select.find('option').length >= enableFilterLength) {
 
                     this.$filter = $(this.templates.filter);
@@ -482,7 +496,7 @@
                                 $.each($('li', this.$ul), $.proxy(function(index, element) {
                                     var value = $('input', element).val();
                                     var text = $('label', element).text();
-                                    
+
                                     if (value !== this.options.selectAllValue && text) {
                                         // by default lets assume that element is not
                                         // interesting for this search
@@ -512,7 +526,7 @@
                                     }
                                 }, this));
                             }
-                            
+
                             // TODO: check whether select all option needs to be updated.
                         }, this), 300, this);
                     }, this));
