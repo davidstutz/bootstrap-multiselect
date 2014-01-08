@@ -1390,11 +1390,11 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                         onChange: function(option, checked) {
                             var values = [];
                             $('#example40 option').each(function() {
-                                if ($(this).val() != option.val()) {
+                                if ($(this).val() !== option.val()) {
                                     values.push($(this).val());
                                 }
                             });
-                            alert(values);
+                            
                             $('#example40').multiselect('deselect', values);
                         }
                     });
@@ -1803,11 +1803,11 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
     onChange: function(option, checked) {
       var values = [];
       $('#example40 option').each(function() {
-        if ($(this).val() != option.val()) {
+        if ($(this).val() !== option.val()) {
           values.push($(this).val());
         }
       });
-      alert(values);
+      
       $('#example40').multiselect('deselect', values);
     }
   });
