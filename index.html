@@ -131,7 +131,7 @@
 			        $('#example14').multiselect({
 			            buttonWidth: '500px',
 			            buttonText: function(options) {
-			                if (options.length == 0) {
+			                if (options.length === 0) {
 			                    return 'None selected <b class="caret"></b>';
 			                }
 			                else {
@@ -146,7 +146,7 @@
 					
 			        $('#example16').multiselect({
 			            onChange: function(option, checked) {
-                            if (checked == false) {
+                            if (checked === false) {
                                 $('#example16').multiselect('select', option.val());
                             }
 			            }
@@ -1151,7 +1151,8 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			</div>
 			<script type="text/javascript">
  				/**
-				 * Gets whether all the options are selected
+				 * Gets whether all the options are selected.
+                 * 
 				 * @param {jQuery} $el
 				 * @returns {bool}
 				 */
@@ -1166,7 +1167,8 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			    }
 				 
 			    /**
-				 * Selects all the options
+				 * Selects all the options.
+                 * 
 				 * @param {jQuery} $el
 				 * @returns {undefined}
 				 */
@@ -1176,7 +1178,8 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			        });
 			    }
 			    /**
-				 * Deselects all the options
+				 * Deselects all the options.
+                 * 
 				 * @param {jQuery} $el
 				 * @returns {undefined}
 				 */
@@ -1188,7 +1191,9 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 				 
 			    /**
 				 * Clears all the selected options
+                 * 
 				 * @param {jQuery} $el
+                 * @param {jQuery} $btn
 				 * @returns {undefined}
 				 */
 			    function multiselect_toggle($el, $btn) {
@@ -1211,10 +1216,8 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			        });
 					
 			        $('#example22').multiselect({
-			            buttonClass: 'btn',
-						buttonWidth: 'auto',
 			            buttonText: function(options) {
-			                if (options.length == 0) {
+			                if (options.length === 0) {
 			                    return 'None selected <b class="caret"></b>';
 			                }
 			                else if (options.length > 6) {
@@ -1230,10 +1233,10 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			                }
 			            },
 			            onChange: function(element, checked) {
-			                if(checked == true) {
+			                if(checked === true) {
 			                    //action taken here if true
 			                }
-			                else if(checked == false) {
+			                else if(checked === false) {
 			                    if(confirm('Do you wish to deselect the element?')) {
 			                        //action taken here
 			                    }
@@ -1329,7 +1332,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                     var orderCount = 0;
                     $('#example38').multiselect({
                         buttonText: function(options) {
-			                if (options.length == 0) {
+			                if (options.length === 0) {
 			                    return 'None selected <b class="caret"></b>';
 			                }
 			                else if (options.length > 3) {
@@ -1340,10 +1343,10 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			                    options.each(function() {
 			                        selected.push([$(this).text(), $(this).data('order')]);
 			                    });
-                                ;
+                                
                                 selected.sort(function(a, b) {
                                     return a[1] - b[1];
-                                })
+                                });
                                 
                                 var text = '';
                                 for (var i = 0; i < selected.length; i++) {
@@ -1382,6 +1385,19 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                         
                         alert(text);
                     });
+                    
+                    $('#example40').multiselect({
+                        onChange: function(option, checked) {
+                            var values = [];
+                            $('#example40 option').each(function() {
+                                if ($(this).val() != option.val()) {
+                                    values.push($(this).val());
+                                }
+                            });
+                            alert(values);
+                            $('#example40').multiselect('deselect', values);
+                        }
+                    });
 			    });
 			</script>
 			<table class="table table-striped">
@@ -1389,7 +1405,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                     <tr>
 						<td style="width:400px">
                             <p>
-                                Use "Select" and "Deselect" to select or deselectcheese and tomatoes. Use "Values" to display the currently selected elements by using <code>$('.multiselect').val()</code>.
+                                Use "Select" and "Deselect" to select or deselect cheese and tomatoes. Use "Values" to display the currently selected elements by using <code>$('.multiselect').val()</code>.
                             </p>
 							<div class="btn-group">
 								<select id="example34" multiple="multiple">
@@ -1685,7 +1701,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                     <tr>
                         <td>
                             <p>
-                                Record the order the options are selected. When selecting an item an ordering number will be incremented and saved within the option
+                                Record the order the options are selected. When selecting an item an ordering number will be incremented and saved within the option.
                             </p>
                             <div class="btn-group">
                                 <select id="example38" multiple="multiple">
@@ -1764,13 +1780,50 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                             </pre>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                Simulate single selections using checkboxes. The behavior will be similar to a multiselect with radio buttons.
+                            </p>
+                            <div class="btn-group">
+                                <select id="example40" multiple="multiple">
+                                    <option value="cheese">Cheese</option>
+                                    <option value="tomatoes">Tomatoes</option>
+                                    <option value="mozarella">Mozzarella</option>
+                                    <option value="mushrooms">Mushrooms</option>
+                                    <option value="pepperoni">Pepperoni</option>
+                                    <option value="onions">Onions</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <pre class="linenums prettyprint">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $('#example40').multiselect({
+    onChange: function(option, checked) {
+      var values = [];
+      $('#example40 option').each(function() {
+        if ($(this).val() != option.val()) {
+          values.push($(this).val());
+        }
+      });
+      alert(values);
+      $('#example40').multiselect('deselect', values);
+    }
+  });
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
 				</tbody>
 			</table>
 
 			<div class="page-header">
 				<h1><a id="additional-styling"></a>Additional Styling</h1>
 			</div>
-			<p>For additionaly styling of the multiselect button the CSS class <code>multiselect</code> can be used.</p>
+			<p>
+                For additionaly styling of the multiselect button the CSS class <code>multiselect</code> can be used.
+            </p>
 			<style media="screen" type="text/css">
 			    .add-styling-1 .multiselect {
 			        width: 500px;
@@ -1809,7 +1862,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			        });
 			    });
 			</script>
-			<div class="add-styling">
+			<div>
 				<table class="table table-striped">
 					<tr class="add-styling-1">
 						<td>

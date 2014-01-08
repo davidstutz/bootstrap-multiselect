@@ -599,7 +599,6 @@
 
                 $checkbox.prop('checked', true);
                 $option.prop('selected', true);
-                this.options.onChange($option, true);
             }
 
             this.updateButtonText();
@@ -625,7 +624,6 @@
 
                 $checkbox.prop('checked', false);
                 $option.prop('selected', false);
-                this.options.onChange($option, false);
             }
 
             this.updateButtonText();
