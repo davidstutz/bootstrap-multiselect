@@ -796,18 +796,30 @@
         /**
          * Updates the select all option based on the currently selected options.
          */
-        updateSelectAll: function() {
-            if (this.hasSelectAll()) {
-                var selected = this.getSelected();
-                
-                if (selected.length === $('option', this.$select).length - 1) {
-                    this.select(this.options.selectAllValue);
-                }
-                else {
-                    this.deselect(this.options.selectAllValue);
-                }
-            }
-        },
+		updateSelectAll: function() {
+			if (this.hasSelectAll()) {
+				var selected = this.getSelected();
+				var selectAllInput = this.getInputByValue(this.options.selectAllValue);
+				
+				if (selected.length === $('option', this.$select).length - 1) {
+					selectAllInput.prop("indeterminate", false);
+					this.select(this.options.selectAllValue);
+				}
+				else if(selected.length === 0 ) {
+				selectAllInput.prop("indeterminate", false);
+				this.deselect(this.options.selectAllValue);
+				}
+				else {
+					selectAllInput.prop("indeterminate", true);
+					if (this.options.selectedClass) {
+						selectAllInput.parents('li')
+							.removeClass(this.options.selectedClass);
+					}
+					this.getOptionByValue(this.options.selectAllValue).prop('selected', false);
+				}
+			}
+		},
+
         
         /**
          * Update the button text and its title base don the currenty selected options.
