@@ -188,6 +188,10 @@
                         includeSelectAllOption: true,
 			        	enableCaseInsensitiveFiltering: true
                     });
+                    
+                    $('#example41').multiselect({
+			        	includeSelectAllOption: true
+			        });
 			    });
 			</script>
 			<p>
@@ -245,6 +249,21 @@
 					</td>
 					<td>
 						Multiselect with a 'Select all' option and filtering enabled using the <code>enableFiltering</code> option.
+					</td>
+				</tr>
+                <tr>
+					<td>
+						<select id="example41" multiple="multiple">
+                            <option value="cheese" selected>Cheese</option>
+							<option value="tomatoes" selected>Tomatoes</option>
+							<option value="mozarella" selected>Mozzarella</option>
+							<option value="mushrooms" selected>Mushrooms</option>
+							<option value="pepperoni" selected>Pepperoni</option>
+							<option value="onions" selected>Onions</option>
+                        </select>
+					</td>
+					<td>
+                        The 'Select all' option automatically repsonds to the selection of the user. In particular, it responds to the initial state of the select.
 					</td>
 				</tr>
 				<tr>
