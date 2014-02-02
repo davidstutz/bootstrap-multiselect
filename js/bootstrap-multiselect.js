@@ -59,6 +59,7 @@
         this.buildContainer();
         this.buildButton();
         this.buildSelectAll();
+        this.buildPlaceholder();
         this.buildDropdown();
         this.buildDropdownOptions();
         this.buildFilter();
@@ -81,23 +82,25 @@
              * @returns {String}
              */
             buttonText: function(options, select) {
+                var text;
+                var caret = $('<b>',{'class': 'caret'});
                 if (options.length === 0) {
-                    return this.nonSelectedText + ' <b class="caret"></b>';
+                    text = this.nonSelectedText;
                 }
                 else {
                     if (options.length > this.numberDisplayed) {
-                        return options.length + ' ' + this.nSelectedText + ' <b class="caret"></b>';
+                        text = options.length + ' ' + this.nSelectedText;
                     }
                     else {
-                        var selected = '';
+                        var labels = [];
                         options.each(function() {
                             var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).html();
-
-                            selected += label + ', ';
+                            labels.push(label);
                         });
-                        return selected.substr(0, selected.length - 2) + ' <b class="caret"></b>';
+                        text = labels.join(', ');
                     }
                 }
+                return text + caret.get(0).outerHTML;
             },
             /**
              * Updates the title of the button similar to the buttonText function.
@@ -171,7 +174,11 @@
             preventInputChangeEvent: false,
             nonSelectedText: 'None selected',
             nSelectedText: 'selected',
-            numberDisplayed: 3
+            numberDisplayed: 3,
+            placeholder: null,
+            singleDeselect: false,
+            singleDeselectTitle: 'deselect option'
+
         },
 
         templates: {
@@ -250,11 +257,10 @@
         },
 
         /**
-         * Build the dropdown options and binds all nessecary events.
+         * Build the dropdown options and binds all necessary events.
          * Uses createDivider and createOptionValue to create the necessary options.
          */
         buildDropdownOptions: function() {
-
             this.$select.children().each($.proxy(function(index, element) {
                 
                 // Support optgroups and options without a group simultaneously.
@@ -270,13 +276,16 @@
                         this.createDivider();
                     }
                     else {
-                        this.createOptionValue(element);
+                        if($(element).text() != this.options.placeholder) {
+                            this.createOptionValue(element);
+                        }
                     }
 
                 }
                 
                 // Other illegal tags will be ignored.
             }, this));
+
 
             // Bind the change event on the dropdown elements.
             $('li input', this.$ul).on('change', $.proxy(function(event) {
@@ -524,8 +533,8 @@
         },
 
         /**
-         * Build the selct all.
-         * Checks if a select all ahs already been created.
+         * Build the select all.
+         * Checks if a select all has already been created.
          */
         buildSelectAll: function() {
             var alreadyHasSelectAll = this.hasSelectAll();
@@ -533,6 +542,20 @@
             // If options.includeSelectAllOption === true, add the include all checkbox.
             if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
                 this.$select.prepend('<option value="' + this.options.selectAllValue + '">' + this.options.selectAllText + '</option>');
+            }
+        },
+
+        /**
+         * Build the placeholder.
+         */
+        buildPlaceholder: function() {
+            if (!this.options.multiple && this.options.placeholder != null) {
+                var element = $('<option>', {value: '', 'class': 'placeholder-option'}).text(this.options.placeholder);
+                var selected = this.getSelected()
+                if(selected.attr('selected') == undefined) {
+                    element.attr('selected', true);
+                }
+                this.$select.prepend(element);
             }
         },
 
@@ -810,14 +833,22 @@
         },
         
         /**
-         * Update the button text and its title base don the currenty selected options.
+         * Update the button text and its title base to the currently selected options.
          */
         updateButtonText: function() {
             var options = this.getSelected();
-            
+
             // First update the displayed button text.
             $('button', this.$container).html(this.options.buttonText(options, this.$select));
-            
+            var me = this;
+            if(options.length === 1 && this.options.singleDeselect && options.text() != this.options.placeholder) {
+                var deSelect = $('<span>',{'class': "single-deselect glyphicon glyphicon-remove", title: this.options.singleDeselectTitle});
+                deSelect.click(function() {
+                    me.deselect(options.val());
+                });
+                deSelect.insertBefore($('button b.caret', this.$container));
+            }
+
             // Now update the title attribute of the button.
             $('button', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
 
