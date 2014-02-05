@@ -553,7 +553,7 @@
 
                     this.$filter.val(this.query).on('click', function(event) {
                         event.stopPropagation();
-                    }).on('keydown', $.proxy(function(event) {
+                    }).on('input keydown', $.proxy(function(event) {
                         // This is useful to catch "keydown" events after the browser has updated the control.
                         clearTimeout(this.searchTimeout);
 
