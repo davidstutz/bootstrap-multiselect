@@ -209,7 +209,7 @@
             }
 
             // Manually add button width if set.
-            if (this.options.buttonWidth) {
+            if (this.options.buttonWidth && this.options.buttonWidth != 'auto') {
                 this.$button.css({
                     'width' : this.options.buttonWidth
                 });
