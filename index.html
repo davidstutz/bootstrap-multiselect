@@ -95,8 +95,8 @@
 			</div>
 			
 			<script type="text/javascript">
-			    $(document).ready(function() {
-			        window.prettyPrint() && prettyPrint();
+			     $(document).ready(function() {
+                     window.prettyPrint() && prettyPrint();
 					
 			        $('#example1').multiselect();
 					
@@ -551,7 +551,7 @@
 				<thead>
 					<tr>
 						<th>Option</th>
-						<th width="30%">Explanation</th>
+						<th style="width: 30%">Explanation</th>
 						<th>Usage</th>
 					</tr>
 				</thead>
@@ -906,6 +906,60 @@
 							</pre>
 						</td>
 					</tr>
+                    <tr>
+                        <td><code>placeholder</code></td>
+                        <td>
+                            Will add a placeholder text to the button for single select that have no selected value.
+                        </td>
+                        <td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      placeholder: 'Please chosse something'
+    });
+  });
+&lt;/script&gt;
+							</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>singleDeselect</code></td>
+                        <td>
+                            Will show a deselect icon for single selects.
+                        </td>
+                        <td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      placeholder: 'Please chosse something',
+      singleDeselect: true
+    });
+  });
+&lt;/script&gt;
+							</pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>singleDeselectTitle</code></td>
+                        <td>
+                            Description for deselect icon
+                        </td>
+                        <td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      placeholder: 'Please chosse something',
+      singleDeselect: true,
+      singleDeselectTitle: 'click here to deselect to option'
+    });
+  });
+&lt;/script&gt;
+							</pre>
+                        </td>
+                    </tr>
 				</tbody>
 			</table>
             
@@ -1417,6 +1471,13 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                             $('#example40').multiselect('deselect', values);
                         }
                     });
+                    $('#placeholderExample').multiselect({
+                        placeholder: 'Please choose topping'
+                    });
+                    $('#placeholderWithDeselectExample').multiselect({
+                        placeholder: 'Please choose topping',
+                        singleDeselect: true
+                    });
 			    });
 			</script>
 			<table class="table table-striped">
@@ -1829,6 +1890,59 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
       
       $('#example40').multiselect('deselect', values);
     }
+  });
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                Adding a placeholder to single select.
+                            </p>
+                            <div class="btn-group">
+                                <select id="placeholderExample">
+                                    <option value="cheese">Cheese</option>
+                                    <option value="tomatoes">Tomatoes</option>
+                                    <option value="mozarella">Mozzarella</option>
+                                    <option value="mushrooms">Mushrooms</option>
+                                    <option value="pepperoni">Pepperoni</option>
+                                    <option value="onions">Onions</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <pre class="linenums prettyprint">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $('#placeholderExample').multiselect({
+    placeholder: 'Please choose topping'
+  });
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                Deselect single option and jump back to placeholder.
+                            </p>
+                            <div class="btn-group">
+                                <select id="placeholderWithDeselectExample">
+                                    <option value="cheese">Cheese</option>
+                                    <option value="tomatoes" selected="selected">Tomatoes</option>
+                                    <option value="mozarella">Mozzarella</option>
+                                    <option value="mushrooms">Mushrooms</option>
+                                    <option value="pepperoni">Pepperoni</option>
+                                    <option value="onions">Onions</option>
+                                </select>
+                            </div>
+                        </td>
+                        <td>
+                            <pre class="linenums prettyprint">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $('#placeholderWithDeselectExample').multiselect({
+    placeholder: 'Please choose topping'
+    singleDeselect: true
   });
 &lt;/script&gt;
                             </pre>
