@@ -16,10 +16,10 @@
             init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
                 var listOfSelectedItems = allBindingsAccessor().selectedOptions,
-    				config = ko.utils.unwrapObservable(valueAccessor());
+                    config = ko.utils.unwrapObservable(valueAccessor());
 
                 $(element).multiselect(config);
-
+                
                 if (isObservableArray(listOfSelectedItems)) {
                     // Subscribe to the selectedOptions: ko.observableArray
                     listOfSelectedItems.subscribe(function (changes) {
@@ -40,15 +40,15 @@
                         if (deletedArray.length > 0) {
                             $(element).multiselect('deselect', deletedArray);
                         };
-                    }, null, "arrayChange");
+                    }, null, "arrayChange"); 
                 }
             },
 
             update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
                 var listOfItems = allBindingsAccessor().options,
-					ms = $(element).data('multiselect'),
-            		config = ko.utils.unwrapObservable(valueAccessor());
+                    ms = $(element).data('multiselect'),
+                    config = ko.utils.unwrapObservable(valueAccessor());
 
                 if (isObservableArray(listOfItems)) {
                     // Subscribe to the options: ko.observableArray incase it changes later
