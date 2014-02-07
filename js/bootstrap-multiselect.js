@@ -18,6 +18,13 @@
                var config = ko.utils.unwrapObservable(valueAccessor());
                var selectOptions = allBindingsAccessor().options;
                var ms = $(element).data('multiselect');
+               
+               // If the ko.observableArray changes rebuild the multiselect
+               if (isObservableArray(selectOptions)) {
+                   selectOptions.subscribe(function (theArray) {
+                       $(element).multiselect('rebuild');
+                   });
+               }               
 
                if (!ms) {
                   $(element).multiselect(config);
@@ -31,6 +38,10 @@
             }
         };
     }
+    
+    function isObservableArray(obj) {
+        return ko.isObservable(obj) && !(obj.destroyAll === undefined);
+    };    
 
     /**
      * Constructor to create a new multiselect using the given select.
