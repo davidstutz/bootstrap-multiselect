@@ -34,11 +34,11 @@
                                     break;
                             }
                         });
-                        if (addedArray.length > 0) {
-                            $(element).multiselect('select', addedArray);
-                        };
                         if (deletedArray.length > 0) {
                             $(element).multiselect('deselect', deletedArray);
+                        };
+                        if (addedArray.length > 0) {
+                            $(element).multiselect('select', addedArray);
                         };
                     }, null, "arrayChange"); 
                 }
