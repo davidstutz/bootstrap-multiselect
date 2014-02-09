@@ -344,6 +344,7 @@
                 if (isSelectAllOption) {
                     if (this.$select[0][0].value === this.options.selectAllValue) {
                         var values = [];
+
                         var options = $('option[value!="' + this.options.selectAllValue + '"]', this.$select);
                         for (var i = 0; i < options.length; i++) {
                             // Additionally check whether the option is visible within the dropcown.
@@ -706,7 +707,7 @@
          * @param {Array} selectValues
          */
         select: function(selectValues) {
-            if(selectValues && !$.isArray(selectValues)) {
+            if(!$.isArray(selectValues)) {
                 selectValues = [selectValues];
             }
 
@@ -755,7 +756,7 @@
          * @param {Array} deselectValues
          */
         deselect: function(deselectValues) {
-            if(deselectValues && !$.isArray(deselectValues)) {
+            if(!$.isArray(deselectValues)) {
                 deselectValues = [deselectValues];
             }
 
