@@ -468,6 +468,7 @@
             var selected = $(element).prop('selected') || false;
             var $checkbox = $('input', $li);
             $checkbox.val(value);
+            $checkbox.attr('name', $(element).attr('name'));
 
             if (value === this.options.selectAllValue) {
                 $checkbox.parent().parent()
