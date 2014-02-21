@@ -800,7 +800,7 @@
             if (this.hasSelectAll()) {
                 var selected = this.getSelected();
                 
-                if (selected.length === $('option', this.$select).length - 1) {
+                if (selected.length === $('option:not([data-role=divider])', this.$select).length - 1) {
                     this.select(this.options.selectAllValue);
                 }
                 else {
