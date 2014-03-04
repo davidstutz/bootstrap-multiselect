@@ -532,6 +532,9 @@
             
             // If options.includeSelectAllOption === true, add the include all checkbox.
             if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
+                if (this.options.includeSelectAllDivider) {
+                    this.$select.prepend('<option value="" disabled="disabled" data-role="divider">');
+                }
                 this.$select.prepend('<option value="' + this.options.selectAllValue + '">' + this.options.selectAllText + '</option>');
             }
         },
