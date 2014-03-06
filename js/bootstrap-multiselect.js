@@ -276,7 +276,7 @@
                         this.createDivider();
                     }
                     else {
-                        if($(element).text() != this.options.placeholder) {
+                        if ($(element).text() !== this.options.placeholder) {
                             this.createOptionValue(element);
                         }
                     }
@@ -549,10 +549,10 @@
          * Build the placeholder.
          */
         buildPlaceholder: function() {
-            if (!this.options.multiple && this.options.placeholder != null) {
+            if (!this.options.multiple && this.options.placeholder !== null) {
                 var element = $('<option>', {value: '', 'class': 'placeholder-option'}).text(this.options.placeholder);
                 var selected = this.getSelected()
-                if(selected.attr('selected') == undefined) {
+                if (selected.attr('selected') == undefined) {
                     element.attr('selected', true);
                 }
                 this.$select.prepend(element);
@@ -841,7 +841,7 @@
             // First update the displayed button text.
             $('button', this.$container).html(this.options.buttonText(options, this.$select));
             var me = this;
-            if(options.length === 1 && this.options.singleDeselect && options.text() != this.options.placeholder) {
+            if (options.length === 1 && this.options.singleDeselect && options.text() !== this.options.placeholder) {
                 var deSelect = $('<span>',{'class': "single-deselect glyphicon glyphicon-remove", title: this.options.singleDeselectTitle});
                 deSelect.click(function() {
                     me.deselect(options.val());
