@@ -781,7 +781,7 @@
          * @returns {Array}
          */
         mergeOptions: function(options) {
-            return $.extend({}, this.defaults, options);
+            return $.extend({}, this.defaults, this.options, options);
         },
         
         /**
