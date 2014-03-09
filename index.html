@@ -1317,37 +1317,35 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                     $('#example34-values').on('click', function() {
                         $('#example34-text').text('Selected: ' + $('#example34').val()).addClass('alert alert-info');
                     });
-                    
-                    $('#example37').multiselect({
-                        onChange: function(option, checked) {
-                            // Get selected options.
-                            var selectedOptions = $('#example37 option:selected');
-                            
-                            if (selectedOptions.length >= 4) {
-                                // Disable all other checkboxes.
-                                var nonSelectedOptions = $('#example37 option').filter(function() {
-                                    return !$(this).is(':selected');
-                                });
-                                
-                                var dropdown = $('#example37').siblings('.multiselect-container');
-                                nonSelectedOptions.each(function() {
-                                    var input = $('input[value="' + $(this).val() + '"]');
-                                    input.prop('disabled', true);
-                                    input.parent('li').addClass('disabled');
-                                });
-                            }
-                            else {
-                                // Enable all checkboxes.
-                                var dropdown = $('#example37').siblings('.multiselect-container');
-                                $('#example37 option').each(function() {
-                                    var input = $('input[value="' + $(this).val() + '"]');
-                                    input.prop('disabled', false);
-                                    input.parent('li').addClass('disabled');
-                                });
-                            }
-                        }
-                    });
-                    
+
+					$('#example37').multiselect({
+						onChange: function (element) {
+							var me = $(element), parent = me.parent(), max = parent.data('max'),
+								options, selected, multiselect;
+							if (!max) return ;
+							options = me.parent().find('option');
+							selected = options.filter(function () {
+								return $(this).is(':selected');
+							});
+							multiselect = parent.siblings('.btn-group').find('.multiselect-container');
+							if (selected.length === max) {
+								options.filter(function () {
+								return !$(this).is(':selected');
+							}).each(function () {
+								multiselect.find('input[value="' + $(this).val() + '"]')
+									.prop('disabled', true)
+									.parents('li').addClass('disabled');
+								});
+							} else {
+								options.each(function () {
+									multiselect.find('input[value="' + $(this).val() + '"]')
+									.prop('disabled', false)
+									.parents('li').removeClass('disabled');
+								});
+							}
+						}
+					});
+
                     var orderCount = 0;
                     $('#example38').multiselect({
                         buttonText: function(options) {
@@ -1666,10 +1664,12 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                     <tr>
                         <td>
                             <p>
-                                Limit the number of selected options using the <code>onChange</code> option. The user may only select a maximum of 4 options. Then all other options are disabled.
+                                Limit the number of selected options using the <code>onChange</code> option.
+								The user may only select a maximum of 4 options.
+								Then all other options are disabled; deselecting an option re-enables the options.
                             </p>
                             <div class="btn-group">
-                                <select id="example37" multiple="multiple">
+                                <select id="example37" multiple="multiple" data-max="4">
                                     <option value="cheese">Cheese</option>
                                     <option value="tomatoes">Tomatoes</option>
                                     <option value="mozarella">Mozzarella</option>
@@ -1682,39 +1682,55 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                         <td>
                             <pre class="linenums prettyprint">
 &lt;script type=&quot;text/javascript&quot;&gt;
-  $(document).ready(function() {
-    $('#example37').multiselect({
-      onChange: function(option, checked) {
-        // Get selected options.
-        var selectedOptions = $('#example37 option:selected');
 
-        if (selectedOptions.length >= 4) {
-          // Disable all other checkboxes.
-          var nonSelectedOptions = $('#example37 option').filter(function() {
-            return !$(this).is(':selected');
-          });
+$('.multiselect').multiselect({
+  onChange: function (element) {
+    var me = $(element), // is the &lt;option/&gt;
+      parent = me.parent(),// is the &lt;select/&gt;
+      max = parent.data('max'), // defined on &lt;select/&gt;
+      options, // will contain all &lt;option/&gt; within &lt;select/&gt;
+      selected, // will contain all &lt;option(::selected)/&gt; within &lt;select/&gt;
+      multiselect; // will contain the generated ".multiselect-container"
 
-          var dropdown = $('#example37').siblings('.multiselect-container');
-          nonSelectedOptions.each(function() {
-            var input = $('input[value="' + $(this).val() + '"]');
-            input.prop('disabled', true);
-            input.parent('li').addClass('disabled');
-          });
-        }
-        else {
-          // Enable all checkboxes.
-          var dropdown = $('#example37').siblings('.multiselect-container');
-          $('#example37 option').each(function() {
-            var input = $('input[value="' + $(this).val() + '"]');
-            input.prop('disabled', false);
-            input.parent('li').addClass('disabled');
-          });
-        }
-      }
+    if (!max) { // don't have a max setting so ignore the rest
+      return;
+    }
+
+    // get all options
+    options = me.parent().find('option');
+
+    // get selected options
+    selected = options.filter(function () {
+      return $(this).is(':selected');
     });
-  });
-&lt;/script&gt;
-                            </pre>
+
+    // get the generated multiselect container
+    multiselect = parent.siblings('.btn-group').find('.multiselect-container');
+
+    // check if max amount of selected options has been met
+    if (selected.length === max) {
+      // max is met so disable all other checkboxes.
+
+      options.filter(function () {
+        return !$(this).is(':selected');
+      }).each(function () {
+        multiselect.find('input[value="' + $(this).val() + '"]')
+          .prop('disabled', true)
+          .parents('li').addClass('disabled');
+      });
+
+    } else {
+      // max is not yet met so enable all disabled checkboxes.
+
+      options.each(function () {
+        multiselect.find('input[value="' + $(this).val() + '"]')
+          .prop('disabled', false)
+          .parents('li').removeClass('disabled');
+      });
+    }
+  }
+});
+&lt;/script&gt;</pre>
                         </td>
                     </tr>
                     <tr>

@@ -1,14 +1,18 @@
-/**
+/*jshint -W030 */
+/*!
  * bootstrap-multiselect.js
  * https://github.com/davidstutz/bootstrap-multiselect
  *
  * Copyright 2012, 2013 David Stutz
  *
  * Dual licensed under the BSD-3-Clause and the Apache License, Version 2.0.
+ *
+ * @license http://opensource.org/licenses/BSD-3-Clause
+ * @license http://www.apache.org/licenses/LICENSE-2.0.html
  */
 !function($) {
 
-    "use strict";// jshint ;_;
+    "use strict";
 
     if (typeof ko !== 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
         ko.bindingHandlers.multiselect = {
@@ -67,7 +71,7 @@
         this.updateSelectAll();
         
         this.$select.hide().after(this.$container);
-    };
+    }
 
     Multiselect.prototype = {
 
@@ -609,6 +613,8 @@
         destroy: function() {
             this.$container.remove();
             this.$select.show();
+			// remove the data.. as otherwise can not re-initialise the element
+			this.$select.data('multiselect', '');
         },
 
         /**
