@@ -362,7 +362,7 @@
                 }
             }, this));
 
-            $('li a', this.$ul).on('touchstart click', function(event) {
+            $('li a', this.$ul).on('touchstart click', $.proxy(function(event) {
                 event.stopPropagation();
 
                 if (event.shiftKey) {
@@ -376,27 +376,25 @@
                             .index();
                         var prevIdx = prev.index();
 
-                        if (currentIdx > prevIdx) {
-                            $(event.target).parents("li:last").prevUntil(prev).each(
-                                function() {
-                                    $(this).find("input:first").prop("checked", true)
-                                        .trigger("change");
-                                }
-                            );
-                        }
-                        else {
-                            $(event.target).parents("li:last").nextUntil(prev).each(
-                                function() {
-                                    $(this).find("input:first").prop("checked", true)
-                                        .trigger("change");
-                                }
-                            );
-                        }
+                        var values = [];
+                        var untilDirection = currentIdx > prevIdx ? 'prevUntil' : 'nextUntil';
+
+                        var updateOption = function() {
+                            var value = $(this).find("input:first")[0].value;
+                            values.push(value);
+                        };
+
+                        $(event.target).parents("li:last")[untilDirection](prev)
+                            .each(updateOption);
+
+                        this.select(values);
+
+                        this.$select.change();
                     }
                 }
 
                 $(event.target).blur();
-            });
+            }, this));
 
             // Keyboard support.
             this.$container.on('keydown', $.proxy(function(event) {
