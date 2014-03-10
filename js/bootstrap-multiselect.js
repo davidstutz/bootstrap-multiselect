@@ -2,7 +2,7 @@
  * bootstrap-multiselect.js
  * https://github.com/davidstutz/bootstrap-multiselect
  *
- * Copyright 2012, 2013 David Stutz
+ * Copyright 2012 - 2014 David Stutz
  *
  * Dual licensed under the BSD-3-Clause and the Apache License, Version 2.0.
  */

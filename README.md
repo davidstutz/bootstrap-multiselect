@@ -25,7 +25,7 @@ This project is dual licensed under the Apache License, Version 2.0 and the BSD 
 
 ### Apache License, Version 2.0
 
-Copyright 2012, 2013 David Stutz
+Copyright 2012 - 2014 David Stutz
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
@@ -35,7 +35,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 ### BSD 3-Clause License
 
-Copyright (c) 2012, 2013 David Stutz
+Copyright (c) 2012 - 2014 David Stutz
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

@@ -6,5 +6,6 @@
     "./css/bootstrap-multiselect.css"
   ],
   "dependencies": {
+    "jquery": ">= 1.11.0"
   }
 }
