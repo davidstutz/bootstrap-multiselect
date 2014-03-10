@@ -6,12 +6,12 @@
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 		<meta name="copyright" content="David Stutz" />
 
-		<link rel="stylesheet" href="css/bootstrap-3.1.1.min.css" type="text/css">
+		<link rel="stylesheet" href="css/bootstrap-2.3.2.min.css" type="text/css">
 		<link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
 		<link rel="stylesheet" href="css/prettify.css" type="text/css">
 
 		<script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap-2.3.2.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
 		<script type="text/javascript" src="js/prettify.js"></script>
 	</head>
@@ -20,7 +20,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-3">
+                <div class="span4">
                     <div class="well well-sm" style="margin-top:12px;">
                         <ul class="nav nav-list">
                             <li><a href="#getting-started">Getting Started</a></li>
@@ -33,22 +33,21 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="span8">
                     <div class="page-header">
                         <h1>Bootstrap Multiselect</h1>
                     </div>
                     
-                    <ul class="nav nav-pills">
-                        <li class="active"><a href="#">Bootstrap 3.1 &amp; jQuery 2.1</a></li>
-                        <li><a href="index-2-3.html">Bootstrap 2.3 &amp; jQuery 2.1</a></li>
-                    </ul>
-                    <hr>
-                    
-                    <p class="lead">
+                    <p>
                         Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
                     </p>
                 </div>
             </div>
+            
+            <ul class="nav nav-pills">
+                <li><a href="index.html">Bootstrap 3.1 &amp; jQuery 2.1</a></li>
+                <li class="active"><a href="#">Bootstrap 2.3 &amp; jQuery 2.1</a></li>
+            </ul>
             
 	        <script>
 	            $('.dropdown input, .dropdown label').click(function (event) {
@@ -540,7 +539,7 @@
 						</select>
 					</td>
 					<td>
-						Using <code>optgroup</code> with filtering and the select all option.
+						Using <code>optgroups</code>s with filtering and the select all option.
 					</td>
 				</tr>
 			</table>
@@ -1059,7 +1058,7 @@
 						<td>
                             <p><code>.multiselect('select', value)</code></p>
                             <p>
-                                Selects an option by its value (which has to be given as string). Works also using an array of values.
+                                Selects an option by its value. Works also using an array of values.
                             </p>
                         </td>
 						<td>
@@ -1081,7 +1080,7 @@
 						<td>
                             <p><code>.multiselect('deselect', value)</code></p>
                             <p>
-                                Deselect an option by its value (which has to be given as string). Works also using an array of values.
+                                Deselect an option by its value. Works also using an array of values.
                             </p>
                         </td>
 						<td>
@@ -2072,7 +2071,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 		<div class="container">
 			<hr>
 			<p>
-				&copy; 2012 - 2014
+				&copy; 2012, 2013
 				<a href="http://davidstutz.de">David Stutz</a> - dual licensed: <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>, <a href="http://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a>
 			</p>
 		</div>
