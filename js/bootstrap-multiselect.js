@@ -881,15 +881,20 @@
         return this.each(function() {
             var data = $(this).data('multiselect');
             var options = typeof option === 'object' && option;
-
+            
             // Initialize the multiselect.
             if (!data) {
-                $(this).data('multiselect', ( data = new Multiselect(this, options)));
+                data = new Multiselect(this, options);
+                $(this).data('multiselect', data);
             }
 
             // Call multiselect method.
             if (typeof option === 'string') {
                 data[option](parameter);
+                
+                if (option === 'destroy') {
+                    $(this).data('multiselect', false);
+                }
             }
         });
     };

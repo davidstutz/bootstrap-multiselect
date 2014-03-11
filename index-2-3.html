@@ -553,7 +553,7 @@
 					<tr>
 						<th>Option</th>
 						<th>Explanation</th>
-						<th>Usage</th>
+						<th width="50%">Usage</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -920,7 +920,10 @@
 			        $('#example8-destroy').on('click', function() {
 			            $('#example8').multiselect('destroy');
 			        });
-					
+					$('#example8-create').on('click', function() {
+			            $('#example8').multiselect();
+			        });
+                    
 			        $('#example10').multiselect();
 			        $('#example10-select').on('click', function() {
 			            $('option[value="tomatoes"]', $('#example10')).prop('selected', true);
@@ -1005,6 +1008,7 @@
 									<option value="onions">Onions</option>
 								</select>
 								<button id="example8-destroy" class="btn btn-danger">Destroy/Unbind</button>
+								<button id="example8-create" class="btn btn-success">Create/Bind</button>
 							</div>
 						</td>
 					</tr>
@@ -1455,7 +1459,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 			<table class="table table-striped">
 				<tbody>
                     <tr>
-						<td style="width:400px">
+						<td>
                             <p>
                                 Use "Select" and "Deselect" to select or deselect cheese and tomatoes. Use "Values" to display the currently selected elements by using <code>$('.multiselect').val()</code>.
                             </p>
@@ -1474,7 +1478,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
 							</div>
                             <div id="example34-text" style="margin-top:6px;"></div>
 						</td>
-						<td>
+						<td width="60%">
 							<pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
   $('#example34').multiselect();
