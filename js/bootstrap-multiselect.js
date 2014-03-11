@@ -12,24 +12,63 @@
 
     if (typeof ko !== 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
         ko.bindingHandlers.multiselect = {
-            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {},
-            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
-               var config = ko.utils.unwrapObservable(valueAccessor());
-               var selectOptions = allBindingsAccessor().options;
-               var ms = $(element).data('multiselect');
+            init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
-               if (!ms) {
-                  $(element).multiselect(config);
-               }
-               else {
-                  ms.updateOriginalOptions();
-                  if (selectOptions && selectOptions().length !== ms.originalOptions.length) {
-                     $(element).multiselect('rebuild');
-                  }
-               }
+                var listOfSelectedItems = allBindingsAccessor().selectedOptions,
+                    config = ko.utils.unwrapObservable(valueAccessor());
+
+                $(element).multiselect(config);
+
+                if (isObservableArray(listOfSelectedItems)) {
+                    // Subscribe to the selectedOptions: ko.observableArray
+                    listOfSelectedItems.subscribe(function (changes) {
+                        var addedArray = [], deletedArray = [];
+                        changes.forEach(function (change) {
+                            switch (change.status) {
+                                case 'added':
+                                    addedArray.push(change.value);
+                                    break;
+                                case 'deleted':
+                                    deletedArray.push(change.value);
+                                    break;
+                            }
+                        });
+                        if (addedArray.length > 0) {
+                            $(element).multiselect('select', addedArray);
+                        };
+                        if (deletedArray.length > 0) {
+                            $(element).multiselect('deselect', deletedArray);
+                        };
+                    }, null, "arrayChange");
+                }
+            },
+
+            update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+                var listOfItems = allBindingsAccessor().options,
+                    ms = $(element).data('multiselect'),
+                    config = ko.utils.unwrapObservable(valueAccessor());
+
+                if (isObservableArray(listOfItems)) {
+                    // Subscribe to the options: ko.observableArray incase it changes later
+                    listOfItems.subscribe(function (theArray) {
+                        $(element).multiselect('rebuild');
+                    });
+                }
+
+                if (!ms) {
+                    $(element).multiselect(config);
+                }
+                else {
+                    ms.updateOriginalOptions();
+                }
             }
         };
+    }
+
+    function isObservableArray(obj) {
+        return ko.isObservable(obj) && !(obj.destroyAll === undefined);
     }
 
     /**
@@ -536,6 +575,9 @@
             
             // If options.includeSelectAllOption === true, add the include all checkbox.
             if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
+                if (this.options.includeSelectAllDivider) {
+                    this.$select.prepend('<option value="" disabled="disabled" data-role="divider">');
+                }
                 this.$select.prepend('<option value="' + this.options.selectAllValue + '">' + this.options.selectAllText + '</option>');
             }
         },
@@ -684,6 +726,27 @@
             }
 
             this.updateButtonText();
+        },
+
+        /**
+         * Clears all selected items
+         * 
+         */
+        clearSelection: function () {
+
+            var selected = this.getSelected();
+
+            if (selected.length) {
+
+                var arry = [];
+
+                for (var i = 0; i < selected.length; i = i + 1) {
+                    arry.push(selected[i].value);
+                }
+
+                this.deselect(arry);
+                this.$select.change();
+            }
         },
 
         /**
@@ -844,10 +907,17 @@
          * @param {String} value
          * @returns {jQuery}
          */
-        getOptionByValue: function(value) {
-            return $('option', this.$select).filter(function() {
-                return $(this).val() === value;
-            });
+        getOptionByValue: function (value) {
+
+            var options = $('option', this.$select);
+            var valueToCompare = value.toString();
+
+            for (var i = 0; i < options.length; i = i + 1) {
+                var option = options[i];
+                if (option.value == valueToCompare) {
+                    return $(option);
+                }
+            }
         },
 
         /**
@@ -856,10 +926,17 @@
          * @param {String} value
          * @returns {jQuery}
          */
-        getInputByValue: function(value) {
-            return $('li input', this.$ul).filter(function() {
-                return $(this).val() === value;
-            });
+        getInputByValue: function (value) {
+
+            var checkboxes = $('li input', this.$ul);
+            var valueToCompare = value.toString();
+
+            for (var i = 0; i < checkboxes.length; i = i + 1) {
+                var checkbox = checkboxes[i];
+                if (checkbox.value == valueToCompare) {
+                    return $(checkbox);
+                }
+            }
         },
 
         /**

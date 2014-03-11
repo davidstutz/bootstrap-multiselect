@@ -807,6 +807,24 @@
 						</td>
 					</tr>
 					<tr>
+						<td><code>includeSelectAllDivider</code></td>
+						<td>
+                            If set to <code>true</code> (along with <code>includeSelectAllOption</code>) a divider will be placed below the 'Select all' option.
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      includeSelectAllOption: true,
+      includeSelectAllDivider: true
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+					<tr>
 						<td><code>selectAllText</code></td>
 						<td>
 							The label for the 'Select all' option.
