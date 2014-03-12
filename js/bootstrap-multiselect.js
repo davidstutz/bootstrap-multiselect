@@ -525,6 +525,7 @@
 
             // Add a header for the group.
             var $li = $(this.templates.liGroup);
+            $('label', $li).addClass(inputType);
             $('label', $li).text(groupName).attr('data-for', groupName);
             if (this.options.multiple && this.options.clickableGroups) {
                 $('label', $li).prepend('<input type="' + inputType + '" /> ');
