@@ -608,6 +608,17 @@
                             if (this.query !== event.target.value) {
                                 this.query = event.target.value;
 
+                                var filterCandidate = '';
+                                if ((this.options.filterBehavior === 'text')) {
+                                    filterCandidate = text;
+                                }
+                                else if ((this.options.filterBehavior === 'value')) {
+                                    filterCandidate = value;
+                                }
+                                else if (this.options.filterBehavior === 'both') {
+                                    filterCandidate = text + '\n' + value;
+                                }
+
                                 $.each($('li', this.$ul), $.proxy(function(index, element) {
                                     var value = $('input', element).val();
                                     var text = $('label', element).text();
@@ -616,14 +627,6 @@
                                         // by default lets assume that element is not
                                         // interesting for this search
                                         var showElement = false;
-
-                                        var filterCandidate = '';
-                                        if ((this.options.filterBehavior === 'text' || this.options.filterBehavior === 'both')) {
-                                            filterCandidate = text;
-                                        }
-                                        if ((this.options.filterBehavior === 'value' || this.options.filterBehavior === 'both')) {
-                                            filterCandidate = value;
-                                        }
 
                                         if (this.options.enableCaseInsensitiveFiltering && filterCandidate.toLowerCase().indexOf(this.query.toLowerCase()) > -1) {
                                             showElement = true;
