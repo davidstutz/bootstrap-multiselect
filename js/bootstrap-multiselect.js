@@ -192,6 +192,7 @@
 
             },
             buttonClass: 'btn btn-default',
+            buttonTitleAttr: 'title',
             dropRight: false,
             selectedClass: 'active',
             buttonWidth: 'auto',
@@ -886,7 +887,7 @@
             $('button', this.$container).html(this.options.buttonText(options, this.$select));
             
             // Now update the title attribute of the button.
-            $('button', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
+            $('button', this.$container).attr(this.options.buttonTitleAttr, this.options.buttonTitle(options, this.$select));
 
         },
 
