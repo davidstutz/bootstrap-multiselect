@@ -876,6 +876,24 @@
 						</td>
 					</tr>
                     <tr>
+						<td><code>filterBehavior</code></td>
+						<td>
+                            Either <code>text</code>, <code>value</code> or <code>both</code>. Determines whether the option's text, value or both is used for filtering.
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      enableFiltering: true,
+      filterBehavior: 'both'
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+                    <tr>
 						<td><code>enableCaseInsensitiveFiltering</code></td>
 						<td>
 							The same as <code>enableFiltering</code> but with case insensitive filtering.
