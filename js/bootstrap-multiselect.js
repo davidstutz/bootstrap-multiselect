@@ -104,6 +104,7 @@
         
         this.updateButtonText();
         this.updateSelectAll();
+        this.updateOptgroups();
         
         this.$select.hide().after(this.$container);
     };
@@ -192,8 +193,11 @@
 
             },
             buttonClass: 'btn btn-default',
+            buttonTitleAttr: 'title',
             dropRight: false,
             selectedClass: 'active',
+            groupClass: 'multiselect-optgroup-item',
+            clickableGroups: false,
             buttonWidth: 'auto',
             buttonContainer: '<div class="btn-group" />',
             // Maximum height of the dropdown menu.
@@ -320,7 +324,8 @@
             // Bind the change event on the dropdown elements.
             $('li input', this.$ul).on('change', $.proxy(function(event) {
                 var checked = $(event.target).prop('checked') || false;
-                var isSelectAllOption = $(event.target).val() === this.options.selectAllValue;
+                var isSelectAllOption = $(event.target).val() === this.options.selectAllValue && this.$select[0][0].value === this.options.selectAllValue;
+                var optgroup = $(event.target).parents('label').attr('data-for');
 
                 // Apply or unapply the configured selected class.
                 if (this.options.selectedClass) {
@@ -341,34 +346,36 @@
                 var $optionsNotThis = $('option', this.$select).not($option);
                 var $checkboxesNotThis = $('input', this.$container).not($(event.target));
 
-                if (isSelectAllOption) {
-                    if (this.$select[0][0].value === this.options.selectAllValue) {
-                        var values = [];
-                        var options = $('option[value!="' + this.options.selectAllValue + '"]', this.$select);
-                        for (var i = 0; i < options.length; i++) {
-                            // Additionally check whether the option is visible within the dropcown.
-                            if (options[i].value !== this.options.selectAllValue && this.getInputByValue(options[i].value).is(':visible')) {
-                                values.push(options[i].value);
-                            }
-                        }
+                if (isSelectAllOption || optgroup) {
+                    var values = [];
 
-                        if (checked) {
-                            this.select(values);
+                    var $parent = this.$select;
+                    if (optgroup) {
+                        $parent = $parent.find("optgroup[label='" + optgroup + "']");
+                    }
+
+                    var options = $('option[value!="' + this.options.selectAllValue + '"]', $parent);
+                    for (var i = 0; i < options.length; i++) {
+                        // Additionally check whether the option is visible within the dropdown.
+                        if (options[i].value !== this.options.selectAllValue && this.getInputByValue(options[i].value).is(':visible')) {
+                            values.push(options[i].value);
                         }
-                        else {
-                            this.deselect(values);
-                        }
+                    }
+
+                    if (checked) {
+                        this.select(values);
+                    }
+                    else {
+                        this.deselect(values);
                     }
                 }
 
-                if (checked) {
-                    $option.prop('selected', true);
+                if ($option) {
+                    $option.prop('selected', checked);
+                    this.options.onChange($option, checked);
 
-                    if (this.options.multiple) {
-                        // Simply select additional option.
-                        $option.prop('selected', true);
-                    }
-                    else {
+                    if (!this.options.multiple && checked) {
+
                         // Unselect all other options and corresponding checkboxes.
                         if (this.options.selectedClass) {
                             $($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
@@ -385,16 +392,12 @@
                         $optionsNotThis.parents("a").css("outline", "");
                     }
                 }
-                else {
-                    // Unselect option.
-                    $option.prop('selected', false);
-                }
 
                 this.$select.change();
-                this.options.onChange($option, checked);
                 
                 this.updateButtonText();
                 this.updateSelectAll();
+                this.updateOptgroups();
 
                 if(this.options.preventInputChangeEvent) {
                     return false;
@@ -530,6 +533,8 @@
                 $checkbox.parents('li')
                     .addClass(this.options.selectedClass);
             }
+
+            return $li;
         },
 
         /**
@@ -549,11 +554,16 @@
          */
         createOptgroup: function(group) {
             var groupName = $(group).prop('label');
+            var inputType = this.options.multiple ? "checkbox" : "radio";
 
             // Add a header for the group.
             var $li = $(this.templates.liGroup);
-            $('label', $li).text(groupName);
-
+            $('label', $li).addClass(inputType);
+            $('label', $li).text(groupName).attr('data-for', groupName);
+            if (this.options.multiple && this.options.clickableGroups) {
+                $('label', $li).prepend('<input type="' + inputType + '" /> ');
+                $li.wrapInner('<a>');
+            }
             this.$ul.append($li);
 
             if ($(group).is(':disabled')) {
@@ -562,12 +572,12 @@
 
             // Add the options of the group.
             $('option', group).each($.proxy(function(index, element) {
-                this.createOptionValue(element);
+                this.createOptionValue(element).addClass(this.options.groupClass);
             }, this));
         },
 
         /**
-         * Build the selct all.
+         * Build the select all.
          * Checks if a select all ahs already been created.
          */
         buildSelectAll: function() {
@@ -698,6 +708,7 @@
 
             this.updateButtonText();
             this.updateSelectAll();
+            this.updateOptgroups();
         },
 
         /**
@@ -706,7 +717,7 @@
          * @param {Array} selectValues
          */
         select: function(selectValues) {
-            if(selectValues && !$.isArray(selectValues)) {
+            if(!$.isArray(selectValues)) {
                 selectValues = [selectValues];
             }
 
@@ -755,7 +766,7 @@
          * @param {Array} deselectValues
          */
         deselect: function(deselectValues) {
-            if(deselectValues && !$.isArray(deselectValues)) {
+            if(!$.isArray(deselectValues)) {
                 deselectValues = [deselectValues];
             }
 
@@ -797,6 +808,7 @@
             
             this.updateButtonText();
             this.updateSelectAll();
+            this.updateOptgroups();
         },
 
         /**
@@ -875,6 +887,21 @@
                 }
             }
         },
+
+        /**
+         * Updates the optgroup option based on the currently selected options.
+         */
+        updateOptgroups: function() {
+            if (this.options.multiple && this.options.clickableGroups) {
+                $('optgroup', this.$select).each($.proxy(function (key, optgroup) {
+                    var state = $('option', optgroup).length == $('option:selected', optgroup).length;
+
+                    $("label[data-for='" + $(optgroup).prop('label') + "'] > input", this.$container)
+                        .prop('checked', state)
+                        .parents('li').toggleClass(this.options.selectedClass, state);
+                }, this));
+            }
+        },
         
         /**
          * Update the button text and its title based on the currently selected options.
@@ -886,14 +913,14 @@
             $('button', this.$container).html(this.options.buttonText(options, this.$select));
             
             // Now update the title attribute of the button.
-            $('button', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
+            $('button', this.$container).attr(this.options.buttonTitleAttr, this.options.buttonTitle(options, this.$select));
 
         },
 
         /**
          * Get all selected options.
          * 
-         * @returns {jQUery}
+         * @returns {jQuery}
          */
         getSelected: function() {
             return $('option[value!="' + this.options.selectAllValue + '"]:selected', this.$select).filter(function() {
