@@ -311,12 +311,12 @@
 
                     var $parent = this.$select;
                     if (optgroup) {
-                        $parent = $parent.find("optgroup[label='" + optgroup + "']")
+                        $parent = $parent.find("optgroup[label='" + optgroup + "']");
                     }
 
                     var options = $('option[value!="' + this.options.selectAllValue + '"]', $parent);
                     for (var i = 0; i < options.length; i++) {
-                        // Additionally check whether the option is visible within the dropcown.
+                        // Additionally check whether the option is visible within the dropdown.
                         if (options[i].value !== this.options.selectAllValue && this.getInputByValue(options[i].value).is(':visible')) {
                             values.push(options[i].value);
                         }
@@ -330,14 +330,12 @@
                     }
                 }
 
-                if (checked) {
-                    $option.prop('selected', true);
+                if ($option) {
+                    $option.prop('selected', checked);
+                    this.options.onChange($option, checked);
 
-                    if (this.options.multiple) {
-                        // Simply select additional option.
-                        $option.prop('selected', true);
-                    }
-                    else {
+                    if (!this.options.multiple && checked) {
+
                         // Unselect all other options and corresponding checkboxes.
                         if (this.options.selectedClass) {
                             $($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
@@ -354,13 +352,8 @@
                         $optionsNotThis.parents("a").css("outline", "");
                     }
                 }
-                else {
-                    // Unselect option.
-                    $option.prop('selected', false);
-                }
 
                 this.$select.change();
-                this.options.onChange($option, checked);
                 
                 this.updateButtonText();
                 this.updateSelectAll();
