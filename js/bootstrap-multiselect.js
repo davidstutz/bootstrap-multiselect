@@ -346,13 +346,14 @@
                     if (this.$select[0][0].value === this.options.selectAllValue) {
                         
                         var values = [];
-                        
-                        // Check for visibility of options.
-                        var options = $('option[value!="' + this.options.selectAllValue + '"][data-role!="divider"]', this.$select)
-                            .filter(':visible');
+                        var options = $('option[value!="' + this.options.selectAllValue + '"][data-role!="divider"]', this.$select);
                         
                         for (var i = 0; i < options.length; i++) {
-                            values.push(options[i].value);
+                            
+                            // Check whether this option is actually visible.
+                            if (this.getInputByValue(options[i].value) && this.getInputByValue(options[i].value).is(':visible')) {
+                                values.push(options[i].value);
+                            }
                         }
 
                         if (checked) {
@@ -618,18 +619,21 @@
                                     var value = $('input', element).val();
                                     var text = $('label', element).text();
 
+                                    var filterCandidate = '';
+                                    if ((this.options.filterBehavior === 'text')) {
+                                        filterCandidate = text;
+                                    }
+                                    else if ((this.options.filterBehavior === 'value')) {
+                                        filterCandidate = value;
+                                    }
+                                    else if (this.options.filterBehavior === 'both') {
+                                        filterCandidate = text + '\n' + value;
+                                    }
+
                                     if (value !== this.options.selectAllValue && text) {
                                         // by default lets assume that element is not
                                         // interesting for this search
                                         var showElement = false;
-
-                                        var filterCandidate = '';
-                                        if ((this.options.filterBehavior === 'text' || this.options.filterBehavior === 'both')) {
-                                            filterCandidate = text;
-                                        }
-                                        if ((this.options.filterBehavior === 'value' || this.options.filterBehavior === 'both')) {
-                                            filterCandidate = value;
-                                        }
 
                                         if (this.options.enableCaseInsensitiveFiltering && filterCandidate.toLowerCase().indexOf(this.query.toLowerCase()) > -1) {
                                             showElement = true;
@@ -920,7 +924,7 @@
 
             for (var i = 0; i < options.length; i = i + 1) {
                 var option = options[i];
-                if (option.value == valueToCompare) {
+                if (option.value === valueToCompare) {
                     return $(option);
                 }
             }
@@ -939,7 +943,7 @@
 
             for (var i = 0; i < checkboxes.length; i = i + 1) {
                 var checkbox = checkboxes[i];
-                if (checkbox.value == valueToCompare) {
+                if (checkbox.value === valueToCompare) {
                     return $(checkbox);
                 }
             }
