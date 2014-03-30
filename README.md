@@ -16,8 +16,9 @@ Every pull request is appreciated. To make it easier for me to merge fixes and n
 
 * Include documentation for new options and features to avoid undocumented features.
 * Add a thorough description to every pull request - so I am able to understand the purpose of the pull request.
-* Have a look at the code as to keep the code as comprehensible and coherent as possible (concerning code style, indentation etc.).
+* Have a look at the code as to keep the code as comprehensible and coherent as possible (concerning code style, indentation etc. ...).
 * Add comments to your code - to help me understand the committed code.
+* Add a single pull request per fix or feature you add.
 
 ## License
 

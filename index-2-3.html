@@ -736,7 +736,12 @@
 					<tr>
 						<td><code>onDropdownShow</code></td>
 						<td>
-							This event handler is triggered when the dropdown are shown.
+                            <p>
+                                <span class="text-error">Both, the <code>onDropdownShow</code> and the <code>onDropdownHide</code> options are not supported when using Twitter Bootstrap 2.3.</span>
+                            </p>
+                            <p>
+                                <span class="muted">This event handler is triggered when the dropdown are shown.</span> 
+                            </p>
 						</td>
 						<td>
 							<pre class="prettyprint linenums">
@@ -755,7 +760,12 @@
 					<tr>
 						<td><code>onDropdownHide</code></td>
 						<td>
-							This event handler is triggered when the dropdown are hidden.
+                            <p>
+                                <span class="text-error">Both, the <code>onDropdownShow</code> and the <code>onDropdownHide</code> options are not supported when using Twitter Bootstrap 2.3.</span>
+                            </p>
+                            <p>
+                                <span class="muted">This event handler is triggered when the dropdown are hidden.</span>
+                            </p>
 						</td>
 						<td>
 							<pre class="prettyprint linenums">
@@ -799,6 +809,24 @@
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
       includeSelectAllOption: true
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+                    <tr>
+						<td><code>includeSelectAllIfMoreThan</code></td>
+						<td>
+                            If <code>includeSelectAllOption</code> is set to <code>true</code>, the select all option will be added if more than <code>includeSelectAllIfMoreThan</code> options are present. By default this option is set to <code>0</code>.
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      includeSelectAllOption: true,
+      includeSelectAllIfMoreThan: 10
     });
   });
 &lt;/script&gt;
@@ -1647,7 +1675,6 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
           }
           else {
             $(&quot;#example22&quot;).multiselect('select', element.val());
-            return false;
           }
         }
       }
@@ -2087,6 +2114,14 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
             
             <p>
                 With version 2.0, jQuery no longer supports the older IE versions. Nevertheless, the plugin should run as expected using the 1.x branch of jQuery. See <a href="http://blog.jquery.com/2013/04/18/jquery-2-0-released/">here</a> for details.
+            </p>
+            
+            <p>
+                <b>Using <code>return false;</code> within the <code>onChange</code> option does not prevent the option from being selected/deselected ...</b>
+            </p>
+            
+            <p>
+                The <code>return</code> statement within the <code>onChange</code> method has no influence on the result. For preventing an option from being deselected or selected have a look at the examples in the <a href="#further-examples">Further Examples</a> section.
             </p>
 		</div>
 

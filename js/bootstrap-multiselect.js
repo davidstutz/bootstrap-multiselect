@@ -181,7 +181,7 @@
              * @param {jQuery} event
              */
             onDropdownShow: function(event) {
-
+                
             },
             /**
              * Triggered when the dropdown is hidden.
@@ -189,7 +189,7 @@
              * @param {jQuery} event
              */
             onDropdownHide: function(event) {
-
+                
             },
             buttonClass: 'btn btn-default',
             dropRight: false,
@@ -200,6 +200,7 @@
             // If maximum height is exceeded a scrollbar will be displayed.
             maxHeight: false,
             includeSelectAllOption: false,
+            includeSelectAllIfMoreThan: 0,
             selectAllText: ' Select all',
             selectAllValue: 'multiselect-all',
             enableFiltering: false,
@@ -248,7 +249,7 @@
             }
 
             // Manually add button width if set.
-            if (this.options.buttonWidth && this.options.buttonWidth != 'auto') {
+            if (this.options.buttonWidth && this.options.buttonWidth !== 'auto') {
                 this.$button.css({
                     'width' : this.options.buttonWidth
                 });
@@ -343,13 +344,15 @@
 
                 if (isSelectAllOption) {
                     if (this.$select[0][0].value === this.options.selectAllValue) {
+                        
                         var values = [];
-                        var options = $('option[value!="' + this.options.selectAllValue + '"]', this.$select);
+                        
+                        // Check for visibility of options.
+                        var options = $('option[value!="' + this.options.selectAllValue + '"][data-role!="divider"]', this.$select)
+                            .filter(':visible');
+                        
                         for (var i = 0; i < options.length; i++) {
-                            // Additionally check whether the option is visible within the dropcown.
-                            if (options[i].value !== this.options.selectAllValue && this.getInputByValue(options[i].value).is(':visible')) {
-                                values.push(options[i].value);
-                            }
+                            values.push(options[i].value);
                         }
 
                         if (checked) {
@@ -573,11 +576,14 @@
         buildSelectAll: function() {
             var alreadyHasSelectAll = this.hasSelectAll();
             
-            // If options.includeSelectAllOption === true, add the include all checkbox.
-            if (this.options.includeSelectAllOption && this.options.multiple && !alreadyHasSelectAll) {
+            if (!alreadyHasSelectAll && this.options.includeSelectAllOption && this.options.multiple
+                    && $('option[data-role!="divider"]', this.$select).length > this.options.includeSelectAllIfMoreThan) {
+                
+                // Check whether to add a divider after the select all.
                 if (this.options.includeSelectAllDivider) {
                     this.$select.prepend('<option value="" disabled="disabled" data-role="divider">');
                 }
+                
                 this.$select.prepend('<option value="' + this.options.selectAllValue + '">' + this.options.selectAllText + '</option>');
             }
         },
@@ -706,7 +712,7 @@
          * @param {Array} selectValues
          */
         select: function(selectValues) {
-            if(selectValues && !$.isArray(selectValues)) {
+            if(!$.isArray(selectValues)) {
                 selectValues = [selectValues];
             }
 
@@ -755,7 +761,7 @@
          * @param {Array} deselectValues
          */
         deselect: function(deselectValues) {
-            if(deselectValues && !$.isArray(deselectValues)) {
+            if(!$.isArray(deselectValues)) {
                 deselectValues = [deselectValues];
             }
 
@@ -857,7 +863,7 @@
          * @returns {Boolean}
          */
         hasSelectAll: function() {
-            return this.$select[0][0] ? this.$select[0][0].value === this.options.selectAllValue : false;
+            return $('input[value="' + this.options.selectAllValue + '"]', this.$ul).length > 0;
         },
         
         /**
