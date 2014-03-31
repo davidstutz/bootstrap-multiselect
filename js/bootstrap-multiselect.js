@@ -867,7 +867,7 @@
          * @returns {Boolean}
          */
         hasSelectAll: function() {
-            return $('input[value="' + this.options.selectAllValue + '"]', this.$ul).length > 0;
+            return $('option[value="' + this.options.selectAllValue + '"]', this.$select).length > 0;
         },
         
         /**
