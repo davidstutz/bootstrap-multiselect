@@ -26,6 +26,7 @@
                             <li><a href="#getting-started">Getting Started</a></li>
                             <li><a href="#examples">Examples</a></li>
                             <li><a href="#options">Options</a></li>
+                            <li><a href="#templates">Templates</a></li>
                             <li><a href="#methods">Methods</a></li>
                             <li><a href="#further-examples">Further Examples</a></li>
                             <li><a href="#additional-styling">Additional Styling</a></li>
@@ -991,6 +992,71 @@
 					</tr>
 				</tbody>
 			</table>
+            
+            <div class="page-header">
+				<h1><a id="templates"></a>Templates</h1>
+			</div>
+            
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('#example47').multiselect({
+                        templates: {
+                            divider: '<div class="divider" data-role="divider"></div>'
+                        }
+                    });
+                });
+            </script>
+            
+            <p>
+                The plugin uses templates to create different parts of the plugin - as for example the filter, dividers or the button. The default templates can be seen below.
+            </p>
+            
+            <pre class="prettyprint linenums">
+templates: {
+  button: '&lt;button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"&gt;&lt;/button&gt;',
+  ul: '&lt;ul class="multiselect-container dropdown-menu"&gt;&lt;/ul&gt;',
+  filter: '&lt;div class="input-group"&gt;&lt;span class="input-group-addon"&gt;&lt;i class="glyphicon glyphicon-search"&gt;&lt;/i&gt;&lt;/span&gt;&lt;input class="form-control multiselect-search" type="text"&gt;&lt;/div&gt;',
+  li: '&lt;li&gt;&lt;a href="javascript:void(0);"&gt;&lt;label&gt;&lt;/label&gt;&lt;/a&gt;&lt;/li&gt;',
+  divider: '&lt;li class="divider"&gt;&lt;/li&gt;',
+  liGroup: '&lt;li&gt;&lt;label class="multiselect-group"&gt;&lt;/label&gt;&lt;/li&gt;'
+}
+            </pre>
+            
+            <p>
+                The templates can be overriden using the <code>templates</code> configuration option. The example below uses a <code>div</code> for dividers.
+            </p>
+            
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td>
+                            <select id="example47" multiple="multiple">
+                                <option value="cheese">Cheese</option>
+                                <option value="tomatoes">Tomatoes</option>
+                                <option data-role="divider"></option>
+                                <option value="mozarella">Mozzarella</option>
+                                <option value="mushrooms">Mushrooms</option>
+                                <option data-role="divider"></option>
+                                <option value="pepperoni">Pepperoni</option>
+                                <option value="onions">Onions</option>
+                            </select>
+                        </td>
+                        <td>
+                            <pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      templates: {
+        divider: '&lt;div class="divider" data-role="divider"&gt;&lt;/div&gt;'
+      }
+    });
+  });
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             
 			<div class="page-header">
 				<h1><a id="methods"></a>Methods</h1>

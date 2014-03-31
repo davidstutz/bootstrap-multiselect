@@ -212,16 +212,15 @@
             preventInputChangeEvent: false,
             nonSelectedText: 'None selected',
             nSelectedText: 'selected',
-            numberDisplayed: 3
-        },
-
-        templates: {
-            button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
-            ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-            filter: '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div>',
-            li: '<li><a href="javascript:void(0);"><label></label></a></li>',
-            divider: '<li class="divider"></li>',
-            liGroup: '<li><label class="multiselect-group"></label></li>'
+            numberDisplayed: 3,
+            templates: {
+                button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
+                ul: '<ul class="multiselect-container dropdown-menu"></ul>',
+                filter: '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div>',
+                li: '<li><a href="javascript:void(0);"><label></label></a></li>',
+                divider: '<li class="divider"></li>',
+                liGroup: '<li><label class="multiselect-group"></label></li>'
+            }
         },
 
         constructor: Multiselect,
@@ -239,7 +238,7 @@
          * Builds the button of the multiselect.
          */
         buildButton: function() {
-            this.$button = $(this.templates.button).addClass(this.options.buttonClass);
+            this.$button = $(this.options.templates.button).addClass(this.options.buttonClass);
 
             // Adopt active state.
             if (this.$select.prop('disabled')) {
@@ -271,7 +270,7 @@
         buildDropdown: function() {
 
             // Build ul.
-            this.$ul = $(this.templates.ul);
+            this.$ul = $(this.options.templates.ul);
 
             if (this.options.dropRight) {
                 this.$ul.addClass('pull-right');
@@ -503,7 +502,7 @@
             var value = $(element).val();
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
-            var $li = $(this.templates.li);
+            var $li = $(this.options.templates.li);
             $('label', $li).addClass(inputType);
             $('label', $li).append('<input type="' + inputType + '" name="' + this.options.checkboxName + '" />');
 
@@ -541,7 +540,7 @@
          * @param {jQuery} element
          */
         createDivider: function(element) {
-            var $divider = $(this.templates.divider);
+            var $divider = $(this.options.templates.divider);
             this.$ul.append($divider);
         },
 
@@ -554,7 +553,7 @@
             var groupName = $(group).prop('label');
 
             // Add a header for the group.
-            var $li = $(this.templates.liGroup);
+            var $li = $(this.options.templates.liGroup);
             $('label', $li).text(groupName);
 
             this.$ul.append($li);
@@ -599,7 +598,7 @@
 
                 if (this.$select.find('option').length >= enableFilterLength) {
 
-                    this.$filter = $(this.templates.filter);
+                    this.$filter = $(this.options.templates.filter);
                     $('input', this.$filter).attr('placeholder', this.options.filterPlaceholder);
                     this.$ul.prepend(this.$filter);
 
@@ -858,7 +857,7 @@
          * @returns {Array}
          */
         mergeOptions: function(options) {
-            return $.extend({}, this.defaults, this.options, options);
+            return $.extend(true, {}, this.defaults, options);
         },
         
         /**
