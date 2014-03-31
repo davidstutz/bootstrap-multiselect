@@ -202,6 +202,10 @@
                         includeSelectAllOption: true,
                         maxHeight: 150
                     });
+                    
+                    $('#example46').multiselect({
+                        checkboxName: 'multiselect-checkbox'
+                    });
 			    });
 			</script>
 			<p>
@@ -557,6 +561,21 @@
 					</td>
 					<td>
 						Using <code>optgroups</code>s with filtering and the select all option.
+					</td>
+				</tr>
+                <tr>
+					<td>
+						<select id="example46" multiple="multiple">
+							<option value="cheese">Cheese</option>
+							<option value="tomatoes">Tomatoes</option>
+							<option value="mozarella">Mozzarella</option>
+							<option value="mushrooms">Mushrooms</option>
+							<option value="pepperoni">Pepperoni</option>
+							<option value="onions">Onions</option>
+						</select>
+					</td>
+					<td>
+                        Use the <code>checkboxName</code> to adapt the <code>name</code> attribute of the used checkboxes.
 					</td>
 				</tr>
 			</table>
