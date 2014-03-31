@@ -320,27 +320,29 @@
 
             // Bind the change event on the dropdown elements.
             $('li input', this.$ul).on('change', $.proxy(function(event) {
-                var checked = $(event.target).prop('checked') || false;
-                var isSelectAllOption = $(event.target).val() === this.options.selectAllValue;
+                var $target = $(event.target);
+
+                var checked = $target.prop('checked') || false;
+                var isSelectAllOption = $target.val() === this.options.selectAllValue;
 
                 // Apply or unapply the configured selected class.
                 if (this.options.selectedClass) {
                     if (checked) {
-                        $(event.target).parents('li')
+                        $target.parents('li')
                             .addClass(this.options.selectedClass);
                     }
                     else {
-                        $(event.target).parents('li')
+                        $target.parents('li')
                             .removeClass(this.options.selectedClass);
                     }
                 }
 
                 // Get the corresponding option.
-                var value = $(event.target).val();
+                var value = $target.val();
                 var $option = this.getOptionByValue(value);
 
                 var $optionsNotThis = $('option', this.$select).not($option);
-                var $checkboxesNotThis = $('input', this.$container).not($(event.target));
+                var $checkboxesNotThis = $('input', this.$container).not($target);
 
                 if (isSelectAllOption) {
                     if (this.$select[0][0].value === this.options.selectAllValue) {
@@ -408,19 +410,21 @@
             $('li a', this.$ul).on('touchstart click', function(event) {
                 event.stopPropagation();
 
+                var $target = $(event.target);
+
                 if (event.shiftKey) {
-                    var checked = $(event.target).prop('checked') || false;
+                    var checked = $target.prop('checked') || false;
 
                     if (checked) {
-                        var prev = $(event.target).parents('li:last')
+                        var prev = $target.parents('li:last')
                             .siblings('li[class="active"]:first');
 
-                        var currentIdx = $(event.target).parents('li')
+                        var currentIdx = $target.parents('li')
                             .index();
                         var prevIdx = prev.index();
 
                         if (currentIdx > prevIdx) {
-                            $(event.target).parents("li:last").prevUntil(prev).each(
+                            $target.parents("li:last").prevUntil(prev).each(
                                 function() {
                                     $(this).find("input:first").prop("checked", true)
                                         .trigger("change");
@@ -428,7 +432,7 @@
                             );
                         }
                         else {
-                            $(event.target).parents("li:last").nextUntil(prev).each(
+                            $target.parents("li:last").nextUntil(prev).each(
                                 function() {
                                     $(this).find("input:first").prop("checked", true)
                                         .trigger("change");
@@ -438,7 +442,7 @@
                     }
                 }
 
-                $(event.target).blur();
+                $target.blur();
             });
 
             // Keyboard support.
