@@ -193,6 +193,15 @@
                     $('#example41').multiselect({
 			        	includeSelectAllOption: true
 			        });
+                    
+                    for (var i = 1; i < 1000; i++) {
+                        $('#example45').append('<option value="' + i + '">Option ' + i + '</option>');
+                    }
+                    
+                    $('#example45').multiselect({
+                        includeSelectAllOption: true,
+                        maxHeight: 150
+                    });
 			    });
 			</script>
 			<p>
@@ -265,6 +274,14 @@
 					</td>
 					<td>
                         The 'Select all' option automatically repsonds to the selection of the user. In particular, it responds to the initial state of the select.
+					</td>
+				</tr>
+                <tr>
+					<td>
+						<select id="example45" multiple="multiple"></select>
+					</td>
+					<td>
+                        Test the performance of the 'Select all' option with 999 options.
 					</td>
 				</tr>
 				<tr>

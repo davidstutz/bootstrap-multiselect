@@ -346,9 +346,9 @@
 
                 if (isSelectAllOption) {
                     var values = [];
+                    
                     // Select the visible checkboxes except the "select-all" and possible divider.
                     var availableInputs = $('li input[value!="' + this.options.selectAllValue + '"][data-role!="divider"]', this.$ul).filter(':visible');
-                    
                     for (var i = 0, j = availableInputs.length; i < j; i++) {
                         values.push(availableInputs[i].value);
                     }
