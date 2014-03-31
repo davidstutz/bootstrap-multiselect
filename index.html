@@ -212,6 +212,10 @@
                         includeSelectAllOption: true,
                         maxHeight: 150
                     });
+                    
+                    $('#example46').multiselect({
+                        checkboxName: 'multiselect-checkbox'
+                    });
 			    });
 			</script>
 			<p>
@@ -584,6 +588,21 @@
                         The <code>onDropdownShow</code> and <code>onDropdownHide</code> represent the <code>show.bs.dropdown</code> and <code>hide.bs.dropdown</code> events provided by Twitter Bootstrap.
 					</td>
 				</tr>
+                <tr>
+					<td>
+						<select id="example46" multiple="multiple">
+							<option value="cheese">Cheese</option>
+							<option value="tomatoes">Tomatoes</option>
+							<option value="mozarella">Mozzarella</option>
+							<option value="mushrooms">Mushrooms</option>
+							<option value="pepperoni">Pepperoni</option>
+							<option value="onions">Onions</option>
+						</select>
+					</td>
+					<td>
+                        Use the <code>checkboxName</code> to adapt the <code>name</code> attribute of the used checkboxes.
+					</td>
+				</tr>
 			</table>
 
             <div class="page-header">
@@ -834,6 +853,23 @@
   $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
       maxHeight: 400
+    });
+  });
+&lt;/script&gt;
+							</pre>
+						</td>
+					</tr>
+                    <tr>
+						<td><code>checkboxName</code></td>
+						<td>
+							Used to configure the <code>name</code> attribute of the checkboxes or radio buttons used within the multiselect.
+						</td>
+						<td>
+							<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+  $(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+      checkboxName: 'custom-name'
     });
   });
 &lt;/script&gt;

@@ -199,6 +199,7 @@
             // Maximum height of the dropdown menu.
             // If maximum height is exceeded a scrollbar will be displayed.
             maxHeight: false,
+            checkboxName: 'multiselect',
             includeSelectAllOption: false,
             includeSelectAllIfMoreThan: 0,
             selectAllText: ' Select all',
@@ -504,7 +505,7 @@
 
             var $li = $(this.templates.li);
             $('label', $li).addClass(inputType);
-            $('label', $li).append('<input type="' + inputType + '" />');
+            $('label', $li).append('<input type="' + inputType + '" name="' + this.options.checkboxName + '" />');
 
             var selected = $(element).prop('selected') || false;
             var $checkbox = $('input', $li);
