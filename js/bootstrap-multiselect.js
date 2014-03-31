@@ -203,6 +203,7 @@
             includeSelectAllIfMoreThan: 0,
             selectAllText: ' Select all',
             selectAllValue: 'multiselect-all',
+            includeSelectAllDivider: false,
             enableFiltering: false,
             enableCaseInsensitiveFiltering: false,
             filterPlaceholder: 'Search',
@@ -219,7 +220,7 @@
             ul: '<ul class="multiselect-container dropdown-menu"></ul>',
             filter: '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div>',
             li: '<li><a href="javascript:void(0);"><label></label></a></li>',
-            divider: '<li class="divider"></li>',
+            divider: '<div class="divider"></div>',
             liGroup: '<li><label class="multiselect-group"></label></li>'
         },
 
