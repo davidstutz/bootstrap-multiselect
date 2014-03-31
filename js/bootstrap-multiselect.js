@@ -345,25 +345,19 @@
                 var $checkboxesNotThis = $('input', this.$container).not($target);
 
                 if (isSelectAllOption) {
-                    if (this.$select[0][0].value === this.options.selectAllValue) {
-                        
-                        var values = [];
-                        var options = $('option[value!="' + this.options.selectAllValue + '"][data-role!="divider"]', this.$select);
-                        
-                        for (var i = 0; i < options.length; i++) {
-                            
-                            // Check whether this option is actually visible.
-                            if (this.getInputByValue(options[i].value) && this.getInputByValue(options[i].value).is(':visible')) {
-                                values.push(options[i].value);
-                            }
-                        }
+                    var values = [];
+                    // Select the visible checkboxes except the "select-all" and possible divider.
+                    var availableInputs = $('li input[value!="' + this.options.selectAllValue + '"][data-role!="divider"]', this.$ul).filter(':visible');
+                    
+                    for (var i = 0, j = availableInputs.length; i < j; i++) {
+                        values.push(availableInputs[i].value);
+                    }
 
-                        if (checked) {
-                            this.select(values);
-                        }
-                        else {
-                            this.deselect(values);
-                        }
+                    if (checked) {
+                        this.select(values);
+                    }
+                    else {
+                        this.deselect(values);
                     }
                 }
 
