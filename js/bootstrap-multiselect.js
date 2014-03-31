@@ -664,6 +664,7 @@
         destroy: function() {
             this.$container.remove();
             this.$select.show();
+            this.$select.data('multiselect', null);
         },
 
         /**
