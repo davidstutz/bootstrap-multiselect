@@ -773,13 +773,22 @@
          * Selects all visible options.
          * 
          */
-        selectall: function () {
-            var selectedInputs = $("li input", this.$ul).filter(":visible");
-            var values = selectedInputs.map(function() { return $(this).val() }).get();
-            
-            selectedInputs.prop('checked', true);
+        selectall: function () {              
+            var allCheckboxes = $("li input[type='checkbox']", this.$ul),
+                visibleCheckboxes = allCheckboxes.filter(":visible"),
+                allCheckboxesCount = allCheckboxes.length,
+                visibleCheckboxesCount = visibleCheckboxes.length;
+                
+            visibleCheckboxes.prop('checked', true);
             $("li", this.$ul).not(".divider").filter(":visible").addClass(this.options.selectedClass);
-            $("option", this.$select).not("[data-role='divider']").filter(function(index){ return $.inArray($(this).val(), values) !== -1; }).prop('selected', true);
+            
+            if (allCheckboxesCount === visibleCheckboxesCount) {
+                $("option", this.$select).not("[data-role='divider']").prop('selected', true);
+            }
+            else {
+                var values = visibleCheckboxes.map(function() { return $(this).val() }).get();
+                $("option", this.$select).not("[data-role='divider']").filter(function(index){ return $.inArray($(this).val(), values) !== -1; }).prop('selected', true);
+            }
         },
 
         /**
