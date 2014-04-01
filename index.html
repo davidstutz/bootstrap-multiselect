@@ -1186,6 +1186,9 @@ templates: {
 			        });
                     
                     $('#example35').multiselect();
+                    $('#example35-enable').on('click', function() {
+                        $('#example35').multiselect('enable');
+                    });
                     $('#example35-disable').on('click', function() {
                         $('#example35').multiselect('disable');
                     });
@@ -1193,6 +1196,9 @@ templates: {
                     $('#example36').multiselect();
                     $('#example36-enable').on('click', function() {
                         $('#example36').multiselect('enable');
+                    });
+                    $('#example36-disable').on('click', function() {
+                        $('#example36').multiselect('disable');
                     });
 			    });
 			</script>
@@ -1350,6 +1356,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                                     <option value="pepperoni">Pepperoni</option>
                                     <option value="onions">Onions</option>
                                 </select>
+								<button id="example35-enable" class="btn btn-default">Enable</button>
 								<button id="example35-disable" class="btn btn-default">Disable</button>
                             </div>
                         </td>
@@ -1372,6 +1379,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                                     <option value="onions">Onions</option>
                                 </select>
 								<button id="example36-enable" class="btn btn-default">Enable</button>
+								<button id="example36-disable" class="btn btn-default">Disable</button>
                             </div>
                         </td>
 					</tr>
