@@ -216,10 +216,10 @@
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-                filter: '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div>',
+                filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
                 li: '<li><a href="javascript:void(0);"><label></label></a></li>',
-                divider: '<li class="divider"></li>',
-                liGroup: '<li><label class="multiselect-group"></label></li>'
+                divider: '<li class="multiselect-item divider"></li>',
+                liGroup: '<li class="multiselect-item group"><label class="multiselect-group"></label></li>'
             }
         },
 
@@ -345,19 +345,11 @@
                 var $checkboxesNotThis = $('input', this.$container).not($target);
 
                 if (isSelectAllOption) {
-                    var values = [];
-                    
-                    // Select the visible checkboxes except the "select-all" and possible divider.
-                    var availableInputs = $('li input[value!="' + this.options.selectAllValue + '"][data-role!="divider"]', this.$ul).filter(':visible');
-                    for (var i = 0, j = availableInputs.length; i < j; i++) {
-                        values.push(availableInputs[i].value);
-                    }
-
                     if (checked) {
-                        this.select(values);
+                        this.selectall();
                     }
                     else {
-                        this.deselect(values);
+                        this.deselectall();
                     }
                 }
 
@@ -511,6 +503,7 @@
             $checkbox.val(value);
 
             if (value === this.options.selectAllValue) {
+                $li.addClass("multiselect-item multiselect-all");
                 $checkbox.parent().parent()
                     .addClass('multiselect-all');
             }
@@ -650,7 +643,7 @@
                                 }, this));
                             }
 
-                            // TODO: check whether select all option needs to be updated.
+                            this.updateSelectAll();
                         }, this), 300, this);
                     }, this));
                 }
@@ -786,6 +779,33 @@
 
             this.updateButtonText();
         },
+        
+        /**
+         * Selects all visible options.
+         * 
+         */
+        selectall: function () {
+            var selectedInputs = $("li input", this.$ul).filter(":visible");
+            var values = selectedInputs.map(function() { return $(this).val() }).get();
+            
+            selectedInputs.prop('checked', true);
+            $("li", this.$ul).not(".divider").filter(":visible").addClass(this.options.selectedClass);
+            $("option", this.$select).not("[data-role='divider']").filter(function(index){ return $.inArray($(this).val(), values) !== -1; }).prop('selected', true);
+        },
+
+        /**
+         * Deselects all options.
+         * If justVisible is true or not specified, only visible options are deselected.
+         * 
+         * @param {Boolean} justVisible
+         */
+        deselectall: function (justVisible) {
+            justVisible = typeof justVisible === 'undefined' ? true : justVisible;
+            var filter = justVisible ? ":visible" : "*";
+            $("li input", this.$ul).filter(filter).prop('checked', false);
+            $("li", this.$ul).not(".divider").filter(filter).removeClass(this.options.selectedClass);
+            $("option", this.$select).not("[value='" + this.options.selectAllValue + "']").not("[data-role='divider']").prop('selected', false);
+        },
 
         /**
          * Rebuild the plugin.
@@ -870,13 +890,15 @@
         },
         
         /**
-         * Updates the select all option based on the currently selected options.
+         * Updates the select all option based on the currently displayed and selected checkboxes.
          */
         updateSelectAll: function() {
             if (this.hasSelectAll()) {
-                var selected = this.getSelected();
+                var allBoxes = $("li:not(.multiselect-item) input", this.$ul).filter(":visible"),
+                    allBoxesLength = allBoxes.length,
+                    checkedBoxesLength = allBoxes.filter(":checked").length;
                 
-                if (selected.length === $('option:not([data-role=divider])', this.$select).length - 1) {
+                if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
                     this.select(this.options.selectAllValue);
                 }
                 else {
@@ -905,9 +927,7 @@
          * @returns {jQUery}
          */
         getSelected: function() {
-            return $('option[value!="' + this.options.selectAllValue + '"]:selected', this.$select).filter(function() {
-                return $(this).prop('selected');
-            });
+            return $('option:not([value="' + this.options.selectAllValue + '"])', this.$select).filter(":selected");
         },
 
         /**
