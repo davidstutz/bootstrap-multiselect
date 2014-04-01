@@ -735,20 +735,9 @@
          * 
          */
         clearSelection: function () {
-
-            var selected = this.getSelected();
-
-            if (selected.length) {
-
-                var arry = [];
-
-                for (var i = 0; i < selected.length; i = i + 1) {
-                    arry.push(selected[i].value);
-                }
-
-                this.deselect(arry);
-                this.$select.change();
-            }
+            this.deselectall(false);
+            this.updateButtonText();
+            this.updateSelectAll();
         },
 
         /**
