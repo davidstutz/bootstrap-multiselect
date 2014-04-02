@@ -802,7 +802,7 @@
             var filter = justVisible ? ":visible" : "*";
             $("li input", this.$ul).filter(filter).prop('checked', false);
             $("li", this.$ul).not(".divider").filter(filter).removeClass(this.options.selectedClass);
-            $("option", this.$select).not("[value='" + this.options.selectAllValue + "']").not("[data-role='divider']").prop('selected', false);
+            $("option", this.$select).not("[data-role='divider']").prop('selected', false);
         },
 
         /**
