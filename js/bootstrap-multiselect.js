@@ -391,10 +391,11 @@
                 }
 
                 this.$select.change();
-                this.options.onChange($option, checked);
-                
+
                 this.updateButtonText();
                 this.updateSelectAll();
+                
+                this.options.onChange($option, checked);
 
                 if(this.options.preventInputChangeEvent) {
                     return false;
