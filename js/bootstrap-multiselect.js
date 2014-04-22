@@ -770,24 +770,24 @@
         },
         
         /**
-         * Selects all visible options.
+         * Selects all enabled & visible options.
          * 
          */
         selectall: function () {              
-            var allCheckboxes = $("li input[type='checkbox']", this.$ul),
+            var allCheckboxes = $("li input[type='checkbox']:enabled", this.$ul),
                 visibleCheckboxes = allCheckboxes.filter(":visible"),
                 allCheckboxesCount = allCheckboxes.length,
                 visibleCheckboxesCount = visibleCheckboxes.length;
                 
             visibleCheckboxes.prop('checked', true);
-            $("li", this.$ul).not(".divider").filter(":visible").addClass(this.options.selectedClass);
+            $("li:not(.divider):not(.disabled)", this.$ul).filter(":visible").addClass(this.options.selectedClass);
             
             if (allCheckboxesCount === visibleCheckboxesCount) {
-                $("option", this.$select).not("[data-role='divider']").prop('selected', true);
+                $("option:enabled:not([data-role='divider'])", this.$select).prop('selected', true);
             }
             else {
                 var values = visibleCheckboxes.map(function() { return $(this).val() }).get();
-                $("option", this.$select).not("[data-role='divider']").filter(function(index){ return $.inArray($(this).val(), values) !== -1; }).prop('selected', true);
+                $("option:enabled:not([data-role='divider'])", this.$select).filter(function(index){ return $.inArray($(this).val(), values) !== -1; }).prop('selected', true);
             }
         },
 
@@ -801,8 +801,8 @@
             justVisible = typeof justVisible === 'undefined' ? true : justVisible;
             var filter = justVisible ? ":visible" : "*";
             $("li input", this.$ul).filter(filter).prop('checked', false);
-            $("li", this.$ul).not(".divider").filter(filter).removeClass(this.options.selectedClass);
-            $("option", this.$select).not("[data-role='divider']").prop('selected', false);
+            $("li:not(.divider)", this.$ul).filter(filter).removeClass(this.options.selectedClass);
+            $("option:not([data-role='divider'])", this.$select).prop('selected', false);
         },
 
         /**
@@ -892,7 +892,7 @@
          */
         updateSelectAll: function() {
             if (this.hasSelectAll()) {
-                var allBoxes = $("li:not(.multiselect-item) input", this.$ul).filter(":visible"),
+                var allBoxes = $("li:not(.multiselect-item) input:enabled", this.$ul).filter(":visible"),
                     allBoxesLength = allBoxes.length,
                     checkedBoxesLength = allBoxes.filter(":checked").length;
                 
