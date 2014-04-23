@@ -773,7 +773,7 @@
          * Selects all enabled & visible options.
          * 
          */
-        selectall: function () {              
+        selectall: function () {
             var allCheckboxes = $("li input[type='checkbox']:enabled", this.$ul),
                 visibleCheckboxes = allCheckboxes.filter(":visible"),
                 allCheckboxesCount = allCheckboxes.length,
@@ -798,11 +798,26 @@
          * @param {Boolean} justVisible
          */
         deselectall: function (justVisible) {
-            justVisible = typeof justVisible === 'undefined' ? true : justVisible;
-            var filter = justVisible ? ":visible" : "*";
-            $("li input", this.$ul).filter(filter).prop('checked', false);
-            $("li:not(.divider)", this.$ul).filter(filter).removeClass(this.options.selectedClass);
-            $("option:not([data-role='divider'])", this.$select).prop('selected', false);
+            var allCheckboxes = $("li input[type='checkbox']:enabled", this.$ul),                
+                justVisible = typeof justVisible === 'undefined' ? true : justVisible,
+                visibleCheckboxes = void(0);
+            
+            if(justVisible) {
+                var values = void(0);                
+                visibleCheckboxes = allCheckboxes.filter(":visible");
+                visibleCheckboxes.prop('checked', false);
+                
+                values = visibleCheckboxes.map(function() { return $(this).val() }).get();
+                
+                $("option:enabled:not([data-role='divider'])", this.$select).filter(function(index){ return $.inArray($(this).val(), values) !== -1; }).prop('selected', false);
+                
+                $("li:not(.divider):not(.disabled)", this.$ul).filter(":visible").removeClass(this.options.selectedClass);
+                
+            }else {
+                allCheckboxes.prop('checked', false);
+                $("option:enabled:not([data-role='divider'])", this.$select).prop('selected', false);
+                $("li:not(.divider):not(.disabled)", this.$ul).removeClass(this.options.selectedClass);
+            }
         },
 
         /**
