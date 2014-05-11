@@ -73,7 +73,7 @@
 
     /**
      * Constructor to create a new multiselect using the given select.
-     * 
+     *
      * @param {jQuery} select
      * @param {Object} options
      * @returns {Multiselect}
@@ -101,10 +101,10 @@
         this.buildDropdown();
         this.buildDropdownOptions();
         this.buildFilter();
-        
+
         this.updateButtonText();
         this.updateSelectAll();
-        
+
         this.$select.hide().after(this.$container);
     };
 
@@ -114,7 +114,7 @@
             /**
              * Default text function will either print 'None selected' in case no
              * option is selected or a list of the selected options up to a length of 3 selected options.
-             * 
+             *
              * @param {jQuery} options
              * @param {jQuery} select
              * @returns {String}
@@ -158,7 +158,7 @@
             },
             /**
              * Create a label.
-             * 
+             *
              * @param {jQuery} element
              * @returns {String}
              */
@@ -168,7 +168,7 @@
             /**
              * Triggered on change of the multiselect.
              * Not triggered when selecting/deselecting options manually.
-             * 
+             *
              * @param {jQuery} option
              * @param {Boolean} checked
              */
@@ -177,19 +177,19 @@
             },
             /**
              * Triggered when the dropdown is shown.
-             * 
+             *
              * @param {jQuery} event
              */
             onDropdownShow: function(event) {
-                
+
             },
             /**
              * Triggered when the dropdown is hidden.
-             * 
+             *
              * @param {jQuery} event
              */
             onDropdownHide: function(event) {
-                
+
             },
             buttonClass: 'btn btn-default',
             dropRight: false,
@@ -200,6 +200,7 @@
             // If maximum height is exceeded a scrollbar will be displayed.
             maxHeight: false,
             checkboxName: 'multiselect',
+            includeSelectAllOptgroupOption: false,
             includeSelectAllOption: false,
             includeSelectAllIfMoreThan: 0,
             selectAllText: ' Select all',
@@ -219,7 +220,7 @@
                 filter: '<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div>',
                 li: '<li><a href="javascript:void(0);"><label></label></a></li>',
                 divider: '<li class="divider"></li>',
-                liGroup: '<li><label class="multiselect-group"></label></li>'
+                liGroup: '<li><a href="javascript:void(0);"><label class="multiselect-group"></label></a></li>'
             }
         },
 
@@ -296,7 +297,7 @@
         buildDropdownOptions: function() {
 
             this.$select.children().each($.proxy(function(index, element) {
-                
+
                 // Support optgroups and options without a group simultaneously.
                 var tag = $(element).prop('tagName')
                     .toLowerCase();
@@ -314,13 +315,21 @@
                     }
 
                 }
-                
+
                 // Other illegal tags will be ignored.
             }, this));
 
             // Bind the change event on the dropdown elements.
             $('li input', this.$ul).on('change', $.proxy(function(event) {
                 var $target = $(event.target);
+
+                if($target.attr('class')==='group-checkbox'){
+                    var groupId=$target.data('id');
+                    $('li input[data-group-id="'+groupId+'"][data-role!="divider"]', this.$ul).prop('checked',$target.is(':checked')).change();
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                }
 
                 var checked = $target.prop('checked') || false;
                 var isSelectAllOption = $target.val() === this.options.selectAllValue;
@@ -346,7 +355,7 @@
 
                 if (isSelectAllOption) {
                     var values = [];
-                    
+
                     // Select the visible checkboxes except the "select-all" and possible divider.
                     var availableInputs = $('li input[value!="' + this.options.selectAllValue + '"][data-role!="divider"]', this.$ul).filter(':visible');
                     for (var i = 0, j = availableInputs.length; i < j; i++) {
@@ -392,7 +401,7 @@
 
                 this.$select.change();
                 this.options.onChange($option, checked);
-                
+
                 this.updateButtonText();
                 this.updateSelectAll();
 
@@ -446,7 +455,7 @@
                 }
                 if ((event.keyCode === 9 || event.keyCode === 27)
                         && this.$container.hasClass('open')) {
-                    
+
                     // Close on tab or escape.
                     this.$button.click();
                 }
@@ -489,7 +498,7 @@
 
         /**
          * Create an option using the given select option.
-         * 
+         *
          * @param {jQuery} element
          */
         createOptionValue: function(element) {
@@ -536,7 +545,7 @@
 
         /**
          * Creates a divider using the given select option.
-         * 
+         *
          * @param {jQuery} element
          */
         createDivider: function(element) {
@@ -546,15 +555,25 @@
 
         /**
          * Creates an optgroup.
-         * 
+         *
          * @param {jQuery} group
          */
         createOptgroup: function(group) {
             var groupName = $(group).prop('label');
+            var id= groupName;
 
             // Add a header for the group.
             var $li = $(this.options.templates.liGroup);
-            $('label', $li).text(groupName);
+
+            // Add an input for the group to check children elements
+            if(this.options.includeSelectAllOptgroupOption){
+                $('label', $li).text(' ' + groupName);
+                $('label',$li).prepend($('<input type="checkbox" class="group-checkbox"/>').data('id',id));
+            }
+            else {
+                $('a', $li).replaceWith($('label',$li));
+                $('label', $li).text(groupName);
+            }
 
             this.$ul.append($li);
 
@@ -565,6 +584,8 @@
             // Add the options of the group.
             $('option', group).each($.proxy(function(index, element) {
                 this.createOptionValue(element);
+                var newInput = this.getInputByValue($(element).val());
+                newInput.attr('data-group-id', id);
             }, this));
         },
 
@@ -574,15 +595,15 @@
          */
         buildSelectAll: function() {
             var alreadyHasSelectAll = this.hasSelectAll();
-            
+
             if (!alreadyHasSelectAll && this.options.includeSelectAllOption && this.options.multiple
                     && $('option[data-role!="divider"]', this.$select).length > this.options.includeSelectAllIfMoreThan) {
-                
+
                 // Check whether to add a divider after the select all.
                 if (this.options.includeSelectAllDivider) {
                     this.$select.prepend('<option value="" disabled="disabled" data-role="divider">');
                 }
-                
+
                 this.$select.prepend('<option value="' + this.options.selectAllValue + '">' + this.options.selectAllText + '</option>');
             }
         },
@@ -711,7 +732,7 @@
 
         /**
          * Select all options of the given values.
-         * 
+         *
          * @param {Array} selectValues
          */
         select: function(selectValues) {
@@ -739,7 +760,7 @@
 
         /**
          * Clears all selected items
-         * 
+         *
          */
         clearSelection: function () {
 
@@ -760,7 +781,7 @@
 
         /**
          * Deselects all options of the given values.
-         * 
+         *
          * @param {Array} deselectValues
          */
         deselect: function(deselectValues) {
@@ -803,14 +824,14 @@
             this.buildSelectAll();
             this.buildDropdownOptions();
             this.buildFilter();
-            
+
             this.updateButtonText();
             this.updateSelectAll();
         },
 
         /**
          * The provided data will be used to build the dropdown.
-         * 
+         *
          * @param {Array} dataprovider
          */
         dataprovider: function(dataprovider) {
@@ -843,7 +864,7 @@
 
         /**
          * Set the options.
-         * 
+         *
          * @param {Array} options
          */
         setOptions: function(options) {
@@ -852,30 +873,30 @@
 
         /**
          * Merges the given options with the default options.
-         * 
+         *
          * @param {Array} options
          * @returns {Array}
          */
         mergeOptions: function(options) {
             return $.extend(true, {}, this.defaults, options);
         },
-        
+
         /**
          * Checks whether a select all option is present.
-         * 
+         *
          * @returns {Boolean}
          */
         hasSelectAll: function() {
             return $('option[value="' + this.options.selectAllValue + '"]', this.$select).length > 0;
         },
-        
+
         /**
          * Updates the select all option based on the currently selected options.
          */
         updateSelectAll: function() {
             if (this.hasSelectAll()) {
                 var selected = this.getSelected();
-                
+
                 if (selected.length === $('option:not([data-role=divider])', this.$select).length - 1) {
                     this.select(this.options.selectAllValue);
                 }
@@ -884,16 +905,16 @@
                 }
             }
         },
-        
+
         /**
          * Update the button text and its title based on the currently selected options.
          */
         updateButtonText: function() {
             var options = this.getSelected();
-            
+
             // First update the displayed button text.
             $('button', this.$container).html(this.options.buttonText(options, this.$select));
-            
+
             // Now update the title attribute of the button.
             $('button', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
 
@@ -901,7 +922,7 @@
 
         /**
          * Get all selected options.
-         * 
+         *
          * @returns {jQUery}
          */
         getSelected: function() {
@@ -912,7 +933,7 @@
 
         /**
          * Gets a select option by its value.
-         * 
+         *
          * @param {String} value
          * @returns {jQuery}
          */
@@ -931,7 +952,7 @@
 
         /**
          * Get the input (radio/checkbox) by its value.
-         * 
+         *
          * @param {String} value
          * @returns {jQuery}
          */
@@ -967,7 +988,7 @@
         return this.each(function() {
             var data = $(this).data('multiselect');
             var options = typeof option === 'object' && option;
-            
+
             // Initialize the multiselect.
             if (!data) {
                 data = new Multiselect(this, options);
@@ -977,7 +998,7 @@
             // Call multiselect method.
             if (typeof option === 'string') {
                 data[option](parameter);
-                
+
                 if (option === 'destroy') {
                     $(this).data('multiselect', false);
                 }
