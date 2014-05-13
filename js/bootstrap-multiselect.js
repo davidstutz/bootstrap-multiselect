@@ -449,7 +449,7 @@
             });
 
             // Keyboard support.
-            this.$container.on('keydown', $.proxy(function(event) {
+            this.$container.off('keydown.multiselect').on('keydown.multiselect', $.proxy(function(event) {
                 if ($('input[type="text"]', this.$container).is(':focus')) {
                     return;
                 }
