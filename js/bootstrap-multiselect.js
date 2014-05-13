@@ -9,6 +9,15 @@
 !function($) {
 
     "use strict";// jshint ;_;
+    
+    if (Array.prototype.forEach === null || Array.prototype.forEach === undefined) {
+        Array.prototype.forEach = function (func) {
+            var index;
+            for (index = 0; index < this.length; ++index) {
+                func(this[index]);
+            }
+        };
+    }
 
     if (typeof ko !== 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
         ko.bindingHandlers.multiselect = {
