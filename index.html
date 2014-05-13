@@ -185,6 +185,16 @@
 			        	maxHeight: 150
 			        });
                     
+                    $('#example28-values').on('click', function() {
+                        var values = [];
+                        
+                        $('option:selected', $('#example28')).each(function() {
+                            values.push($(this).val());
+                        });
+                        
+                        alert(values);
+                    })
+                    
                     $('#example32').multiselect();
                     
                     $('#example39').multiselect({
@@ -270,7 +280,10 @@
 			    </tr>
                        <tr>
 					<td>
-						<select id="example28" multiple="multiple"></select>
+                        <div class="btn-group">
+                            <select id="example28" multiple="multiple"></select>
+                            <button id="example28-values" class="btn btn-primary">Get Selected</button>
+                        </div>
 					</td>
 					<td>
 						Multiselect with a 'Select all' option and filtering enabled using the <code>enableFiltering</code> option.
