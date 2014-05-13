@@ -796,6 +796,7 @@
 
             // Remove select all option in select.
             $('option[value="' + this.options.selectAllValue + '"]', this.$select).remove();
+            $('option[data-role="divider"]', this.$select).remove();
 
             // Important to distinguish between radios and checkboxes.
             this.options.multiple = this.$select.attr('multiple') === "multiple";
