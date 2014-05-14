@@ -388,7 +388,13 @@
                 }
                 else {
                     // Unselect option.
-                    $option.prop('selected', false);
+                    // We do not use .prop() because of a chrome mobile issue
+                    var newValues = this.$select.val() || [];
+
+                    newValues.splice(newValues.indexOf($option.val()), 1);
+
+                    this.$select.val([]);
+                    this.$select.val(newValues);
                 }
 
                 this.$select.change();
