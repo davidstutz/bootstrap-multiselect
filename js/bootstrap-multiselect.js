@@ -215,6 +215,7 @@
             selectAllValue: 'multiselect-all',
             enableFiltering: false,
             enableCaseInsensitiveFiltering: false,
+            enableClickableOptGroups: false,
             filterPlaceholder: 'Search',
             // possible options: 'text', 'value', 'both'
             filterBehavior: 'text',
@@ -228,7 +229,8 @@
                 filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
                 li: '<li><a href="javascript:void(0);"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
-                liGroup: '<li class="multiselect-item group"><label class="multiselect-group"></label></li>'
+                liGroup: '<li class="multiselect-item group"><label class="multiselect-group"></label></li>',
+                clickableLiGroup: '<li class="multiselect-item group"><a href="javascript:void(0);"><label class="multiselect-group"></label></a></li>',
             }
         },
 
@@ -505,6 +507,13 @@
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
             var $li = $(this.options.templates.li);
+
+            if (this.options.enableClickableOptGroups === true) {
+                if (typeof $(element).attr('group_id') != "undefined") {
+                  $li.addClass($(element).attr('group_id'))
+                }
+            }
+
             $('label', $li).addClass(inputType);
             $('label', $li).append('<input type="' + inputType + '" name="' + this.options.checkboxName + '" />');
 
@@ -556,7 +565,7 @@
             var groupName = $(group).prop('label');
 
             // Add a header for the group.
-            var $li = $(this.options.templates.liGroup);
+            var $li = (this.options.enableClickableOptGroups !==  true) ? $(this.options.templates.liGroup) : $(this.options.templates.clickableLiGroup);
             $('label', $li).text(groupName);
 
             this.$ul.append($li);
@@ -565,11 +574,53 @@
                 $li.addClass('disabled');
             }
 
+            // If the user has enabled clickable optGroups,
+            // add the click handler to select all option group members
+            if (this.options.enableClickableOptGroups === true) {
+                var group_id = this.generateOptGroupId();
+                $li = this.addOptGroupClickHandler($li, group_id);
+            }
+
             // Add the options of the group.
             $('option', group).each($.proxy(function(index, element) {
+                if (this.options.enableClickableOptGroups) { 
+                    $(element).attr("group_id",group_id); 
+                }
                 this.createOptionValue(element);
             }, this));
         },
+
+        /**
+         * Add the optGroup click handler.
+         * Selects all optGroup members that have not already been selected
+         */
+        addOptGroupClickHandler: function($li, group_id) {
+            $li.find("a").on("click", function() {
+                // if none of the group options are checked, check them all
+                // if all of the group options are checked, uncheck them all
+                // if some of the group options are checked, check the rest of them
+                if ($("."+group_id).find("input:checkbox:checked").length < $("."+group_id).length) {
+                    $("."+group_id).each(function(ix,el) {
+                        // we don't want to invert the selections, so only trigger the
+                        // click event if the checkbox isn't already checked
+                        if (!$(el).find("input:checkbox").is(":checked")) {
+                            $(el).find("input:checkbox").trigger("click");
+                        }
+                    })
+                } else {
+                    $("."+group_id).each(function(ix,el) {
+                        $(el).find("input:checkbox").trigger("click");
+                    })
+                }
+            })
+
+            return $li;
+        },
+
+
+
+
+
 
         /**
          * Build the selct all.
@@ -1004,7 +1055,20 @@
             return setTimeout(function() {
                 callback.apply(self || window, args);
             }, timeout);
-        }
+        },
+
+        /**
+         * Generate a 6-character random identifier for an optgroup
+         */
+         generateOptGroupId: function() {
+           var text = "";
+           var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+           for( var i=0; i < 10; i++ )
+             text += chars.charAt(Math.floor(Math.random() * chars.length));
+
+           return text;
+         }
     };
 
     $.fn.multiselect = function(option, parameter) {
