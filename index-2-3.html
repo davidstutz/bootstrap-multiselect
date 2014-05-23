@@ -642,7 +642,22 @@
 							</pre>
 						</td>
 					</tr>
-                    <tr>
+                                        <tr>
+ 						<td><code>nonSelectedText</code></td>
+ 						<td>A string that is displayed when no options are selected.</td>
+ 						<td>
+ 							<pre class="prettyprint linenums">
+ &lt;script type=&quot;text/javascript&quot;&gt;
+   $(document).ready(function() {
+     $(&#39;.multiselect&#39;).multiselect({
+       nonSelectedText: 'You have not selected any options'
+     });
+   });
+ &lt;/script&gt;
+ 							</pre>
+ 						</td>
+ 					</tr>
+                                        <tr>
 						<td><code>buttonTitle</code></td>
 						<td>Function defining the title of the button. Similar to the <code>buttonText</code> option.</td>
 						<td>
