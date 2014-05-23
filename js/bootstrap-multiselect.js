@@ -455,7 +455,7 @@
                     this.$button.click();
                 }
                 else {
-                    var $items = $(this.$container).find("li:not(.divider):visible a");
+                    var $items = $(this.$container).find("li:not(.divider):not(.disabled) a").filter(":visible");
 
                     if (!$items.length) {
                         return;
@@ -527,6 +527,8 @@
             if ($(element).is(':disabled')) {
                 $checkbox.attr('disabled', 'disabled')
                     .prop('disabled', true)
+                    .parents('a')
+                    .attr("tabindex", "-1")
                     .parents('li')
                     .addClass('disabled');
             }
