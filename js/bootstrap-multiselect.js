@@ -310,6 +310,9 @@
                 var tag = $(element).prop('tagName')
                     .toLowerCase();
 
+                if ($(element).prop('value') == this.options.selectAllValue)
+                    return
+
                 if (tag === 'optgroup') {
                     this.createOptgroup(element);
                 }
