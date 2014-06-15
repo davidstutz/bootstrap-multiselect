@@ -736,7 +736,7 @@
          * 
          * @param {Array} selectValues
          */
-        select: function(selectValues) {
+        select: function(selectValues, triggerOnChange) {
             if(!$.isArray(selectValues)) {
                 selectValues = [selectValues];
             }
@@ -757,6 +757,10 @@
             }
 
             this.updateButtonText();
+
+            if (triggerOnChange && selectValues.length == 1) {
+                this.options.onChange($option, true);
+            }
         },
 
         /**
@@ -774,7 +778,7 @@
          * 
          * @param {Array} deselectValues
          */
-        deselect: function(deselectValues) {
+        deselect: function(deselectValues, triggerOnChange) {
             if(!$.isArray(deselectValues)) {
                 deselectValues = [deselectValues];
             }
@@ -796,6 +800,10 @@
             }
 
             this.updateButtonText();
+
+            if (triggerOnChange && deselectValues.length == 1) {
+                this.options.onChange($option, false);
+            }
         },
         
         /**
@@ -1026,7 +1034,7 @@
         }
     };
 
-    $.fn.multiselect = function(option, parameter) {
+    $.fn.multiselect = function(option, parameter, extraOptions) {
         return this.each(function() {
             var data = $(this).data('multiselect');
             var options = typeof option === 'object' && option;
@@ -1039,7 +1047,7 @@
 
             // Call multiselect method.
             if (typeof option === 'string') {
-                data[option](parameter);
+                data[option](parameter, extraOptions);
                 
                 if (option === 'destroy') {
                     $(this).data('multiselect', false);
