@@ -874,8 +874,8 @@
          */
         dataprovider: function(dataprovider) {
             var optionDOM = "";
-            dataprovider.forEach(function (option) {
-                optionDOM += '<option value="' + option.value + '">' + option.label + '</option>';
+            $.each(dataprovider, function (index) {
+                optionDOM += '<option value="' + dataprovider[index].value + '">' + dataprovider[index].label + '</option>';
             });
 
             this.$select.html(optionDOM);
