@@ -102,6 +102,7 @@
         this.options.onChange = $.proxy(this.options.onChange, this);
         this.options.onDropdownShow = $.proxy(this.options.onDropdownShow, this);
         this.options.onDropdownHide = $.proxy(this.options.onDropdownHide, this);
+        this.options.checkboxName += "_" + (this.$select.attr("name") || Math.round(Math.random() * 1000));
 
         // Build select all if enabled.
         this.buildContainer();
