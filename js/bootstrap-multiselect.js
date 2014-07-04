@@ -750,6 +750,11 @@
                 var $option = this.getOptionByValue(value);
                 var $checkbox = this.getInputByValue(value);
 
+                if($option === void(0) || $checkbox === void(0))
+                {
+                  continue;
+                }
+                
                 if (this.options.selectedClass) {
                     $checkbox.parents('li')
                         .addClass(this.options.selectedClass);
@@ -788,6 +793,11 @@
 
                 var $option = this.getOptionByValue(value);
                 var $checkbox = this.getInputByValue(value);
+
+                if($option === void(0) || $checkbox === void(0))
+                {
+                  continue;
+                }
 
                 if (this.options.selectedClass) {
                     $checkbox.parents('li')
