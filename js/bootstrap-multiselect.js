@@ -894,7 +894,7 @@
             var optionDOM = "";
             var groupCounter = 0;
 
-            dataprovider.forEach(function (option) {
+            $.each(dataprovider, function (option) {
                 if ($.isArray(option.children)) {
                     groupCounter++;
                     optionDOM += '<optgroup label="' + (option.title || 'Group ' + groupCounter) + '">';
@@ -904,7 +904,8 @@
                     });
 
                     optionDOM += '</optgroup>';
-                } else {
+                }
+                else {
                     optionDOM += '<option value="' + option.value + '">' + (option.label || option.value) + '</option>';
                 }
             });
