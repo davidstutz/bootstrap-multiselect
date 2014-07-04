@@ -7,7 +7,7 @@
  * Dual licensed under the BSD-3-Clause and the Apache License, Version 2.0.
  */
 !function($) {
-
+ 
     "use strict";// jshint ;_;
     
     if (Array.prototype.forEach === null || Array.prototype.forEach === undefined) {
@@ -309,7 +309,7 @@
                 // Support optgroups and options without a group simultaneously.
                 var tag = $(element).prop('tagName')
                     .toLowerCase();
-
+            
                 if (tag === 'optgroup') {
                     this.createOptgroup(element);
                 }
@@ -850,6 +850,10 @@
             
             this.updateButtonText();
             this.updateSelectAll();
+            
+            if (this.options.dropRight) {
+                this.$ul.addClass('pull-right');
+            }
         },
 
         /**

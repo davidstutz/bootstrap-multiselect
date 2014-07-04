@@ -2227,6 +2227,74 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
             <p>
                 The <code>return</code> statement within the <code>onChange</code> method has no influence on the result. For preventing an option from being deselected or selected have a look at the examples in the <a href="#further-examples">Further Examples</a> section.
             </p>
+            
+            <p>
+                <b>How to check whether filtering all options resulted no options being displayed (except the select all option)?</b>
+            </p>
+            
+            <p>
+                This issue is discussed here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/317">https://github.com/davidstutz/bootstrap-multiselect/issues/317</a>.
+            </p>
+            
+            <p>
+                <b>How to use the plugin within a <code>form.form-inline</code>?</b>
+            </p>
+            
+            <p>
+                This issue is addressed here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/322">https://github.com/davidstutz/bootstrap-multiselect/issues/322</a>.
+            </p>
+            
+            <p>
+                <b>How to get the selected options using PHP?</b>
+            </p>
+            
+            <p>
+                This issue is addressed here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/323">https://github.com/davidstutz/bootstrap-multiselect/issues/323</a>.
+            </p>
+            <p>
+                Mainly there are two ways, either add a name to the <code>select</code>:
+            </p>
+<pre class="linenums prettyprint">
+&lt;select id="example2" multiple="multiple" name="select[]"&gt;&lt;/select&gt;
+</pre>
+            <p>or add an appropriate name to the checkboxes:</p>
+<pre class="linenums prettyprint">
+$('#example2').multiselect({
+    checkboxName: 'multiselect[]'
+});
+</pre>
+            
+            <p>
+                <b>How to change the button class depending on the number of selected options?</b>
+            </p>
+            
+            <p>
+                This issue is addressed here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/332">https://github.com/davidstutz/bootstrap-multiselect/issues/332</a>.
+            </p>
+            
+            <p>
+                <b>Why does the plugin crash when using <code>.multiselect('select', value);</code> or <code>.multiselect('deselect', value);</code>?</b>
+            </p>
+            
+            <p>
+                This may be caused when the class used for the <code>select</code> occurs for other elements, as well. In addition this may be caused if the multiselect has the class <code>.multiselect</code>. See here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/330">https://github.com/davidstutz/bootstrap-multiselect/issues/330</a>.
+            </p>
+            
+            <p>
+                <b>How to use multiple plugin instances running single selections on one page?</b>
+            </p>
+            
+            <p>
+                There is a minor bug when using multiple plugin instances with single selection on one page. The bug is described here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/331">https://github.com/davidstutz/bootstrap-multiselect/issues/331</a>. A possible fix is suggested here: <a href="https://github.com/davidstutz/bootstrap-multiselect/pull/336">https://github.com/davidstutz/bootstrap-multiselect/pull/336</a>.
+            </p>
+            
+            <p>
+                <b>Why does the plugin not work in Chrome for Mobile?</b>
+            </p>
+            
+            <p>
+                This may be caused by several reasons one of which is described and resolved here: <a href="https://github.com/davidstutz/bootstrap-multiselect/pull/223">https://github.com/davidstutz/bootstrap-multiselect/pull/223</a>.
+            </p>
 		</div>
 
 		<div class="container">
