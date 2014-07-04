@@ -106,8 +106,8 @@
         // Build select all if enabled.
         this.buildContainer();
         this.buildButton();
-        this.buildSelectAll();
         this.buildDropdown();
+        this.buildSelectAll();
         this.buildDropdownOptions();
         this.buildFilter();
         
@@ -310,6 +310,10 @@
                 var tag = $(element).prop('tagName')
                     .toLowerCase();
             
+                if ($(element).prop('value') == this.options.selectAllValue) {
+                    return;
+                }
+
                 if (tag === 'optgroup') {
                     this.createOptgroup(element);
                 }
@@ -362,33 +366,35 @@
                     }
                 }
 
-                if (checked) {
-                    $option.prop('selected', true);
-
-                    if (this.options.multiple) {
-                        // Simply select additional option.
+                if(!isSelectAllOption){
+                    if (checked) {
                         $option.prop('selected', true);
-                    }
-                    else {
-                        // Unselect all other options and corresponding checkboxes.
-                        if (this.options.selectedClass) {
-                            $($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
+
+                        if (this.options.multiple) {
+                            // Simply select additional option.
+                            $option.prop('selected', true);
+                        }
+                        else {
+                            // Unselect all other options and corresponding checkboxes.
+                            if (this.options.selectedClass) {
+                                $($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
+                            }
+
+                            $($checkboxesNotThis).prop('checked', false);
+                            $optionsNotThis.prop('selected', false);
+
+                            // It's a single selection, so close.
+                            this.$button.click();
                         }
 
-                        $($checkboxesNotThis).prop('checked', false);
-                        $optionsNotThis.prop('selected', false);
-
-                        // It's a single selection, so close.
-                        this.$button.click();
+                        if (this.options.selectedClass === "active") {
+                            $optionsNotThis.parents("a").css("outline", "");
+                        }
                     }
-
-                    if (this.options.selectedClass === "active") {
-                        $optionsNotThis.parents("a").css("outline", "");
+                    else {
+                        // Unselect option.
+                        $option.prop('selected', false);
                     }
-                }
-                else {
-                    // Unselect option.
-                    $option.prop('selected', false);
                 }
 
                 this.$select.change();
@@ -453,7 +459,7 @@
                     this.$button.click();
                 }
                 else {
-                    var $items = $(this.$container).find("li:not(.divider):visible a");
+                    var $items = $(this.$container).find("li:not(.divider):not(.disabled) a").filter(":visible");
 
                     if (!$items.length) {
                         return;
@@ -525,6 +531,8 @@
             if ($(element).is(':disabled')) {
                 $checkbox.attr('disabled', 'disabled')
                     .prop('disabled', true)
+                    .parents('a')
+                    .attr("tabindex", "-1")
                     .parents('li')
                     .addClass('disabled');
             }
@@ -573,20 +581,35 @@
 
         /**
          * Build the selct all.
-         * Checks if a select all ahs already been created.
+         * Checks if a select all has already been created.
          */
         buildSelectAll: function() {
             var alreadyHasSelectAll = this.hasSelectAll();
             
             if (!alreadyHasSelectAll && this.options.includeSelectAllOption && this.options.multiple
-                    && $('option[data-role!="divider"]', this.$select).length > this.options.includeSelectAllIfMoreThan) {
+                    && $('option', this.$select).length > this.options.includeSelectAllIfMoreThan) {
                 
                 // Check whether to add a divider after the select all.
                 if (this.options.includeSelectAllDivider) {
-                    this.$select.prepend('<option value="" disabled="disabled" data-role="divider">');
+                    this.$ul.prepend($(this.options.templates.divider));
                 }
-                
-                this.$select.prepend('<option value="' + this.options.selectAllValue + '">' + this.options.selectAllText + '</option>');
+
+                var $li = $(this.options.templates.li);
+                $('label', $li).addClass("checkbox");
+                $('label', $li).append('<input type="checkbox" name="' + this.options.checkboxName + '" />');
+
+                var $checkbox = $('input', $li);
+                $checkbox.val(this.options.selectAllValue);
+
+                $li.addClass("multiselect-item multiselect-all");
+                $checkbox.parent().parent()
+                    .addClass('multiselect-all');
+
+                $('label', $li).append(" " + this.options.selectAllText);
+
+                this.$ul.prepend($li);
+
+                $checkbox.prop('checked', false);
             }
         },
 
@@ -644,10 +667,10 @@
                                         }
 
                                         if (showElement) {
-                                            $(element).show();
+                                            $(element).show().removeClass("filter-hidden");
                                         }
                                         else {
-                                            $(element).hide();
+                                            $(element).hide().addClass("filter-hidden");
                                         }
                                     }
                                 }, this));
@@ -728,6 +751,11 @@
                 var $option = this.getOptionByValue(value);
                 var $checkbox = this.getInputByValue(value);
 
+                if($option === void(0) || $checkbox === void(0))
+                {
+                  continue;
+                }
+                
                 if (this.options.selectedClass) {
                     $checkbox.parents('li')
                         .addClass(this.options.selectedClass);
@@ -767,6 +795,11 @@
                 var $option = this.getOptionByValue(value);
                 var $checkbox = this.getInputByValue(value);
 
+                if($option === void(0) || $checkbox === void(0))
+                {
+                  continue;
+                }
+
                 if (this.options.selectedClass) {
                     $checkbox.parents('li')
                         .removeClass(this.options.selectedClass);
@@ -793,11 +826,11 @@
             $("li:not(.divider):not(.disabled)", this.$ul).filter(":visible").addClass(this.options.selectedClass);
             
             if (allCheckboxesCount === visibleCheckboxesCount) {
-                $("option:enabled:not([data-role='divider'])", this.$select).prop('selected', true);
+                $("option:enabled", this.$select).prop('selected', true);
             }
             else {
                 var values = visibleCheckboxes.map(function() { return $(this).val() }).get();
-                $("option:enabled:not([data-role='divider'])", this.$select).filter(function(index){ return $.inArray($(this).val(), values) !== -1; }).prop('selected', true);
+                $("option:enabled", this.$select).filter(function(index){ return $.inArray($(this).val(), values) !== -1; }).prop('selected', true);
             }
         },
 
@@ -819,13 +852,13 @@
                 
                 values = visibleCheckboxes.map(function() { return $(this).val() }).get();
                 
-                $("option:enabled:not([data-role='divider'])", this.$select).filter(function(index){ return $.inArray($(this).val(), values) !== -1; }).prop('selected', false);
+                $("option:enabled", this.$select).filter(function(index){ return $.inArray($(this).val(), values) !== -1; }).prop('selected', false);
                 
                 $("li:not(.divider):not(.disabled)", this.$ul).filter(":visible").removeClass(this.options.selectedClass);
                 
             }else {
                 allCheckboxes.prop('checked', false);
-                $("option:enabled:not([data-role='divider'])", this.$select).prop('selected', false);
+                $("option:enabled", this.$select).prop('selected', false);
                 $("li:not(.divider):not(.disabled)", this.$ul).removeClass(this.options.selectedClass);
             }
         },
@@ -836,10 +869,6 @@
          */
         rebuild: function() {
             this.$ul.html('');
-
-            // Remove select all option in select.
-            $('option[value="' + this.options.selectAllValue + '"]', this.$select).remove();
-            $('option[data-role="divider"]', this.$select).remove();
 
             // Important to distinguish between radios and checkboxes.
             this.options.multiple = this.$select.attr('multiple') === "multiple";
@@ -863,10 +892,23 @@
          */
         dataprovider: function(dataprovider) {
             var optionDOM = "";
-            dataprovider.forEach(function (option) {
-                optionDOM += '<option value="' + option.value + '">' + option.label + '</option>';
-            });
+            var groupCounter = 0;
 
+            dataprovider.forEach(function (option) {
+                if ($.isArray(option.children)) {
+                    groupCounter++;
+                    optionDOM += '<optgroup label="' + (option.title || 'Group ' + groupCounter) + '">';
+
+                    option.children.forEach(function(subOption) {
+                        optionDOM += '<option value="' + subOption.value + '">' + (subOption.label || subOption.value) + '</option>';
+                    });
+
+                    optionDOM += '</optgroup>';
+                } else {
+                    optionDOM += '<option value="' + option.value + '">' + (option.label || option.value) + '</option>';
+                }
+            });
+            
             this.$select.html(optionDOM);
             this.rebuild();
         },
@@ -909,28 +951,32 @@
         },
         
         /**
-         * Checks whether a select all option is present.
+         * Checks whether a select all checkbox is present.
          * 
          * @returns {Boolean}
          */
         hasSelectAll: function() {
-            return $('option[value="' + this.options.selectAllValue + '"]', this.$select).length > 0;
+            return $('li.' + this.options.selectAllValue, this.$ul).length > 0;
         },
         
         /**
-         * Updates the select all option based on the currently displayed and selected checkboxes.
+         * Updates the select all checkbox based on the currently displayed and selected checkboxes.
          */
         updateSelectAll: function() {
             if (this.hasSelectAll()) {
-                var allBoxes = $("li:not(.multiselect-item) input:enabled", this.$ul).filter(":visible"),
+                var allBoxes = $("li:not(.multiselect-item):not(.filter-hidden) input:enabled", this.$ul),
                     allBoxesLength = allBoxes.length,
-                    checkedBoxesLength = allBoxes.filter(":checked").length;
+                    checkedBoxesLength = allBoxes.filter(":checked").length,
+                    selectAllLi  = $("li." + this.options.selectAllValue, this.$ul),
+                    selectAllInput = selectAllLi.find("input");
                 
                 if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
-                    this.select(this.options.selectAllValue);
+                    selectAllInput.prop("checked", true);
+                    selectAllLi.addClass(this.options.selectedClass);
                 }
                 else {
-                    this.deselect(this.options.selectAllValue);
+                    selectAllInput.prop("checked", false);
+                    selectAllLi.removeClass(this.options.selectedClass);
                 }
             }
         },
@@ -955,7 +1001,7 @@
          * @returns {jQUery}
          */
         getSelected: function() {
-            return $('option:not([value="' + this.options.selectAllValue + '"])', this.$select).filter(":selected");
+            return $('option', this.$select).filter(":selected");
         },
 
         /**

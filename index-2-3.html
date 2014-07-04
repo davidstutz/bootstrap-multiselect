@@ -642,7 +642,22 @@
 							</pre>
 						</td>
 					</tr>
-                    <tr>
+                                        <tr>
+ 						<td><code>nonSelectedText</code></td>
+ 						<td>A string that is displayed when no options are selected.</td>
+ 						<td>
+ 							<pre class="prettyprint linenums">
+ &lt;script type=&quot;text/javascript&quot;&gt;
+   $(document).ready(function() {
+     $(&#39;.multiselect&#39;).multiselect({
+       nonSelectedText: 'You have not selected any options'
+     });
+   });
+ &lt;/script&gt;
+ 							</pre>
+ 						</td>
+ 					</tr>
+                                        <tr>
 						<td><code>buttonTitle</code></td>
 						<td>Function defining the title of the button. Similar to the <code>buttonText</code> option.</td>
 						<td>
@@ -2229,6 +2244,7 @@ $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
             </p>
             
             <p>
+<<<<<<< HEAD
                 <b>How to check whether filtering all options resulted no options being displayed (except the select all option)?</b>
             </p>
             
@@ -2295,6 +2311,27 @@ $('#example2').multiselect({
             <p>
                 This may be caused by several reasons one of which is described and resolved here: <a href="https://github.com/davidstutz/bootstrap-multiselect/pull/223">https://github.com/davidstutz/bootstrap-multiselect/pull/223</a>.
             </p>
+            
+            <p>
+                <b>How to underline the searched text when using the filter?</b>
+            </p>
+            
+            <p>
+                This issue is discussed <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/309" target="_blank">here</a>.
+            </p>
+            
+            <p>
+                <b>How to hide the checkboxes?</b>
+            </p>
+            
+            <p>
+                A related issue is discussed <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/205" target="_blank">here</a> and includes a possible solution when using CSS to hide the checkboxes:
+            </p>
+            <pre>
+.multiselect-container input {
+  display: none
+}
+            </pre>
 		</div>
 
 		<div class="container">
