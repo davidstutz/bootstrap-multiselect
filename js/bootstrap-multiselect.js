@@ -639,39 +639,47 @@
                             if (this.query !== event.target.value) {
                                 this.query = event.target.value;
 
+                                var getFilterCandidate = (function(options) {
+                                    if (options.filterBehavior === 'text') {
+                                        return function(text, value) {
+                                            return text;
+                                        };
+                                    }
+                                    else if (options.filterBehavior === 'value') {
+                                        return function(text, value) {
+                                            return value;
+                                        };
+                                    }
+                                    else if (options.filterBehavior === 'both') {
+                                        return function(text, value) {
+                                            return text + '\n' + value;
+                                        };
+                                    }
+                                })(this.options);
+
+                                var compare = (function(options, query) {
+                                    if (options.enableCaseInsensitiveFiltering) {
+                                        query = query.toLowerCase();
+                                        return function(value) {
+                                            return value.toLowerCase().indexOf(query) > -1;
+                                        };
+                                    } else {
+                                        return function(value) {
+                                            return value.indexOf(query) > -1;
+                                        };
+                                    }
+                                })(this.options, this.query);
+
                                 $.each($('li', this.$ul), $.proxy(function(index, element) {
                                     var value = $('input', element).val();
                                     var text = $('label', element).text();
 
-                                    var filterCandidate = '';
-                                    if ((this.options.filterBehavior === 'text')) {
-                                        filterCandidate = text;
-                                    }
-                                    else if ((this.options.filterBehavior === 'value')) {
-                                        filterCandidate = value;
-                                    }
-                                    else if (this.options.filterBehavior === 'both') {
-                                        filterCandidate = text + '\n' + value;
-                                    }
+                                    var filterCandidate = getFilterCandidate(text, value);
 
                                     if (value !== this.options.selectAllValue && text) {
-                                        // by default lets assume that element is not
-                                        // interesting for this search
-                                        var showElement = false;
+                                        var showElement = compare(filterCandidate);
 
-                                        if (this.options.enableCaseInsensitiveFiltering && filterCandidate.toLowerCase().indexOf(this.query.toLowerCase()) > -1) {
-                                            showElement = true;
-                                        }
-                                        else if (filterCandidate.indexOf(this.query) > -1) {
-                                            showElement = true;
-                                        }
-
-                                        if (showElement) {
-                                            $(element).show().removeClass("filter-hidden");
-                                        }
-                                        else {
-                                            $(element).hide().addClass("filter-hidden");
-                                        }
+                                        $(element).toggleClass('filter-hidden', !showElement);
                                     }
                                 }, this));
                             }
