@@ -874,10 +874,23 @@
          */
         dataprovider: function(dataprovider) {
             var optionDOM = "";
-            dataprovider.forEach(function (option) {
-                optionDOM += '<option value="' + option.value + '">' + option.label + '</option>';
-            });
+            var groupCounter = 0;
 
+            dataprovider.forEach(function (option) {
+                if ($.isArray(option.children)) {
+                    groupCounter++;
+                    optionDOM += '<optgroup label="' + (option.title || 'Group ' + groupCounter) + '">';
+
+                    option.children.forEach(function(subOption) {
+                        optionDOM += '<option value="' + subOption.value + '">' + (subOption.label || subOption.value) + '</option>';
+                    });
+
+                    optionDOM += '</optgroup>';
+                } else {
+                    optionDOM += '<option value="' + option.value + '">' + (option.label || option.value) + '</option>';
+                }
+            });
+            
             this.$select.html(optionDOM);
             this.rebuild();
         },
