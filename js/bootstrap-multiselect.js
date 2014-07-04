@@ -304,28 +304,30 @@
          */
         buildDropdownOptions: function() {
 
-            this.$select.children().each($.proxy(function(index, element) {
-                
+            var options = this.$select.children();
+            var liArray = [];
+
+            for(var i = 0; i < options.length; i++) {
+
                 // Support optgroups and options without a group simultaneously.
-                var tag = $(element).prop('tagName')
-                    .toLowerCase();
+                var tag = $(options[i]).prop('tagName').toLowerCase();
 
                 if (tag === 'optgroup') {
-                    this.createOptgroup(element);
+                    liArray = liArray.concat(this.createOptgroup(options[i]));
                 }
                 else if (tag === 'option') {
-
-                    if ($(element).data('role') === 'divider') {
-                        this.createDivider();
+                    if ($(options[i]).data('role') === 'divider') {
+                      liArray.push(this.createDivider());
                     }
                     else {
-                        this.createOptionValue(element);
+                      liArray.push(this.createOptionValue(options[i]));
                     }
-
                 }
-                
                 // Other illegal tags will be ignored.
-            }, this));
+            };
+            options = null;
+
+            this.$ul.append(liArray);
 
             // Bind the change event on the dropdown elements.
             $('li input', this.$ul).on('change', $.proxy(function(event) {
@@ -492,9 +494,10 @@
         },
 
         /**
-         * Create an option using the given select option.
+         * Create and return an option using the given select option.
          * 
-         * @param {jQuery} element
+         * @param {DOM} element
+         * @return {jQuery} $li
          */
         createOptionValue: function(element) {
             if ($(element).is(':selected')) {
@@ -502,77 +505,82 @@
             }
 
             // Support the label attribute on options.
-            var label = this.options.label(element);
-            var value = $(element).val();
+            var labelText = this.options.label(element);
+            var value = element.value;
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
             var $li = $(this.options.templates.li);
-            $('label', $li).addClass(inputType);
-            $('label', $li).append('<input type="' + inputType + '" name="' + this.options.checkboxName + '" />');
+            var $label = $('label', $li);
 
-            var selected = $(element).prop('selected') || false;
-            var $checkbox = $('input', $li);
-            $checkbox.val(value);
+            $label.addClass(inputType);
+
+            var selected = element.selected || false;
+            var disabled = '';
+            
+            if (element.disabled) {
+                disabled = 'disabled="disabled"';
+                $li.addClass('disabled').find('a').attr("tabindex", "-1");
+            }
+
+            $label.html('<input type="' + inputType + '" name="' + this.options.checkboxName + '" value="' + value + '" ' + disabled + ' /> ' + labelText);
+            
+            var $checkbox = $('input', $label);
 
             if (value === this.options.selectAllValue) {
                 $li.addClass("multiselect-item multiselect-all");
-                $checkbox.parent().parent()
-                    .addClass('multiselect-all');
+                $checkbox.closest('a').addClass('multiselect-all');
             }
 
-            $('label', $li).append(" " + label);
-
-            this.$ul.append($li);
-
-            if ($(element).is(':disabled')) {
-                $checkbox.attr('disabled', 'disabled')
-                    .prop('disabled', true)
-                    .parents('a')
-                    .attr("tabindex", "-1")
-                    .parents('li')
-                    .addClass('disabled');
+            if(selected) {
+                $checkbox.prop('checked', true);
             }
-
-            $checkbox.prop('checked', selected);
 
             if (selected && this.options.selectedClass) {
-                $checkbox.parents('li')
-                    .addClass(this.options.selectedClass);
+                $li.addClass(this.options.selectedClass);
             }
+
+            return $li;
         },
 
         /**
-         * Creates a divider using the given select option.
+         * Creates and returns a divider using the given select option.
          * 
-         * @param {jQuery} element
+         * @param {DOM} element
+         * @return {jQuery} divider
          */
         createDivider: function(element) {
-            var $divider = $(this.options.templates.divider);
-            this.$ul.append($divider);
+            return $(this.options.templates.divider);
         },
 
         /**
-         * Creates an optgroup.
+         * Creates and returns an optgroup.
          * 
-         * @param {jQuery} group
+         * @param {DOM} group
+         * @return Array {jQuery} liArray
          */
         createOptgroup: function(group) {
-            var groupName = $(group).prop('label');
+            var $group = $(group);
+            var groupName = $group.prop('label');
+            var liArray = [];
 
             // Add a header for the group.
             var $li = $(this.options.templates.liGroup);
             $('label', $li).text(groupName);
 
-            this.$ul.append($li);
-
-            if ($(group).is(':disabled')) {
+            if ($group.is(':disabled')) {
                 $li.addClass('disabled');
             }
 
+            liArray.push($li);
+
+            var options = $group.children();
+
             // Add the options of the group.
-            $('option', group).each($.proxy(function(index, element) {
-                this.createOptionValue(element);
-            }, this));
+            for(var i = 0; i < options.length; i++) {
+                liArray.push(this.createOptionValue(options[i]));
+            }
+            
+            return liArray;
         },
 
         /**
@@ -815,8 +823,8 @@
                 $("option:enabled", this.$select).prop('selected', true);
             }
             else {
-                var values = visibleCheckboxes.map(function() { return $(this).val() }).get();
-                $("option:enabled", this.$select).filter(function(index){ return $.inArray($(this).val(), values) !== -1; }).prop('selected', true);
+                var values = visibleCheckboxes.map(function() { return this.value }).get();
+                $("option:enabled", this.$select).filter(function(index){ return $.inArray(this.value, values) !== -1; }).prop('selected', true);
             }
         },
 
@@ -980,7 +988,7 @@
         /**
          * Get all selected options.
          * 
-         * @returns {jQUery}
+         * @returns {jQuery}
          */
         getSelected: function() {
             return $('option', this.$select).filter(":selected");
