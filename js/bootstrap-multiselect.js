@@ -894,7 +894,7 @@
             var optionDOM = "";
             var groupCounter = 0;
 
-            $.each(dataprovider, function (option) {
+            $.each(dataprovider, function (index, option) {
                 if ($.isArray(option.children)) {
                     groupCounter++;
                     optionDOM += '<optgroup label="' + (option.title || 'Group ' + groupCounter) + '">';
