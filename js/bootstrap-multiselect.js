@@ -30,6 +30,8 @@
                 $(element).multiselect(config);
 
                 if (isObservableArray(listOfSelectedItems)) {
+                   //set the initial selection state on the multi-select list
+                    $(element).multiselect('select', ko.utils.unwrapObservable(listOfSelectedItems));
                     // Subscribe to the selectedOptions: ko.observableArray
                     listOfSelectedItems.subscribe(function (changes) {
                         var addedArray = [], deletedArray = [];
