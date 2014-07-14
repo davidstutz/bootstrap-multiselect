@@ -2327,10 +2327,22 @@ $('#example2').multiselect({
             <p>
                 A related issue is discussed <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/205" target="_blank">here</a> and includes a possible solution when using CSS to hide the checkboxes:
             </p>
-            <pre>
+            <pre class="prettyprint linenums">
 .multiselect-container input {
   display: none
 }
+            </pre>
+            
+            <p>
+                <b>How to use Bootstrap Multiselect using <code>$.validate</code>?</b>
+            </p>
+            <p>
+                This topic is discussed in issue <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/347">#347</a>. The fix suggested is as follows:
+            </p>
+            <pre class="prettyprint linenums">
+var $form = $("#myForm");
+var validator = $form.data('validator');
+validator.settings.ignore = ':hidden:not(".multiselect")';
             </pre>
 		</div>
 
