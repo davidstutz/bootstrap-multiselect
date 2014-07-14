@@ -30,6 +30,8 @@
                 $(element).multiselect(config);
 
                 if (isObservableArray(listOfSelectedItems)) {
+                   //set the initial selection state on the multi-select list
+                    $(element).multiselect('select', ko.utils.unwrapObservable(listOfSelectedItems));
                     // Subscribe to the selectedOptions: ko.observableArray
                     listOfSelectedItems.subscribe(function (changes) {
                         var addedArray = [], deletedArray = [];
@@ -261,6 +263,9 @@
             if (this.options.buttonWidth && this.options.buttonWidth !== 'auto') {
                 this.$button.css({
                     'width' : this.options.buttonWidth
+                });
+                this.$container.css({
+                    'width': this.options.buttonWidth
                 });
             }
 
@@ -894,7 +899,7 @@
             var optionDOM = "";
             var groupCounter = 0;
 
-            $.each(dataprovider, function (option) {
+            $.each(dataprovider, function (index, option) {
                 if ($.isArray(option.children)) {
                     groupCounter++;
                     optionDOM += '<optgroup label="' + (option.title || 'Group ' + groupCounter) + '">';
