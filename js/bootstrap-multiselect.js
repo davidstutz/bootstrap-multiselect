@@ -262,6 +262,9 @@
                 this.$button.css({
                     'width' : this.options.buttonWidth
                 });
+                this.$container.css({
+                    'width': this.options.buttonWidth
+                });
             }
 
             // Keep the tab index from the select.
