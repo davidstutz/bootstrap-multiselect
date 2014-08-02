@@ -1239,9 +1239,9 @@ $(document).ready(function() {
                     </tr>
                     <tr>
                         <td>
-                            <p><code>.multiselect('select', value)</code></p>
+                            <p><code>.multiselect('select', value, triggerOnChange)</code></p>
                             <p>
-                                Selects an option by its value. Works also using an array of values.
+                                Selects an option by its value. Works also using an array of values. If <code>triggerOnChange</code> is set to true, the <code>onChange</code> event is triggered.
                             </p>
                         </td>
                         <td>
@@ -1263,7 +1263,7 @@ $(document).ready(function() {
                         <td>
                             <p><code>.multiselect('deselect', value)</code></p>
                             <p>
-                                Deselect an option by its value. Works also using an array of values.
+                                Deselect an option by its value. Works also using an array of values. If <code>triggerOnChange</code> is set to true, the <code>onChange</code> event is triggered.
                             </p>
                         </td>
                         <td>
