@@ -805,7 +805,7 @@ $(document).ready(function() {
                         <td><code>onDropdownShow</code></td>
                         <td>
                             <p>
-                                This event handler is triggered when the dropdown are shown. 
+                                This event handler is triggered when the dropdown is shown. 
                             </p>
                             <p class="alert alert-warning">
                                 Both, the <code>onDropdownShow</code> and the <code>onDropdownHide</code> options are not supported when using Twitter Bootstrap 2.3.x.
@@ -829,7 +829,7 @@ $(document).ready(function() {
                         <td><code>onDropdownHide</code></td>
                         <td>
                             <p>
-                                This event handler is triggered when the dropdown are hidden.
+                                This event handler is triggered when the dropdown is hidden.
                             </p>
                             <p class="alert alert-warning">
                                 Both, the <code>onDropdownShow</code> and the <code>onDropdownHide</code> options are not supported when using Twitter Bootstrap 2.3.x.
@@ -848,7 +848,55 @@ $(document).ready(function() {
 &lt;/script&gt;
                             </pre>
                         </td>
-                    </tr>					
+                    </tr>
+                    <tr>
+                        <td><code>onDropdownShown</code></td>
+                        <td>
+                            <p>
+                                This event handler is triggered <i>after</i> the dropdown is shown. 
+                            </p>
+                            <p class="alert alert-warning">
+                                Both, the <code>onDropdownShown</code> and the <code>onDropdownHidden</code> options are not supported when using Twitter Bootstrap 2.3.x.
+                            </p>
+                        </td>
+                        <td>
+                            <pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+        onDropdownShown: function(event) {
+            alert(&apos;Shown event invoked!&apos;);
+        }
+    });
+});
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>onDropdownHidden</code></td>
+                        <td>
+                            <p>
+                                This event handler is triggered <i>after</i> the dropdown are hidden.
+                            </p>
+                            <p class="alert alert-warning">
+                                Both, the <code>onDropdownShown</code> and the <code>onDropdownHidden</code> options are not supported when using Twitter Bootstrap 2.3.x.
+                            </p>
+                        </td>
+                        <td>
+                            <pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+        onDropdownHidden: function(event) {
+            alert(&apos;Hidden event invoked!&apos;);
+        }
+    });
+});
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
                     <tr>
                         <td><code>maxHeight</code></td>
                         <td>
@@ -2365,6 +2413,13 @@ validator.settings.ignore = ':hidden:not(".multiselect")';
             </p>
             <p>
                 This issue is mainly due to the default behavior of most browsers. A workaround can be found here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/129">#129</a>.
+            </p>
+            
+            <p>
+                <b>Which are the minimum required components of Twitter Botostrap to get the plugin working?</b>
+            </p>
+            <p>
+                The plugin needs at least the styles for forms and dropdowns. In addition the JavaScript dropdown plugin from Twitter Bootstrap is required. Details can be found here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/344">#344</a>.
             </p>
         </div>
 
