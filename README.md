@@ -2,8 +2,6 @@
 
 Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
 
-Bootstrap 3 port by [Eduard Dudar](https://github.com/edudar).
-
 ## Documentation
 
 Documentation, demonstrations and FAQ: [http://davidstutz.github.com/bootstrap-multiselect/](http://davidstutz.github.com/bootstrap-multiselect/).
@@ -16,9 +14,13 @@ Every pull request is appreciated. To make it easier for me to merge fixes and n
 
 * Include documentation for new options and features to avoid undocumented features.
 * Add a thorough description to every pull request - so I am able to understand the purpose of the pull request.
-* Have a look at the code as to keep the code as comprehensible and coherent as possible (concerning code style, indentation etc. ...).
+* Have a look at the code as to keep the code as comprehensible and coherent as possible (concerning code style, indentation etc. ...) - **a tab should resemble four whitespaces**.
 * Add comments to your code - to help me understand the committed code.
 * Add a single pull request per fix or feature you add.
+
+## Contributors
+
+For a full list of contributors see [https://github.com/davidstutz/bootstrap-multiselect/graphs/contributors](https://github.com/davidstutz/bootstrap-multiselect/graphs/contributors).
 
 ## License
 
