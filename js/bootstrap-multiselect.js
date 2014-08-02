@@ -5,6 +5,11 @@
  * Copyright 2012 - 2014 David Stutz
  *
  * Dual licensed under the BSD-3-Clause and the Apache License, Version 2.0.
+ * 
+ * 2014.07.17 - Neil Monroe (neil.monroe@gmail.com)
+ * When updating the button text, target only the main button. This allows
+ * for additional buttons in templates to remain unaffected. For example, extra
+ * buttons in the filter template.
  */
 !function($) {
  
@@ -1002,10 +1007,10 @@
             var options = this.getSelected();
             
             // First update the displayed button text.
-            $('button', this.$container).html(this.options.buttonText(options, this.$select));
+            $('button.multiselect', this.$container).html(this.options.buttonText(options, this.$select));
             
             // Now update the title attribute of the button.
-            $('button', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
+            $('button.multiselect', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
 
         },
 
