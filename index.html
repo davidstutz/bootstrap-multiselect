@@ -222,6 +222,19 @@ $(document).ready(function() {
                     $('#example46').multiselect({
                         checkboxName: 'multiselect-checkbox'
                     });
+                    $('#example48').multiselect({
+                        disableEmpty: true
+                    });
+                    $('#example48-rebuild').on('click', function () {
+                        $('#example48').multiselect('rebuild');
+                    });
+                    $('#example48-add').on('click', function () {
+                        $('#example48').append('<option value="cheese">Cheese</option><option value="tomato">Tomato</option>');
+                    });
+                    $('#example48-delete').on('click', function () {
+                        $('option[value="cheese"]', $('#example48')).remove();
+                        $('option[value="tomato"]', $('#example48')).remove();
+                    });
                 });
             </script>
             
@@ -298,11 +311,11 @@ $(document).ready(function() {
                     </td>
                 </tr>
                 <tr>
-                        <td>
-                            <select id="example45" multiple="multiple"></select>
+                    <td>
+                        <select id="example45" multiple="multiple"></select>
                     </td>
                     <td>
-                         Test the performance of the 'Select all' option with 999 options.
+                        Test the performance of the 'Select all' option with 999 options.
                     </td>
                 </tr>
                 <tr>
@@ -370,9 +383,7 @@ $(document).ready(function() {
                 </tr>
                 <tr>
                     <td>
-                        <select id="example11" multiple="multiple">
-
-                        </select>
+                        <select id="example11" multiple="multiple"></select>
                     </td>
                     <td>
                         For long option lists the <code>maxHeight</code> option can be set.
@@ -595,6 +606,19 @@ $(document).ready(function() {
                         Use the <code>checkboxName</code> to adapt the <code>name</code> attribute of the used checkboxes.
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <select id="example48" multiple="multiple">
+                        </select>
+                    </td>
+                    <td>
+                        <p>Automatically disable multiselect if it has no options.</p>
+                        <button id="example48-add" class="btn btn-default">Add options</button>
+                        <button id="example48-delete" class="btn btn-default">Delete options</button>
+                        <button id="example48-rebuild" class="btn btn-primary">Rebuild</button>
+
+                    </td>
+                </tr>
             </table>
 
             <div class="page-header">
@@ -630,7 +654,6 @@ $(document).ready(function() {
                     var selected = '';
                     options.each(function() {
                         var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).html();
-
                         selected += label + ', ';
                     });
                     return selected.substr(0, selected.length - 2) + ' &lt;b class="caret"&gt;&lt;/b&gt;';
@@ -805,7 +828,7 @@ $(document).ready(function() {
                         <td><code>onDropdownShow</code></td>
                         <td>
                             <p>
-                                This event handler is triggered when the dropdown is shown. 
+                                This event handler is triggered when the dropdown is shown.
                             </p>
                             <p class="alert alert-warning">
                                 Both, the <code>onDropdownShow</code> and the <code>onDropdownHide</code> options are not supported when using Twitter Bootstrap 2.3.x.
@@ -853,7 +876,7 @@ $(document).ready(function() {
                         <td><code>onDropdownShown</code></td>
                         <td>
                             <p>
-                                This event handler is triggered <i>after</i> the dropdown is shown. 
+                                This event handler is triggered <i>after</i> the dropdown is shown.
                             </p>
                             <p class="alert alert-warning">
                                 Both, the <code>onDropdownShown</code> and the <code>onDropdownHidden</code> options are not supported when using Twitter Bootstrap 2.3.x.
@@ -1063,6 +1086,23 @@ $(document).ready(function() {
 $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
         dropRight: true
+    });
+});
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>disableEmpty</code></td>
+                        <td>
+                            Will disable the multiselect if no options are in the select list if set to <code>true</code>.
+                        </td>
+                        <td>
+                            <pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+        disableEmpty: true
     });
 });
 &lt;/script&gt;
