@@ -118,6 +118,10 @@
         this.updateButtonText();
         this.updateSelectAll();
         
+        if (this.options.disableIfEmpty) {
+            this.disableIfEmpty();
+        }
+        
         this.$select.hide().after(this.$container);
     };
 
@@ -242,6 +246,7 @@
             nonSelectedText: 'None selected',
             nSelectedText: 'selected',
             numberDisplayed: 3,
+            disableIfEmpty: false,
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
@@ -913,6 +918,10 @@
             this.updateButtonText();
             this.updateSelectAll();
             
+            if (this.options.disableIfEmpty) {
+                this.disableIfEmpty();
+            }
+            
             if (this.options.dropRight) {
                 this.$ul.addClass('pull-right');
             }
@@ -963,6 +972,18 @@
             this.$select.prop('disabled', true);
             this.$button.prop('disabled', true)
                 .addClass('disabled');
+        },
+
+        /**
+         * Disable the multiselect if there are no options in the select.
+         */
+        disableIfEmpty: function () {
+            if ($('option', this.$select).length <= 0) {
+                this.disable();
+            }
+            else {
+                this.enable();
+            }
         },
 
         /**

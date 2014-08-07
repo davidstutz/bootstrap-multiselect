@@ -224,6 +224,20 @@ $(document).ready(function() {
                     });
                     
                     $('#example48').multiselect();
+                    
+                    $('#example51').multiselect({
+                        disableIfEmpty: true
+                    });
+                    $('#example51-rebuild').on('click', function () {
+                        $('#example51').multiselect('rebuild');
+                    });
+                    $('#example51-add').on('click', function () {
+                        $('#example51').append('<option value="cheese">Cheese</option><option value="tomato">Tomato</option>');
+                    });
+                    $('#example51-delete').on('click', function () {
+                        $('option[value="cheese"]', $('#example51')).remove();
+                        $('option[value="tomato"]', $('#example51')).remove();
+                    });
                 });
             </script>
             
@@ -242,7 +256,7 @@ $(document).ready(function() {
                             <option value="onions">Onions</option>
                         </select>
                     </td>
-                    <td>
+                    <td width="50%">
                         Normal select. The plugin will do single selection using radio buttons rather than multiple selection using checkboxes.
                     </td>
                 </tr>
@@ -610,6 +624,21 @@ $(document).ready(function() {
                     </td>
                     <td>
                         Use the <code>checkboxName</code> to adapt the <code>name</code> attribute of the used checkboxes.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="btn-group">
+                            <select id="example51" multiple="multiple"></select>
+                            <button id="example51-add" class="btn btn-default">Add options</button>
+                            <button id="example51-delete" class="btn btn-default">Delete options</button>
+                            <button id="example51-rebuild" class="btn btn-primary">Rebuild</button>
+                        </div>
+                    </td>
+                    <td>
+                        <p>
+                            Automatically disable multiselect if it has no options.
+                        </p>
                     </td>
                 </tr>
             </table>
@@ -1080,6 +1109,23 @@ $(document).ready(function() {
 $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
         dropRight: true
+    });
+});
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>disableEmpty</code></td>
+                        <td>
+                            Set to <code>true</code> to disable the select if no options are available.
+                        </td>
+                        <td>
+                            <pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+        disableEmpty: true
     });
 });
 &lt;/script&gt;
