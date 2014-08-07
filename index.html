@@ -1775,6 +1775,15 @@ $('.multiselect').multiselect('dataprovider', data);
                     $('#exampler43-hide').on('click', function() {
                         $('#example43').siblings('div').trigger('hide.bs.dropdown');
                     });
+                    
+                    $('#example52').multiselect();
+                    $('#example52-form').on('reset', function() {
+                        $('#example52 option').each(function() {
+                            $(this).prop('selected', false);
+                        })
+                        
+                        $('#example52').multiselect('refresh');
+                    });
                 });
             </script>
             
@@ -2266,6 +2275,36 @@ $('#example40').multiselect({
                             </pre>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                Using a reset button together with a multiselect.
+                            </p>
+                            <form class="btn-group" id="example52-form">
+                                <select id="example52" multiple="multiple">
+                                    <option value="cheese">Cheese</option>
+                                    <option value="tomatoes">Tomatoes</option>
+                                    <option value="mozarella">Mozzarella</option>
+                                    <option value="mushrooms">Mushrooms</option>
+                                    <option value="pepperoni">Pepperoni</option>
+                                    <option value="onions">Onions</option>
+                                </select>
+                                <button type="reset" class="btn btn-default">Reset</button>
+                            </form>
+                        </td>
+                        <td>
+                            <pre class="prettyprint linenums">
+$('#example52').multiselect();
+$('#example52-form').on('reset', function() {
+    $('#example52 option').each(function() {
+        $(this).prop('selected', false);
+    })
+
+    $('#example52').multiselect('refresh');
+});
+                            </pre>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -2519,6 +2558,13 @@ validator.settings.ignore = ':hidden:not(".multiselect")';
             </p>
             <p>
                 Have a look at the <a href="#methods">Methods</a> section. In the past, there has been some confusion about how the method handles option groups. If the documentation does not help you, have a look at the issue tracker, as for example issue <a target="_blank" href="https://github.com/davidstutz/bootstrap-multiselect/issues/356">356</a>.
+            </p>
+            
+            <p>
+                <b>A <code>type="reset"</code> button does not refresh the multiselect, what to do?</b>
+            </p>
+            <p>
+                Have a look at the <a href="#further-examples">Further Examples</a> section (in addition, issue <a target="_blank" href="https://github.com/davidstutz/bootstrap-multiselect/issues/360">360</a> discussed this).
             </p>
         </div>
 
