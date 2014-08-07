@@ -9,15 +9,6 @@
 !function($) {
  
     "use strict";// jshint ;_;
-    
-    if (Array.prototype.forEach === null || Array.prototype.forEach === undefined) {
-        Array.prototype.forEach = function (func) {
-            var index;
-            for (index = 0; index < this.length; ++index) {
-                func(this[index]);
-            }
-        };
-    }
 
     if (typeof ko !== 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
         ko.bindingHandlers.multiselect = {
@@ -35,7 +26,7 @@
                     // Subscribe to the selectedOptions: ko.observableArray
                     listOfSelectedItems.subscribe(function (changes) {
                         var addedArray = [], deletedArray = [];
-                        changes.forEach(function (change) {
+                        forEach(changes, function (change) {
                             switch (change.status) {
                                 case 'added':
                                     addedArray.push(change.value);
@@ -80,6 +71,13 @@
 
     function isObservableArray(obj) {
         return ko.isObservable(obj) && !(obj.destroyAll === undefined);
+    }
+
+    function forEach(array, callback) {
+        var index;
+        for (index = 0; index < array.length; ++index) {
+            callback(array[index]);
+        }
     }
 
     /**
@@ -941,7 +939,7 @@
                     groupCounter++;
                     optionDOM += '<optgroup label="' + (option.title || 'Group ' + groupCounter) + '">';
 
-                    option.children.forEach(function(subOption) {
+                    forEach(option.children, function(subOption) {
                         optionDOM += '<option value="' + subOption.value + '">' + (subOption.label || subOption.value) + '</option>';
                     });
 
