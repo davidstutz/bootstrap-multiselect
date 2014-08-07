@@ -222,6 +222,8 @@ $(document).ready(function() {
                     $('#example46').multiselect({
                         checkboxName: 'multiselect-checkbox'
                     });
+                    
+                    $('#example48').multiselect();
                 });
             </script>
             
@@ -242,6 +244,21 @@ $(document).ready(function() {
                     </td>
                     <td>
                         Normal select. The plugin will do single selection using radio buttons rather than multiple selection using checkboxes.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="example48" size="2">
+                            <option value="cheese">Cheese</option>
+                            <option value="tomatoes">Tomatoes</option>
+                            <option value="mozarella">Mozzarella</option>
+                            <option value="mushrooms">Mushrooms</option>
+                            <option value="pepperoni">Pepperoni</option>
+                            <option value="onions">Onions</option>
+                        </select>
+                    </td>
+                    <td>
+                        Single selection without having the browser select the first option.
                     </td>
                 </tr>
                 <tr>
@@ -1213,6 +1230,20 @@ $(document).ready(function() {
                     $('#example36-enable').on('click', function() {
                         $('#example36').multiselect('enable');
                     });
+                    
+                    var data = [
+                        {label: 'Cheese', value: 'cheese'},
+                        {label: 'Tomatoes', value: 'tomatoes'}
+                    ];
+                    $('#example49').multiselect();
+                    $('#example49').multiselect('dataprovider', data);
+                    
+                    var data = [
+                        {title: 'First group', children: [{label: 'Cheese', value: 'cheese'}, {label: 'Tomatoes', value: 'tomatoes'}]},
+                        {title: 'Second group', children: [{label: 'Mozzarella', value: 'mozzarella'}, {label: 'Mushrooms', value: 'mushrooms'}]},
+                    ];
+                    $('#example50').multiselect();
+                    $('#example50').multiselect('dataprovider', data);
                 });
             </script>
             <table class="table table-striped">
@@ -1224,7 +1255,7 @@ $(document).ready(function() {
                                 This method is used to destroy the plugin on the given element - meaning unbinding the plugin.
                             </p>
                         </td>
-                        <td>
+                        <td width="50%">
                             <div class="btn-group">
                                 <select id="example8" multiple="multiple">
                                     <option value="cheese">Cheese</option>
@@ -1330,18 +1361,33 @@ $(document).ready(function() {
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
+                        <td>
                             <p><code>.multiselect('dataprovider', data)</code></p>
                             <p>
                                 Provides data for building the select's options the following way:
                             </p>
                             <pre class="prettyprint linenums">
 var data = [
-    {label: &quot;ACNP&quot;, value: &quot;ACNP&quot;},
-    {label: &quot;test&quot;, value: &quot;test&quot;}
+    {label: 'Cheese', value: 'cheese'},
+    {label: 'Tomatoes', value: 'tomatoes'}
 ];
 $(&quot;#multiselect&quot;).multiselect('dataprovider', data);
                             </pre>
+                            
+                            <p>
+                                Alternatively, this method can also be used to build option groups (<a target="_blank" href="https://github.com/davidstutz/bootstrap-multiselect/pull/281">#281</a>):
+                            </p>
+                            <pre class="prettyprint linenums">
+var data = [
+    {title: 'First group', children: [{label: 'Cheese', value: 'cheese'}, {label: 'Tomatoes', value: 'tomatoes'}]},
+    {title: 'Second group', children: [{label: 'Mozzarella', value: 'mozzarella'}, {label: 'Mushrooms', value: 'mushrooms'}]},
+];
+$('.multiselect').multiselect('dataprovider', data);
+                            </pre>
+                        </td>
+                        <td>
+                            <select id="example49" multiple="multiple"></select>
+                            <select id="example50" multiple="multiple"></select>
                         </td>
                     </tr>
                     <tr>
@@ -2420,6 +2466,13 @@ validator.settings.ignore = ':hidden:not(".multiselect")';
             </p>
             <p>
                 The plugin needs at least the styles for forms and dropdowns. In addition the JavaScript dropdown plugin from Twitter Bootstrap is required. Details can be found here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/344">#344</a>.
+            </p>
+            
+            <p>
+                <b>How to use the <code>.multiselect('dataprovider', data)</code> method?</b>
+            </p>
+            <p>
+                Have a look at the <a href="#methods">Methods</a> section. In the past, there has been some confusion about how the method handles option groups. If the documentation does not help you, have a look at the issue tracker, as for example issue <a target="_blank" href="https://github.com/davidstutz/bootstrap-multiselect/issues/356">356</a>.
             </p>
         </div>
 
