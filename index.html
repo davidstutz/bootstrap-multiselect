@@ -54,10 +54,6 @@
                     <p class="lead">
                         Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown as dropdown menu containing the single options as checkboxes.
                     </p>
-                    
-                    <p>
-                        Please have a look at the <a href="https://github.com/davidstutz/bootstrap-multiselect/blob/master/README.md">Contribution Guidelines</a> and the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a>.
-                    </p>
                 </div>
             </div>
 
@@ -66,9 +62,13 @@
                     event.stopPropagation();
                 });
             </script>
-
+            
             <p class="alert alert-info">
                 The demonstration page for Bootstrap 2.3.x was removed. Nevertheless, this page should be working with Bootstrap 2.3.x as well except for some methods which are marked accordingly.
+            </p>
+            
+            <p class="alert alert-warning">
+                Please have a look at the <a href="https://github.com/davidstutz/bootstrap-multiselect/blob/master/README.md">Contribution Guidelines</a> and the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a>.
             </p>
             
             <div class="page-header">
@@ -988,6 +988,12 @@ $(document).ready(function() {
                         </td>
                     </tr>
                     <tr>
+                        <td><code>checkboxName</code></td>
+                        <td>
+                            Per default, this option is set to <code>false</code> and the generated checkboxes (or radio buttons) are not given any name. If not set to <code>false</code>, this option defines the name of all checkboxes (or radio buttons).
+                        </td>
+                    </tr>
+                    <tr>
                         <td><code>includeSelectAllOption</code></td>
                         <td>
                             If set to <code>true</code> a 'Select all' option will be added.
@@ -1459,15 +1465,17 @@ $('.multiselect').multiselect('dataprovider', data);
                             </pre>
                         </td>
                         <td>
-                            <select id="example49" multiple="multiple"></select>
-                            <select id="example50" multiple="multiple"></select>
+                            <div class="btn-group">
+                                <select id="example49" multiple="multiple"></select>
+                                <select id="example50" multiple="multiple"></select>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <p><code>.multiselect('setOptions', options)</code></p>
                             <p>
-                                Used to change configuration after initializing the multiselect. This may be useful in combination with <code>.multiselect('rebuild')</code>.
+                                Used to change configuration after initializing the multiselect. This may be useful in combination with <code>.multiselect('rebuild')</code>. See the <a href="#further-examples">Further Examples</a> section for an example.
                             </p>
                         </td>
                     </tr>
@@ -2592,6 +2600,21 @@ validator.settings.ignore = ':hidden:not(".multiselect")';
             </p>
             <p>
                 Have a look at the <a href="#further-examples">Further Examples</a> section (in addition, issue <a target="_blank" href="https://github.com/davidstutz/bootstrap-multiselect/issues/360">360</a> discussed this).
+            </p>
+            
+            <p>
+                <b>Using multiple <code>select</code>'s in single selection mode with <code>option</code>'s sharing values across the different <code>select</code>'s.</b>
+            </p>
+            <p>
+                This issue is discussed in detail here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/362">#362</a>. A simple solution is to use different option values for the option <code>checkboxName</code>:
+            </p>
+            <pre class="prettyprint linenums">
+$('.multiselect').multiselect({
+    checkboxName: _.uniqueId('multiselect_')
+});
+            </pre>
+            <p>
+                where <code>_.uniqueId('multiselect_')</code> should be replaced with a random generator. Alternatively, a unique value for <code>checkboxName</code> can be used for each multiselect.
             </p>
         </div>
 

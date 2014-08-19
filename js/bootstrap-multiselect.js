@@ -235,7 +235,7 @@
             // Maximum height of the dropdown menu.
             // If maximum height is exceeded a scrollbar will be displayed.
             maxHeight: false,
-            checkboxName: 'multiselect',
+            checkboxName: false,
             includeSelectAllOption: false,
             includeSelectAllIfMoreThan: 0,
             selectAllText: ' Select all',
@@ -546,8 +546,14 @@
 
             var $li = $(this.options.templates.li);
             $('label', $li).addClass(inputType);
-            $('label', $li).append('<input type="' + inputType + '" name="' + this.options.checkboxName + '" />');
-
+            
+            if (this.options.checkboxName) {
+                $('label', $li).append('<input type="' + inputType + '" name="' + this.options.checkboxName + '" />');
+            }
+            else {
+                $('label', $li).append('<input type="' + inputType + '" />');
+            }
+            
             var selected = $(element).prop('selected') || false;
             var $checkbox = $('input', $li);
             $checkbox.val(value);
@@ -631,8 +637,14 @@
 
                 var $li = $(this.options.templates.li);
                 $('label', $li).addClass("checkbox");
-                $('label', $li).append('<input type="checkbox" name="' + this.options.checkboxName + '" />');
-
+                
+                if (this.options.checkboxName) {
+                    $('label', $li).append('<input type="checkbox" name="' + this.options.checkboxName + '" />');
+                }
+                else {
+                    $('label', $li).append('<input type="checkbox" />');
+                }
+                
                 var $checkbox = $('input', $li);
                 $checkbox.val(this.options.selectAllValue);
 
@@ -791,7 +803,7 @@
                 var $checkbox = this.getInputByValue(value);
 
                 if($option === undefined || $checkbox === undefined) {
-                  continue;
+                    continue;
                 }
                 
                 if (!this.options.multiple) {
@@ -845,7 +857,7 @@
                 var $checkbox = this.getInputByValue(value);
 
                 if($option === undefined || $checkbox === undefined) {
-                  continue;
+                    continue;
                 }
 
                 if (this.options.selectedClass) {
@@ -901,7 +913,7 @@
             var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
             
             if(justVisible) {              
-                var visibleCheckboxes = allCheckboxes.filter(":visible");
+                var visibleCheckboxes = $("li input[type='checkbox']:enabled", this.$ul).filter(":visible");
                 visibleCheckboxes.prop('checked', false);
                 
                 var values = visibleCheckboxes.map(function() {
@@ -912,14 +924,17 @@
                     return $.inArray($(this).val(), values) !== -1;
                 }).prop('selected', false);
                 
-                $("li:not(.divider):not(.disabled)", this.$ul).filter(":visible").removeClass(this.options.selectedClass);
+                if (this.options.selectedClass) {
+                    $("li:not(.divider):not(.disabled)", this.$ul).filter(":visible").removeClass(this.options.selectedClass);
+                }
             }
             else {
-                var allCheckboxes = $("li input[type='checkbox']:enabled", this.$ul); 
-                allCheckboxes.prop('checked', false);
-                
+                $("li input[type='checkbox']:enabled", this.$ul).prop('checked', false);
                 $("option:enabled", this.$select).prop('selected', false);
-                $("li:not(.divider):not(.disabled)", this.$ul).removeClass(this.options.selectedClass);
+                
+                if (this.options.selectedClass) {
+                    $("li:not(.divider):not(.disabled)", this.$ul).removeClass(this.options.selectedClass);
+                }
             }
         },
 
