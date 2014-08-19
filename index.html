@@ -238,6 +238,14 @@ $(document).ready(function() {
                         $('option[value="cheese"]', $('#example51')).remove();
                         $('option[value="tomato"]', $('#example51')).remove();
                     });
+                    
+                    $('#example53').multiselect();
+                    $('#example53-select').on('click', function() {
+                        $('#example53').multiselect('select', 'cheese');
+                    });
+                    $('#example53-deselect').on('click', function() {
+                        $('#example53').multiselect('deselect', 'cheese');
+                    });
                 });
             </script>
             
@@ -273,6 +281,25 @@ $(document).ready(function() {
                     </td>
                     <td>
                         Single selection without having the browser select the first option.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="btn-group">
+                            <select id="example53" size="2">
+                                <option value="cheese">Cheese</option>
+                                <option value="tomatoes">Tomatoes</option>
+                                <option value="mozarella">Mozzarella</option>
+                                <option value="mushrooms">Mushrooms</option>
+                                <option value="pepperoni">Pepperoni</option>
+                                <option value="onions">Onions</option>
+                            </select>
+                            <button class="btn btn-default" id="example53-select">Select cheese</button>
+                            <button class="btn btn-default" id="example53-deselect">Deselect cheese</button>
+                        </div>
+                    </td>
+                    <td>
+                        The `.multiselect('select', value, triggerOnChange)` method can also be used to select options in single selection mode. Of course, the `.multiselect('deselect', value, triggerOnChange)` method works as expected, as well.
                     </td>
                 </tr>
                 <tr>
