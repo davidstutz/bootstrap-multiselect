@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-multiselect",
-  "version": "0.9.7",
+  "version": "0.9.9",
   "main": [
     "./js/bootstrap-multiselect.js",
     "./css/bootstrap-multiselect.css"
