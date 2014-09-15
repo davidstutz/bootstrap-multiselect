@@ -627,6 +627,11 @@
                     this.$filter.val(this.query).on('click', function(event) {
                         event.stopPropagation();
                     }).on('input keydown', $.proxy(function(event) {
+                        // Cancel enter key default behaviour
+                        if (event.which === 13) {
+                          event.preventDefault();
+                        }
+                        
                         // This is useful to catch "keydown" events after the browser has updated the control.
                         clearTimeout(this.searchTimeout);
 
