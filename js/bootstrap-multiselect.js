@@ -545,7 +545,9 @@
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
             var $li = $(this.options.templates.li);
-            $('label', $li).addClass(inputType);
+            $('label', $li)
+			.addClass(inputType)
+			.attr('title', label);
             
             if (this.options.checkboxName) {
                 $('label', $li).append('<input type="' + inputType + '" name="' + this.options.checkboxName + '" />');
