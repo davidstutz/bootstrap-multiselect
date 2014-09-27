@@ -242,6 +242,7 @@
             selectAllValue: 'multiselect-all',
             enableFiltering: false,
             enableCaseInsensitiveFiltering: false,
+            enableClickableOptGroups: false,
             filterPlaceholder: 'Search',
             // possible options: 'text', 'value', 'both'
             filterBehavior: 'text',
@@ -527,6 +528,26 @@
                     event.preventDefault();
                 }
             }, this));
+
+            if(this.options.enableClickableOptGroups && this.options.multiple) {
+                $('li.group', this.$ul).on('click', $.proxy(function(event) {
+                    event.stopPropagation();
+
+                    var group = $(event.target).parent();
+
+                    // Search all option in optgroup
+                    var $options = group.nextUntil('li.group');
+
+                    // check or uncheck items
+                    var allChecked = true;
+                    var optionInputs = $options.find('input');
+                    optionInputs.each(function() {
+                        allChecked = allChecked && $(this).prop('checked');
+                    });
+
+                    optionInputs.prop('checked', !allChecked).trigger('change');
+               }, this));
+            }
         },
 
         /**
