@@ -245,6 +245,7 @@
             filterPlaceholder: 'Search',
             // possible options: 'text', 'value', 'both'
             filterBehavior: 'text',
+            includeFilterClearBtn: false,
             preventInputChangeEvent: false,
             nonSelectedText: 'None selected',
             nSelectedText: 'selected',
@@ -254,6 +255,7 @@
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
                 filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
+                filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
                 li: '<li><a href="javascript:void(0);"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
                 liGroup: '<li class="multiselect-item group"><label class="multiselect-group"></label></li>'
@@ -673,6 +675,19 @@
 
                     this.$filter = $(this.options.templates.filter);
                     $('input', this.$filter).attr('placeholder', this.options.filterPlaceholder);
+                    
+                    // Adds optional filter clear button
+                    if(this.options.includeFilterClearBtn){
+                        var clearBtn = $(this.options.templates.filterClearBtn);
+                        clearBtn.on('click', $.proxy(function(event){
+                            clearTimeout(this.searchTimeout);
+                            this.$filter.find('.multiselect-search').val('');
+                            $('li', this.$ul).show().removeClass("filter-hidden");
+                            this.updateSelectAll();
+                        }, this));
+                        this.$filter.find('.input-group').append(clearBtn);
+                    }
+                    
                     this.$ul.prepend(this.$filter);
 
                     this.$filter.val(this.query).on('click', function(event) {
