@@ -686,6 +686,7 @@
                             if (this.query !== event.target.value) {
                                 this.query = event.target.value;
 
+                                var currentGroup, currentGroupVisible; // PDX
                                 $.each($('li', this.$ul), $.proxy(function(index, element) {
                                     var value = $('input', element).val();
                                     var text = $('label', element).text();
@@ -713,11 +714,18 @@
                                             showElement = true;
                                         }
 
-                                        if (showElement) {
-                                            $(element).show().removeClass("filter-hidden");
-                                        }
-                                        else {
-                                            $(element).hide().addClass("filter-hidden");
+                                        // Toggle current element (group or group item) according to showElement boolean
+                                        $(element).toggle(showElement).toggleClass('filter-hidden', !showElement); // PDX
+                                        // Differentiate groups and group items
+                                        if ($('label', element).hasClass('multiselect-group')) {
+                                            // Remember group status
+                                            currentGroup = element;
+                                            currentGroupVisible = showElement;
+                                        } else {
+                                            // show group name when at least one of its items is visible
+                                            if (showElement) $(currentGroup).show().removeClass('filter-hidden');
+                                            // show all group items when group name satisfies filter
+                                            if (!showElement && currentGroupVisible) $(element).show().removeClass('filter-hidden');
                                         }
                                     }
                                 }, this));
