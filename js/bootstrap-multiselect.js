@@ -686,7 +686,7 @@
                             if (this.query !== event.target.value) {
                                 this.query = event.target.value;
 
-                                var currentGroup, currentGroupVisible; // PDX
+                                var currentGroup, currentGroupVisible;
                                 $.each($('li', this.$ul), $.proxy(function(index, element) {
                                     var value = $('input', element).val();
                                     var text = $('label', element).text();
@@ -715,7 +715,7 @@
                                         }
 
                                         // Toggle current element (group or group item) according to showElement boolean
-                                        $(element).toggle(showElement).toggleClass('filter-hidden', !showElement); // PDX
+                                        $(element).toggle(showElement).toggleClass('filter-hidden', !showElement);
                                         // Differentiate groups and group items
                                         if ($('label', element).hasClass('multiselect-group')) {
                                             // Remember group status
