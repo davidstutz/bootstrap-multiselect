@@ -967,30 +967,63 @@
 
         /**
          * The provided data will be used to build the dropdown.
-         * 
-         * @param {Array} dataprovider
+         *
+         * @param {Array} dataprovider Array of OPTION or OPTIONGROUP models.
+         * A simple OPTION tag is represented as:
+         * ```js
+         * {
+         *  value: "option value"
+         *  label: "option label" // The `value` is used if this is falsy
+         *  selected: false // If `true`, mark the OPTION tag as selected
+         * }
+         * ```
+         *
+         * An OPTIONGROUP tag is represented as:
+         * ```js
+         * {
+         *  label: "optiongroup label"
+         *  children: [
+         *      {
+         *        // same as option model
+         *      }
+         *  ]
+         * }
+         * ```
          */
         dataprovider: function(dataprovider) {
             var optionDOM = "";
             var groupCounter = 0;
+            var tags = $(''); // create empty jQuery array
 
             $.each(dataprovider, function (index, option) {
-                if ($.isArray(option.children)) {
+                var tag;
+                if ($.isArray(option.children)) { // create optiongroup tag
                     groupCounter++;
-                    optionDOM += '<optgroup label="' + (option.title || 'Group ' + groupCounter) + '">';
-
-                    forEach(option.children, function(subOption) {
-                        optionDOM += '<option value="' + subOption.value + '">' + (subOption.label || subOption.value) + '</option>';
+                    tag = $('<optgroup/>').attr({
+                        label: option.title || 'Group ' + groupCounter
+                    });
+                    forEach(option.children, function(subOption) { // add children option tags
+                        tag.append($('<option/>').attr({
+                            value: subOption.value,
+                            label: subOption.label || subOption.value,
+                            selected: !!subOption.selected
+                        }));
                     });
 
                     optionDOM += '</optgroup>';
                 }
-                else {
-                    optionDOM += '<option value="' + option.value + '">' + (option.label || option.value) + '</option>';
+                else { // create option tag
+                    tag = $('<option/>').attr({
+                        value: option.value,
+                        label: option.label || option.value,
+                        selected: !!option.selected
+                    });
                 }
+
+                tags = tags.add(tag);
             });
             
-            this.$select.html(optionDOM);
+            this.$select.empty().append(tags);
             this.rebuild();
         },
 
