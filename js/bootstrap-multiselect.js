@@ -91,8 +91,8 @@
      */
     function Multiselect(select, options) {
 
-        this.options = this.mergeOptions(options);
         this.$select = $(select);
+        this.options = this.mergeOptions($.extend({}, options, this.$select.data()));
 
         // Initialization.
         // We have to clone to create a new reference.
