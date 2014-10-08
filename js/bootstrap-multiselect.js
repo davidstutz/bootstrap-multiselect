@@ -200,8 +200,200 @@
              * 
              * @param {jQuery} event
              */
-            onDropdownShow: function(event) {
+            onDropdownShown: function(event) {
+                // If the component has options load, don't need recharge
+                if(this.$ul.children('li:not(.multiselect-item)').length > 0){
+                    return;
+                }
+                this.$select.children().each($.proxy(function(index, element) {
+                        
+                    // Support optgroups and options without a group simultaneously.
+                    var tag = $(element).prop('tagName')
+                        .toLowerCase();
                 
+                    if ($(element).prop('value') === this.options.selectAllValue) {
+                        return;
+                    }
+
+                    if (tag === 'optgroup') {
+                        this.createOptgroup(element);
+                    }
+                    else if (tag === 'option') {
+
+                        if ($(element).data('role') === 'divider') {
+                            this.createDivider();
+                        }
+                        else {
+                            this.createOptionValue(element);
+                        }
+
+                    }
+                    
+                    // Other illegal tags will be ignored.
+                }, this));
+
+                // Bind the change event on the dropdown elements.
+                $('li input', this.$ul).on('change', $.proxy(function(event) {
+                    var $target = $(event.target);
+
+                    var checked = $target.prop('checked') || false;
+                    var isSelectAllOption = $target.val() === this.options.selectAllValue;
+
+                    // Apply or unapply the configured selected class.
+                    if (this.options.selectedClass) {
+                        if (checked) {
+                            $target.parents('li')
+                                .addClass(this.options.selectedClass);
+                        }
+                        else {
+                            $target.parents('li')
+                                .removeClass(this.options.selectedClass);
+                        }
+                    }
+
+                    // Get the corresponding option.
+                    var value = $target.val();
+                    var $option = this.getOptionByValue(value);
+
+                    var $optionsNotThis = $('option', this.$select).not($option);
+                    var $checkboxesNotThis = $('input', this.$container).not($target);
+
+                    if (isSelectAllOption) {
+                        if (checked) {
+                            this.selectAll();
+                        }
+                        else {
+                            this.deselectAll();
+                        }
+                    }
+
+                    if(!isSelectAllOption){
+                        if (checked) {
+                            $option.prop('selected', true);
+
+                            if (this.options.multiple) {
+                                // Simply select additional option.
+                                $option.prop('selected', true);
+                            }
+                            else {
+                                // Unselect all other options and corresponding checkboxes.
+                                if (this.options.selectedClass) {
+                                    $($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
+                                }
+
+                                $($checkboxesNotThis).prop('checked', false);
+                                $optionsNotThis.prop('selected', false);
+
+                                // It's a single selection, so close.
+                                this.$button.click();
+                            }
+
+                            if (this.options.selectedClass === "active") {
+                                $optionsNotThis.parents("a").css("outline", "");
+                            }
+                        }
+                        else {
+                            // Unselect option.
+                            $option.prop('selected', false);
+                        }
+                    }
+
+                    this.$select.change();
+
+                    this.updateButtonText();
+                    this.updateSelectAll();
+                    
+                    this.options.onChange($option, checked);
+
+                    if(this.options.preventInputChangeEvent) {
+                        return false;
+                    }
+                }, this));
+
+                $('li a', this.$ul).on('touchstart click', function(event) {
+                    event.stopPropagation();
+
+                    var $target = $(event.target);
+
+                    if (event.shiftKey) {
+                        var checked = $target.prop('checked') || false;
+
+                        if (checked) {
+                            var prev = $target.parents('li:last')
+                                .siblings('li[class="active"]:first');
+
+                            var currentIdx = $target.parents('li')
+                                .index();
+                            var prevIdx = prev.index();
+
+                            if (currentIdx > prevIdx) {
+                                $target.parents("li:last").prevUntil(prev).each(
+                                    function() {
+                                        $(this).find("input:first").prop("checked", true)
+                                            .trigger("change");
+                                    }
+                                );
+                            }
+                            else {
+                                $target.parents("li:last").nextUntil(prev).each(
+                                    function() {
+                                        $(this).find("input:first").prop("checked", true)
+                                            .trigger("change");
+                                    }
+                                );
+                            }
+                        }
+                    }
+
+                    $target.blur();
+                });
+
+                // Keyboard support.
+                this.$container.off('keydown.multiselect').on('keydown.multiselect', $.proxy(function(event) {
+                    if ($('input[type="text"]', this.$container).is(':focus')) {
+                        return;
+                    }
+                    if ((event.keyCode === 9 || event.keyCode === 27)
+                            && this.$container.hasClass('open')) {
+                        
+                        // Close on tab or escape.
+                        this.$button.click();
+                    }
+                    else {
+                        var $items = $(this.$container).find("li:not(.divider):not(.disabled) a").filter(":visible");
+
+                        if (!$items.length) {
+                            return;
+                        }
+
+                        var index = $items.index($items.filter(':focus'));
+
+                        // Navigation up.
+                        if (event.keyCode === 38 && index > 0) {
+                            index--;
+                        }
+                        // Navigate down.
+                        else if (event.keyCode === 40 && index < $items.length - 1) {
+                            index++;
+                        }
+                        else if (!~index) {
+                            index = 0;
+                        }
+
+                        var $current = $items.eq(index);
+                        $current.focus();
+
+                        if (event.keyCode === 32 || event.keyCode === 13) {
+                            var $checkbox = $current.find('input');
+
+                            $checkbox.prop("checked", !$checkbox.prop("checked"));
+                            $checkbox.change();
+                        }
+
+                        event.stopPropagation();
+                        event.preventDefault();
+                    }
+                }, this));
             },
             /**
              * Triggered when the dropdown is hidden.
@@ -209,15 +401,7 @@
              * @param {jQuery} event
              */
             onDropdownHide: function(event) {
-                
-            },
-            /**
-             * Triggered after the dropdown is shown.
-             * 
-             * @param {jQuery} event
-             */
-            onDropdownShown: function(event) {
-                
+
             },
             /**
              * Triggered after the dropdown is hidden.
@@ -337,196 +521,7 @@
          * Uses createDivider and createOptionValue to create the necessary options.
          */
         buildDropdownOptions: function() {
-
-            this.$select.children().each($.proxy(function(index, element) {
-                
-                // Support optgroups and options without a group simultaneously.
-                var tag = $(element).prop('tagName')
-                    .toLowerCase();
             
-                if ($(element).prop('value') === this.options.selectAllValue) {
-                    return;
-                }
-
-                if (tag === 'optgroup') {
-                    this.createOptgroup(element);
-                }
-                else if (tag === 'option') {
-
-                    if ($(element).data('role') === 'divider') {
-                        this.createDivider();
-                    }
-                    else {
-                        this.createOptionValue(element);
-                    }
-
-                }
-                
-                // Other illegal tags will be ignored.
-            }, this));
-
-            // Bind the change event on the dropdown elements.
-            $('li input', this.$ul).on('change', $.proxy(function(event) {
-                var $target = $(event.target);
-
-                var checked = $target.prop('checked') || false;
-                var isSelectAllOption = $target.val() === this.options.selectAllValue;
-
-                // Apply or unapply the configured selected class.
-                if (this.options.selectedClass) {
-                    if (checked) {
-                        $target.parents('li')
-                            .addClass(this.options.selectedClass);
-                    }
-                    else {
-                        $target.parents('li')
-                            .removeClass(this.options.selectedClass);
-                    }
-                }
-
-                // Get the corresponding option.
-                var value = $target.val();
-                var $option = this.getOptionByValue(value);
-
-                var $optionsNotThis = $('option', this.$select).not($option);
-                var $checkboxesNotThis = $('input', this.$container).not($target);
-
-                if (isSelectAllOption) {
-                    if (checked) {
-                        this.selectAll();
-                    }
-                    else {
-                        this.deselectAll();
-                    }
-                }
-
-                if(!isSelectAllOption){
-                    if (checked) {
-                        $option.prop('selected', true);
-
-                        if (this.options.multiple) {
-                            // Simply select additional option.
-                            $option.prop('selected', true);
-                        }
-                        else {
-                            // Unselect all other options and corresponding checkboxes.
-                            if (this.options.selectedClass) {
-                                $($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
-                            }
-
-                            $($checkboxesNotThis).prop('checked', false);
-                            $optionsNotThis.prop('selected', false);
-
-                            // It's a single selection, so close.
-                            this.$button.click();
-                        }
-
-                        if (this.options.selectedClass === "active") {
-                            $optionsNotThis.parents("a").css("outline", "");
-                        }
-                    }
-                    else {
-                        // Unselect option.
-                        $option.prop('selected', false);
-                    }
-                }
-
-                this.$select.change();
-
-                this.updateButtonText();
-                this.updateSelectAll();
-                
-                this.options.onChange($option, checked);
-
-                if(this.options.preventInputChangeEvent) {
-                    return false;
-                }
-            }, this));
-
-            $('li a', this.$ul).on('touchstart click', function(event) {
-                event.stopPropagation();
-
-                var $target = $(event.target);
-
-                if (event.shiftKey) {
-                    var checked = $target.prop('checked') || false;
-
-                    if (checked) {
-                        var prev = $target.parents('li:last')
-                            .siblings('li[class="active"]:first');
-
-                        var currentIdx = $target.parents('li')
-                            .index();
-                        var prevIdx = prev.index();
-
-                        if (currentIdx > prevIdx) {
-                            $target.parents("li:last").prevUntil(prev).each(
-                                function() {
-                                    $(this).find("input:first").prop("checked", true)
-                                        .trigger("change");
-                                }
-                            );
-                        }
-                        else {
-                            $target.parents("li:last").nextUntil(prev).each(
-                                function() {
-                                    $(this).find("input:first").prop("checked", true)
-                                        .trigger("change");
-                                }
-                            );
-                        }
-                    }
-                }
-
-                $target.blur();
-            });
-
-            // Keyboard support.
-            this.$container.off('keydown.multiselect').on('keydown.multiselect', $.proxy(function(event) {
-                if ($('input[type="text"]', this.$container).is(':focus')) {
-                    return;
-                }
-                if ((event.keyCode === 9 || event.keyCode === 27)
-                        && this.$container.hasClass('open')) {
-                    
-                    // Close on tab or escape.
-                    this.$button.click();
-                }
-                else {
-                    var $items = $(this.$container).find("li:not(.divider):not(.disabled) a").filter(":visible");
-
-                    if (!$items.length) {
-                        return;
-                    }
-
-                    var index = $items.index($items.filter(':focus'));
-
-                    // Navigation up.
-                    if (event.keyCode === 38 && index > 0) {
-                        index--;
-                    }
-                    // Navigate down.
-                    else if (event.keyCode === 40 && index < $items.length - 1) {
-                        index++;
-                    }
-                    else if (!~index) {
-                        index = 0;
-                    }
-
-                    var $current = $items.eq(index);
-                    $current.focus();
-
-                    if (event.keyCode === 32 || event.keyCode === 13) {
-                        var $checkbox = $current.find('input');
-
-                        $checkbox.prop("checked", !$checkbox.prop("checked"));
-                        $checkbox.change();
-                    }
-
-                    event.stopPropagation();
-                    event.preventDefault();
-                }
-            }, this));
         },
 
         /**
