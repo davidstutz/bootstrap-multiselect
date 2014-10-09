@@ -375,11 +375,11 @@
                 // Apply or unapply the configured selected class.
                 if (this.options.selectedClass) {
                     if (checked) {
-                        $target.parents('li')
+                        $target.closest('li')
                             .addClass(this.options.selectedClass);
                     }
                     else {
-                        $target.parents('li')
+                        $target.closest('li')
                             .removeClass(this.options.selectedClass);
                     }
                 }
@@ -411,7 +411,7 @@
                         else {
                             // Unselect all other options and corresponding checkboxes.
                             if (this.options.selectedClass) {
-                                $($checkboxesNotThis).parents('li').removeClass(this.options.selectedClass);
+                                $($checkboxesNotThis).closest('li').removeClass(this.options.selectedClass);
                             }
 
                             $($checkboxesNotThis).prop('checked', false);
@@ -422,7 +422,7 @@
                         }
 
                         if (this.options.selectedClass === "active") {
-                            $optionsNotThis.parents("a").css("outline", "");
+                            $optionsNotThis.closest("a").css("outline", "");
                         }
                     }
                     else {
@@ -452,15 +452,15 @@
                     var checked = $target.prop('checked') || false;
 
                     if (checked) {
-                        var prev = $target.parents('li:last')
+                        var prev = $target.closest('li')
                             .siblings('li[class="active"]:first');
 
-                        var currentIdx = $target.parents('li')
+                        var currentIdx = $target.closest('li')
                             .index();
                         var prevIdx = prev.index();
 
                         if (currentIdx > prevIdx) {
-                            $target.parents("li:last").prevUntil(prev).each(
+                            $target.closest("li").prevUntil(prev).each(
                                 function() {
                                     $(this).find("input:first").prop("checked", true)
                                         .trigger("change");
@@ -468,7 +468,7 @@
                             );
                         }
                         else {
-                            $target.parents("li:last").nextUntil(prev).each(
+                            $target.closest("li").nextUntil(prev).each(
                                 function() {
                                     $(this).find("input:first").prop("checked", true)
                                         .trigger("change");
@@ -571,16 +571,16 @@
             if ($(element).is(':disabled')) {
                 $checkbox.attr('disabled', 'disabled')
                     .prop('disabled', true)
-                    .parents('a')
+                    .closest('a')
                     .attr("tabindex", "-1")
-                    .parents('li')
+                    .closest('li')
                     .addClass('disabled');
             }
 
             $checkbox.prop('checked', selected);
 
             if (selected && this.options.selectedClass) {
-                $checkbox.parents('li')
+                $checkbox.closest('li')
                     .addClass(this.options.selectedClass);
             }
         },
@@ -752,7 +752,7 @@
                     $input.prop('checked', true);
 
                     if (this.options.selectedClass) {
-                        $input.parents('li')
+                        $input.closest('li')
                             .addClass(this.options.selectedClass);
                     }
                 }
@@ -760,7 +760,7 @@
                     $input.prop('checked', false);
 
                     if (this.options.selectedClass) {
-                        $input.parents('li')
+                        $input.closest('li')
                             .removeClass(this.options.selectedClass);
                     }
                 }
@@ -768,12 +768,12 @@
                 if ($(element).is(":disabled")) {
                     $input.attr('disabled', 'disabled')
                         .prop('disabled', true)
-                        .parents('li')
+                        .closest('li')
                         .addClass('disabled');
                 }
                 else {
                     $input.prop('disabled', false)
-                        .parents('li')
+                        .closest('li')
                         .removeClass('disabled');
                 }
             }, this));
@@ -811,7 +811,7 @@
                 }
                 
                 if (this.options.selectedClass) {
-                    $checkbox.parents('li')
+                    $checkbox.closest('li')
                         .addClass(this.options.selectedClass);
                 }
 
@@ -861,7 +861,7 @@
                 }
 
                 if (this.options.selectedClass) {
-                    $checkbox.parents('li')
+                    $checkbox.closest('li')
                         .removeClass(this.options.selectedClass);
                 }
 
