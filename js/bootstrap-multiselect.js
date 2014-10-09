@@ -339,12 +339,13 @@
         buildDropdownOptions: function() {
 
             this.$select.children().each($.proxy(function(index, element) {
-                
+
+                var $element = $(element);
                 // Support optgroups and options without a group simultaneously.
-                var tag = $(element).prop('tagName')
+                var tag = $element.prop('tagName')
                     .toLowerCase();
             
-                if ($(element).prop('value') === this.options.selectAllValue) {
+                if ($element.prop('value') === this.options.selectAllValue) {
                     return;
                 }
 
@@ -353,7 +354,7 @@
                 }
                 else if (tag === 'option') {
 
-                    if ($(element).data('role') === 'divider') {
+                    if ($element.data('role') === 'divider') {
                         this.createDivider();
                     }
                     else {
@@ -549,15 +550,14 @@
             var $label = $('label', $li);
             $label.addClass(inputType);
 
+            var $checkbox = $('<input/>').attr('type', inputType);
+
             if (this.options.checkboxName) {
-                $label.append('<input type="' + inputType + '" name="' + this.options.checkboxName + '" />');
+                $checkbox.attr('name', this.options.checkboxName);
             }
-            else {
-                $label.append('<input type="' + inputType + '" />');
-            }
+            $label.append($checkbox);
 
             var selected = $element.prop('selected') || false;
-            var $checkbox = $('input', $li);
             $checkbox.val(value);
 
             if (value === this.options.selectAllValue) {
