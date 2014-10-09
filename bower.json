@@ -8,5 +8,15 @@
   "dependencies": {
     "jquery": ">= 1.11.0",
     "bootstrap": ">= 2.3.2"
-  }
+  },
+  "ignore": [
+    "js/bootstrap-3*",
+    "js/jquery*",
+    "js/prettify*",
+    "css/bootstrap-3*",
+    "css/prettify*",
+    "*.html",
+    "*.git*",
+    "fonts"
+  ]
 }
