@@ -535,26 +535,28 @@
          * @param {jQuery} element
          */
         createOptionValue: function(element) {
-            if ($(element).is(':selected')) {
-                $(element).prop('selected', true);
+            var $element = $(element);
+            if ($element.is(':selected')) {
+                $element.prop('selected', true);
             }
 
             // Support the label attribute on options.
             var label = this.options.label(element);
-            var value = $(element).val();
+            var value = $element.val();
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
             var $li = $(this.options.templates.li);
-            $('label', $li).addClass(inputType);
-            
+            var $label = $('label', $li);
+            $label.addClass(inputType);
+
             if (this.options.checkboxName) {
-                $('label', $li).append('<input type="' + inputType + '" name="' + this.options.checkboxName + '" />');
+                $label.append('<input type="' + inputType + '" name="' + this.options.checkboxName + '" />');
             }
             else {
-                $('label', $li).append('<input type="' + inputType + '" />');
+                $label.append('<input type="' + inputType + '" />');
             }
-            
-            var selected = $(element).prop('selected') || false;
+
+            var selected = $element.prop('selected') || false;
             var $checkbox = $('input', $li);
             $checkbox.val(value);
 
@@ -564,11 +566,12 @@
                     .addClass('multiselect-all');
             }
 
-            $('label', $li).append(" " + label);
+            $label.append(" " + label);
+            $label.attr('title', $element.attr('title'));
 
             this.$ul.append($li);
 
-            if ($(element).is(':disabled')) {
+            if ($element.is(':disabled')) {
                 $checkbox.attr('disabled', 'disabled')
                     .prop('disabled', true)
                     .parents('a')
@@ -973,8 +976,10 @@
          * ```js
          * {
          *  value: "option value"
-         *  label: "option label" // The `value` is used if this is falsy
-         *  selected: false // If `true`, mark the OPTION tag as selected
+         *  label: "option label" // (optional) If undefined, uses the `value` property instead
+         *  caption: "option title" // (optional) If defined, this will become the `title` attribute of the OPTION tag
+         *                          // which in turn will be used as the `title` attribute of the LABEL tag
+         *  selected: false // (optional) If `true`, mark the OPTION tag as selected
          * }
          * ```
          *
