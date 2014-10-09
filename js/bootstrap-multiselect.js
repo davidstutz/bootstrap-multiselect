@@ -1011,6 +1011,7 @@
                         tag.append($('<option/>').attr({
                             value: subOption.value,
                             label: subOption.label || subOption.value,
+                            title: subOption.caption,
                             selected: !!subOption.selected
                         }));
                     });
@@ -1021,6 +1022,7 @@
                     tag = $('<option/>').attr({
                         value: option.value,
                         label: option.label || option.value,
+                        title: option.caption,
                         selected: !!option.selected
                     });
                 }
