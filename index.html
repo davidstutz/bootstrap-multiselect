@@ -119,6 +119,8 @@ $(document).ready(function() {
 
                     $('#example2').multiselect();
 
+                    $('#example54').multiselect();
+
                     $('#example3').multiselect({
                         buttonClass: 'btn btn-link'
                     });
@@ -315,6 +317,21 @@ $(document).ready(function() {
                     </td>
                     <td>
                         Select with preselected options: <code>&lt;option value=&quot;cheese&quot; selected&gt;Cheese&lt;/option&gt;</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="example54" multiple="multiple">
+                            <option value="cheese" title="Smelly">Cheese</option>
+                            <option value="tomatoes" title="Handsome">Tomatoes</option>
+                            <option value="mozarella" title="Italian">Mozzarella</option>
+                            <option value="mushrooms" title="Tender">Mushrooms</option>
+                            <option value="pepperoni" title="Spicy">Pepperoni</option>
+                            <option value="onions" title="Tasty">Onions</option>
+                        </select>
+                    </td>
+                    <td>
+                        Select with options titles (hover with mouse): <code>&lt;option value=&quot;cheese&quot; title=&quot;Smelly&quot;&gt;Cheese&lt;/option&gt;</code>
                     </td>
                 </tr>
                 <tr>
