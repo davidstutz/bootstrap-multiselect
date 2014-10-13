@@ -878,17 +878,28 @@
         
         /**
          * Selects all enabled & visible options.
+         *
+         * If justVisible is true or not specified, only visible options are selected.
+         *
+         * @param {Boolean} justVisible
          */
-        selectAll: function () {
+        selectAll: function (justVisible) {
+            var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
             var allCheckboxes = $("li input[type='checkbox']:enabled", this.$ul);
             var visibleCheckboxes = allCheckboxes.filter(":visible");
             var allCheckboxesCount = allCheckboxes.length;
             var visibleCheckboxesCount = visibleCheckboxes.length;
+
+            if(justVisible) {
+                visibleCheckboxes.prop('checked', true);
+                $("li:not(.divider):not(.disabled)", this.$ul).filter(":visible").addClass(this.options.selectedClass);
+            }
+            else {
+                allCheckboxes.prop('checked', true);
+                $("li:not(.divider):not(.disabled)", this.$ul).addClass(this.options.selectedClass);
+            }
                 
-            visibleCheckboxes.prop('checked', true);
-            $("li:not(.divider):not(.disabled)", this.$ul).filter(":visible").addClass(this.options.selectedClass);
-            
-            if (allCheckboxesCount === visibleCheckboxesCount) {
+            if (allCheckboxesCount === visibleCheckboxesCount || justVisible === false) {
                 $("option:enabled", this.$select).prop('selected', true);
             }
             else {
