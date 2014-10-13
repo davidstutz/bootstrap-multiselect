@@ -22,13 +22,17 @@
       font-weight: bold;
     }
 
-    > label.multiselect-group {
+    &.multiselect-group label {
       margin: 0;
       padding: 3px 20px 3px 20px;
       height: 100%;
       font-weight: bold;
     }
 
+    &.multiselect-group-clickable label {
+      cursor: pointer;
+    }
+    
     > a {
       padding: 0;
 
@@ -54,10 +58,6 @@
 
 .filter .btn {
   padding: 6px 3px;
-}
-
-.filter .btn:hover {
-  color: red;
 }
 
 .btn-group > .btn-group:nth-child(2) > .multiselect.btn {
