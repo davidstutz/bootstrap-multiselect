@@ -246,6 +246,10 @@ $(document).ready(function() {
                     $('#example53-deselect').on('click', function() {
                         $('#example53').multiselect('deselect', 'cheese');
                     });
+
+                    $('#example54').multiselect({
+                        enableClickableOptGroups: true
+                    });
                 });
             </script>
             
@@ -522,6 +526,28 @@ $(document).ready(function() {
                     </td>
                     <td>
                         Option groups and options without any group are supported simultaneously.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="example54" multiple="multiple">
+                            <optgroup label="Mathematics">
+                                <option value="analysis">Analysis</option>
+                                <option value="algebra">Linear Algebra</option>
+                                <option value="discrete">Discrete Mathematics</option>
+                                <option value="numerical">Numerical Analysis</option>
+                                <option value="probability">Probability Theory</option>
+                            </optgroup>
+                            <optgroup label="Computer Science">
+                                <option value="programming">Introduction to Programming</option>
+                                <option value="automata">Automata Theory</option>
+                                <option value="complexity">Complexity Theory</option>
+                                <option value="software">Software Engineering</option>
+                            </optgroup>
+                        </select>
+                    </td>
+                    <td>
+                        Use <code>enableClickableOptGroups</code> to make optgroup headers clickable to select / deselect all options inside an optgroup.
                     </td>
                 </tr>
                 <tr>
@@ -1159,6 +1185,23 @@ $(document).ready(function() {
 $(document).ready(function() {
     $(&#39;.multiselect&#39;).multiselect({
         disableIfEmpty: true
+    });
+});
+&lt;/script&gt;
+                            </pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>enableClickableOptGroups</code></td>
+                        <td>
+                            Set to <code>true</code> to make optgroup headers clickable to select/deselect options.
+                        </td>
+                        <td>
+                            <pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+    $(&#39;.multiselect&#39;).multiselect({
+        enableClickableOptGroups: true
     });
 });
 &lt;/script&gt;
