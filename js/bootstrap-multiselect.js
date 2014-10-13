@@ -340,12 +340,13 @@
         buildDropdownOptions: function() {
 
             this.$select.children().each($.proxy(function(index, element) {
-                
+
+                var $element = $(element);
                 // Support optgroups and options without a group simultaneously.
-                var tag = $(element).prop('tagName')
+                var tag = $element.prop('tagName')
                     .toLowerCase();
             
-                if ($(element).prop('value') === this.options.selectAllValue) {
+                if ($element.prop('value') === this.options.selectAllValue) {
                     return;
                 }
 
@@ -354,7 +355,7 @@
                 }
                 else if (tag === 'option') {
 
-                    if ($(element).data('role') === 'divider') {
+                    if ($element.data('role') === 'divider') {
                         this.createDivider();
                     }
                     else {
@@ -556,27 +557,28 @@
          * @param {jQuery} element
          */
         createOptionValue: function(element) {
-            if ($(element).is(':selected')) {
-                $(element).prop('selected', true);
+            var $element = $(element);
+            if ($element.is(':selected')) {
+                $element.prop('selected', true);
             }
 
             // Support the label attribute on options.
             var label = this.options.label(element);
-            var value = $(element).val();
+            var value = $element.val();
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
             var $li = $(this.options.templates.li);
-            $('label', $li).addClass(inputType);
-            
+            var $label = $('label', $li);
+            $label.addClass(inputType);
+
+            var $checkbox = $('<input/>').attr('type', inputType);
+
             if (this.options.checkboxName) {
-                $('label', $li).append('<input type="' + inputType + '" name="' + this.options.checkboxName + '" />');
+                $checkbox.attr('name', this.options.checkboxName);
             }
-            else {
-                $('label', $li).append('<input type="' + inputType + '" />');
-            }
-            
-            var selected = $(element).prop('selected') || false;
-            var $checkbox = $('input', $li);
+            $label.append($checkbox);
+
+            var selected = $element.prop('selected') || false;
             $checkbox.val(value);
 
             if (value === this.options.selectAllValue) {
@@ -585,11 +587,12 @@
                     .addClass('multiselect-all');
             }
 
-            $('label', $li).append(" " + label);
+            $label.append(" " + label);
+            $label.attr('title', $element.attr('title'));
 
             this.$ul.append($li);
 
-            if ($(element).is(':disabled')) {
+            if ($element.is(':disabled')) {
                 $checkbox.attr('disabled', 'disabled')
                     .prop('disabled', true)
                     .parents('a')
@@ -1004,30 +1007,67 @@
 
         /**
          * The provided data will be used to build the dropdown.
-         * 
-         * @param {Array} dataprovider
+         *
+         * @param {Array} dataprovider Array of OPTION or OPTIONGROUP models.
+         * A simple OPTION tag is represented as:
+         * ```js
+         * {
+         *  value: "option value"
+         *  label: "option label" // (optional) If undefined, uses the `value` property instead
+         *  caption: "option title" // (optional) If defined, this will become the `title` attribute of the OPTION tag
+         *                          // which in turn will be used as the `title` attribute of the LABEL tag
+         *  selected: false // (optional) If `true`, mark the OPTION tag as selected
+         * }
+         * ```
+         *
+         * An OPTIONGROUP tag is represented as:
+         * ```js
+         * {
+         *  label: "optiongroup label"
+         *  children: [
+         *      {
+         *        // same as option model
+         *      }
+         *  ]
+         * }
+         * ```
          */
         dataprovider: function(dataprovider) {
             var optionDOM = "";
             var groupCounter = 0;
+            var tags = $(''); // create empty jQuery array
 
             $.each(dataprovider, function (index, option) {
-                if ($.isArray(option.children)) {
+                var tag;
+                if ($.isArray(option.children)) { // create optiongroup tag
                     groupCounter++;
-                    optionDOM += '<optgroup label="' + (option.title || 'Group ' + groupCounter) + '">';
-
-                    forEach(option.children, function(subOption) {
-                        optionDOM += '<option value="' + subOption.value + '">' + (subOption.label || subOption.value) + '</option>';
+                    tag = $('<optgroup/>').attr({
+                        label: option.title || 'Group ' + groupCounter
+                    });
+                    forEach(option.children, function(subOption) { // add children option tags
+                        tag.append($('<option/>').attr({
+                            value: subOption.value,
+                            label: subOption.label || subOption.value,
+                            title: subOption.caption,
+                            selected: !!subOption.selected
+                        }));
                     });
 
                     optionDOM += '</optgroup>';
                 }
-                else {
-                    optionDOM += '<option value="' + option.value + '">' + (option.label || option.value) + '</option>';
+                else { // create option tag
+                    tag = $('<option/>').attr({
+                        value: option.value,
+                        label: option.label || option.value,
+                        title: option.caption,
+                        selected: !!option.selected
+                    });
                 }
+
+                tags = tags.add(tag);
             });
             
-            this.$select.html(optionDOM);
+            this.$select.empty().append(tags);
             this.rebuild();
         },
 

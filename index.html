@@ -119,6 +119,8 @@ $(document).ready(function() {
 
                     $('#example2').multiselect();
 
+                    $('#example54').multiselect();
+
                     $('#example3').multiselect({
                         buttonClass: 'btn btn-link'
                     });
@@ -319,6 +321,21 @@ $(document).ready(function() {
                     </td>
                     <td>
                         Select with preselected options: <code>&lt;option value=&quot;cheese&quot; selected&gt;Cheese&lt;/option&gt;</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select id="example54" multiple="multiple">
+                            <option value="cheese" title="Smelly">Cheese</option>
+                            <option value="tomatoes" title="Handsome">Tomatoes</option>
+                            <option value="mozarella" title="Italian">Mozzarella</option>
+                            <option value="mushrooms" title="Tender">Mushrooms</option>
+                            <option value="pepperoni" title="Spicy">Pepperoni</option>
+                            <option value="onions" title="Tasty">Onions</option>
+                        </select>
+                    </td>
+                    <td>
+                        Select with options titles (hover with mouse): <code>&lt;option value=&quot;cheese&quot; title=&quot;Smelly&quot;&gt;Cheese&lt;/option&gt;</code>
                     </td>
                 </tr>
                 <tr>
@@ -1352,20 +1369,29 @@ $(document).ready(function() {
                     $('#example36-enable').on('click', function() {
                         $('#example36').multiselect('enable');
                     });
-                    
+
                     var data = [
-                        {label: 'Cheese', value: 'cheese'},
-                        {label: 'Tomatoes', value: 'tomatoes'}
+                        { label: 'Cheese', value: 'cheese', caption: 'Swiss cheese' },
+                        { label: 'Tomatoes', value: 'tomatoes', caption: 'Red tomato', selected: true }
                     ];
-                    $('#example49').multiselect();
-                    $('#example49').multiselect('dataprovider', data);
-                    
+                    $('#example49').multiselect().multiselect('dataprovider', data);
+
                     var data = [
-                        {title: 'First group', children: [{label: 'Cheese', value: 'cheese'}, {label: 'Tomatoes', value: 'tomatoes'}]},
-                        {title: 'Second group', children: [{label: 'Mozzarella', value: 'mozzarella'}, {label: 'Mushrooms', value: 'mushrooms'}]},
+                        {
+                            title: 'First group',
+                            children: [
+                                { label: 'Cheese', value: 'cheese', caption: 'Swiss cheese', selected: true },
+                                { label: 'Tomatoes', value: 'tomatoes', caption: 'Red tomato' }
+                            ]
+                        }, {
+                            title: 'Second group',
+                            children: [
+                                { label: 'Mozzarella', value: 'mozzarella', caption: 'Italian cheese' },
+                                { label: 'Mushrooms', value: 'mushrooms', caption: 'French mushroom' }
+                            ]
+                        }
                     ];
-                    $('#example50').multiselect();
-                    $('#example50').multiselect('dataprovider', data);
+                    $('#example50').multiselect().multiselect('dataprovider', data);
                 });
             </script>
             <table class="table table-striped">
@@ -1488,21 +1514,32 @@ $(document).ready(function() {
                             <p>
                                 Provides data for building the select's options the following way:
                             </p>
-                            <pre class="prettyprint linenums">
+                            <pre class="prettyprint linenums" style="max-width: none">
 var data = [
-    {label: 'Cheese', value: 'cheese'},
-    {label: 'Tomatoes', value: 'tomatoes'}
+    { label: 'Cheese', value: 'cheese', caption: 'Swiss cheese', selected: true },
+    { label: 'Tomatoes', value: 'tomatoes', caption: 'Red tomato' }
 ];
-$(&quot;#multiselect&quot;).multiselect('dataprovider', data);
+$('multiselect').multiselect('dataprovider', data);
                             </pre>
                             
                             <p>
                                 Alternatively, this method can also be used to build option groups (<a target="_blank" href="https://github.com/davidstutz/bootstrap-multiselect/pull/281">#281</a>):
                             </p>
-                            <pre class="prettyprint linenums">
+                            <pre class="prettyprint linenums" style="max-width: none">
 var data = [
-    {title: 'First group', children: [{label: 'Cheese', value: 'cheese'}, {label: 'Tomatoes', value: 'tomatoes'}]},
-    {title: 'Second group', children: [{label: 'Mozzarella', value: 'mozzarella'}, {label: 'Mushrooms', value: 'mushrooms'}]},
+  {
+    title: 'First group',
+    children: [
+      { label: 'Cheese', value: 'cheese', caption: 'Swiss cheese' },
+      { label: 'Tomatoes', value: 'tomatoes', caption: 'Red tomato', selected: true }
+    ]
+  }, {
+    title: 'Second group',
+    children: [
+      { label: 'Mozzarella', value: 'mozzarella', caption: 'Italian cheese' },
+      { label: 'Mushrooms', value: 'mushrooms', caption: 'French mushroom' }
+    ]
+  }
 ];
 $('.multiselect').multiselect('dataprovider', data);
                             </pre>
