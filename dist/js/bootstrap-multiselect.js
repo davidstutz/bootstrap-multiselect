@@ -242,6 +242,7 @@
             includeSelectAllIfMoreThan: 0,
             selectAllText: ' Select all',
             selectAllValue: 'multiselect-all',
+            selectAllName: false,
             enableFiltering: false,
             enableCaseInsensitiveFiltering: false,
             enableClickableOptGroups: false,
@@ -669,8 +670,8 @@
                 var $li = $(this.options.templates.li);
                 $('label', $li).addClass("checkbox");
                 
-                if (this.options.checkboxName) {
-                    $('label', $li).append('<input type="checkbox" name="' + this.options.checkboxName + '" />');
+                if (this.options.selectAllName) {
+                    $('label', $li).append('<input type="checkbox" name="' + this.options.selectAllName + '" />');
                 }
                 else {
                     $('label', $li).append('<input type="checkbox" />');

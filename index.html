@@ -34,6 +34,7 @@
                         <li><a href="#templates">Templates</a></li>
                         <li><a href="#methods">Methods</a></li>
                         <li><a href="#further-examples">Further Examples</a></li>
+                        <li><a href="#post">Server-Side Processing</a></li>
                         <li><a href="#keyboard-support">Keyboard Support</a>
                         <li><a href="#faq">Frequently Asked Questions</a></li>
                         <li><a href="#license">License</a></li>
@@ -513,7 +514,7 @@
                                 <td><code>checkboxName</code></td>
                                 <td>
                                     <p>
-                                        The name used for the generated checkboxes. For more information on how to use the plugin as part of a form validated and used using server side scripting, as for example PHP, see <a href="#post">Bootstrap Multiselect and POST</a>. Related issues are discussed in the FAQ, in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/323">#323</a>, in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/331">331</a> and in <a href="https://github.com/davidstutz/bootstrap-multiselect/pull/336">336</a>.
+                                        The name used for the generated checkboxes. See <a href="#post">Server-Side Processing</a> for details.
                                     </p>
 
                                     <div class="example">
@@ -1417,6 +1418,47 @@
         $('#example-selectAllValue').multiselect({
             includeSelectAllOption: true,
             selectAllValue: 'select-all-value'
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>selectAllName</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        This option allows to control the name given to the select all option. See <a href="#post">Server-Side Processing</a> for more details.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-selectAllName').multiselect({
+                                                    includeSelectAllOption: true,
+                                                    selectAllName: 'select-all-name'
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-selectAllName" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-selectAllName').multiselect({
+            includeSelectAllOption: true,
+            selectAllName: 'select-all-name'
         });
     });
 &lt;/script&gt;
@@ -3197,6 +3239,139 @@
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
+</pre>
+                    </div>
+                    
+                    <div class="page-header">
+                        <h2 id="post">Server-Side Processing</h2>
+                    </div>
+                    
+                    <p class="alert alert-warning">
+                        The below example uses a PHP script to demonstrate Server-Side Processing. Therefore, the below example will not run online - <b>download the repository and try it on a local server</b>.
+                    </p>
+                    
+                    <p>
+                        In order to receive the correct data after submitting the form, the used <code>select</code> has to have an appropriate name. Note that an <code>[]</code> needs to be appended to the name when using the <code>multiple</code> option/attribute. Per default, the checkboxes used within the multiselect will not be submitted, however, this can be changed by adapting <code>checkboxName</code>. The select all option as well as the text input used for the filter will not be submitted. As this may be useful, the name of the select all checkbox may be adapted using the <code>selectAllName</code> option. The value of the select all checkbox can be controlled by the <code>selectAllValue</code> option while the values of the remaining checkboxes correspond to the values used by the <code>option</code>'s of the original <code>select</code>.
+                    </p>
+                    
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-post').multiselect({
+                                    includeSelectAllOption: true,
+                                    enableFiltering: true
+                                });
+                            });
+                        </script>
+                        <form class="form-horizontal" method="POST" action="post.php">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Multiselect</label>
+                                <div class="col-sm-10">
+                                    <select id="example-post" name="multiselect[]" multiple="multiple">
+                                        <option value="1">Option 1</option>
+                                        <option value="2">Option 2</option>
+                                        <option value="3">Option 3</option>
+                                        <option value="4">Option 4</option>
+                                        <option value="5">Option 5</option>
+                                        <option value="6">Option 6</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Text Input</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="text" class="form-control" placeholder="Text Input" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="checkbox"> Checkbox
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="radio"> Radio 1
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="radio"> Radio 2
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-post').multiselect({
+            includeSelectAllOption: true,
+            enableFiltering: true
+        });
+    });
+&lt;/script&gt;
+&lt;form class=&quot;form-horizontal&quot; method=&quot;POST&quot; action=&quot;post.php&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;Multiselect&lt;/label&gt;
+        &lt;div class=&quot;col-sm-10&quot;&gt;
+            &lt;select id=&quot;example-post&quot; name=&quot;multiselect[]&quot; multiple=&quot;multiple&quot;&gt;
+                &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+                &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+                &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+                &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+                &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+                &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;Text Input&lt;/label&gt;
+        &lt;div class=&quot;col-sm-10&quot;&gt;
+            &lt;input type=&quot;text&quot; name=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Text Input&quot; /&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;div class=&quot;col-sm-offset-2 col-sm-10&quot;&gt;
+            &lt;div class=&quot;checkbox&quot;&gt;
+                &lt;label&gt;
+                    &lt;input type=&quot;checkbox&quot; name=&quot;checkbox&quot;&gt; Checkbox
+                &lt;/label&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;div class=&quot;col-sm-offset-2 col-sm-10&quot;&gt;
+            &lt;div class=&quot;radio&quot;&gt;
+                &lt;label&gt;
+                    &lt;input type=&quot;radio&quot; name=&quot;radio&quot;&gt; Radio 1
+                &lt;/label&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;radio&quot;&gt;
+                &lt;label&gt;
+                    &lt;input type=&quot;radio&quot; name=&quot;radio&quot;&gt; Radio 2
+                &lt;/label&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;div class=&quot;col-sm-offset-2 col-sm-10&quot;&gt;
+            &lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot;&gt;Submit&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
 </pre>
                     </div>
                     
