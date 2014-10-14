@@ -4,19 +4,17 @@
 		<title>Bootstrap Multiselect</title>
 		<meta name="robots" content="noindex, nofollow" />
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-		<meta name="copyright" content="David Stutz" />
 
-		<link rel="stylesheet" href="css/bootstrap-3.1.1.min.css" type="text/css">
-		<link rel="stylesheet" href="css/bootstrap-example.css" type="text/css">
-        <link rel="stylesheet" href="css/bootstrap-affix.css" type="text/css">
-		<link rel="stylesheet" href="css/prettify.css" type="text/css">
+		<link rel="stylesheet" href="docs/css/bootstrap-3.2.0.min.css" type="text/css">
+		<link rel="stylesheet" href="docs/css/bootstrap-example.css" type="text/css">
+		<link rel="stylesheet" href="docs/css/prettify.css" type="text/css">
 
-		<script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
-		<script type="text/javascript" src="js/prettify.js"></script>
+		<script type="text/javascript" src="docs/js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="docs/js/bootstrap-3.2.0.min.js"></script>
+		<script type="text/javascript" src="docs/js/prettify.js"></script>
         
-		<link rel="stylesheet" href="css/bootstrap-multiselect.css" type="text/css">
-		<script type="text/javascript" src="js/bootstrap-multiselect.js"></script>
+		<link rel="stylesheet" href="dist/css/bootstrap-multiselect.css" type="text/css">
+		<script type="text/javascript" src="dist/js/bootstrap-multiselect.js"></script>
         
         <script type="text/javascript">
             $(document).ready(function() {
@@ -38,6 +36,7 @@
                         <li><a href="#further-examples">Further Examples</a></li>
                         <li><a href="#keyboard-support">Keyboard Support</a>
                         <li><a href="#faq">Frequently Asked Questions</a></li>
+                        <li><a href="#license">License</a></li>
                     </ul>
                 </div>
                 <div class="col-md-9">
@@ -54,7 +53,7 @@
                     </p>
                     
                     <p class="alert alert-warning">
-                        <b>Please have a look at the <a href="https://github.com/davidstutz/bootstrap-multiselect/blob/master/README.md">Contribution Guidelines</a> and the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a>.</b>
+                        <b>Please have a look on <a href="#how-to-contribute">How to contribute?</a> and the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a>.</b>
                     </p>
                     
                     <div class="page-header">
@@ -160,7 +159,7 @@
                                 <td><code>multiple</code></td>
                                 <td>
                                     <p>
-                                        <code>multiple</code> is not a real configuration option. It refers to the <code>multiple</code> attribute of the <code>select</code> the plugin is applied on. When the <code>multiple</code> attribute of the <code>select</code> is present, the plugin uses checkboxes to allow multiple selections. If it is not present, the plugin uses radio buttons to allow single selections. When using the plugin for single selections (without the <code>multiple</code> attribute present), the first option will automatically be selected if no other option is selected in advance. See <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/129">#129</a> for how to avoid this behavior.</a>
+                                        <code>multiple</code> is not a real configuration option. It refers to the <code>multiple</code> attribute of the <code>select</code> the plugin is applied on. When the <code>multiple</code> attribute of the <code>select</code> is present, the plugin uses checkboxes to allow multiple selections. If it is not present, the plugin uses radio buttons to allow single selections. When using the plugin for single selections (without the <code>multiple</code> attribute present), the first option will automatically be selected if no other option is selected in advance. See <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/129">#129</a> for how to avoid this behavior.
                                     </p>
                                     
                                     <p>
@@ -1444,6 +1443,7 @@
                                             <option value="3">Option 3</option>
                                             <option value="4">Option 4</option>
                                             <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
                                             <option value="7">Option 7</option>
                                             <option value="8">Option 8</option>
                                             <option value="9">Option 9</option>
@@ -1486,6 +1486,7 @@
                                             <option value="3">Option 3</option>
                                             <option value="4">Option 4</option>
                                             <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
                                             <option value="7">Option 7</option>
                                             <option value="8">Option 8</option>
                                             <option value="9">Option 9</option>
@@ -1560,7 +1561,6 @@
                                         <script type="text/javascript">
                                             $(document).ready(function() {
                                                 $('#example-enableCaseInsensitiveFiltering').multiselect({
-                                                    includeSelectAllOption: true,
                                                     enableCaseInsensitiveFiltering: true
                                                 });
                                             });
@@ -1571,6 +1571,7 @@
                                             <option value="3">OpTiOn 3</option>
                                             <option value="4">OpTiOn 4</option>
                                             <option value="5">OpTiOn 5</option>
+                                            <option value="6">OpTiOn 6</option>
                                             <option value="7">OpTiOn 7</option>
                                             <option value="8">OpTiOn 8</option>
                                             <option value="9">OpTiOn 9</option>
@@ -1587,7 +1588,6 @@
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
         $('#example-enableCaseInsensitiveFiltering').multiselect({
-            includeSelectAllOption: true,
             enableCaseInsensitiveFiltering: true
         });
     });
@@ -1625,15 +1625,15 @@
                                             <option value="c">Option 3</option>
                                             <option value="d">Option 4</option>
                                             <option value="e">Option 5</option>
-                                            <option value="f">Option 7</option>
-                                            <option value="g">Option 8</option>
-                                            <option value="h">Option 9</option>
-                                            <option value="i">Option 10</option>
-                                            <option value="j">Option 11</option>
-                                            <option value="k">Option 12</option>
-                                            <option value="l">Option 13</option>
-                                            <option value="m">Option 14</option>
-                                            <option value="n">Option 15</option>
+                                            <option value="f">Option 6</option>
+                                            <option value="g">Option 7</option>
+                                            <option value="h">Option 8</option>
+                                            <option value="i">Option 9</option>
+                                            <option value="j">Option 10</option>
+                                            <option value="k">Option 11</option>
+                                            <option value="l">Option 12</option>
+                                            <option value="m">Option 13</option>
+                                            <option value="n">Option 14</option>
                                         </select>
                                     </div>
                                     <div class="highlight">
@@ -1646,21 +1646,21 @@
         });
     });
 &lt;/script&gt;
-&lt;select id=&quot;example-filterBehavior&quot; multiple=&quot;multiple&quot;&gt;
-    &lt;option value=&quot;a&quot;&gt;Option 1&lt;/option&gt;
-    &lt;option value=&quot;b&quot;&gt;Option 2&lt;/option&gt;
-    &lt;option value=&quot;c&quot;&gt;Option 3&lt;/option&gt;
-    &lt;option value=&quot;d&quot;&gt;Option 4&lt;/option&gt;
-    &lt;option value=&quot;e&quot;&gt;Option 5&lt;/option&gt;
-    &lt;option value=&quot;f&quot;&gt;Option 7&lt;/option&gt;
-    &lt;option value=&quot;g&quot;&gt;Option 8&lt;/option&gt;
-    &lt;option value=&quot;h&quot;&gt;Option 9&lt;/option&gt;
-    &lt;option value=&quot;i&quot;&gt;Option 10&lt;/option&gt;
-    &lt;option value=&quot;j&quot;&gt;Option 11&lt;/option&gt;
-    &lt;option value=&quot;k&quot;&gt;Option 12&lt;/option&gt;
-    &lt;option value=&quot;l&quot;&gt;Option 13&lt;/option&gt;
-    &lt;option value=&quot;m&quot;&gt;Option 14&lt;/option&gt;
-    &lt;option value=&quot;n&quot;&gt;Option 15&lt;/option&gt;
+&lt;select id="example-filterBehavior" multiple="multiple"&gt;
+    &lt;option value=&quot;a"&gt;Option 1&lt;/option&gt;
+    &lt;option value="b"&gt;Option 2&lt;/option&gt;
+    &lt;option value="c"&gt;Option 3&lt;/option&gt;
+    &lt;option value="d"&gt;Option 4&lt;/option&gt;
+    &lt;option value="e"&gt;Option 5&lt;/option&gt;
+    &lt;option value="f"&gt;Option 6&lt;/option&gt;
+    &lt;option value="g"&gt;Option 7&lt;/option&gt;
+    &lt;option value="h"&gt;Option 8&lt;/option&gt;
+    &lt;option value="i"&gt;Option 9&lt;/option&gt;
+    &lt;option value="j"&gt;Option 10&lt;/option&gt;
+    &lt;option value="k"&gt;Option 11&lt;/option&gt;
+    &lt;option value="l"&gt;Option 12&lt;/option&gt;
+    &lt;option value="m"&gt;Option 13&lt;/option&gt;
+    &lt;option value="n"&gt;Option 14&lt;/option&gt;
 &lt;/select&gt;
 </pre>
                                     </div>
@@ -1691,15 +1691,15 @@
                                             <option value="c">Option 3</option>
                                             <option value="d">Option 4</option>
                                             <option value="e">Option 5</option>
-                                            <option value="f">Option 7</option>
-                                            <option value="g">Option 8</option>
-                                            <option value="h">Option 9</option>
-                                            <option value="i">Option 10</option>
-                                            <option value="j">Option 11</option>
-                                            <option value="k">Option 12</option>
-                                            <option value="l">Option 13</option>
-                                            <option value="m">Option 14</option>
-                                            <option value="n">Option 15</option>
+                                            <option value="f">Option 6</option>
+                                            <option value="g">Option 7</option>
+                                            <option value="h">Option 8</option>
+                                            <option value="i">Option 9</option>
+                                            <option value="j">Option 10</option>
+                                            <option value="k">Option 11</option>
+                                            <option value="l">Option 12</option>
+                                            <option value="m">Option 13</option>
+                                            <option value="n">Option 14</option>
                                         </select>
                                     </div>
                                     <div class="highlight">
@@ -1712,21 +1712,21 @@
         });
     });
 &lt;/script&gt;
-&lt;select id=&quot;example-filterBehavior&quot; multiple=&quot;multiple&quot;&gt;
-    &lt;option value=&quot;a&quot;&gt;Option 1&lt;/option&gt;
-    &lt;option value=&quot;b&quot;&gt;Option 2&lt;/option&gt;
-    &lt;option value=&quot;c&quot;&gt;Option 3&lt;/option&gt;
-    &lt;option value=&quot;d&quot;&gt;Option 4&lt;/option&gt;
-    &lt;option value=&quot;e&quot;&gt;Option 5&lt;/option&gt;
-    &lt;option value=&quot;f&quot;&gt;Option 7&lt;/option&gt;
-    &lt;option value=&quot;g&quot;&gt;Option 8&lt;/option&gt;
-    &lt;option value=&quot;h&quot;&gt;Option 9&lt;/option&gt;
-    &lt;option value=&quot;i&quot;&gt;Option 10&lt;/option&gt;
-    &lt;option value=&quot;j&quot;&gt;Option 11&lt;/option&gt;
-    &lt;option value=&quot;k&quot;&gt;Option 12&lt;/option&gt;
-    &lt;option value=&quot;l&quot;&gt;Option 13&lt;/option&gt;
-    &lt;option value=&quot;m&quot;&gt;Option 14&lt;/option&gt;
-    &lt;option value=&quot;n&quot;&gt;Option 15&lt;/option&gt;
+&lt;select id="example-filterBehavior" multiple="multiple"&gt;
+    &lt;option value=&quot;a"&gt;Option 1&lt;/option&gt;
+    &lt;option value="b"&gt;Option 2&lt;/option&gt;
+    &lt;option value="c"&gt;Option 3&lt;/option&gt;
+    &lt;option value="d"&gt;Option 4&lt;/option&gt;
+    &lt;option value="e"&gt;Option 5&lt;/option&gt;
+    &lt;option value="f"&gt;Option 6&lt;/option&gt;
+    &lt;option value="g"&gt;Option 7&lt;/option&gt;
+    &lt;option value="h"&gt;Option 8&lt;/option&gt;
+    &lt;option value="i"&gt;Option 9&lt;/option&gt;
+    &lt;option value="j"&gt;Option 10&lt;/option&gt;
+    &lt;option value="k"&gt;Option 11&lt;/option&gt;
+    &lt;option value="l"&gt;Option 12&lt;/option&gt;
+    &lt;option value="m"&gt;Option 13&lt;/option&gt;
+    &lt;option value="n"&gt;Option 14&lt;/option&gt;
 &lt;/select&gt;
 </pre>
                                     </div>
@@ -1742,6 +1742,14 @@
                     
                     <p>
                         The generated HTML markup can be controlled using templates. Basically, templates are simple configuration options. The default templates are shown below:
+                    </p>
+                    
+                    <p class="alert alert-warning">
+                        However, note that messing with the template's classes may cause unexpected behavior. For example the button should always have the class <code>.multiselect</code>,
+                    </p>
+                    
+                    <p class="alert alert-info">
+                        In addition, note that other options may also have influence on the templates, for example the <code>buttonClass</code> option.
                     </p>
                     
 <pre class="prettyprint linenums">
@@ -1761,6 +1769,62 @@
     });
 &lt;/script&gt;
 </pre>
+                    
+                    <p>
+                        For example other elements instead of buttons may be used by adaptign the template:
+                    </p>
+                    
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-templates-button').multiselect({
+                                    buttonContainer: '<div></div>',
+                                    buttonClass: '',
+                                    templates: {
+                                        button: '<span class="multiselect dropdown-toggle" data-toggle="dropdown">Click me!</span>'
+                                    }
+                                });
+                            });
+                        </script>
+                        <style type="text/css">
+                            span.multiselect {
+                                padding: 2px 6px;
+                                font-weight: bold;
+                                cursor: pointer;
+                            }
+                        </style>
+                        <select id="example-templates-button" multiple="multiple">
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                            <option value="6">Option 6</option>
+                        </select>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-filter-placeholder').multiselect({
+            buttonContainer: '&lt;div&gt;&lt;/div&gt;',
+            buttonContainer: '',
+            buttonClass: '',
+            templates: {
+                button: '&lt;span class=&quot;multiselect dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;Click me!&lt;/span&gt;'
+            }
+        });
+    });
+&lt;/script&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+    span.multiselect {
+        padding: 2px 6px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+&lt;/style&gt;
+</pre>
+                    </div>
                     
                     <div class="page-header">
                         <h2 id="methods">Methods</h2>
@@ -2534,6 +2598,65 @@
 &lt;select id=&quot;example-dataprovider&quot; multiple=&quot;multiple&quot;&gt;&lt;/select&gt;
 </pre>
                                     </div>
+                                    
+                                    <p>
+                                        The method is also able to handle <code>optgroup</code>'s:
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <div class="btn-group">
+                                            <script type="text/javascript">
+                                                $(document).ready(function() {
+                                                    $('#example-dataprovider-optgroups').multiselect();
+
+                                                    var optgroups = [
+                                                        {
+                                                            label: 'Group 1', children: [
+                                                                {label: 'Option 1.1', value: '1-1'},
+                                                                {label: 'Option 1.2', value: '1-2'},
+                                                                {label: 'Option 1.3', value: '1-3'}
+                                                            ]
+                                                        },
+                                                        {
+                                                            label: 'Group 2', children: [
+                                                                {label: 'Option 2.1', value: '1'},
+                                                                {label: 'Option 2.2', value: '2'},
+                                                                {label: 'Option 2.3', value: '3'}
+                                                            ]
+                                                        }
+                                                    ];
+                                                    $('#example-dataprovider-optgroups').multiselect('dataprovider', optgroups);
+                                                });
+                                            </script>
+                                            <select id="example-dataprovider-optgroups" multiple="multiple"></select>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $('#example-dataprovider-optgroups').multiselect();
+
+    var optgroups = [
+        {
+            label: 'Group 1', children: [
+                {label: 'Option 1.1', value: '1-1'},
+                {label: 'Option 1.2', value: '1-2'},
+                {label: 'Option 1.3', value: '1-3'}
+            ]
+        },
+        {
+            label: 'Group 2', children: [
+                {label: 'Option 2.1', value: '1'},
+                {label: 'Option 2.2', value: '2'},
+                {label: 'Option 2.3', value: '3'}
+            ]
+        }
+    ];
+    $('#example-dataprovider-optgroups').multiselect('dataprovider', optgroups);
+&lt;/script&gt;
+&lt;select id=&quot;example-dataprovider-optgroups&quot; multiple=&quot;multiple&quot;&gt;&lt;/select&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -3099,6 +3222,18 @@
                     </div>
                     
                     <dl>
+                        <dt id="how-to-contribute">How to contribute?</dt>
+                        <dd>
+                            Pull requests to add additional feature or fix known bugs are always welcome! However, to make it easy for me to review and merge your pull request, the following guidelines should be considered:
+                            <ul>
+                                <li>Add one pull request per feature/fix. Otherwise, I cannot guarantee that I will merge the pull request.</li>
+                                <li>Always document your changes. If new features are added, new options or methods should be added to the documentation (<code>index.html</code>) and appropriate examples should be added.</li>
+                                <li>Add a throrough description to your pull request - yes, I am able to read your code, however, reading your description may speed up things!</li>
+                                <li>Add comments to your code.</li>
+                            </ul>
+                            A full list of contributors can be found <a href="https://github.com/davidstutz/bootstrap-multiselect/graphs/contributors">here</a>.
+                        </dd>
+                        
                         <dt>How about older browsers as for example Internet Explorer 6, 7 and 8?</dt>
                         <dd>
                             With version 2.0, jQuery no longer supports the older IE versions. Nevertheless, the plugin should run as expected using the 1.x branch of jQuery. See <a href="http://blog.jquery.com/2013/04/18/jquery-2-0-released/">here</a> for details.
@@ -3217,6 +3352,40 @@ $('.multiselect').multiselect({
                         <dt>How to avoid <code>TypeError: Cannot read property "toString" of ...</code>?</dt>
                         <dd>
                             This error may be thrown if <code>null</code> or <code>undefined</code> is provided as argument of <code>.multiselect('select', value)</code> or <code>.multiselect('deselect', value)</code>, see <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/386">#386</a>.
+                        </dd>
+                    </dl>
+                    
+                    <div class="page-header">
+                        <h2 id="license">License</h2>
+                    </div>
+                    
+                    <dl>
+                        <dt>Apache License, Version 2.0</dt>
+                        <dd>
+                            <p>Copyright 2012 - 2014 David Stutz</p>
+                            <p>
+                                Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">http://www.apache.org/licenses/LICENSE-2.0</a>.
+                            </p>
+                            <p>
+                                Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+                            </p>
+                        </dd>
+
+                        <dt>BSD 3-Clause License</dt>
+                        <dd>
+                            <p>Copyright (c) 2012 - 2014 David Stutz</p>
+                            <p>All rights reserved.</p>
+                            <p>
+                                Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+                            </p>
+                            <ul>
+                                <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+                                <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+                                <li>Neither the name of David Stutz nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+                            </ul>
+                            <p>
+                                THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                            </p>
                         </dd>
                     </dl>
                     

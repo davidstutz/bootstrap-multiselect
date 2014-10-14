@@ -881,6 +881,7 @@
             }
 
             this.updateButtonText();
+            this.updateSelectAll();
 
             if (triggerOnChange && selectValues.length === 1) {
                 this.options.onChange($option, true);
@@ -934,7 +935,8 @@
             }
 
             this.updateButtonText();
-
+            this.updateSelectAll();
+            
             if (triggerOnChange && deselectValues.length === 1) {
                 this.options.onChange($option, false);
             }
@@ -1042,30 +1044,6 @@
 
         /**
          * The provided data will be used to build the dropdown.
-         *
-         * @param {Array} dataprovider Array of OPTION or OPTIONGROUP models.
-         * A simple OPTION tag is represented as:
-         * ```js
-         * {
-         *  value: "option value"
-         *  label: "option label" // (optional) If undefined, uses the `value` property instead
-         *  caption: "option title" // (optional) If defined, this will become the `title` attribute of the OPTION tag
-         *                          // which in turn will be used as the `title` attribute of the LABEL tag
-         *  selected: false // (optional) If `true`, mark the OPTION tag as selected
-         * }
-         * ```
-         *
-         * An OPTIONGROUP tag is represented as:
-         * ```js
-         * {
-         *  label: "optiongroup label"
-         *  children: [
-         *      {
-         *        // same as option model
-         *      }
-         *  ]
-         * }
-         * ```
          */
         dataprovider: function(dataprovider) {
             var optionDOM = "";
@@ -1077,13 +1055,13 @@
                 if ($.isArray(option.children)) { // create optiongroup tag
                     groupCounter++;
                     tag = $('<optgroup/>').attr({
-                        label: option.title || 'Group ' + groupCounter
+                        label: option.label || 'Group ' + groupCounter
                     });
                     forEach(option.children, function(subOption) { // add children option tags
                         tag.append($('<option/>').attr({
                             value: subOption.value,
                             label: subOption.label || subOption.value,
-                            title: subOption.caption,
+                            title: subOption.title,
                             selected: !!subOption.selected
                         }));
                     });
@@ -1094,7 +1072,7 @@
                     tag = $('<option/>').attr({
                         value: option.value,
                         label: option.label || option.value,
-                        title: option.caption,
+                        title: option.title,
                         selected: !!option.selected
                     });
                 }
@@ -1181,10 +1159,10 @@
             var options = this.getSelected();
             
             // First update the displayed button text.
-            $('button.multiselect', this.$container).html(this.options.buttonText(options, this.$select));
+            $('.multiselect', this.$container).html(this.options.buttonText(options, this.$select));
             
             // Now update the title attribute of the button.
-            $('button.multiselect', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
+            $('.multiselect', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
         },
 
         /**
