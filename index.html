@@ -2123,6 +2123,56 @@
 &lt;/script&gt;
 </pre>
                                     </div>
+                                    
+                                    <p>
+                                        In addition, the method provides an additional parameter: <code>.multiselect('select', value, triggerOnChange)</code>. If the second parameter is set to true, the method will manually trigger the <code>onChange</code> option.
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <div class="btn-group">
+                                            <script type="text/javascript">
+                                                $(document).ready(function() {
+                                                    $('#example-select-onChange').multiselect({
+                                                        onChange: function(option, checked, select) {
+                                                            alert('onChange triggered ...');
+                                                        }
+                                                    });
+
+                                                    $('#example-select-onChange-button').on('click', function() {
+                                                        $('#example-select-onChange').multiselect('select', '1', true);
+                                                    });
+                                                });
+                                            </script>
+                                            <div class="btn-group">
+                                                <select id="example-select-onChange" multiple="multiple">
+                                                    <option value="1">Option 1</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                    <option value="4">Option 4</option>
+                                                    <option value="5">Option 5</option>
+                                                    <option value="6">Option 6</option>
+                                                </select>
+                                                <button id="example-select-onChange-button" class="btn btn-default">Select one option</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-select-onChange').multiselect({
+            onChange: function(option, checked, select) {
+                alert('onChange triggered ...');
+            }
+        });
+
+        $('#example-select-onChange-button').on('click', function() {
+            $('#example-select-onChange').multiselect('select', '1', true);
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -2170,6 +2220,56 @@
             $('#example-deselect').multiselect('deselect', ['1', '2', '4']);
 
             alert('Deselected 1, 2 and 4.');
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                    
+                                    <p>
+                                        The method also provides an additional parameter: <code>.multiselect('deselect', value, triggerOnChange)</code>. If the second parameter is set to true, the method will manually trigger the <code>onChange</code> option.
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <div class="btn-group">
+                                            <script type="text/javascript">
+                                                $(document).ready(function() {
+                                                    $('#example-deselect-onChange').multiselect({
+                                                        onChange: function(option, checked, select) {
+                                                            alert('onChange triggered ...');
+                                                        }
+                                                    });
+
+                                                    $('#example-deselect-onChange-button').on('click', function() {
+                                                        $('#example-deselect-onChange').multiselect('deselect', '1', true);
+                                                    });
+                                                });
+                                            </script>
+                                            <div class="btn-group">
+                                                <select id="example-deselect-onChange" multiple="multiple">
+                                                    <option value="1">Option 1</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                    <option value="4">Option 4</option>
+                                                    <option value="5">Option 5</option>
+                                                    <option value="6">Option 6</option>
+                                                </select>
+                                                <button id="example-deselect-onChange-button" class="btn btn-default">Deselect one option</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-deselect-onChange').multiselect({
+            onChange: function(option, checked, select) {
+                alert('onChange triggered ...');
+            }
+        });
+
+        $('#example-deselect-onChange-button').on('click', function() {
+            $('#example-deselect-onChange').multiselect('deselect', '1', true);
         });
     });
 &lt;/script&gt;
@@ -3531,6 +3631,11 @@ $('.multiselect').multiselect({
                         <dt>How to avoid <code>TypeError: Cannot read property "toString" of ...</code>?</dt>
                         <dd>
                             This error may be thrown if <code>null</code> or <code>undefined</code> is provided as argument of <code>.multiselect('select', value)</code> or <code>.multiselect('deselect', value)</code>, see <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/386">#386</a>.
+                        </dd>
+                        
+                        <dt>Why is there no "uncheck all" option?</dt>
+                        <dd>
+                            This issue is discussed in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/271">#271.</a>
                         </dd>
                     </dl>
                     
