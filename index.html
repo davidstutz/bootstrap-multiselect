@@ -3342,6 +3342,213 @@
 </pre>
                     </div>
                     
+                    <p>
+                        The examples below are aimed to demonstrate the performance of several features when using a large number of options:
+                    </p>
+                    <ul>
+                        <li>Using the select all option, <code>includeSelectAllOption</code> set to <code>true</code>.</li>
+                        <li>Additionally using a filter, <code>enableFiltering</code> set to <code>true</code>.</li>
+                        <li>Additionally using <code>enableClickableOptGroups</code>.</li>
+                        <li>Resetting the multiselect.</li>
+                    </ul>
+                    
+                    <p class="alert alert-warning">
+                        The below examples need to be activated. <b>Note that this may take some time!</b><br>
+                    </p>
+                    
+                    <p class="alert alert-info">
+                        Use <input type="text" id="example-large-options" value="1000" style="width: 50px;margin: 0px 4px;"/> options: <button id="example-large-enable" class="btn btn-primary">Enable Examples</button>
+                    </p>
+                    
+                    <div id="example-large-error">
+                        
+                    </div>
+                    
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-large-enable').on('click', function() {
+                                    var options = $('#example-large-options').val();
+                                    
+                                    if (options < 1 || options > 5000) {
+                                        $('#example-large-error').html('<p class="alert alert-error">Choose between 1 and 5000 options!</p>');
+                                    }
+                                    else {
+                                        $('#example-large-includeSelectAllOption').html('');
+                                        $('#example-large-includeSelectAllOption-enableFiltering').html('');
+                                        $('#example-large-includeSelectAllOption-enableFiltering-enableClickableOptGroups').html('');
+                                        $('#example-large-reset').html('');
+                                        
+                                        for (var j = 0; j < options; j++) {
+                                            i = j + 1;
+                                            $('#example-large-includeSelectAllOption').append('<option value="' + i.toString() + '">Option ' + i.toString() + '</option>');
+                                            $('#example-large-includeSelectAllOption-enableFiltering').append('<option value="' + i.toString() + '">Option ' + i.toString() + '</option>');
+                                            
+                                            var group = Math.floor(j/10) + 1;
+                                            var number = j % 10 + 1;
+                                            if (number === 1) {
+                                                $('#example-large-includeSelectAllOption-enableFiltering-enableClickableOptGroups').append('<optgroup label="Group ' + group.toString() + '"></optgroup>');
+                                            }
+                                            $('#example-large-includeSelectAllOption-enableFiltering-enableClickableOptGroups').append('<option value="' + group.toString() + '-' + number.toString() + '">Option ' + group.toString() + '.' + number.toString() + '</option>');
+                                            
+                                            $('#example-large-reset').append('<option value="' + i.toString() + '">Option ' + i.toString() + '</option>');
+                                        }
+
+                                        $('#example-large-includeSelectAllOption').multiselect({
+                                            maxHeight: 200,
+                                            includeSelectAllOption: true
+                                        });
+
+                                        $('#example-large-includeSelectAllOption-enableFiltering').multiselect({
+                                            maxHeight: 200,
+                                            includeSelectAllOption: true,
+                                            enableFiltering: true
+                                        });
+
+                                        $('#example-large-includeSelectAllOption-enableFiltering-enableClickableOptGroups').multiselect({
+                                            maxHeight: 200,
+                                            includeSelectAllOption: true,
+                                            enableFiltering: true,
+                                            enableClickableOptGroups: true
+                                        });
+
+                                        $('#example-large-reset').multiselect({
+                                            maxHeight: 200,
+                                            includeSelectAllOption: true
+                                        });
+
+                                        $('#example-large-reset-form').on('reset', function() {
+                                            $('#example-large-reset').multiselect('deselectAll', false);
+                                            $('#example-large-reset').multiselect('updateButtonText');
+                                        });
+                                    }
+                                });
+                            });
+                        </script>
+                        <div class="btn-toolbar" style="margin-bottom:12px;">
+                            <div class="btn-group">
+                                <select id="example-large-includeSelectAllOption" multiple="multiple">
+                                    <option value="1">Option 1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="btn-toolbar" style="margin-bottom:12px;">
+                            <div class="btn-group">
+                                <select id="example-large-includeSelectAllOption-enableFiltering" multiple="multiple">
+                                    <option value="1">Option 1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="btn-toolbar" style="margin-bottom:12px;">
+                            <div class="btn-group">
+                                <select id="example-large-includeSelectAllOption-enableFiltering-enableClickableOptGroups" multiple="multiple">
+                                    <option value="1">Option 1</option>
+                                </select>
+                            </div>
+                        </div>
+                        <form id="example-large-reset-form" style="margin-bottom:12px;">
+                            <div class="btn-group">
+                                <select id="example-large-reset" multiple="multiple">
+                                    <option value="1">Option 1</option>
+                                </select>
+                                <button type="reset" class="btn btn-default">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-large-enable').on('click', function() {
+            var options = $('#example-large-options').val();
+
+            if (options &lt; 1 || options &gt; 5000) {
+                $('#example-large-error').html('&lt;p class=&quot;alert alert-error&quot;&gt;Choose between 1 and 5000 options!&lt;/p&gt;');
+            }
+            else {
+                $('#example-large-includeSelectAllOption').html('');
+                $('#example-large-includeSelectAllOption-enableFiltering').html('');
+                $('#example-large-includeSelectAllOption-enableFiltering-enableClickableOptGroups').html('');
+                $('#example-large-reset').html('');
+
+                for (var j = 0; j &lt; options; j++) {
+                    i = j + 1;
+                    $('#example-large-includeSelectAllOption').append('&lt;option value=&quot;' + i.toString() + '&quot;&gt;Option ' + i.toString() + '&lt;/option&gt;');
+                    $('#example-large-includeSelectAllOption-enableFiltering').append('&lt;option value=&quot;' + i.toString() + '&quot;&gt;Option ' + i.toString() + '&lt;/option&gt;');
+
+                    var group = Math.floor(j/10) + 1;
+                    var number = j % 10 + 1;
+                    if (number === 1) {
+                        $('#example-large-includeSelectAllOption-enableFiltering-enableClickableOptGroups').append('&lt;optgroup label=&quot;Group ' + group.toString() + '&quot;&gt;&lt;/optgroup&gt;');
+                    }
+                    $('#example-large-includeSelectAllOption-enableFiltering-enableClickableOptGroups').append('&lt;option value=&quot;' + group.toString() + '-' + number.toString() + '&quot;&gt;Option ' + group.toString() + '.' + number.toString() + '&lt;/option&gt;');
+
+                    $('#example-large-reset').append('&lt;option value=&quot;' + i.toString() + '&quot;&gt;Option ' + i.toString() + '&lt;/option&gt;');
+                }
+
+                $('#example-large-includeSelectAllOption').multiselect({
+                    maxHeight: 200,
+                    includeSelectAllOption: true
+                });
+
+                $('#example-large-includeSelectAllOption-enableFiltering').multiselect({
+                    maxHeight: 200,
+                    includeSelectAllOption: true,
+                    enableFiltering: true
+                });
+
+                $('#example-large-includeSelectAllOption-enableFiltering-enableClickableOptGroups').multiselect({
+                    maxHeight: 200,
+                    includeSelectAllOption: true,
+                    enableFiltering: true,
+                    enableClickableOptGroups: true
+                });
+
+                $('#example-large-reset').multiselect({
+                    maxHeight: 200,
+                    includeSelectAllOption: true
+                });
+
+                $('#example-large-reset-form').on('reset', function() {
+                    $('#example-large-reset').multiselect('deselectAll', false);
+                    $('#example-large-reset').multiselect('updateButtonText');
+                });
+            }
+        });
+    });
+&lt;/script&gt;
+&lt;div class=&quot;btn-toolbar&quot; style=&quot;margin-bottom:12px;&quot;&gt;
+    &lt;div class=&quot;btn-group&quot;&gt;
+        &lt;select id=&quot;example-large-includeSelectAllOption&quot; multiple=&quot;multiple&quot;&gt;
+            &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;btn-toolbar&quot; style=&quot;margin-bottom:12px;&quot;&gt;
+    &lt;div class=&quot;btn-group&quot;&gt;
+        &lt;select id=&quot;example-large-includeSelectAllOption-enableFiltering&quot; multiple=&quot;multiple&quot;&gt;
+            &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;btn-toolbar&quot; style=&quot;margin-bottom:12px;&quot;&gt;
+    &lt;div class=&quot;btn-group&quot;&gt;
+        &lt;select id=&quot;example-large-includeSelectAllOption-enableFiltering-enableClickableOptGroups&quot; multiple=&quot;multiple&quot;&gt;
+            &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;form id=&quot;example-large-reset-form&quot; style=&quot;margin-bottom:12px;&quot;&gt;
+    &lt;div class=&quot;btn-group&quot;&gt;
+        &lt;select id=&quot;example-large-reset&quot; multiple=&quot;multiple&quot;&gt;
+            &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;button type=&quot;reset&quot; class=&quot;btn btn-default&quot;&gt;Reset&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+                    </div>
+                    
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
                     </div>
