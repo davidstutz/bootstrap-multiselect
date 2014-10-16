@@ -573,4 +573,37 @@ describe('Bootstrap Multiselect Specific Issues', function() {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
+
+    it('#405', function() {
+        var selection = document.getSelection();
+        var range = document.createRange();
+        var $selection = $('<span>Some text to select</span>');
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+
+        for (var i = 1; i < 5; i++) {
+            $select.append('<option value="' + i + '">select option</option>');
+        }
+
+        $('body').append($selection).append($select);
+
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+        });
+
+        range.selectNodeContents($selection.get(0));
+
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        expect(document.getSelection().type).toBe('Range');
+        expect($('#multiselect-container').find('input:first').prop('checked')).toBe(false);
+
+        $('#multiselect-container').find('a:first').trigger('click');
+
+        expect($('#multiselect-container').find('input:first').prop('checked')).toBe(true);
+
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+        $selection.remove();
+    });
 });
