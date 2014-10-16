@@ -657,6 +657,10 @@
          * Checks if a select all has already been created.
          */
         buildSelectAll: function() {
+            if (typeof this.options.selectAllValue === 'number') {
+                this.options.selectAllValue = this.options.selectAllValue.toString();
+            }
+            
             var alreadyHasSelectAll = this.hasSelectAll();
             
             if (!alreadyHasSelectAll && this.options.includeSelectAllOption && this.options.multiple
