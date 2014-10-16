@@ -456,6 +456,13 @@
 
                 var $target = $(event.target);
 
+                if (document.getSelection().type === 'Range') {
+                  var $input = $(this).find("input:first");
+
+                  $input.prop("checked", !$input.prop("checked"))
+                      .trigger("change");
+                }
+
                 if (event.shiftKey) {
                     var checked = $target.prop('checked') || false;
 
