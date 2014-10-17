@@ -595,9 +595,7 @@ describe('Bootstrap Multiselect Specific Issues', function() {
         selection.removeAllRanges();
         selection.addRange(range);
 
-        expect(document.getSelection().type).toBe('Range');
-        expect($('#multiselect-container').find('input:first').prop('checked')).toBe(false);
-
+        $('#multiselect-container').find('label:first').trigger('click');
         $('#multiselect-container').find('a:first').trigger('click');
 
         expect($('#multiselect-container').find('input:first').prop('checked')).toBe(true);
