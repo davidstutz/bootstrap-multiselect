@@ -159,7 +159,7 @@
                         selected += label + ', ';
                     });
                     
-                    return selected.substr(0, selected.length - 2) + this.caretHTML; // ' <b class="caret"></b>';
+                    return selected.substr(0, selected.length - 2) + postfix;
                 }
             },
             /**
