@@ -138,10 +138,10 @@
              * @returns {String}
              */
             buttonText: function(options, select) {
-		var postfix = '';
-		if (this.showCaret === true) {
-		    postfix = ' ' + this.caretHTML;
-		}
+                var postfix = '';
+                if (this.showCaret === true) {
+                    postfix = ' ' + this.caretHTML;
+                }
                 if (options.length === 0) {
                     return this.nonSelectedText + postfix;
                 }
@@ -255,9 +255,9 @@
             filterBehavior: 'text',
             includeFilterClearBtn: true,
             preventInputChangeEvent: false,
-	    showCaret: true,
+	          showCaret: true,
             caretHTML: '<b class="caret"></b>',
-	    nonSelectedText: 'None selected',
+	          nonSelectedText: 'None selected',
             nSelectedText: 'selected',
             allSelectedText: 'All selected',
             numberDisplayed: 3,
