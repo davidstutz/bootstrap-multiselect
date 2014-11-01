@@ -775,18 +775,25 @@
                                             showElement = true;
                                         }
 
-                                        // Toggle current element (group or group item) according to showElement boolean
+                                        // Toggle current element (group or group item) according to showElement boolean.
                                         $(element).toggle(showElement).toggleClass('filter-hidden', !showElement);
-                                        // Differentiate groups and group items
-                                        if ($(this).hasClass('multiselect-group')) {
-                                            // Remember group status
+                                        
+                                        // Differentiate groups and group items.
+                                        if ($(element).hasClass('multiselect-group')) {
+                                            // Remember group status.
                                             currentGroup = element;
                                             currentGroupVisible = showElement;
-                                        } else {
-                                            // show group name when at least one of its items is visible
-                                            if (showElement) $(currentGroup).show().removeClass('filter-hidden');
-                                            // show all group items when group name satisfies filter
-                                            if (!showElement && currentGroupVisible) $(element).show().removeClass('filter-hidden');
+                                        }
+                                        else {
+                                            // Show group name when at least one of its items is visible.
+                                            if (showElement) {
+                                                $(currentGroup).show().removeClass('filter-hidden');
+                                            }
+                                            
+                                            // Show all group items when group name satisfies filter.
+                                            if (!showElement && currentGroupVisible) {
+                                                $(element).show().removeClass('filter-hidden');
+                                            }
                                         }
                                     }
                                 }, this));
