@@ -1124,6 +1124,41 @@
 &lt;/script&gt;
 </pre>
                                     </div>
+                                    
+                                    <p>
+                                        This option may be useful in combination with the <code>includeSelectAllOption</code>:
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-allSelectedText-includeSelectAllOption').multiselect({
+                                                    includeSelectAllOption: true,
+                                                    allSelectedText: 'No option left ...'
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-allSelectedText-includeSelectAllOption" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-allSelectedText-includeSelectAllOption').multiselect({
+            includeSelectAllOption: true,
+            allSelectedText: 'No option left ...'
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
