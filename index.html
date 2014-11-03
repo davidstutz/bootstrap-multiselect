@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="docs/css/bootstrap-3.2.0.min.css" type="text/css">
         <link rel="stylesheet" href="docs/css/bootstrap-example.css" type="text/css">
         <link rel="stylesheet" href="docs/css/prettify.css" type="text/css">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
         <script type="text/javascript" src="docs/js/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="docs/js/bootstrap-3.2.0.min.js"></script>
@@ -1008,6 +1009,80 @@
                 });
                 return labels.join(' - ');
             }
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>caretHTML</code></td>
+                                <td>
+                                    <p>
+                                        HTML to display after the selected text, defaults to <code>&lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;</code>. This option is used by the default <code>buttonText</code> function.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-caretHTML').multiselect({
+                                                    caretHTML: '<b class="fa fa-chevron-down"></b>'
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-caretHTML" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-caretHTML').multiselect({
+            caretHTML: '&lt;b class=&quot;fa fa-chevron-down&quot;&gt;&lt;b/&gt;'
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>showCaret</code></td>
+                                <td>
+                                    <p>
+                                        Show or hide the caret in the dropdown button text, defaults to <code>true</code>. This option is used by the default <code>buttonText</code> function.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-showCaret').multiselect({
+                                                    showCaret: false
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-showCaret" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-showCaret').multiselect({
+            showCaret: false
         });
     });
 &lt;/script&gt;
