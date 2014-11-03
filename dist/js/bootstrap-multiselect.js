@@ -138,14 +138,18 @@
              * @returns {String}
              */
             buttonText: function(options, select) {
+                var postfix = '';
+                if (this.showCaret === true) {
+                    postfix = ' ' + this.caretHTML;
+                }
                 if (options.length === 0) {
-                    return this.nonSelectedText + ' <b class="caret"></b>';
+                    return this.nonSelectedText + postfix;
                 }
                 else if (options.length == $('option', $(select)).length) {
-                    return this.allSelectedText + ' <b class="caret"></b>';
+                    return this.allSelectedText + postfix;
                 }
                 else if (options.length > this.numberDisplayed) {
-                    return options.length + ' ' + this.nSelectedText + ' <b class="caret"></b>';
+                    return options.length + ' ' + this.nSelectedText + postfix;
                 }
                 else {
                     var selected = '';
@@ -155,7 +159,7 @@
                         selected += label + ', ';
                     });
                     
-                    return selected.substr(0, selected.length - 2) + ' <b class="caret"></b>';
+                    return selected.substr(0, selected.length - 2) + postfix;
                 }
             },
             /**
@@ -251,6 +255,8 @@
             filterBehavior: 'text',
             includeFilterClearBtn: true,
             preventInputChangeEvent: false,
+            showCaret: true,
+            caretHTML: '<b class="caret"></b>',
             nonSelectedText: 'None selected',
             nSelectedText: 'selected',
             allSelectedText: 'All selected',
