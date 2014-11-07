@@ -749,7 +749,7 @@
 
                                 var currentGroup, currentGroupVisible;
                                 $.each($('li', this.$ul), $.proxy(function(index, element) {
-                                    var value = $('input', element).val();
+                                    var value = $('input', element).length > 0 ? $('input', element).val() : "";
                                     var text = $('label', element).text();
 
                                     var filterCandidate = '';
