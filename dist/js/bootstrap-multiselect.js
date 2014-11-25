@@ -261,7 +261,7 @@
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
                 filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
                 filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
-                li: '<li><a href="javascript:void(0);"><label></label></a></li>',
+                li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
                 liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
             }
@@ -451,19 +451,24 @@
                 }
             }, this));
 
+            $('li a', this.$ul).on('mousedown', function(e) {
+                if (e.shiftKey) {
+                    // Prevent selecting text by Shift+click
+                    return false;
+                }
+            });
+
             $('li a', this.$ul).on('touchstart click', function(event) {
                 event.stopPropagation();
 
                 var $target = $(event.target);
-
-                if (document.getSelection().type === 'Range') {
-                  var $input = $(this).find("input:first");
-
-                  $input.prop("checked", !$input.prop("checked"))
-                      .trigger("change");
-                }
-
+                
                 if (event.shiftKey) {
+                    if($target.is("label")){ // Handles checkbox selection manually (see https://github.com/davidstutz/bootstrap-multiselect/issues/431)
+                        event.preventDefault();
+                        $target = $(this).find("input");
+                        $target.prop("checked", !$target.prop("checked")).trigger("change");
+                    }
                     var checked = $target.prop('checked') || false;
 
                     if (checked) {
