@@ -183,7 +183,7 @@
              * @param {jQuery} element
              * @returns {String}
              */
-            label: function(element){
+            getLabel: function(element){
                 return $(element).attr('label') || $(element).html();
             },
             /**
@@ -574,7 +574,7 @@
             }
 
             // Support the label attribute on options.
-            var label = this.options.label(element);
+            var label = this.options.getLabel(element);
             var value = $element.val();
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
