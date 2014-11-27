@@ -596,7 +596,7 @@ describe('Bootstrap Multiselect Specific Issues', function() {
         selection.addRange(range);
 
         if (document.getSelection().type === 'Range') {
-            $('#multiselect-container').find('a:first').trigger('click');
+            $('#multiselect-container').find('a:first label').trigger('click');
             expect($('#multiselect-container').find('input:first').prop('checked')).toBe(true);
         }
 
