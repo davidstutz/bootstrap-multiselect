@@ -2855,6 +2855,48 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <code>.multiselect('setAllSelectedText', value)</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        This method is used to programmatically provide a new text to display in the button when all options are selected, at runtime.
+                                    </p>
+
+                                    <div class="example">
+                                        <div class="btn-group">
+                                            <script type="text/javascript">
+                                                $(document).ready(function() {
+                                                    $('#example-set-all-selected-text').multiselect({allSelectedText: "Initial All Selected"});
+                                                    
+                                                    $('#new-all-selected-text-btn').click(function(){
+                                                        $('#example-set-all-selected-text').multiselect('setAllSelectedText', $('#new-all-selected-text-box').val());                                                        
+                                                    });
+                                                });
+                                            </script>
+                                            
+                                            <select id="example-set-all-selected-text" multiple="multiple">
+                                                <option value="1" selected>Option 1</option>
+                                            </select>
+                                            
+                                            <input id="new-all-selected-text-box" type="text" class="form-control" placeholder="Enter new text"/>
+                                            <input id="new-all-selected-text-btn" type="button" class="btn btn-default" value="Change All Selected Text"/>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $('#example-set-all-selected-text').multiselect({allSelectedText: "Initial All Selected"});
+                                                    
+    $('#new-all-selected-text-btn').click(function(){
+        $('#example-set-all-selected-text').multiselect('setAllSelectedText', $('#new-all-selected-text-box').val());                                                        
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
