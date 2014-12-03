@@ -13,7 +13,7 @@
         ko.bindingHandlers.multiselect = {
             after: ['options', 'value', 'selectedOptions'],
 
-            init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
                 var $element = $(element);
                 var config = ko.toJS(valueAccessor());
 
@@ -21,14 +21,17 @@
 
                 var options = allBindings.get('options');
                 if (ko.isObservable(options)) {
-                    ko.computed(function () {
-                        options();
-                        setTimeout(function () {
-                            var ms = $element.data('multiselect');
-                            if (ms)
-                                ms.updateOriginalOptions();//Not sure how beneficial this is.
-                            $element.multiselect('rebuild');
-                        }, 1);
+                    ko.computed({
+                        read: function() {
+                            options();
+                            setTimeout(function() {
+                                var ms = $element.data('multiselect');
+                                if (ms)
+                                    ms.updateOriginalOptions();//Not sure how beneficial this is.
+                                $element.multiselect('rebuild');
+                            }, 1);
+                        },
+                        disposeWhenNodeIsRemoved: element
                     });
                 }
 
@@ -37,32 +40,38 @@
                 //It doesn't loop but it's a waste of processing.
                 var value = allBindings.get('value');
                 if (ko.isObservable(value)) {
-                    ko.computed(function () {
-                        value();
-                        setTimeout(function () { 
-                            $element.multiselect('refresh');
-                        }, 1);
-                    }).extend( { rateLimit: 100, notifyWhenChangesStop: true });
+                    ko.computed({
+                        read: function() {
+                            value();
+                            setTimeout(function() {
+                                $element.multiselect('refresh');
+                            }, 1);
+                        },
+                        disposeWhenNodeIsRemoved: element
+                    }).extend({ rateLimit: 100, notifyWhenChangesStop: true });
                 }
 
                 //Switched from arrayChange subscription to general subscription using 'refresh'.
                 //Not sure performance is any better using 'select' and 'deselect'.
                 var selectedOptions = allBindings.get('selectedOptions');
                 if (ko.isObservable(selectedOptions)) {
-                    ko.computed(function () {
-                        selectedOptions();
-                        setTimeout(function () {
-                            $element.multiselect('refresh');
-                        }, 1);
+                    ko.computed({
+                        read: function() {
+                            selectedOptions();
+                            setTimeout(function() {
+                                $element.multiselect('refresh');
+                            }, 1);
+                        },
+                        disposeWhenNodeIsRemoved: element
                     }).extend({ rateLimit: 100, notifyWhenChangesStop: true });
                 }
 
-                ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
                     $element.multiselect('destroy');
                 });
             },
 
-            update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
                 var $element = $(element);
                 var config = ko.toJS(valueAccessor());
 
