@@ -139,13 +139,13 @@
              */
             buttonText: function(options, select) {
                 if (options.length === 0) {
-                    return this.nonSelectedText + ' <b class="caret"></b>';
+                    return this.nonSelectedText + ' ' + this.templates.caret;
                 }
                 else if (options.length == $('option', $(select)).length) {
-                    return this.allSelectedText + ' <b class="caret"></b>';
+                    return this.allSelectedText + ' ' + this.templates.caret;
                 }
                 else if (options.length > this.numberDisplayed) {
-                    return options.length + ' ' + this.nSelectedText + ' <b class="caret"></b>';
+                    return options.length + ' ' + this.nSelectedText + ' ' + this.templates.caret;
                 }
                 else {
                     var selected = '';
@@ -155,7 +155,7 @@
                         selected += label + ', ';
                     });
                     
-                    return selected.substr(0, selected.length - 2) + ' <b class="caret"></b>';
+                    return selected.substr(0, selected.length - 2) + ' ' + this.templates.caret;
                 }
             },
             /**
@@ -263,7 +263,8 @@
                 filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
                 li: '<li><a href="javascript:void(0);"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
-                liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
+                liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>',
+                caret: '<b class="caret"></b>'
             }
         },
 
