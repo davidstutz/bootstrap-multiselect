@@ -1067,7 +1067,7 @@
         dataprovider: function(dataprovider) {
             var optionDOM = "";
             var groupCounter = 0;
-            var tags = $(''); // create empty jQuery array
+            var tags = []; // create empty array
 
             $.each(dataprovider, function (index, option) {
                 var tag;
@@ -1094,9 +1094,10 @@
                         title: option.title,
                         selected: !!option.selected
                     });
+                    
+                    tags.push(tag);
                 }
 
-                tags = tags.add(tag);
             });
             
             this.$select.empty().append(tags);
