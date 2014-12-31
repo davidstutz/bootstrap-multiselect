@@ -1,18 +1,4 @@
-# Bootstrap Multiselect
-
-Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown w dropdown menu containing the single options as checkboxes.
-
-Documentation, Examples, FAQ and License: [http://davidstutz.github.io/bootstrap-multiselect/](http://davidstutz.github.io/bootstrap-multiselect/).
-
-Bootstrap Multiselect is featured in an article on [tutorialzine](http://tutorialzine.com/): [50 must-Have Plugins for Extending Twitter Bootstrap](http://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap/); on [Bootsnipp](http://bootsnipp.com/)'s [list of Twitter Bootstrap recourses](http://bootsnipp.com/resources); and available on [NuGet](https://www.nuget.org/): [Bootstrap.Multiselect](https://www.nuget.org/packages/Bootstrap.Multiselect/0.9.9).
-
-Also check out [Bootstrap Strength Meter](https://github.com/davidstutz/bootstrap-strength-meter) - a Twitter Bootstrap plugin to visualize password strength using [Password Score](https://github.com/davidstutz/password-score).
-
-![Example of a multiselect.](example.png?raw=true "Example of a multiselect.")
-
-## License
-
-**Apache License, Version 2.0**
+Apache License, Version 2.0
 
 Copyright (c) 2012 - 2014 David Stutz
 
@@ -20,7 +6,7 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
-**BSD 3-Clause License**
+BSD 3-Clause License
 
 Copyright (c) 2012 - 2014 David Stutz
 All rights reserved.
