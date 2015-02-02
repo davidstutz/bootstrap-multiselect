@@ -28,6 +28,9 @@
                     listOfSelectedItems.subscribe(function (changes) {
                         var addedArray = [], deletedArray = [];
                         forEach(changes, function (change) {
+                            if(typeof (change.moved) !== 'undefined') {
+                                return;
+                            }
                             switch (change.status) {
                                 case 'added':
                                     addedArray.push(change.value);
