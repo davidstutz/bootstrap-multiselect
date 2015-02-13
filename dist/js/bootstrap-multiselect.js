@@ -250,6 +250,7 @@
             // If maximum height is exceeded a scrollbar will be displayed.
             maxHeight: false,
             checkboxName: false,
+            inheritClasses: false,
             includeSelectAllOption: false,
             includeSelectAllIfMoreThan: 0,
             selectAllText: ' Select all',
@@ -297,7 +298,9 @@
          */
         buildButton: function() {
             this.$button = $(this.options.templates.button).addClass(this.options.buttonClass);
-
+            if (this.$select.attr('class') && this.options.inheritClasses) {
+                this.$button.addClass(this.$select.attr('class'));
+            }
             // Adopt active state.
             if (this.$select.prop('disabled')) {
                 this.disable();
