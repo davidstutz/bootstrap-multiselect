@@ -89,7 +89,7 @@
 
     function forEach(array, callback) {
         for (var index = 0; index < array.length; ++index) {
-            callback(array[index]);
+            callback(array[index], index);
         }
     }
 
@@ -239,6 +239,12 @@
              * @param {jQuery} event
              */
             onDropdownHidden: function(event) {
+                
+            },
+            /**
+             * Triggered on select all.
+             */
+            onSelectAll: function() {
                 
             },
             buttonClass: 'btn btn-default',
@@ -1004,8 +1010,9 @@
          * If justVisible is true or not specified, only visible options are selected.
          *
          * @param {Boolean} justVisible
+         * @param {Boolean} triggerOnSelectAll
          */
-        selectAll: function (justVisible) {
+        selectAll: function (justVisible, triggerOnSelectAll) {
             var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
             var allCheckboxes = $("li input[type='checkbox']:enabled", this.$ul);
             var visibleCheckboxes = allCheckboxes.filter(":visible");
@@ -1032,6 +1039,10 @@
                 $("option:enabled", this.$select).filter(function(index) {
                     return $.inArray($(this).val(), values) !== -1;
                 }).prop('selected', true);
+            }
+            
+            if (triggerOnSelectAll) {
+                this.options.onSelectAll();
             }
         },
 
@@ -1102,42 +1113,41 @@
          * The provided data will be used to build the dropdown.
          */
         dataprovider: function(dataprovider) {
-            var optionDOM = "";
+            
             var groupCounter = 0;
-            var tags = []; // create empty array
-
+            var $select = this.$select.empty();
+            
             $.each(dataprovider, function (index, option) {
-                var tag;
+                var $tag;
+                
                 if ($.isArray(option.children)) { // create optiongroup tag
                     groupCounter++;
-                    tag = $('<optgroup/>').attr({
+                    
+                    $tag = $('<optgroup/>').attr({
                         label: option.label || 'Group ' + groupCounter
                     });
+                    
                     forEach(option.children, function(subOption) { // add children option tags
-                        tag.append($('<option/>').attr({
+                        $tag.append($('<option/>').attr({
                             value: subOption.value,
                             label: subOption.label || subOption.value,
                             title: subOption.title,
                             selected: !!subOption.selected
                         }));
                     });
-
-                    optionDOM += '</optgroup>';
                 }
-                else { // create option tag
-                    tag = $('<option/>').attr({
+                else {
+                    $tag = $('<option/>').attr({
                         value: option.value,
                         label: option.label || option.value,
                         title: option.title,
                         selected: !!option.selected
                     });
-                    
-                    tags.push(tag);
                 }
-
+                
+                $select.append($tag);
             });
             
-            this.$select.empty().append(tags);
             this.rebuild();
         },
 
@@ -1201,6 +1211,7 @@
                 if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
                     selectAllInput.prop("checked", true);
                     selectAllLi.addClass(this.options.selectedClass);
+                    this.options.onSelectAll();
                 }
                 else {
                     selectAllInput.prop("checked", false);

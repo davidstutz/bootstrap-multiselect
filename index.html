@@ -1601,6 +1601,49 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <code>onSelectAll</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        This function is triggered when the select all option is used to select all options. Note that this can also be triggered manually using the <code>.multiselect('selectAll')</code> method.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-onSelectAll').multiselect({
+                                                    includeSelectAllOption: true,
+                                                    onSelectAll: function() {
+                                                        alert('onSelectAll triggered.');
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-onSelectAll" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $('#example-onSelectAll').multiselect({
+        includeSelectAllOption: true,
+        onSelectAll: function() {
+            alert('onSelectAll triggered.');
+        }
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <code>enableFiltering</code>
                                 </td>
                                 <td>
