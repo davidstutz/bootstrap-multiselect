@@ -891,14 +891,7 @@
                                                     buttonWidth: '400px'
                                                 });
                                             });
-                                            
-                                            $(document).ready(function() {
-                                                $('#example-buttonWidth-overflow').multiselect({
-                                                    buttonWidth: '150px'
-                                                });
-                                            });
                                         </script>
-                                        <p>The exemples below both demonstrate the fixed width option effects on the button. Note that if the text in the button title is too long, it will be truncated and use an ellipsis.</p>
                                         <select id="example-buttonWidth" multiple="multiple">
                                             <option value="1">Option 1</option>
                                             <option value="2">Option 2</option>
@@ -907,6 +900,29 @@
                                             <option value="5">Option 5</option>
                                             <option value="6">Option 6</option>
                                         </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-buttonWidth').multiselect({
+            buttonWidth: '400px'
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                    
+                                    <p>Note that if the text in the button title is too long, it will be truncated and use an ellipsis</p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-buttonWidth-overflow').multiselect({
+                                                    buttonWidth: '150px'
+                                                });
+                                            });
+                                        </script>
                                         <select id="example-buttonWidth-overflow" multiple="multiple">
                                             <option value="1" selected>Option 1</option>
                                             <option value="2" selected>Option 2</option>
@@ -920,16 +936,12 @@
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-buttonWidth').multiselect({
-            buttonWidth: '400px'
-        });
         $('#example-buttonWidth-overflow').multiselect({
             buttonWidth: '150px'
         });
     });
 &lt;/script&gt;
 </pre>
-                                    </div>
                                 </td>
                             </tr>
                             <tr>
