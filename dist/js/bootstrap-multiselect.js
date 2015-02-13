@@ -1170,7 +1170,7 @@
          * @returns {Array}
          */
         mergeOptions: function(options) {
-            return $.extend(true, {}, this.defaults, options);
+            return $.extend(true, {}, this.defaults, this.options, options);
         },
         
         /**
