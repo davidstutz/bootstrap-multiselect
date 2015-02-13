@@ -949,10 +949,10 @@
                                                 $('#example-buttonText').multiselect({
                                                     buttonText: function(options, select) {
                                                         if (options.length === 0) {
-                                                            return 'No option selected ... <b class="caret"></b>';
+                                                            return 'No option selected ...';
                                                         }
                                                         else if (options.length > 3) {
-                                                            return 'More than 3 options selected! <b class="caret"></b>';
+                                                            return 'More than 3 options selected!';
                                                         }
                                                          else {
                                                              var labels = [];
@@ -964,7 +964,7 @@
                                                                      labels.push($(this).html());
                                                                  }
                                                              });
-                                                             return labels.join(', ') + ' <b class="caret"></b>';
+                                                             return labels.join(', ');
                                                          }
                                                     }
                                                 });
@@ -986,10 +986,10 @@
         $('#example-buttonText').multiselect({
             buttonText: function(options, select) {
                 if (options.length === 0) {
-                    return 'No option selected ... <b class="caret"></b>';
+                    return 'No option selected ...';
                 }
                 else if (options.length > 3) {
-                    return 'More than 3 options selected! <b class="caret"></b>';
+                    return 'More than 3 options selected!';
                 }
                  else {
                      var labels = [];
@@ -1001,7 +1001,7 @@
                              labels.push($(this).html());
                          }
                      });
-                     return labels.join(', ') + ' <b class="caret"></b>';
+                     return labels.join(', ') + '';
                  }
             }
         });
@@ -3159,10 +3159,10 @@
                                     },
                                     buttonText: function(options) {
                                         if (options.length === 0) {
-                                            return 'None selected <b class="caret"></b>';
+                                            return 'None selected';
                                         }
                                         else if (options.length > 3) {
-                                            return options.length + ' selected  <b class="caret"></b>';
+                                            return options.length + ' selected';
                                         }
                                         else {
                                             var selected = [];
@@ -3179,7 +3179,7 @@
                                                 text += selected[i][0] + ', ';
                                             }
 
-                                            return text.substr(0, text.length -2) + ' <b class="caret"></b>';
+                                            return text.substr(0, text.length -2);
                                         }
                                     }
                                 });
@@ -3233,10 +3233,10 @@
             },
             buttonText: function(options) {
                 if (options.length === 0) {
-                    return 'None selected <b class="caret"></b>';
+                    return 'None selected';
                 }
                 else if (options.length > 3) {
-                    return options.length + ' selected  <b class="caret"></b>';
+                    return options.length + ' selected';
                 }
                 else {
                     var selected = [];
@@ -3253,7 +3253,7 @@
                         text += selected[i][0] + ', ';
                     }
 
-                    return text.substr(0, text.length -2) + ' <b class="caret"></b>';
+                    return text.substr(0, text.length -2);
                 }
             },
         });
