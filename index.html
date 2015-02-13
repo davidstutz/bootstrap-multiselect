@@ -794,8 +794,45 @@
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-button-class').multiselect({
+        $('#example-buttonClass').multiselect({
             buttonClass: 'btn btn-link'
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>inheritClass</code></td>
+                                <td>
+                                    <p>
+                                        Inherit the class of the button from the original select.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-inheritButton').multiselect({
+                                                    inheritClass: true
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-inheritButton" class="btn-primary" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-inheritButton').multiselect({
+            inheritClass: true
         });
     });
 &lt;/script&gt;

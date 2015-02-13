@@ -242,6 +242,7 @@
                 
             },
             buttonClass: 'btn btn-default',
+            inheritClass: false,
             buttonWidth: 'auto',
             buttonContainer: '<div class="btn-group" />',
             dropRight: false,
@@ -250,7 +251,6 @@
             // If maximum height is exceeded a scrollbar will be displayed.
             maxHeight: false,
             checkboxName: false,
-            inheritClasses: false,
             includeSelectAllOption: false,
             includeSelectAllIfMoreThan: 0,
             selectAllText: ' Select all',
@@ -298,7 +298,7 @@
          */
         buildButton: function() {
             this.$button = $(this.options.templates.button).addClass(this.options.buttonClass);
-            if (this.$select.attr('class') && this.options.inheritClasses) {
+            if (this.$select.attr('class') && this.options.inheritClass) {
                 this.$button.addClass(this.$select.attr('class'));
             }
             // Adopt active state.
