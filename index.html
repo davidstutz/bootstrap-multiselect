@@ -47,8 +47,8 @@
                         <h1>Bootstrap Multiselect</h1>
                     </div>
                     
-                    <p class="alert alert-info">
-                        <b>Please see <a href="#known-issues">Known Issues</a>.</b>
+                    <p class="alert alert-warning">
+                        <b>Some option names may have changed during the last few commits!</b>
                     </p>
                     
                     <p class="alert alert-info">
@@ -56,7 +56,7 @@
                     </p>
                     
                     <p class="alert alert-info">
-                        <b>Please have a look on <a href="#how-to-contribute">How to contribute?</a> and the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a>.</b>
+                        <b>Please have a look at <a href="#how-to-contribute">How to contribute?</a> and the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a>.</b>
                     </p>
                     
                     <div class="page-header">
@@ -1254,7 +1254,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>label</code></td>
+                                <td><code>optionLabel</code></td>
                                 <td>
                                     <p>
                                         A callback used to define the labels of the options.
@@ -1263,14 +1263,14 @@
                                     <div class="example">
                                         <script type="text/javascript">
                                             $(document).ready(function() {
-                                                $('#example-label').multiselect({
-                                                    label: function(element) {
+                                                $('#example-optionLabel').multiselect({
+                                                    optionLabel: function(element) {
                                                         return $(element).html() + ' (' + $(element).val() + ')';
                                                     }
                                                 });
                                             });
                                         </script>
-                                        <select id="example-label" multiple="multiple">
+                                        <select id="example-optionLabel" multiple="multiple">
                                             <option value="option-1">Option 1</option>
                                             <option value="option-2">Option 2</option>
                                             <option value="option-3">Option 3</option>
@@ -1283,8 +1283,8 @@
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-label').multiselect({
-            label: function(element) {
+        $('#example-optionLabel').multiselect({
+            optionLabel: function(element) {
                 return $(element).html() + '(' + $(element).val() + ')';
             }
         });
