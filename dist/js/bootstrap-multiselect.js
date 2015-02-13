@@ -11,69 +11,80 @@
 
     if (typeof ko !== 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
         ko.bindingHandlers.multiselect = {
+            after: ['options', 'value', 'selectedOptions'],
 
-            init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+                var $element = $(element);
+                var config = ko.toJS(valueAccessor());
 
-                var listOfSelectedItems = allBindingsAccessor().selectedOptions;
-                var config = ko.utils.unwrapObservable(valueAccessor());
+                $element.multiselect(config);
 
-                $(element).multiselect(config);
-
-                if (isObservableArray(listOfSelectedItems)) {
-                    
-                    // Set the initial selection state on the multiselect list.
-                    $(element).multiselect('select', ko.utils.unwrapObservable(listOfSelectedItems));
-                    
-                    // Subscribe to the selectedOptions: ko.observableArray
-                    listOfSelectedItems.subscribe(function (changes) {
-                        var addedArray = [], deletedArray = [];
-                        forEach(changes, function (change) {
-                            switch (change.status) {
-                                case 'added':
-                                    addedArray.push(change.value);
-                                    break;
-                                case 'deleted':
-                                    deletedArray.push(change.value);
-                                    break;
-                            }
+                if (allBindings.has('options')) {
+                    var options = allBindings.get('options');
+                    if (ko.isObservable(options)) {
+                        ko.computed({
+                            read: function() {
+                                options();
+                                setTimeout(function() {
+                                    var ms = $element.data('multiselect');
+                                    if (ms)
+                                        ms.updateOriginalOptions();//Not sure how beneficial this is.
+                                    $element.multiselect('rebuild');
+                                }, 1);
+                            },
+                            disposeWhenNodeIsRemoved: element
                         });
-                        
-                        if (addedArray.length > 0) {
-                            $(element).multiselect('select', addedArray);
-                        }
-                        
-                        if (deletedArray.length > 0) {
-                            $(element).multiselect('deselect', deletedArray);
-                        }
-                    }, null, "arrayChange");
+                    }
                 }
+
+                //value and selectedOptions are two-way, so these will be triggered even by our own actions.
+                //It needs some way to tell if they are triggered because of us or because of outside change.
+                //It doesn't loop but it's a waste of processing.
+                if (allBindings.has('value')) {
+                    var value = allBindings.get('value');
+                    if (ko.isObservable(value)) {
+                        ko.computed({
+                            read: function() {
+                                value();
+                                setTimeout(function() {
+                                    $element.multiselect('refresh');
+                                }, 1);
+                            },
+                            disposeWhenNodeIsRemoved: element
+                        }).extend({ rateLimit: 100, notifyWhenChangesStop: true });
+                    }
+                }
+
+                //Switched from arrayChange subscription to general subscription using 'refresh'.
+                //Not sure performance is any better using 'select' and 'deselect'.
+                if (allBindings.has('selectedOptions')) {
+                    var selectedOptions = allBindings.get('selectedOptions');
+                    if (ko.isObservable(selectedOptions)) {
+                        ko.computed({
+                            read: function() {
+                                selectedOptions();
+                                setTimeout(function() {
+                                    $element.multiselect('refresh');
+                                }, 1);
+                            },
+                            disposeWhenNodeIsRemoved: element
+                        }).extend({ rateLimit: 100, notifyWhenChangesStop: true });
+                    }
+                }
+
+                ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+                    $element.multiselect('destroy');
+                });
             },
 
-            update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+                var $element = $(element);
+                var config = ko.toJS(valueAccessor());
 
-                var listOfItems = allBindingsAccessor().options,
-                    ms = $(element).data('multiselect'),
-                    config = ko.utils.unwrapObservable(valueAccessor());
-
-                if (isObservableArray(listOfItems)) {
-                    // Subscribe to the options: ko.observableArray incase it changes later
-                    listOfItems.subscribe(function (theArray) {
-                        $(element).multiselect('rebuild');
-                    });
-                }
-
-                if (!ms) {
-                    $(element).multiselect(config);
-                }
-                else {
-                    ms.updateOriginalOptions();
-                }
+                $element.multiselect('setOptions', config);
+                $element.multiselect('rebuild');
             }
         };
-    }
-
-    function isObservableArray(obj) {
-        return ko.isObservable(obj) && !(obj.destroyAll === undefined);
     }
 
     function forEach(array, callback) {
