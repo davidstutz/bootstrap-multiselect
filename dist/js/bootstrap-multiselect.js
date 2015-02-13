@@ -151,23 +151,23 @@
              */
             buttonText: function(options, select) {
                 if (options.length === 0) {
-                    return this.nonSelectedText + ' <b class="caret"></b>';
+                    return this.nonSelectedText;
                 }
                 else if (options.length == $('option', $(select)).length) {
-                    return this.allSelectedText + ' <b class="caret"></b>';
+                    return this.allSelectedText;
                 }
                 else if (options.length > this.numberDisplayed) {
-                    return options.length + ' ' + this.nSelectedText + ' <b class="caret"></b>';
+                    return options.length + ' ' + this.nSelectedText;
                 }
                 else {
                     var selected = '';
                     options.each(function() {
-                        var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).html();
+                        var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
 
                         selected += label + ', ';
                     });
                     
-                    return selected.substr(0, selected.length - 2) + ' <b class="caret"></b>';
+                    return selected.substr(0, selected.length - 2);
                 }
             },
             /**
@@ -196,7 +196,7 @@
              * @returns {String}
              */
             label: function(element){
-                return $(element).attr('label') || $(element).html();
+                return $(element).attr('label') || $(element).text();
             },
             /**
              * Triggered on change of the multiselect.
@@ -269,7 +269,7 @@
             numberDisplayed: 3,
             disableIfEmpty: false,
             templates: {
-                button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
+                button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
                 filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
                 filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
@@ -1211,7 +1211,7 @@
             var options = this.getSelected();
             
             // First update the displayed button text.
-            $('.multiselect', this.$container).html(this.options.buttonText(options, this.$select));
+            $('.multiselect .multiselect-selected-text', this.$container).text(this.options.buttonText(options, this.$select));
             
             // Now update the title attribute of the button.
             $('.multiselect', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
