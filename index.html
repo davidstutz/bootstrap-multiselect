@@ -3380,14 +3380,16 @@
                     <div class="highlight">
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
-    $('#example-reset').multiselect();
-        $('#example-reset').on('reset', function() {
-            $('#example-reset option').each(function() {
+    $(document).ready(function() {
+        $('#example-reset').multiselect();
+        $('#example-reset-form').on('reset', function() {
+            $('#example-reset option:selected').each(function() {
                 $(this).prop('selected', false);
             })
 
             $('#example-reset').multiselect('refresh');
         });
+    });
 &lt;/script&gt;
 &lt;form class=&quot;btn-group&quot; id=&quot;example-reset-form&quot;&gt;
     &lt;div class=&quot;btn-group&quot;&gt;
