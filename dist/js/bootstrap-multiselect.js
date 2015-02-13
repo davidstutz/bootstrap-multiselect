@@ -1276,6 +1276,11 @@
             return setTimeout(function() {
                 callback.apply(self || window, args);
             }, timeout);
+        },
+
+        setAllSelectedText: function(allSelectedText) {
+            this.options.allSelectedText = allSelectedText;
+            this.updateButtonText();
         }
     };
 
