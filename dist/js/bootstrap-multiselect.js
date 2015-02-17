@@ -1124,7 +1124,8 @@
                     groupCounter++;
                     
                     $tag = $('<optgroup/>').attr({
-                        label: option.label || 'Group ' + groupCounter
+                        label: option.label || 'Group ' + groupCounter,
+                        disabled: !!option.disabled
                     });
                     
                     forEach(option.children, function(subOption) { // add children option tags
@@ -1132,7 +1133,8 @@
                             value: subOption.value,
                             label: subOption.label || subOption.value,
                             title: subOption.title,
-                            selected: !!subOption.selected
+                            selected: !!subOption.selected,
+                            disabled: !!subOption.disabled
                         }));
                     });
                 }
@@ -1141,7 +1143,8 @@
                         value: option.value,
                         label: option.label || option.value,
                         title: option.title,
-                        selected: !!option.selected
+                        selected: !!option.selected,
+                        disabled: !!option.disabled
                     });
                 }
                 
