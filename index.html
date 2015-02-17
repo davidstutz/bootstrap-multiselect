@@ -3825,7 +3825,29 @@
                     </div>
                     <div class="highlight">
 <pre class="prettyprint linenums">
+$(document).ready(function() {
+    var data = [];
+    for (var i = 0; i < 100; i++) {
+        var group = {label: 'Group ' + (i + 1), children: []};
+        for (var j = 0; j < 10; j++) {
+            group['children'].push({
+                label: 'Option ' + (i + 1) + '.' + (j + 1),
+                value: i + '-' + j
+            });
+        }
 
+        data.push(group);
+    }
+
+    $('#example-large-dataprovider-button').on('click', function() {
+        $('#example-large-dataprovider').multiselect({
+            maxHeight: 200
+        });
+        $('#example-large-dataprovider').multiselect('dataprovider', data);
+    });
+});
+&lt;p class=&quot;alert alert-info&quot;&gt;&lt;button id=&quot;example-large-dataprovider-button&quot; class=&quot;btn btn-primary&quot;&gt;Activate&lt;/button&gt;&lt;/p&gt;
+&lt;select id=&quot;example-large-dataprovider&quot; multiple=&quot;multiple&quot;&gt;&lt;/select&gt;
 </pre>
                     
                     <div class="page-header">
