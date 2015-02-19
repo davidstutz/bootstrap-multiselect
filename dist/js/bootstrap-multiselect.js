@@ -124,11 +124,13 @@
         this.buildButton();
         this.buildDropdown();
         this.buildSelectAll();
+        this.buildSelectNone();
         this.buildDropdownOptions();
         this.buildFilter();
         
         this.updateButtonText();
         this.updateSelectAll();
+        this.updateSelectNone();
         
         if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
             this.disable();
@@ -247,6 +249,13 @@
             onSelectAll: function() {
                 
             },
+            
+            /**
+             * Triggered on select none
+             */
+            onSelectNone: function() {
+                
+            },
             buttonClass: 'btn btn-default',
             inheritClass: false,
             buttonWidth: 'auto',
@@ -259,9 +268,14 @@
             checkboxName: false,
             includeSelectAllOption: false,
             includeSelectAllIfMoreThan: 0,
+            includeSelectNoneOption: false,
+            includeSelectNoneIfMoreThan: 0,
             selectAllText: ' Select all',
             selectAllValue: 'multiselect-all',
             selectAllName: false,
+            selectNoneText: ' Select none',
+            selectNoneValue: 'multiselect-none',
+            selectNoneName: false,
             enableFiltering: false,
             enableCaseInsensitiveFiltering: false,
             enableClickableOptGroups: false,
@@ -402,6 +416,7 @@
 
                 var checked = $target.prop('checked') || false;
                 var isSelectAllOption = $target.val() === this.options.selectAllValue;
+                var isSelectNoneOption = $target.val() === this.options.selectNoneValue;
 
                 // Apply or unapply the configured selected class.
                 if (this.options.selectedClass) {
@@ -429,9 +444,17 @@
                     else {
                         this.deselectAll();
                     }
-                }
+                }                    
+                if (isSelectNoneOption) {
+                    if (checked) {
+                        this.deselectAll();
+                    }
+                    else {
+                        this.selectAll();
+                    }
+                }                    
 
-                if(!isSelectAllOption){
+                if(!isSelectAllOption & !isSelectNoneOption){
                     if (checked) {
                         $option.prop('selected', true);
 
@@ -747,6 +770,51 @@
         },
 
         /**
+         * Build the selct none.
+         * 
+         * Checks if a select none has already been created.
+         */
+        buildSelectNone: function() {
+            if (typeof this.options.selectNoneValue === 'number') {
+                this.options.selectNoneValue = this.options.selectNoneValue.toString();
+            }
+            
+            var alreadyHasSelectNone = this.hasSelectNone();
+            
+            if (!alreadyHasSelectNone && this.options.includeSelectNoneOption
+                    && $('option', this.$select).length > this.options.includeSelectNoneIfMoreThan) {
+                
+                // Check whether to add a divider after the select all.
+                if (this.options.includeSelectNoneDivider) {
+                    this.$ul.prepend($(this.options.templates.divider));
+                }
+
+                var $li = $(this.options.templates.li);
+                $('label', $li).addClass("checkbox");
+                
+                if (this.options.selectNoneName) {
+                    $('label', $li).append('<input type="checkbox" name="' + this.options.selectNoneName + '" />');
+                }
+                else {
+                    $('label', $li).append('<input type="checkbox" />');
+                }
+                
+                var $checkbox = $('input', $li);
+                $checkbox.val(this.options.selectNoneValue);
+
+                $li.addClass("multiselect-item multiselect-all");
+                $checkbox.parent().parent()
+                    .addClass('multiselect-all');
+
+                $('label', $li).append(" " + this.options.selectNoneText);
+
+                this.$ul.prepend($li);
+
+                $checkbox.prop('checked', false);
+            }
+        },
+
+        /**
          * Builds the filter.
          */
         buildFilter: function() {
@@ -768,6 +836,7 @@
                             this.$filter.find('.multiselect-search').val('');
                             $('li', this.$ul).show().removeClass("filter-hidden");
                             this.updateSelectAll();
+                            this.updateSelectNone();
                         }, this));
                         this.$filter.find('.input-group').append(clearBtn);
                     }
@@ -899,6 +968,7 @@
 
             this.updateButtonText();
             this.updateSelectAll();
+            this.updateSelectNone();
         },
 
         /**
@@ -944,6 +1014,7 @@
 
             this.updateButtonText();
             this.updateSelectAll();
+            this.updateSelectNone();
 
             if (triggerOnChange && selectValues.length === 1) {
                 this.options.onChange($option, true);
@@ -998,6 +1069,7 @@
 
             this.updateButtonText();
             this.updateSelectAll();
+            this.updateSelectNone();
             
             if (triggerOnChange && deselectValues.length === 1) {
                 this.options.onChange($option, false);
@@ -1094,11 +1166,13 @@
             this.options.multiple = this.$select.attr('multiple') === "multiple";
 
             this.buildSelectAll();
+            this.buildSelectNone();
             this.buildDropdownOptions();
             this.buildFilter();
             
             this.updateButtonText();
             this.updateSelectAll();
+            this.updateSelectNone();
             
             if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
                 this.disable();
@@ -1201,6 +1275,14 @@
         },
         
         /**
+         * Checks whether a select none checkbox is present.
+         * 
+         * @returns {Boolean}
+         */
+        hasSelectNone: function() {
+            return $('li.' + this.options.selectNoneValue, this.$ul).length > 0;
+        },
+        /**
          * Updates the select all checkbox based on the currently displayed and selected checkboxes.
          */
         updateSelectAll: function() {
@@ -1223,6 +1305,28 @@
             }
         },
         
+        /**
+         * Updates the select none checkbox based on the currently displayed and selected checkboxes.
+         */
+        updateSelectNone: function() {
+            if (this.hasSelectNone()) {
+                var allBoxes = $("li:not(.multiselect-item):not(.filter-hidden) input:enabled", this.$ul);
+                var allBoxesLength = allBoxes.length;
+                var checkedBoxesLength = allBoxes.filter(":checked").length;
+                var selectNoneLi  = $("li." + this.options.selectAllValue, this.$ul);
+                var selectNoneInput = selectNoneLi.find("input");
+                
+                if (checkedBoxes === 0) {
+                    selectNoneInput.prop("checked", true);
+                    selectNoneLi.addClass(this.options.selectedClass);
+                    this.options.onSelectNone();
+                }
+                else {
+                    selectNoneInput.prop("checked", false);
+                    selectNoneLi.removeClass(this.options.selectedClass);
+                }
+            }
+        },
         /**
          * Update the button text and its title based on the currently selected options.
          */
@@ -1299,6 +1403,11 @@
 
         setAllSelectedText: function(allSelectedText) {
             this.options.allSelectedText = allSelectedText;
+            this.updateButtonText();
+        },
+
+        setNoneSelectedText: function(noneSelectedText) {
+            this.options.noneSelectedText = noneSelectedText;
             this.updateButtonText();
         }
     };
