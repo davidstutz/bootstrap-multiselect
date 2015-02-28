@@ -5,9 +5,17 @@
  * 
  * Dual licensed under the BSD-3-Clause and the Apache License, Version 2.0.
  */
-!function($) {
- 
+ (function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(['jquery', 'knockout'], factory);
+	} else {
+		// Browser globals
+		factory(root.jQuery, root.ko);
+	}
+})(this, function ($, ko) {
     "use strict";// jshint ;_;
+    
 
     if (typeof ko !== 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
         ko.bindingHandlers.multiselect = {
@@ -95,7 +103,7 @@
 
     /**
      * Constructor to create a new multiselect using the given select.
-     * 
+     *
      * @param {jQuery} select
      * @param {Object} options
      * @returns {Multiselect}
@@ -126,10 +134,10 @@
         this.buildSelectAll();
         this.buildDropdownOptions();
         this.buildFilter();
-        
+
         this.updateButtonText();
         this.updateSelectAll();
-        
+
         if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
             this.disable();
         }
@@ -191,7 +199,7 @@
             },
             /**
              * Create a label.
-             * 
+             *
              * @param {jQuery} element
              * @returns {String}
              */
@@ -211,19 +219,19 @@
             },
             /**
              * Triggered when the dropdown is shown.
-             * 
+             *
              * @param {jQuery} event
              */
             onDropdownShow: function(event) {
-                
+
             },
             /**
              * Triggered when the dropdown is hidden.
-             * 
+             *
              * @param {jQuery} event
              */
             onDropdownHide: function(event) {
-                
+
             },
             /**
              * Triggered after the dropdown is shown.
@@ -392,7 +400,7 @@
                     }
 
                 }
-                
+
                 // Other illegal tags will be ignored.
             }, this));
 
@@ -466,7 +474,7 @@
 
                 this.updateButtonText();
                 this.updateSelectAll();
-                
+
                 this.options.onChange($option, checked);
 
                 if(this.options.preventInputChangeEvent) {
@@ -607,7 +615,7 @@
 
         /**
          * Create an option using the given select option.
-         * 
+         *
          * @param {jQuery} element
          */
         createOptionValue: function(element) {
@@ -665,7 +673,7 @@
 
         /**
          * Creates a divider using the given select option.
-         * 
+         *
          * @param {jQuery} element
          */
         createDivider: function(element) {
@@ -675,7 +683,7 @@
 
         /**
          * Creates an optgroup.
-         * 
+         *
          * @param {jQuery} group
          */
         createOptgroup: function(group) {
@@ -712,10 +720,10 @@
             }
             
             var alreadyHasSelectAll = this.hasSelectAll();
-            
+
             if (!alreadyHasSelectAll && this.options.includeSelectAllOption && this.options.multiple
                     && $('option', this.$select).length > this.options.includeSelectAllIfMoreThan) {
-                
+
                 // Check whether to add a divider after the select all.
                 if (this.options.includeSelectAllDivider) {
                     this.$ul.prepend($(this.options.templates.divider));
@@ -1096,7 +1104,7 @@
             this.buildSelectAll();
             this.buildDropdownOptions();
             this.buildFilter();
-            
+
             this.updateButtonText();
             this.updateSelectAll();
             
@@ -1174,7 +1182,7 @@
 
         /**
          * Set the options.
-         * 
+         *
          * @param {Array} options
          */
         setOptions: function(options) {
@@ -1183,23 +1191,23 @@
 
         /**
          * Merges the given options with the default options.
-         * 
+         *
          * @param {Array} options
          * @returns {Array}
          */
         mergeOptions: function(options) {
             return $.extend(true, {}, this.defaults, this.options, options);
         },
-        
+
         /**
          * Checks whether a select all checkbox is present.
-         * 
+         *
          * @returns {Boolean}
          */
         hasSelectAll: function() {
             return $('li.' + this.options.selectAllValue, this.$ul).length > 0;
         },
-        
+
         /**
          * Updates the select all checkbox based on the currently displayed and selected checkboxes.
          */
@@ -1222,7 +1230,7 @@
                 }
             }
         },
-        
+
         /**
          * Update the button text and its title based on the currently selected options.
          */
@@ -1238,7 +1246,7 @@
 
         /**
          * Get all selected options.
-         * 
+         *
          * @returns {jQUery}
          */
         getSelected: function() {
@@ -1247,7 +1255,7 @@
 
         /**
          * Gets a select option by its value.
-         * 
+         *
          * @param {String} value
          * @returns {jQuery}
          */
@@ -1266,7 +1274,7 @@
 
         /**
          * Get the input (radio/checkbox) by its value.
-         * 
+         *
          * @param {String} value
          * @returns {jQuery}
          */
@@ -1307,7 +1315,7 @@
         return this.each(function() {
             var data = $(this).data('multiselect');
             var options = typeof option === 'object' && option;
-            
+
             // Initialize the multiselect.
             if (!data) {
                 data = new Multiselect(this, options);
@@ -1331,4 +1339,4 @@
         $("select[data-role=multiselect]").multiselect();
     });
 
-}(window.jQuery);
+});
