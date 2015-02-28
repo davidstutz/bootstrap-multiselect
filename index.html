@@ -1601,6 +1601,47 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <code>selectAllNumber</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        If set to <code>true</code> (default), the number of selected options will be shown in parantheses when all options are seleted. The below example shows the behavior of the selectalloption with <code>selectAllNumber</code> set to <code>false</code>:
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-selectAllNumber').multiselect({
+                                                    includeSelectAllOption: true,
+                                                    selectAllNumber: false
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-selectAllNumber" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-selectAllNumber').multiselect({
+            includeSelectAllOption: true,
+            selectAllNumber: false
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <code>onSelectAll</code>
                                 </td>
                                 <td>

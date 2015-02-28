@@ -198,7 +198,12 @@
                     return this.nonSelectedText;
                 }
                 else if (this.allSelectedText && options.length == $('option', $(select)).length) {
-                    return this.allSelectedText;
+                    if (this.selectAllNumber) {
+                        return this.allSelectedText + ' (' + options.length + ')';
+                    }
+                    else {
+                        return this.allSelectedText;
+                    }
                 }
                 else if (options.length > this.numberDisplayed) {
                     return options.length + ' ' + this.nSelectedText;
@@ -306,6 +311,7 @@
             selectAllText: ' Select all',
             selectAllValue: 'multiselect-all',
             selectAllName: false,
+            selectAllNumber: true,
             enableFiltering: false,
             enableCaseInsensitiveFiltering: false,
             enableClickableOptGroups: false,
