@@ -22,7 +22,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 **BSD 3-Clause License**
 
-Copyright (c) 2012 - 2014 David Stutz
+Copyright (c) 2012 - 2015 David Stutz
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
