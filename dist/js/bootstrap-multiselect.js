@@ -153,7 +153,7 @@
                 if (options.length === 0) {
                     return this.nonSelectedText;
                 }
-                else if (options.length == $('option', $(select)).length) {
+                else if (this.allSelectedText && options.length == $('option', $(select)).length) {
                     return this.allSelectedText;
                 }
                 else if (options.length > this.numberDisplayed) {
