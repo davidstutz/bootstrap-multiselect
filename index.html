@@ -4201,6 +4201,16 @@ $('.multiselect').multiselect({
                         <dd>
                             This is a general issue not directly related to Bootstrap Multiselect: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/455">#455</a>.
                         </dd>
+                        
+                        <dt>How do add icons to the options (<a href="https://github.com/davidstutz/bootstrap-multiselect/issues/475">#475</a>)?</dt>
+                        <dd>
+                            Adapt the <code>optionLabel</code> option as follows:
+<pre class="prettyprint linenums">
+optionLabel: function(element){
+    return $(element).attr('label') || $(element).html();
+},
+</pre>
+                        </dd>
                     </dl>
                     
                     <div class="page-header">
