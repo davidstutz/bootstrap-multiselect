@@ -4101,7 +4101,18 @@ $(document).ready(function() {
                         <dd>
                             This issue is addressed in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/322">#322</a>
                         </dd>
-                        
+
+                        <dt>Using jQuery, how to get the selected options dynamically?</dt>
+                        <dd>
+<pre class="linenums prettyprint">
+//  get all option elements
+$('#example option:selected');
+
+//  get all option element values
+$('#example option:selected').map(function(a, item){return item.value;});
+</pre>
+                        </dd>
+
                         <dt>How to get the selected options using PHP?</dt>
                         <dd>
                             This issue is addressed here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/323">https://github.com/davidstutz/bootstrap-multiselect/issues/323</a>. Mainly there are two ways, either add a name to the <code>select</code>:
