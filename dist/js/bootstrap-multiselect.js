@@ -197,7 +197,11 @@
                 if (options.length === 0) {
                     return this.nonSelectedText;
                 }
-                else if (this.allSelectedText && options.length == $('option', $(select)).length) {
+                else if (this.allSelectedText 
+                            && options.length === $('option', $(select)).length 
+                            && $('option', $(select)).length !== 1 
+                            && this.multiple) {
+
                     if (this.selectAllNumber) {
                         return this.allSelectedText + ' (' + options.length + ')';
                     }
