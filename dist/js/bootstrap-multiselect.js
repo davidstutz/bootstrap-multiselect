@@ -1153,6 +1153,9 @@
             if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
                 this.disable();
             }
+            else {
+                this.enable();
+            }
             
             if (this.options.dropRight) {
                 this.$ul.addClass('pull-right');
