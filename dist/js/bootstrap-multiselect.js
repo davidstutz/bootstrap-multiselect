@@ -41,16 +41,7 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
- (function (root, factory) {
-	if (typeof define === 'function' && define.amd) {
-		// AMD. Register as an anonymous module.
-		define(['jquery', 'knockout'], factory);
-	}
-        else {
-		// Browser globals
-		factory(root.jQuery, root.ko);
-	}
-})(this, function ($, ko) {
+!function ($) {
     "use strict";// jshint ;_;
 
     if (typeof ko !== 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
@@ -1381,4 +1372,4 @@
         $("select[data-role=multiselect]").multiselect();
     });
 
-});
+}(window.jQuery);
