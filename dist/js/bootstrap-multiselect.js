@@ -1098,7 +1098,7 @@
             var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
             
             if(justVisible) {              
-                var visibleCheckboxes = $("li input[type='checkbox']:enabled", this.$ul).filter(":visible");
+                var visibleCheckboxes = $("li input[type='checkbox']:not(:disabled)", this.$ul).filter(":visible");
                 visibleCheckboxes.prop('checked', false);
                 
                 var values = visibleCheckboxes.map(function() {
