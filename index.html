@@ -318,6 +318,64 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td><code>enableHTML</code></td>
+                                <td>
+                                    <p>
+                                        XSS injection is a serious thread for all modern web applications. Setting <code>enableHTML</code> to <code>false</code> (default setting) will create a XSS save multiselect.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-xss').multiselect();
+                                            });
+                                        </script>
+                                        <select id="example-xss" multiple="multiple">
+                                            <option value="1">&lt;script&gt;alert(1);&lt;/script&gt;</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function() {
+        $('#example-xss').multiselect();
+    });
+&lt;/script&gt;
+&lt;select id="example-xss" multiple="multiple"&gt;
+    &lt;option value="1"&gt;&amp;lt;script&amp;gt;alert(1);&amp;lt;/script&amp;gt;&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+
+                                    <p>On the other hand, when setting <code>enableHTML</code> to <code>true</code>, the plugin will support HTML within <code>option</code>s:</p>
+
+                                    <div class="example">
+                                    <script type="text/javascript">
+                                        $(document).ready(function() {
+                                            $('#example-xss-html').multiselect({
+                                                nonSelectedText: '<span style="color:red;">Non selected ...</span>',
+                                                enableHTML: true
+                                            });
+                                        });
+                                    </script>
+                                    <select id="example-xss-html" multiple="multiple">
+                                        <option value="1">&lt;span style=&quot;color:red&quot;&gt;Option 1&lt;/span&gt;</option>
+                                    </select>
+                                </div>
+                                <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(doclect&gt;
+</pre>ument).ready(function() {
+        $('#example-xss-html').multiselect();
+    });
+&lt;/script&gt;
+&lt;select id="example-xss-html" multiple="multiple"&gt;
+    &lt;option value="1"&gt;&amp;gt;span style="color:red"&amp;lt;Option 1&amp;gt;/span&amp;gt;&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td><code>enableClickableOptGroups</code></td>
                                 <td>
                                     <p>

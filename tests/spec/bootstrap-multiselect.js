@@ -3,7 +3,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
         
         for (var i = 1; i < 100; i++) {
-            var $option = $('<option value="' + i + '">1</option>');
+            var $option = $('<option value="' + i + '">' + i + '</option>');
             
             if (i < 10) {
                 $option.prop('selected', true);
