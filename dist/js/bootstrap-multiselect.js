@@ -633,7 +633,7 @@
 
                     // Search all option in optgroup
                     var $options = group.nextUntil('li.multiselect-group');
-                    var $visibleOptions = $options.filter(":visible");
+                    var $visibleOptions = $options.filter(":visible:not(.disabled)");
 
                     // check or uncheck items
                     var allChecked = true;
