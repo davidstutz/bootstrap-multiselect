@@ -47,28 +47,48 @@
     if (typeof ko !== 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
         ko.bindingHandlers.multiselect = {
             after: ['options', 'value', 'selectedOptions'],
-
             init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+                function throttle(f, milliseconds) {
+                    var canCall = true;
+                    var f2 = function(){
+                    var args = arguments;
+
+                    if(!f2.canCall){
+                        return;
+                    }
+                    f2.canCall = false;
+
+                    setTimeout(function () {
+                        f.apply(this, args);
+                        canCall = true;
+                    }, milliseconds);
+                }
+                f2.canCall = true;
+                return f2;
+                }
+
                 var $element = $(element);
+                var subscriptions = [];
                 var config = ko.toJS(valueAccessor());
+                var refreshFunction = throttle(function() {
+                    $element.multiselect('refresh');
+                },2000);
+
+                element.refreshFunction = refreshFunction;
+
 
                 $element.multiselect(config);
+
 
                 if (allBindings.has('options')) {
                     var options = allBindings.get('options');
                     if (ko.isObservable(options)) {
-                        ko.computed({
-                            read: function() {
-                                options();
-                                setTimeout(function() {
-                                    var ms = $element.data('multiselect');
-                                    if (ms)
-                                        ms.updateOriginalOptions();//Not sure how beneficial this is.
-                                    $element.multiselect('rebuild');
-                                }, 1);
-                            },
-                            disposeWhenNodeIsRemoved: element
-                        });
+                      subscriptions.push(options.subscribe(throttle(function() {
+                          var ms = $element.data('multiselect');
+                          if (ms)
+                              ms.updateOriginalOptions();//Not sure how beneficial this is.
+                          $element.multiselect('rebuild');
+                      }, 100)));
                     }
                 }
 
@@ -78,15 +98,7 @@
                 if (allBindings.has('value')) {
                     var value = allBindings.get('value');
                     if (ko.isObservable(value)) {
-                        ko.computed({
-                            read: function() {
-                                value();
-                                setTimeout(function() {
-                                    $element.multiselect('refresh');
-                                }, 1);
-                            },
-                            disposeWhenNodeIsRemoved: element
-                        }).extend({ rateLimit: 100, notifyWhenChangesStop: true });
+                      subscriptions.push(value.subscribe(refreshFunction));
                     }
                 }
 
@@ -95,19 +107,15 @@
                 if (allBindings.has('selectedOptions')) {
                     var selectedOptions = allBindings.get('selectedOptions');
                     if (ko.isObservable(selectedOptions)) {
-                        ko.computed({
-                            read: function() {
-                                selectedOptions();
-                                setTimeout(function() {
-                                    $element.multiselect('refresh');
-                                }, 1);
-                            },
-                            disposeWhenNodeIsRemoved: element
-                        }).extend({ rateLimit: 100, notifyWhenChangesStop: true });
+                      subscriptions.push(selectedOptions.subscribe(refreshFunction));
                     }
                 }
 
                 ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+                    subscriptions.forEach(function(sub){
+                      sub.dispose();
+                    });
+                    element.refreshFunction = null;
                     $element.multiselect('destroy');
                 });
             },
@@ -117,9 +125,10 @@
                 var config = ko.toJS(valueAccessor());
 
                 $element.multiselect('setOptions', config);
-                $element.multiselect('rebuild');
+                element.refreshFunction();
             }
         };
+    }
     }
 
     function forEach(array, callback) {
