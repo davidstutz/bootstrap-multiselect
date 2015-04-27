@@ -224,7 +224,9 @@
                 else {
                     var selected = '';
                     options.each(function () {
-                        selected += $(this).text() + ', ';
+                        var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
+
+                        selected += label + ', ';
                     });
                     return selected.substr(0, selected.length - 2);
                 }
