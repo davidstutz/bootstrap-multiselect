@@ -454,6 +454,37 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td><code>delimiter</code></td>
+                                <td>
+                                    <p>
+                                        Sets the separator for the list of selected items for mouse-over. Defaults to ', '. Set to '\n' for a neater display.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-delimiter').multiselect({
+                                                    delimiter: '\n'
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-delimiter" multiple="multiple"></select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-delimiter').multiselect({
+            delimiter: '\n' 
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
                                 <td><code>disableIfEmpty</code></td>
                                 <td>
                                     <p>
