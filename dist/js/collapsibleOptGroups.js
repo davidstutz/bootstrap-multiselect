@@ -20,6 +20,33 @@
 		};
 	}());
 
+	jQuery.fn.multiselect.Constructor.prototype.createOptgroup = (function() {
+		var cached_function	= jQuery.fn.multiselect.Constructor.prototype.createOptgroup;
+
+		return function() {
+			var args	= Array.prototype.slice.call( arguments );
+			var t		= args[0];
+			if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
+				var n = e(t).attr("label");
+				var v = e(t).attr("value");
+				var r = e('<li class="multiselect-item multiselect-group"><a href="javascript:void(0);"><input type="checkbox" value="' + v + '"/><b> ' + n + '<b class="caret"></b></b></a></li>');
+
+				if (this.options.enableClickableOptGroups) {
+					r.addClass("multiselect-group-clickable")
+				}
+				this.$ul.append(r);
+				if (e(t).is(":disabled")) {
+					r.addClass("disabled")
+				}
+				e("option", t).each(e.proxy(function(e, t) {
+					this.createOptionValue(t)
+				}, this))
+			} else {
+				cached_function.apply(this, arguments);
+			}
+		};
+	}());
+	
 	jQuery.fn.multiselect.Constructor.prototype.buildDropdownOptions = (function() {
 		var cached_function = jQuery.fn.multiselect.Constructor.prototype.buildDropdownOptions;
 
@@ -27,10 +54,8 @@
 			cached_function.apply(this, arguments);
 
 			if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
-				e("li.multiselect-group", this.$ul).each( function () {
-					var name = $("label", this).html();
-					$(this).html('<a href="javascript:void(0);"><input type="checkbox" value="' + name + '"/><b> ' + name + '<b class="caret"></b></b></a>');
-				});
+				
+				e("li.multiselect-group input", this.$ul).off();
 				e("li.multiselect-group", this.$ul).siblings().not("li.multiselect-group, li.multiselect-all", this.$ul).each( function () {
 					$(this).toggleClass('hidden', true);
 				});
