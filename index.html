@@ -1099,6 +1099,38 @@
     });
 &lt;/script&gt;
 </pre>
+                                    </div>
+                                    
+                                    <p>
+                                        This does also work for long options:
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-buttonWidth-overflow-option').multiselect({
+                                                    buttonWidth: '150px'
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-buttonWidth-overflow-option" multiple="multiple">
+                                            <option value="1" selected>Long Long Long Option 1</option>
+                                            <option value="2">Very Very Long Option 2</option>
+                                            <option value="3">Even Longer Option 3</option>
+                                            <option value="4">Ridiculous Long Option 4</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-buttonWidth-overflow').multiselect({
+            buttonWidth: '150px'
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
