@@ -15,7 +15,7 @@
 
         <link rel="stylesheet" href="dist/css/bootstrap-multiselect.css" type="text/css">
         <script type="text/javascript" src="dist/js/bootstrap-multiselect.js"></script>
-        <script type="text/javascript" src="dist/js/collapsibleOptGroups.js"></script>
+        <script type="text/javascript" src="dist/js/bootstrap-multiselect-collapsible-groups.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -452,6 +452,67 @@
     });
 &lt;/script&gt;
 </pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>enableCollapsibleOptGroups</code>
+                                </td>
+                                <td>
+                                    <p class="alert alert-info">
+                                        For this option to be available, <code>bootstrap-multiselect-collapsible-groups.js</code> needs to be included.
+                                    </p>
+                                    
+                                    <p>
+                                        Make your groups collapsible.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-enableCollapsibleOptGroups').multiselect({
+                                                    enableCollapsibleOptGroups: true
+                                                });
+                                            });
+                                        </script>
+
+                                        <select id="example-enableCollapsibleOptGroups" multiple="multiple">
+                                            <optgroup label="Group 1">
+                                                <option value="1-1" disabled>Option 1.1</option>
+                                                <option value="1-2" selected="selected">Option 1.2</option>
+                                                <option value="1-3" selected="selected">Option 1.3</option>
+                                            </optgroup>
+                                            <optgroup label="Group 2">
+                                                <option value="2-1" disabled>Option 2.1</option>
+                                                <option value="2-2">Option 2.2</option>
+                                                <option value="2-3">Option 2.3</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+	$(document).ready(function() {
+		$('#example-enableCollapsibleOptGroups').multiselect({
+			enableCollapsibleOptGroups: true
+		});
+	});
+&lt;/script&gt;
+
+&lt;select id="example-enableCollapsibleOptGroups" multiple="multiple"&gt;
+    &lt;optgroup label=&quot;Group 1&quot;&gt;
+        &lt;option value=&quot;1-1&quot; disabled&gt;Option 1.1&lt;/option&gt;
+        &lt;option value=&quot;1-2&quot; selected=&quot;selected&quot;&gt;Option 1.2&lt;/option&gt;
+        &lt;option value=&quot;1-3&quot; selected=&quot;selected&quot;&gt;Option 1.3&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label=&quot;Group 2&quot;&gt;
+        &lt;option value=&quot;2-1&quot; disabled&gt;Option 2.1&lt;/option&gt;
+        &lt;option value=&quot;2-2&quot;&gt;Option 2.2&lt;/option&gt;
+        &lt;option value=&quot;2-3&quot;&gt;Option 2.3&lt;/option&gt;
+    &lt;/optgroup&gt;
+&lt;/select&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -2161,85 +2222,6 @@
     &lt;option value="l"&gt;Option 12&lt;/option&gt;
     &lt;option value="m"&gt;Option 13&lt;/option&gt;
     &lt;option value="n"&gt;Option 14&lt;/option&gt;
-&lt;/select&gt;
-</pre>
-                                    </div>
-                                </td>
-                            </tr>
-							<tr>
-                                <td>
-                                    <code>enableCollapsibleOptGroups</code>
-                                </td>
-                                <td>
-                                    <p>
-                                        Make your groups collapsible.
-                                    </p>
-
-                                    <div class="example">
-                                        <script type="text/javascript">
-                                            $(document).ready(function() {
-                                                $('#example-enableCollapsibleOptGroups').multiselect({
-                                                    enableCollapsibleOptGroups: true
-                                                });
-                                            });
-                                        </script>
-
-                                        <select id="example-enableCollapsibleOptGroups" multiple="multiple">
-											<optgroup label="Group1">
-												<option value="1a">Option 1</option>
-												<option value="1b">Option 2</option>
-												<option value="1c">Option 3</option>
-												<option value="1d">Option 4</option>
-												<option value="1e">Option 5</option>
-											</optgroup>
-											<optgroup label="Group2">
-												<option value="2a">Option 1</option>
-												<option value="2b">Option 2</option>
-												<option value="2c">Option 3</option>
-												<option value="2d">Option 4</option>
-												<option value="2e">Option 5</option>
-											</optgroup>
-											<optgroup label="Group3">
-												<option value="3a">Option 1</option>
-												<option value="3b">Option 2</option>
-												<option value="3c">Option 3</option>
-												<option value="3d">Option 4</option>
-												<option value="3e">Option 5</option>
-											</optgroup>
-                                        </select>
-                                    </div>
-                                    <div class="highlight">
-<pre class="prettyprint linenums">
-&lt;script type="text/javascript"&gt;
-	$(document).ready(function() {
-		$('#example-enableCollapsibleOptGroups').multiselect({
-			enableCollapsibleOptGroups: true
-		});
-	});
-&lt;/script&gt;
-
-&lt;select id="example-enableCollapsibleOptGroups" multiple="multiple"&gt;
-	&lt;optgroup label="Group1"&gt;
-		&lt;option value="1a"&gt;Option 1&lt;/option&gt;
-		&lt;option value="1b"&gt;Option 2&lt;/option&gt;
-		&lt;option value="1c"&gt;Option 3&lt;/option&gt;
-		&lt;option value="1d"&gt;Option 4&lt;/option&gt;
-		&lt;option value="1e"&gt;Option 5&lt;/option&gt;
-	&lt;/optgroup&gt;
-	&lt;optgroup label="Group2"&gt;
-		&lt;option value="2a"&gt;Option 1&lt;/option&gt;
-		&lt;option value="2b"&gt;Option 2&lt;/option&gt;
-		&lt;option value="2c"&gt;Option 3&lt;/option&gt;
-		&lt;option value="2d"&gt;Option 4&lt;/option&gt;
-		&lt;option value="2e"&gt;Option 5&lt;/option&gt;
-	&lt;/optgroup&gt;
-	&lt;optgroup label="Group3"&gt;
-		&lt;option value="3a"&gt;Option 1&lt;/option&gt;
-		&lt;option value="3b"&gt;Option 2&lt;/option&gt;
-		&lt;option value="3c"&gt;Option 3&lt;/option&gt;
-		&lt;option value="3d"&gt;Option 4&lt;/option&gt;
-		&lt;option value="3e"&gt;Option 5&lt;/option&gt;
-	&lt;/optgroup&gt;
 &lt;/select&gt;
 </pre>
                                     </div>
