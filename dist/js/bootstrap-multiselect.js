@@ -223,8 +223,9 @@
                 }
                 else {
                     var selected = '';
+                    var delimiter = this.delimiter;
                     options.each(function () {
-                        selected += $(this).text() + ', ';
+                        selected += $(this).text() + delimiter;
                     });
                     return selected.substr(0, selected.length - 2);
                 }
@@ -317,6 +318,7 @@
             allSelectedText: 'All selected',
             numberDisplayed: 3,
             disableIfEmpty: false,
+            delimiter: ', ',
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
