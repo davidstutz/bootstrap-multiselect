@@ -2041,6 +2041,59 @@
 &lt;/script&gt;
 </pre>
                                     </div>
+                                    
+                                    <p>
+                                        Finally, the option can also be used together with <code>onChange</code> or similar events:
+                                    </p>
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-enableFiltering-onChange-onDropdownHide').multiselect({
+                                                    enableFiltering: true,
+                                                    onChange: function(option, checked) {
+                                                        alert('onChange!');
+                                                    },
+                                                    onDropdownHide: function(event) {
+                                                        alert('onDropdownHide!');
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-enableFiltering-onChange-onDropdownHide" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                            <option value="7">Option 7</option>
+                                            <option value="8">Option 8</option>
+                                            <option value="9">Option 9</option>
+                                            <option value="10">Option 10</option>
+                                            <option value="11">Option 11</option>
+                                            <option value="12">Option 12</option>
+                                            <option value="13">Option 13</option>
+                                            <option value="14">Option 14</option>
+                                            <option value="15">Option 15</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-enableFiltering-onChange-onDropdownHide').multiselect({
+            enableFiltering: true,
+            onChange: function(option, checked) {
+                alert('onChange!');
+            },
+            onDropdownHide: function(event) {
+                alert('onDropdownHide!');
+            }
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
