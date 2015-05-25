@@ -213,7 +213,6 @@
                     var selected = '';
                     options.each(function() {
                         var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
-
                         selected += label + ', ';
                     });
                     
@@ -235,7 +234,8 @@
                     var selected = '';
                     var delimiter = this.delimiter;
                     options.each(function () {
-                        selected += $(this).text() + delimiter;
+                        var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
+                        selected += label + ', ';
                     });
                     return selected.substr(0, selected.length - 2);
                 }
