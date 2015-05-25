@@ -2627,7 +2627,7 @@
                                     </div>
                                     
                                     <p>
-                                        In addition, the method provides an additional parameter: <code>.multiselect('select', value, triggerOnChange)</code>. If the second parameter is set to true, the method will manually trigger the <code>onChange</code> option.
+                                        The method provides an additional parameter: <code>.multiselect('select', value, triggerOnChange)</code>. If the second parameter is set to true, the method will manually trigger the <code>onChange</code> option.
                                     </p>
                                     
                                     <div class="example">
@@ -2663,6 +2663,56 @@
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
         $('#example-select-onChange').multiselect({
+            onChange: function(option, checked, select) {
+                alert('onChange triggered ...');
+            }
+        });
+
+        $('#example-select-onChange-button').on('click', function() {
+            $('#example-select-onChange').multiselect('select', '1', true);
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                    
+                                    <p>
+                                        The above parameter does also work when selecting multipe values. Note that <code>onChange</code> is called for each selected option individually!
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <div class="btn-group">
+                                            <script type="text/javascript">
+                                                $(document).ready(function() {
+                                                    $('#example-select-onChange-array').multiselect({
+                                                        onChange: function(option, checked, select) {
+                                                            alert('onChange triggered ...');
+                                                        }
+                                                    });
+
+                                                    $('#example-select-onChange-array-button').on('click', function() {
+                                                        $('#example-select-onChange-array').multiselect('select', ['1', '3'], true);
+                                                    });
+                                                });
+                                            </script>
+                                            <div class="btn-group">
+                                                <select id="example-select-onChange-array" multiple="multiple">
+                                                    <option value="1">Option 1</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                    <option value="4">Option 4</option>
+                                                    <option value="5">Option 5</option>
+                                                    <option value="6">Option 6</option>
+                                                </select>
+                                                <button id="example-select-onChange-array-button" class="btn btn-default">Select two options</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-select-onChange-array').multiselect({
             onChange: function(option, checked, select) {
                 alert('onChange triggered ...');
             }
@@ -2729,7 +2779,7 @@
                                     </div>
                                     
                                     <p>
-                                        The method also provides an additional parameter: <code>.multiselect('deselect', value, triggerOnChange)</code>. If the second parameter is set to true, the method will manually trigger the <code>onChange</code> option.
+                                        The method provides an additional parameter: <code>.multiselect('deselect', value, triggerOnChange)</code>. If the second parameter is set to true, the method will manually trigger the <code>onChange</code> option.
                                     </p>
                                     
                                     <div class="example">
@@ -2772,6 +2822,56 @@
 
         $('#example-deselect-onChange-button').on('click', function() {
             $('#example-deselect-onChange').multiselect('deselect', '1', true);
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                    
+                                    <p>
+                                        The above parameter does also work when deselecting multiple options. Note that <code>onChange</code> is called for each deselected option individually.
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <div class="btn-group">
+                                            <script type="text/javascript">
+                                                $(document).ready(function() {
+                                                    $('#example-deselect-onChange-array').multiselect({
+                                                        onChange: function(option, checked, select) {
+                                                            alert('onChange triggered ...');
+                                                        }
+                                                    });
+
+                                                    $('#example-deselect-onChange-array-button').on('click', function() {
+                                                        $('#example-deselect-onChange-array').multiselect('deselect', ['1', '3'], true);
+                                                    });
+                                                });
+                                            </script>
+                                            <div class="btn-group">
+                                                <select id="example-deselect-onChange-array" multiple="multiple">
+                                                    <option value="1" selected>Option 1</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3" selected>Option 3</option>
+                                                    <option value="4">Option 4</option>
+                                                    <option value="5">Option 5</option>
+                                                    <option value="6">Option 6</option>
+                                                </select>
+                                                <button id="example-deselect-onChange-array-button" class="btn btn-default">Deselect two options</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-deselect-onChange-array').multiselect({
+            onChange: function(option, checked, select) {
+                alert('onChange triggered ...');
+            }
+        });
+
+        $('#example-deselect-onChange-array-button').on('click', function() {
+            $('#example-deselect-onChange-array').multiselect('deselect', '1', true);
         });
     });
 &lt;/script&gt;

@@ -1014,14 +1014,14 @@
 
                 $checkbox.prop('checked', true);
                 $option.prop('selected', true);
+                
+                if (triggerOnChange) {
+                    this.options.onChange($option, true);
+                }
             }
 
             this.updateButtonText();
             this.updateSelectAll();
-
-            if (triggerOnChange && selectValues.length === 1) {
-                this.options.onChange($option, true);
-            }
         },
 
         /**
@@ -1068,14 +1068,14 @@
 
                 $checkbox.prop('checked', false);
                 $option.prop('selected', false);
+                
+                if (triggerOnChange) {
+                    this.options.onChange($option, false);
+                }
             }
 
             this.updateButtonText();
             this.updateSelectAll();
-            
-            if (triggerOnChange && deselectValues.length === 1) {
-                this.options.onChange($option, false);
-            }
         },
         
         /**
