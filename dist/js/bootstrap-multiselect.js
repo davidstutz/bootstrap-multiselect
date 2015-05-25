@@ -211,9 +211,11 @@
                 }
                 else {
                     var selected = '';
+                    var delimiter = this.delimiterText;
+                    
                     options.each(function() {
                         var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
-                        selected += label + ', ';
+                        selected += label + delimiter;
                     });
                     
                     return selected.substr(0, selected.length - 2);
@@ -232,10 +234,11 @@
                 }
                 else {
                     var selected = '';
-                    var delimiter = this.delimiter;
+                    var delimiter = this.delimiterText;
+                    
                     options.each(function () {
                         var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
-                        selected += label + ', ';
+                        selected += label + delimiter;
                     });
                     return selected.substr(0, selected.length - 2);
                 }
@@ -328,7 +331,7 @@
             allSelectedText: 'All selected',
             numberDisplayed: 3,
             disableIfEmpty: false,
-            delimiter: ', ',
+            delimiterText: ', ',
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
