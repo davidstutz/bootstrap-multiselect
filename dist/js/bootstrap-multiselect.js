@@ -128,6 +128,31 @@
         }
     }
 
+    // http://ejohn.org/blog/javascript-micro-templating/
+    function template(str, data){
+        // Generate a reusable function that will serve as a template
+        // generator (and which will be cached).
+        var fn = new Function("obj",
+            "var p=[],print=function(){p.push.apply(p,arguments);};" +
+
+            // Introduce the data as local variables using with(){}
+            "with(obj){p.push('" +
+
+            // Convert the template into pure JavaScript
+            str
+                .replace(/[\r\t\n]/g, " ")
+                .split("<%").join("\t")
+                .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+                .replace(/\t=(.*?)%>/g, "',$1,'")
+                .split("\t").join("');")
+                .split("%>").join("p.push('")
+                .split("\r").join("\\'")
+            + "');}return p.join('');");
+
+        // Provide some basic currying to the user
+        return data ? fn( data ) : fn;
+    }
+
     /**
      * Constructor to create a new multiselect using the given select.
      *
@@ -152,6 +177,7 @@
         this.query = '';
         this.searchTimeout = null;
         this.lastToggledInput = null
+        this.compileTemplates();
 
         this.options.multiple = this.$select.attr('multiple') === "multiple";
         this.options.onChange = $.proxy(this.options.onChange, this);
@@ -346,6 +372,15 @@
         constructor: Multiselect,
 
         /**
+         * Compiles templates
+         */
+        compileTemplates: function() {
+            return this.options.compiledTemplates = {
+                li: template(this.options.templates.li)
+            };
+        },
+
+        /**
          * Builds the container of the multiselect.
          */
         buildContainer: function() {
@@ -445,7 +480,7 @@
                         this.createDivider();
                     }
                     else {
-                        this.createOptionValue(element);
+                        this.createOptionValue(element, index);
                     }
 
                 }
@@ -665,9 +700,10 @@
         /**
          * Create an option using the given select option.
          *
-         * @param {jQuery} element
+         * @param {jQuery}  element
+         * @param {integer} index
          */
-        createOptionValue: function(element) {
+        createOptionValue: function(element, index) {
             var $element = $(element);
             if ($element.is(':selected')) {
                 $element.prop('selected', true);
@@ -678,7 +714,10 @@
             var value = $element.val();
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
-            var $li = $(this.options.templates.li);
+            var $li = $(this.options.compiledTemplates.li({
+                element: $element,
+                index:   index
+            }));
             var $label = $('label', $li);
             $label.addClass(inputType);
 
@@ -766,7 +805,7 @@
 
             // Add the options of the group.
             $('option', group).each($.proxy(function(index, element) {
-                this.createOptionValue(element);
+                this.createOptionValue(element, index);
             }, this));
         },
 
@@ -790,7 +829,7 @@
                     this.$ul.prepend($(this.options.templates.divider));
                 }
 
-                var $li = $(this.options.templates.li);
+                var $li = $(this.options.compiledTemplates.li({ element: $('<option>') }));
                 $('label', $li).addClass("checkbox");
                 
                 if (this.options.enableHTML) {

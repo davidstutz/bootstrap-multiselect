@@ -649,3 +649,63 @@ describe('Bootstrap Multiselect Specific Issues', function() {
         $selection.remove();
     });
 });
+
+describe('Bootstrap Multiselect <li> templates', function() {
+    var selectID        = 'multiselect';
+    var containerID     = 'multiselect-container';
+    var buttonContainer = '<div id="' + containerID + '"></div>';
+
+    beforeEach(function() {
+        var $select = $('<select id="' + selectID + '" multiple="multiple"></select>');
+
+        for (var i = 1; i < 41; i++) {
+            var evenOdd = i % 2 == 0 ? 'even' : 'odd';
+            var $option = $('<option data-even-odd="' + evenOdd + '" value="' + i + '">' + i + '</option>');
+
+            if (i < 5) {
+                $option.prop('selected', true);
+            }
+
+            $select.append($option);
+        }
+
+        $('body').append($select);
+    });
+
+    function setupWithTemplate(tmpl) {
+        $('#' + selectID).multiselect({
+            buttonContainer: buttonContainer,
+            templates: {
+                li: tmpl
+            }
+        });
+
+        return $('#' + containerID);
+    }
+
+    it('template works with plain strings', function() {
+        var $multiSelect = setupWithTemplate('<li class="randomClass"><a href="javascript:void(0);"><label></label></a></li>');
+
+        expect($multiSelect.find('li.randomClass').length).toEqual(40);
+    });
+
+    it('template receives element index', function() {
+        var $multiSelect = setupWithTemplate('<li data-index="<%=index%>"><a><label></label></a></li>')
+
+        expect($multiSelect.find('[data-index=2],[data-index=3]').length).toEqual(2);
+    });
+
+    it('template receives element object', function() {
+        var $multiSelect = setupWithTemplate(
+            '<li class="<%=element.attr("data-even-odd")%>"><a><label></label></a></li'
+        );
+
+        expect($multiSelect.find('li.odd').length).toEqual(20);
+    });
+
+    //it('template works with
+
+    afterEach(function() {
+        $('#' + selectID).multiselect('destroy').remove();
+    });
+});
