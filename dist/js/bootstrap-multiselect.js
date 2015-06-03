@@ -935,41 +935,48 @@
         /**
          * Refreshs the multiselect based on the selected options of the select.
          */
-        refresh: function() {
-            $('option', this.$select).each($.proxy(function(index, element) {
-                var $input = $('li input', this.$ul).filter(function() {
-                    return $(this).val() === $(element).val();
-                });
+        refresh: function () {
+            var inputs = $.map($('li input', this.$ul), $);
+            var selectedClass = this.options.selectedClass;
+            $('option', this.$select).each(function (index, element) {
+                var $elem = $(element);
+                var value = $elem.val();
+                var $input;
+                for (var i = inputs.length; 0 < i--; /**/) {
+                    if (value !== ($input = inputs[i]).val())
+                        continue; // wrong li
 
-                if ($(element).is(':selected')) {
-                    $input.prop('checked', true);
+                    if ($elem.is(':selected')) {
+                        $input.prop('checked', true);
 
-                    if (this.options.selectedClass) {
-                        $input.closest('li')
-                            .addClass(this.options.selectedClass);
+                        if (selectedClass) {
+                            $input.closest('li')
+                                .addClass(selectedClass);
+                        }
                     }
-                }
-                else {
-                    $input.prop('checked', false);
+                    else {
+                        $input.prop('checked', false);
 
-                    if (this.options.selectedClass) {
-                        $input.closest('li')
-                            .removeClass(this.options.selectedClass);
+                        if (selectedClass) {
+                            $input.closest('li')
+                                .removeClass(selectedClass);
+                        }
                     }
-                }
 
-                if ($(element).is(":disabled")) {
-                    $input.attr('disabled', 'disabled')
-                        .prop('disabled', true)
-                        .closest('li')
-                        .addClass('disabled');
+                    if ($elem.is(":disabled")) {
+                        $input.attr('disabled', 'disabled')
+                            .prop('disabled', true)
+                            .closest('li')
+                            .addClass('disabled');
+                    }
+                    else {
+                        $input.prop('disabled', false)
+                            .closest('li')
+                            .removeClass('disabled');
+                    }
+                    break; // assumes unique values
                 }
-                else {
-                    $input.prop('disabled', false)
-                        .closest('li')
-                        .removeClass('disabled');
-                }
-            }, this));
+            });
 
             this.updateButtonText();
             this.updateSelectAll();
