@@ -892,9 +892,9 @@
                                             this.query = this.query.toLowerCase();
                                         }
 
-                                        if( this.options.enableFullValueFiltering && this.options.filterBehavior !== 'both' ) {
+                                        if (this.options.enableFullValueFiltering && this.options.filterBehavior !== 'both') {
                                             var valueToMatch = filterCandidate.trim().substring(0, this.query.length);
-                                            if( this.query.indexOf(valueToMatch) > -1 ){
+                                            if (this.query.indexOf(valueToMatch) > -1) {
                                                 showElement = true;
                                             }
                                         }
