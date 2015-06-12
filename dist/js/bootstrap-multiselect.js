@@ -107,6 +107,43 @@
                     }
                 }
 
+                var setEnabled = function (enable) {
+                    setTimeout(function () {
+                        if (enable)
+                            $element.multiselect('enable');
+                        else
+                            $element.multiselect('disable');
+                    });
+                };
+
+                if (allBindings.has('enable')) {
+                    var enable = allBindings.get('enable');
+                    if (ko.isObservable(enable)) {
+                        ko.computed({
+                            read: function () {
+                                setEnabled(enable());
+                            },
+                            disposeWhenNodeIsRemoved: element
+                        }).extend({ rateLimit: 100, notifyWhenChangesStop: true });
+                    } else {
+                        setEnabled(enable);
+                    }
+                }
+
+                if (allBindings.has('disable')) {
+                    var disable = allBindings.get('disable');
+                    if (ko.isObservable(disable)) {
+                        ko.computed({
+                            read: function () {
+                                setEnabled(!disable());
+                            },
+                            disposeWhenNodeIsRemoved: element
+                        }).extend({ rateLimit: 100, notifyWhenChangesStop: true });
+                    } else {
+                        setEnabled(!disable);
+                    }
+                }
+
                 ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
                     $element.multiselect('destroy');
                 });
