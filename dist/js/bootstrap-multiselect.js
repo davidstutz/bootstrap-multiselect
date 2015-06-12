@@ -46,7 +46,7 @@
 
     if (typeof ko !== 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
         ko.bindingHandlers.multiselect = {
-            after: ['options', 'value', 'selectedOptions'],
+            after: ['options', 'value', 'selectedOptions', 'enable', 'disable'],
 
             init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
                 var $element = $(element);
