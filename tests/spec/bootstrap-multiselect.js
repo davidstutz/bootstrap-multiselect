@@ -3,7 +3,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
         
         for (var i = 1; i < 100; i++) {
-            var $option = $('<option value="' + i + '">1</option>');
+            var $option = $('<option value="' + i + '">' + i + '</option>');
             
             if (i < 10) {
                 $option.prop('selected', true);
@@ -407,6 +407,10 @@ describe('Bootstrap Multiselect "Dataprovider"', function() {
 });
 
 describe('Bootstrap Multiselect "Select All".', function() {
+    
+    var onSelectAllTriggered = false;
+    var onDeselectAllTriggered = false;
+    
     beforeEach(function() {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
         
@@ -419,7 +423,13 @@ describe('Bootstrap Multiselect "Select All".', function() {
         $select.multiselect({
             buttonContainer: '<div id="multiselect-container"></div>',
             includeSelectAllOption: true,
-            selectAllValue: 'multiselect-all'
+            selectAllValue: 'multiselect-all',
+            onSelectAll: function() {
+                onSelectAllTriggered = true;
+            },
+            onDeselectAll: function() {
+                onDeselectAllTriggered = true;
+            }
         });
     });
     
@@ -524,6 +534,40 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
     });
     
+    it('Should trigger onSelectAll based on the change event.', function() {
+        expect($('#multiselect option:selected').length).toBe(0);
+        expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
+        
+        // Change all checkboxes except the select all one.
+        $('#multiselect-container input[value!="multiselect-all"]').prop('checked', true);
+        $('#multiselect-container input[value!="multiselect-all"]').trigger('change');
+        
+        expect($('#multiselect option:selected[value!="multiselect-all"]').length).toBe(99);
+        
+        // 100 options seleted including the select all.
+        expect($('#multiselect option:selected').length).toBe(99);
+        expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
+        
+        expect(onSelectAllTriggered).toBe(true);
+    });
+    
+    it('Should trigger onSelectAll based on the click event.', function() {
+        expect($('#multiselect option:selected').length).toBe(0);
+        expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
+        
+        $('#multiselect-container input[value!="multiselect-all"]').click();
+        
+        expect($('#multiselect option:selected').length).toBe(99);
+        expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
+        
+        expect(onSelectAllTriggered).toBe(true);
+    });
+    
+    it('Should trigger onSelectAll on function call.', function() {
+        $('#multiselect').multiselect('selectAll', true, true);
+        expect(onSelectAllTriggered).toBe(true);
+    });
+    
     afterEach(function() {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
@@ -596,7 +640,7 @@ describe('Bootstrap Multiselect Specific Issues', function() {
         selection.addRange(range);
 
         if (document.getSelection().type === 'Range') {
-            $('#multiselect-container').find('a:first').trigger('click');
+            $('#multiselect-container').find('a:first label').trigger('click');
             expect($('#multiselect-container').find('input:first').prop('checked')).toBe(true);
         }
 
