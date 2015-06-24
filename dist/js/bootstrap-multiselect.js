@@ -332,6 +332,7 @@
             numberDisplayed: 3,
             disableIfEmpty: false,
             delimiterText: ', ',
+            justVisible: true,
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
@@ -481,10 +482,10 @@
 
                 if (isSelectAllOption) {
                     if (checked) {
-                        this.selectAll();
+                        this.selectAll(this.options.justVisible);
                     }
                     else {
-                        this.deselectAll();
+                        this.deselectAll(this.options.justVisible);
                     }
                 }
 
