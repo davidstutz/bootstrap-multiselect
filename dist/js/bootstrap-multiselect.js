@@ -151,7 +151,7 @@
         this.originalOptions = this.$select.clone()[0].options;
         this.query = '';
         this.searchTimeout = null;
-        this.lastToggledInput = null
+        this.lastToggledInput = null;
 
         this.options.multiple = this.$select.attr('multiple') === "multiple";
         this.options.onChange = $.proxy(this.options.onChange, this);
@@ -176,7 +176,7 @@
         }
         
         this.$select.hide().after(this.$container);
-    };
+    }
 
     Multiselect.prototype = {
 
