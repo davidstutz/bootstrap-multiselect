@@ -1206,23 +1206,41 @@
                     });
                     
                     forEach(option.children, function(subOption) { // add children option tags
-                        $tag.append($('<option/>').attr({
+                        /* Note: this could be copied again to OptGroup if you think option groups may have data attributes */
+                        //Decouple attribute assignment from .attr()      
+                        var attributes  = {
                             value: subOption.value,
                             label: subOption.label || subOption.value,
                             title: subOption.title,
                             selected: !!subOption.selected,
                             disabled: !!subOption.disabled
-                        }));
+                        }
+                       
+                       //Loop through attributes object and add key-value for each attribute    
+                       for (var key in subOption.attributes) {
+                            attributes['data-' + key] = subOption.attributes[key];
+                       }
+                        //Append original attributes + new data attributes to option       
+                        $tag.append($('<option/>').attr(attributes));
                     });
                 }
                 else {
-                    $tag = $('<option/>').attr({
+                    //Decouple attribute assignment from .attr()                     
+                    var attributes = 
+                    {
                         value: option.value,
                         label: option.label || option.value,
                         title: option.title,
                         selected: !!option.selected,
                         disabled: !!option.disabled
-                    });
+                    }
+                    
+                    //Loop through attributes object and add key-value for each attribute    
+                    for (var key in option.attributes) {
+                      attributes['data-' + key] = option.attributes[key];
+                    }
+                    //Append original attributes + new data attributes to option
+                    $tag =   $('<option/>').attr(attributes);
                 }
                 
                 $select.append($tag);

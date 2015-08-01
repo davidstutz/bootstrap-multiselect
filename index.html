@@ -3421,6 +3421,79 @@
 &lt;select id=&quot;example-dataprovider-optgroups&quot; multiple=&quot;multiple&quot;&gt;&lt;/select&gt;
 </pre>
                                     </div>
+                                    
+                                                                        <p>
+                                        You can add custom data attributes on option group children and non-grouped options:
+                                    </p>
+                                    <p>
+                                       Renders as: <pre class="prettyprint">&lt;option value=&quot;1&quot; label=&quot;Option 1&quot; selected=&quot;selected&quot; data-some-attribute=&quot;1&quot; data-another-attribute=&quot;false&quot;&gt;&lt;/option&gt;
+&lt;option value=&quot;2&quot; label=&quot;Option 2&quot; data-some-attribute=&quot;2&quot;&gt;&lt;/option&gt;</pre>
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <div class="btn-group">
+                                            <script type="text/javascript">
+                                                $(document).ready(function() {
+                                                    $('#example-dataprovider-data-attributes').multiselect();
+
+                                                  var optionsData =[
+                                                                  {
+                                                                    "label": "Option 1",
+                                                                    "value": 1,
+                                                                    "selected": true,
+                                                                    "attributes": {
+                                                                      "some-attribute": 1,
+                                                                      "another-attribute": false
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "label": "Option 2",
+                                                                    "value": 2,
+                                                                    "selected": false,
+                                                                    "attributes": {
+                                                                      "some-attribute": 2
+                                                                    }
+                                                                  }
+                                                                ];
+                                                    $('#example-dataprovider-data-attributes').multiselect('dataprovider', optionsData);
+                                                });
+                                            </script>
+                                            <select id="example-dataprovider-data-attributes" multiple="multiple"></select>
+                                            
+                                         
+                                        </div>
+                                    </div>
+
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+      $(&#39;#example-dataprovider-data-attributes&#39;).multiselect();
+
+      var optionsData =[
+                      {
+                        &quot;label&quot;: &quot;Option 1&quot;,
+                        &quot;value&quot;: 1,
+                        &quot;selected&quot;: true,
+                        &quot;attributes&quot;: {
+                          &quot;some-attribute&quot;: 1,
+                          &quot;another-attribute&quot;: false
+                        }
+                      },
+                      {
+                        &quot;label&quot;: &quot;Option 2&quot;,
+                        &quot;value&quot;: 2,
+                        &quot;selected&quot;: false,
+                        &quot;attributes&quot;: {
+                          &quot;some-attribute&quot;: 2
+                        }
+                      }
+                    ];
+        $(&#39;#example-dataprovider-data-attributes&#39;).multiselect(&#39;dataprovider&#39;, optionsData);
+    });
+&lt;/script&gt;
+&lt;select id=&quot;example-dataprovider-data-attributes&quot; multiple=&quot;multiple&quot;&gt;&lt;/select&gt;
+</pre>
+                                    </div>
+                                    
                                 </td>
                             </tr>
                             <tr>
