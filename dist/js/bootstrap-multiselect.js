@@ -679,6 +679,9 @@
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
             var $li = $(this.options.templates.li);
+            
+            $li.addClass( $element.attr("class") );
+            
             var $label = $('label', $li);
             $label.addClass(inputType);
 
