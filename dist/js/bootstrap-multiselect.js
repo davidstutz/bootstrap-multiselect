@@ -1157,6 +1157,7 @@
                     
                     $tag = $('<optgroup/>').attr({
                         label: option.label || 'Group ' + groupCounter,
+                        value: option.value,
                         disabled: !!option.disabled
                     });
                     
