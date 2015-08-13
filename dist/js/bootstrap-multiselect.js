@@ -1103,7 +1103,7 @@
             }
                 
             if (allCheckboxesCount === visibleCheckboxesCount || justVisible === false) {
-                $("option:enabled", this.$select).prop('selected', true);
+                $("option:not([data-role='divider']):enabled", this.$select).prop('selected', true);
             }
             else {
                 var values = visibleCheckboxes.map(function() {
