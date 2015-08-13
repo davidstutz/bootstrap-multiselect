@@ -151,7 +151,7 @@
         this.originalOptions = this.$select.clone()[0].options;
         this.query = '';
         this.searchTimeout = null;
-        this.lastToggledInput = null
+        this.lastToggledInput = null;
 
         this.options.multiple = this.$select.attr('multiple') === "multiple";
         this.options.onChange = $.proxy(this.options.onChange, this);
@@ -159,6 +159,7 @@
         this.options.onDropdownHide = $.proxy(this.options.onDropdownHide, this);
         this.options.onDropdownShown = $.proxy(this.options.onDropdownShown, this);
         this.options.onDropdownHidden = $.proxy(this.options.onDropdownHidden, this);
+        this.options.onInitialized = $.proxy(this.options.onInitialized, this);
         
         // Build select all if enabled.
         this.buildContainer();
@@ -176,6 +177,8 @@
         }
         
         this.$select.hide().after(this.$container);
+
+        this.options.onInitialized(this.$container);
     };
 
     Multiselect.prototype = {
@@ -300,6 +303,14 @@
              */
             onSelectAll: function() {
                 
+            },
+            /**
+             * Triggered after initializing.
+             *
+             * @param {jQuery} $container
+             */
+            onInitialized: function($container) {
+
             },
             enableHTML: false,
             buttonClass: 'btn btn-default',
