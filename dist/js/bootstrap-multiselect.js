@@ -178,7 +178,7 @@
         
         this.$select.hide().after(this.$container);
 
-        this.options.onInitialized(this.$select);
+        this.options.onInitialized(this.$container);
     };
 
     Multiselect.prototype = {
@@ -307,9 +307,9 @@
             /**
              * Triggered after initializing.
              *
-             * @param {jQuery} $select
+             * @param {jQuery} $container
              */
-            onInitialized: function($select) {
+            onInitialized: function($container) {
 
             },
             enableHTML: false,
