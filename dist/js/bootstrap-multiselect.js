@@ -252,11 +252,15 @@
             optionLabel: function(element){
                 return $(element).attr('label') || $(element).text();
             },
-
+            /**
+             * Create a class.
+             *
+             * @param {jQuery} element
+             * @returns {String}
+             */
             optionClass: function(element) {
                 return $(element).attr('class') || '';
             },
-
             /**
              * Triggered on change of the multiselect.
              * 
