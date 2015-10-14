@@ -1263,6 +1263,7 @@
                         selected: !!option.selected,
                         disabled: !!option.disabled
                     });
+                    $tag.text(option.label || option.value);
                 }
                 
                 $select.append($tag);
