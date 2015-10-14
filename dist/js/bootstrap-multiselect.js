@@ -177,9 +177,8 @@
         }
         
         this.$select.hide().after(this.$container);
-
         this.options.onInitialized(this.$select, this.$container);
-    };
+    }
 
     Multiselect.prototype = {
 

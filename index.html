@@ -744,6 +744,52 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td><code>onInitialized</code></td>
+                                <td>
+                                    <p>
+                                        A function which is triggered when the multiselect is finished initializing.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-onInitialized-button').on('click', function() {
+                                                    $('#example-onInitialized').multiselect({
+                                                        onInitialized: function(select, container) {
+                                                            alert('Initialized.');
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                        </script>
+                                        <div class="btn-group">
+                                            <select id="example-onInitialized" multiple="multiple">
+                                                <option value="1">Option 1</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                                <option value="4">Option 4</option>
+                                                <option value="5">Option 5</option>
+                                                <option value="6">Option 6</option>
+                                            </select>
+                                            <button id="example-onInitialized-button" class="btn btn-primary">Activate!</button>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-onChange').multiselect({
+            onChange: function(option, checked, select) {
+                alert('Changed option ' + $(option).val() + '.');
+            }
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td><code>onDropdownShow</code></td>
                                 <td>
                                     <p>
