@@ -256,6 +256,10 @@ describe('Bootstrap Multiselect "Single Selection"', function() {
         });
     });
     
+    it('Deselect all should work.', function() {
+        expect($('#multiselect option:selected').length).toBe(1);
+    });
+    
     afterEach(function() {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
