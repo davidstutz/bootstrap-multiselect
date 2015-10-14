@@ -151,7 +151,7 @@
         this.originalOptions = this.$select.clone()[0].options;
         this.query = '';
         this.searchTimeout = null;
-        this.lastToggledInput = null
+        this.lastToggledInput = null;
 
         this.options.multiple = this.$select.attr('multiple') === "multiple";
         this.options.onChange = $.proxy(this.options.onChange, this);
@@ -176,7 +176,7 @@
         }
         
         this.$select.hide().after(this.$container);
-    };
+    }
 
     Multiselect.prototype = {
 
@@ -513,7 +513,7 @@
                             $optionsNotThis.closest("a").css("outline", "");
                         }
                     }
-                    else {
+                    else if ($option) {
                         // Unselect option.
                         $option.prop('selected', false);
                     }
@@ -839,6 +839,7 @@
                         var clearBtn = $(this.options.templates.filterClearBtn);
                         clearBtn.on('click', $.proxy(function(event){
                             clearTimeout(this.searchTimeout);
+                            this.query = '';
                             this.$filter.find('.multiselect-search').val('');
                             $('li', this.$ul).show().removeClass("filter-hidden");
                             this.updateSelectAll();
@@ -863,64 +864,71 @@
 
                             if (this.query !== event.target.value) {
                                 this.query = event.target.value;
-
-                                var currentGroup, currentGroupVisible;
-                                $.each($('li', this.$ul), $.proxy(function(index, element) {
-                                    var value = $('input', element).length > 0 ? $('input', element).val() : "";
-                                    var text = $('label', element).text();
-
-                                    var filterCandidate = '';
-                                    if ((this.options.filterBehavior === 'text')) {
-                                        filterCandidate = text;
-                                    }
-                                    else if ((this.options.filterBehavior === 'value')) {
-                                        filterCandidate = value;
-                                    }
-                                    else if (this.options.filterBehavior === 'both') {
-                                        filterCandidate = text + '\n' + value;
-                                    }
-
-                                    if (value !== this.options.selectAllValue && text) {
-                                        // By default lets assume that element is not
-                                        // interesting for this search.
-                                        var showElement = false;
-
-                                        if (this.options.enableCaseInsensitiveFiltering && filterCandidate.toLowerCase().indexOf(this.query.toLowerCase()) > -1) {
-                                            showElement = true;
-                                        }
-                                        else if (filterCandidate.indexOf(this.query) > -1) {
-                                            showElement = true;
-                                        }
-
-                                        // Toggle current element (group or group item) according to showElement boolean.
-                                        $(element).toggle(showElement).toggleClass('filter-hidden', !showElement);
-                                        
-                                        // Differentiate groups and group items.
-                                        if ($(element).hasClass('multiselect-group')) {
-                                            // Remember group status.
-                                            currentGroup = element;
-                                            currentGroupVisible = showElement;
-                                        }
-                                        else {
-                                            // Show group name when at least one of its items is visible.
-                                            if (showElement) {
-                                                $(currentGroup).show().removeClass('filter-hidden');
-                                            }
-                                            
-                                            // Show all group items when group name satisfies filter.
-                                            if (!showElement && currentGroupVisible) {
-                                                $(element).show().removeClass('filter-hidden');
-                                            }
-                                        }
-                                    }
-                                }, this));
+                                this.updateVisibilityByFilter();
                             }
 
-                            this.updateSelectAll();
                         }, this), 300, this);
                     }, this));
                 }
             }
+        },
+        
+        /**
+         * Update visibilities of the options
+         */
+        updateVisibilityByFilter: function () {
+            var currentGroup, currentGroupVisible;
+            $.each($('li', this.$ul), $.proxy(function (index, element) {
+                var value = $('input', element).length > 0 ? $('input', element).val() : "";
+                var text = $('label', element).text();
+                
+                var filterCandidate = '';
+                if ((this.options.filterBehavior === 'text')) {
+                    filterCandidate = text;
+                }
+                else if ((this.options.filterBehavior === 'value')) {
+                    filterCandidate = value;
+                }
+                else if (this.options.filterBehavior === 'both') {
+                    filterCandidate = text + '\n' + value;
+                }
+                
+                if (value !== this.options.selectAllValue && text) {
+                    // By default lets assume that element is not
+                    // interesting for this search.
+                    var showElement = false;
+                    
+                    if (this.options.enableCaseInsensitiveFiltering && filterCandidate.toLowerCase().indexOf(this.query.toLowerCase()) > -1) {
+                        showElement = true;
+                    }
+                    else if (filterCandidate.indexOf(this.query) > -1) {
+                        showElement = true;
+                    }
+                    
+                    // Toggle current element (group or group item) according to showElement boolean.
+                    $(element).toggle(showElement).toggleClass('filter-hidden', !showElement);
+                    
+                    // Differentiate groups and group items.
+                    if ($(element).hasClass('multiselect-group')) {
+                        // Remember group status.
+                        currentGroup = element;
+                        currentGroupVisible = showElement;
+                    }
+                    else {
+                        // Show group name when at least one of its items is visible.
+                        if (showElement) {
+                            $(currentGroup).show().removeClass('filter-hidden');
+                        }
+                        
+                        // Show all group items when group name satisfies filter.
+                        if (!showElement && currentGroupVisible) {
+                            $(element).show().removeClass('filter-hidden');
+                        }
+                    }
+                }
+            }, this));
+            
+            this.updateSelectAll();
         },
 
         /**
@@ -931,9 +939,18 @@
             this.$select.show();
             this.$select.data('multiselect', null);
         },
+        
+        /**
+         * Refreshes the multiselect options based on the option of the select element.
+         */
+        refreshOptions: function () {
+            this.$ul.children('li').not('.filter').remove();
+            this.buildDropdownOptions();
+            this.updateVisibilityByFilter();
+        },
 
         /**
-         * Refreshs the multiselect based on the selected options of the select.
+         * Refreshes the multiselect based on the selected options of the select element.
          */
         refresh: function () {
             var inputs = $.map($('li input', this.$ul), $);

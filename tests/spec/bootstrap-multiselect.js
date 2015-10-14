@@ -153,6 +153,27 @@ describe('Bootstrap Multiselect "Core".', function() {
         }
     });
     
+    it('Should preserve the checkbox selections after using refreshOptions.', function () {
+        var $select = $('#multiselect');
+        for (var i = 100; i < 110; i++) {
+            var $option = $('<option value="' + i + '">' + i + '</option>');
+            $select.append($option);
+        }
+        
+        expect($('#multiselect option').length).toBe(109);
+        expect($('#multiselect-container input[type="checkbox"]').length).toBe(99);
+        
+        $('#multiselect').multiselect('refreshOptions');
+        
+        expect($('#multiselect option').length).toBe(109);
+        expect($('#multiselect-container input[type="checkbox"]').length).toBe(109);
+        expect($('#multiselect-container input[type="checkbox"]:checked').length).toBe(9);
+        
+        for (var i = 1; i < 10; i++) {
+            expect($('#multiselect option[value="' + i + '"]').prop('selected')).toBe(true);
+        }
+    });
+    
     it('Should remove container, button and ul after destroy.', function() {
         $('#multiselect').multiselect('destroy');
         
