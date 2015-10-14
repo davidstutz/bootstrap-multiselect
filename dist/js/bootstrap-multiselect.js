@@ -794,7 +794,7 @@
         },
 
         /**
-         * Build the selct all.
+         * Build the select all.
          * 
          * Checks if a select all has already been created.
          */
