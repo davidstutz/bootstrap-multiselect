@@ -1541,6 +1541,83 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td><code>optionClass</code></td>
+                                <td>
+                                    <p>
+                                        A callback used to define the classes for the <code>li</code> elements containing checkboxes and labels.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-optionClass').multiselect({
+                                                    optionClass: function(element) {
+                                                        var value = $(element).val();
+                                                        
+                                                        if (value%2 == 0) {
+                                                            return 'even';
+                                                        }
+                                                        else {
+                                                            return 'odd';
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                        <style type="text/css">
+                                            #example-optionClass-container .multiselect-container li.odd {
+                                                background: #eeeeee;
+                                            }
+                                        </style>
+                                        <div id="example-optionClass-container">
+                                            <select id="example-optionClass" multiple="multiple">
+                                                <option value="1">Option 1</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                                <option value="4">Option 4</option>
+                                                <option value="5">Option 5</option>
+                                                <option value="6">Option 6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-optionClass').multiselect({
+            optionClass: function(element) {
+                var value = $(element).val();
+
+                if (value%2 == 0) {
+                    return 'even';
+                }
+                else {
+                    return 'odd';
+                }
+            }
+        });
+    });
+&lt;/script&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+    #example-optionClass-container .multiselect-container li.odd {
+        background: #eeeeee;
+    }
+&lt;/style&gt;
+&lt;div id=&quot;example-optionClass-container&quot;&gt;
+    &lt;select id=&quot;example-optionClass&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td><code>selectedClass</code></td>
                                 <td>
                                     <p>
@@ -4374,20 +4451,32 @@ $(document).ready(function() {
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-confirmation').multiselect({
-            onChange: function(element, checked) {
-                if(checked === true) {
-                    //action taken here if true
-                }
-                else if(checked === false) {
-                    if(confirm('Do you wish to deselect the element?')) {
-                        //action taken here
-                    }
-                    else {
-                        $("#example-confirmation").multiselect('select', element.val());
-                    }
-                }
+        $('#example-large-refresh-button').on('click', function() {
+            for (var i = 0; i &lt; 1000; i++) {
+                $('#example-large-refresh').append('&lt;option value=&quot;' + i + '&quot;&gt;Option ' + i + '&lt;/option&gt;');
             }
+
+            $('#example-large-refresh').multiselect();
+        });
+
+        $('#example-large-refresh-refresh').on('click', function() {
+            $('#example-large-refresh').multiselect('refresh');
+        });
+
+        $('#example-large-refresh-select').on('click', function() {
+            var count = 0;
+
+            $('#example-large-refresh option').each(function() {
+                var i = $(this).val();
+
+                if (i%2 == 0) {
+                    $(this).prop('selected', true);
+                    count++;
+                }
+
+            });
+
+            alert('Selected ' + count + ' options!');
         });
     });
 &lt;/script&gt;
