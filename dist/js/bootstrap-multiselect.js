@@ -253,6 +253,15 @@
                 return $(element).attr('label') || $(element).text();
             },
             /**
+             * Create a class.
+             *
+             * @param {jQuery} element
+             * @returns {String}
+             */
+            optionClass: function(element) {
+                return $(element).attr('class') || '';
+            },
+            /**
              * Triggered on change of the multiselect.
              * 
              * Not triggered when selecting/deselecting options manually.
@@ -675,12 +684,14 @@
 
             // Support the label attribute on options.
             var label = this.options.optionLabel(element);
+            var classes = this.options.optionClass(element);
             var value = $element.val();
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
             var $li = $(this.options.templates.li);
             var $label = $('label', $li);
             $label.addClass(inputType);
+            $li.addClass(classes);
 
             if (this.options.enableHTML) {
                 $label.html(" " + label);
@@ -1227,6 +1238,7 @@
                         value: option.value,
                         label: option.label || option.value,
                         title: option.title,
+                        class: option.class,
                         selected: !!option.selected,
                         disabled: !!option.disabled
                     });
