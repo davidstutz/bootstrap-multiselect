@@ -1,4 +1,6 @@
 describe('Bootstrap Multiselect "Core".', function() {
+    var onInitialized = false;
+
     beforeEach(function() {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
         
@@ -15,7 +17,10 @@ describe('Bootstrap Multiselect "Core".', function() {
         $('body').append($select);
         
         $select.multiselect({
-            buttonContainer: '<div id="multiselect-container"></div>'
+            buttonContainer: '<div id="multiselect-container"></div>',
+            onInitialized: function($select) {
+                onInitialized = true;
+            }
         });
     });
     
@@ -197,7 +202,11 @@ describe('Bootstrap Multiselect "Core".', function() {
         expect($('#multiselect-container input[value="10"]').prop('checked')).toBe(false);
         expect($('#multiselect option[value="10"]').prop('selected')).toBe(false);
     });
-    
+
+    it('Should trigger onInitialized.', function() {
+        expect(onInitialized).toBe(true);
+    });
+
     afterEach(function() {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
