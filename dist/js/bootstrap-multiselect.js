@@ -340,6 +340,7 @@
             selectAllNumber: true,
             enableFiltering: false,
             enableCaseInsensitiveFiltering: false,
+            enableFullValueFiltering: false,
             enableClickableOptGroups: false,
             filterPlaceholder: 'Search',
             // possible options: 'text', 'value', 'both'
@@ -903,12 +904,21 @@
                                     }
 
                                     if (value !== this.options.selectAllValue && text) {
+
                                         // By default lets assume that element is not
                                         // interesting for this search.
                                         var showElement = false;
 
-                                        if (this.options.enableCaseInsensitiveFiltering && filterCandidate.toLowerCase().indexOf(this.query.toLowerCase()) > -1) {
-                                            showElement = true;
+                                        if (this.options.enableCaseInsensitiveFiltering) {
+                                            filterCandidate = filterCandidate.toLowerCase();
+                                            this.query = this.query.toLowerCase();
+                                        }
+
+                                        if (this.options.enableFullValueFiltering && this.options.filterBehavior !== 'both') {
+                                            var valueToMatch = filterCandidate.trim().substring(0, this.query.length);
+                                            if (this.query.indexOf(valueToMatch) > -1) {
+                                                showElement = true;
+                                            }
                                         }
                                         else if (filterCandidate.indexOf(this.query) > -1) {
                                             showElement = true;
