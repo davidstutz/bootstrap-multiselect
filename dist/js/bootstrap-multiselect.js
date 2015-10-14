@@ -309,7 +309,7 @@
             /**
              * Triggered on select all.
              */
-            onSelectAll: function() {
+            onSelectAll: function(checked) {
                 
             },
             /**
@@ -1333,11 +1333,14 @@
                 if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
                     selectAllInput.prop("checked", true);
                     selectAllLi.addClass(this.options.selectedClass);
-                    this.options.onSelectAll();
+                    this.options.onSelectAll(true);
                 }
                 else {
                     selectAllInput.prop("checked", false);
                     selectAllLi.removeClass(this.options.selectedClass);
+                    if (checkedBoxesLength === 0) {
+                    this.options.onSelectAll(false);
+                    }
                 }
             }
         },
