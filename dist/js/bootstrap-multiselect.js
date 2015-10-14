@@ -1220,6 +1220,7 @@
                             selected: !!subOption.selected,
                             disabled: !!subOption.disabled
                         }));
+                        $tag.data("additional", subOption.additional);
                     });
                 }
                 else {
@@ -1230,6 +1231,7 @@
                         selected: !!option.selected,
                         disabled: !!option.disabled
                     });
+                    $tag.data("additional", option.additional);
                 }
                 
                 $select.append($tag);
