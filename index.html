@@ -778,13 +778,26 @@
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-onChange').multiselect({
-            onChange: function(option, checked, select) {
-                alert('Changed option ' + $(option).val() + '.');
-            }
+        $('#example-onInitialized-button').on('click', function() {
+            $('#example-onInitialized').multiselect({
+                onInitialized: function(select, container) {
+                    alert('Initialized.');
+                }
+            });
         });
     });
 &lt;/script&gt;
+&lt;div class=&quot;btn-group&quot;&gt;
+    &lt;select id=&quot;example-onInitialized&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;button id=&quot;example-onInitialized-button&quot; class=&quot;btn btn-primary&quot;&gt;Activate!&lt;/button&gt;
+&lt;/div&gt;
 </pre>
                                     </div>
                                 </td>
@@ -2292,6 +2305,56 @@
     $(document).ready(function() {
         $('#example-enableCaseInsensitiveFiltering').multiselect({
             enableCaseInsensitiveFiltering: true
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>enableFullValueFiltering</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Set to <code>true</code> to enable full value filtering, that is all options are shown where the query is a prefix of. An example is given here: <a href="https://github.com/davidstutz/bootstrap-multiselect/pull/555" target="_blank">#555</a>.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-enableFullValueFiltering').multiselect({
+                                                    enableFiltering: true,
+                                                    enableFullValueFiltering: true
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-enableFullValueFiltering" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                            <option value="7">Option 7</option>
+                                            <option value="8">Option 8</option>
+                                            <option value="9">Option 9</option>
+                                            <option value="10">Option 10</option>
+                                            <option value="11">Option 11</option>
+                                            <option value="12">Option 12</option>
+                                            <option value="13">Option 13</option>
+                                            <option value="14">Option 14</option>
+                                            <option value="15">Option 15</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-enableFullValueFiltering').multiselect({
+            enableFiltering: true,
+            enableFullValueFiltering: true
         });
     });
 &lt;/script&gt;
