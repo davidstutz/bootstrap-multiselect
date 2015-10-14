@@ -2059,8 +2059,8 @@
                                             $(document).ready(function() {
                                                 $('#example-onSelectAll').multiselect({
                                                     includeSelectAllOption: true,
-                                                    onSelectAll: function() {
-                                                        alert('onSelectAll triggered.');
+                                                    onSelectAll: function(checked) {
+                                                        alert('onSelectAll triggered: ' + (checked ? 'selected all' : 'deselected all') + '!');
                                                     }
                                                 });
                                             });

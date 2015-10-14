@@ -170,7 +170,7 @@
         this.buildFilter();
 
         this.updateButtonText();
-        this.updateSelectAll();
+        this.updateSelectAll(true);
 
         if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
             this.disable();
@@ -1212,7 +1212,7 @@
             this.buildFilter();
 
             this.updateButtonText();
-            this.updateSelectAll();
+            this.updateSelectAll(true);
             
             if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
                 this.disable();
@@ -1322,7 +1322,7 @@
         /**
          * Updates the select all checkbox based on the currently displayed and selected checkboxes.
          */
-        updateSelectAll: function() {
+        updateSelectAll: function(notTriggerOnSelectAll) {
             if (this.hasSelectAll()) {
                 var allBoxes = $("li:not(.multiselect-item):not(.filter-hidden) input:enabled", this.$ul);
                 var allBoxesLength = allBoxes.length;
@@ -1339,7 +1339,9 @@
                     selectAllInput.prop("checked", false);
                     selectAllLi.removeClass(this.options.selectedClass);
                     if (checkedBoxesLength === 0) {
-                    this.options.onSelectAll(false);
+                        if (!notTriggerOnSelectAll) {
+                            this.options.onSelectAll(false);
+                        }
                     }
                 }
             }
