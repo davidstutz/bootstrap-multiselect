@@ -937,8 +937,8 @@
          */
         refresh: function () {
             var inputs = $.map($('li input', this.$ul), $);
-            var selectedClass = this.options.selectedClass;
-            $('option', this.$select).each(function (index, element) {
+            
+            $('option', this.$select).each($.proxy(function (index, element) {
                 var $elem = $(element);
                 var value = $elem.val();
                 var $input;
@@ -949,17 +949,17 @@
                     if ($elem.is(':selected')) {
                         $input.prop('checked', true);
 
-                        if (selectedClass) {
+                        if (this.options.selectedClass) {
                             $input.closest('li')
-                                .addClass(selectedClass);
+                                .addClass(this.options.selectedClass);
                         }
                     }
                     else {
                         $input.prop('checked', false);
 
-                        if (selectedClass) {
+                        if (this.options.selectedClass) {
                             $input.closest('li')
-                                .removeClass(selectedClass);
+                                .removeClass(this.options.selectedClass);
                         }
                     }
 
@@ -976,7 +976,7 @@
                     }
                     break; // assumes unique values
                 }
-            });
+            }, this));
 
             this.updateButtonText();
             this.updateSelectAll();

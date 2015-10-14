@@ -4322,6 +4322,78 @@ $(document).ready(function() {
 &lt;select id=&quot;example-disable-javascript&quot; multiple=&quot;multiple&quot;&gt;&lt;/select&gt;
 </pre>
                         
+                    <p>
+                        Performance example for using <code>.multiselect('refresh')</code> with a large number of options:
+                    </p>
+
+                    <p class="alert alert-warning">The below examples need to be activated. <b>Note that this may take some time!</b></p>
+                    
+                    <p class="alert alert-info"><button id="example-large-refresh-button" class="btn btn-primary">Activate</button></p>
+                    
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-large-refresh-button').on('click', function() {
+                                    for (var i = 0; i < 1000; i++) {
+                                        $('#example-large-refresh').append('<option value="' + i + '">Option ' + i + '</option>');
+                                    }
+                                    
+                                    $('#example-large-refresh').multiselect();
+                                });
+                                
+                                $('#example-large-refresh-refresh').on('click', function() {
+                                    $('#example-large-refresh').multiselect('refresh');
+                                });
+                                
+                                $('#example-large-refresh-select').on('click', function() {
+                                    var count = 0;
+                                    
+                                    $('#example-large-refresh option').each(function() {
+                                        var i = $(this).val();
+                                        
+                                        if (i%2 == 0) {
+                                            $(this).prop('selected', true);
+                                            count++;
+                                        }
+                                        
+                                    });
+                                    
+                                    alert('Selected ' + count + ' options!');
+                                });
+                            });
+                        </script>
+                        <div class="btn-group">
+                            <select id="example-large-refresh" multiple="multiple">
+                                
+                            </select>
+                            <button id="example-large-refresh-select" class="btn btn-default">Select every second option ...</button>
+                            <button id="example-large-refresh-refresh" class="btn btn-primary">Refresh!</button>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-confirmation').multiselect({
+            onChange: function(element, checked) {
+                if(checked === true) {
+                    //action taken here if true
+                }
+                else if(checked === false) {
+                    if(confirm('Do you wish to deselect the element?')) {
+                        //action taken here
+                    }
+                    else {
+                        $("#example-confirmation").multiselect('select', element.val());
+                    }
+                }
+            }
+        });
+    });
+&lt;/script&gt;
+</pre>
+                    </div>
+                        
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
                     </div>
