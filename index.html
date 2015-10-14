@@ -1807,6 +1807,49 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <code>selectAllJustVisible</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Setting both <code>includeSelectAllOption</code> and <code>enableFiltering</code> to <code>true</code>, the select all option does always select only the visible option. With setting <code>selectAllJustVisible</code> to <code>false</code> this behavior is changed such that always all options (irrespective of whether they are visible) are selected.
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-selectAllJustVisible').multiselect({
+                                                    enableFiltering: true,
+                                                    includeSelectAllOption: true,
+                                                    selectAllJustVisible: false
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-selectAllJustVisible" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-selectAllJustVisible').multiselect({
+            enableFiltering: true,
+            includeSelectAllOption: true,
+            selectAllJustVisible: false
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <code>selectAllText</code>
                                 </td>
                                 <td>
