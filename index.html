@@ -1958,6 +1958,45 @@
 &lt;/script&gt;
 </pre>
                                     </div>
+                                    
+                                    <p>
+                                        Note that the select all does not trigger the <code>onChange</code> event and only triggers the <code>onSelectAll</code> event:
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-includeSelectAllOption-onChange').multiselect({
+                                                    includeSelectAllOption: true,
+                                                    onChange: function(option, checked) {
+                                                        alert('Not triggered when clicking the select all!');
+                                                    },
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-includeSelectAllOption-onChange" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function() {
+        $('#example-includeSelectAllOption-onChange').multiselect({
+            includeSelectAllOption: true,
+            onChange: function(option, checked) {
+                alert('Not triggered when clicking the select all!');
+            },
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
