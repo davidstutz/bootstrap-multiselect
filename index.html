@@ -152,7 +152,87 @@
                     <div class="page-header">
                         <h2 id="configuration-options">Configuration Options</h2>
                     </div>
-
+                    
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th colspan="3">
+                                    Overview
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#configuration-options-multiple"><code>multiple</code></a></td>
+                                <td><a href="#configuration-options-enableHTML"><code>enableHTML</code></a></td>
+                                <td><a href="#configuration-options-enableClickableOptGroups"><code>enableClickableOptGroups</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-enableCollapsibleOptGroups"><code>enableCollapsibleOptGroups</code></a></td>
+                                <td><a href="#configuration-options-disableIfEmpty"><code>disableIfEmpty</code></a></td>
+                                <td><a href="#configuration-options-dropRight"><code>dropRight</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-maxHeight"><code>maxHeight</code></a></td>
+                                <td><a href="#configuration-options-disableIfEmpty"><code>disableIfEmpty</code></a></td>
+                                <td><a href="#configuration-options-onChange"><code>onChange</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-onInitialized"><code>onInitialized</code></a></td>
+                                <td><a href="#configuration-options-onDropdownShow"><code>onDropdownShow</code></a></td>
+                                <td><a href="#configuration-options-onDropdownHide"><code>onDropdownHide</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-onDropdownShown"><code>onDropdownShown</code></a></td>
+                                <td><a href="#configuration-options-onDropdownHidden"><code>onDropdownHidden</code></a></td>
+                                <td><a href="#configuration-options-buttonClass"><code>buttonClass</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-inheritClass"><code>inheritClass</code></a></td>
+                                <td><a href="#configuration-options-buttonContainer"><code>buttonContainer</code></a></td>
+                                <td><a href="#configuration-options-buttonWidth"><code>buttonWidth</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-buttonText"><code>buttonText</code></a></td>
+                                <td><a href="#configuration-options-buttonTitle"><code>buttonTitle</code></a></td>
+                                <td><a href="#configuration-options-nonSelectedText"><code>nonSelectedText</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-nSelectedText"><code>buttonText</code></a></td>
+                                <td><a href="#configuration-options-allSelectedText"><code>allSelectedText</code></a></td>
+                                <td><a href="#configuration-options-numberDisplayed"><code>numberDisplayed</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-delimiterText"><code>delimiterText</code></a></td>
+                                <td><a href="#configuration-options-optionLabel"><code>optionLabel</code></a></td>
+                                <td><a href="#configuration-options-optionClass"><code>optionClass</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-selectedClass"><code>selectedClass</code></a></td>
+                                <td><a href="#configuration-options-includeSelectAllOption"><code>includeSelectAllOption</code></a></td>
+                                <td><a href="#configuration-options-selectAllJustVisible"><code>selectAllJustVisible</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-selectAllText"><code>selectAllText</code></a></td>
+                                <td><a href="#configuration-options-selectAllValue"><code>selectAllValue</code></a></td>
+                                <td><a href="#configuration-options-selectAllName"><code>selectAllName</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-selectAllNumber"><code>selectAllNumber</code></a></td>
+                                <td><a href="#configuration-options-onSelectAll"><code>onSelectAll</code></a></td>
+                                <td><a href="#configuration-options-enableFiltering"><code>enableFiltering</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-enableCaseInsensitiveFiltering"><code>enableCaseInsensitiveFiltering</code></a></td>
+                                <td><a href="#configuration-options-enableFullValueFiltering"><code>enableFullValueFiltering</code></a></td>
+                                <td><a href="#configuration-options-filterBehavior"><code>filterBehavior</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-filterPlaceholder"><code>filterPlaceholder</code></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
                     <p class="alert alert-info">
                         Use Firebug, Chrome Developer Tools to get the best out of the below examples.
                     </p>
@@ -160,7 +240,7 @@
                     <table class="table">
                         <tbody>
                             <tr>
-                                <td><code>multiple</code></td>
+                                <td><code id="configuration-options-multiple">multiple</code></td>
                                 <td>
                                     <p>
                                         <code>multiple</code> is not a real configuration option. It refers to the <code>multiple</code> attribute of the <code>select</code> the plugin is applied on. When the <code>multiple</code> attribute of the <code>select</code> is present, the plugin uses checkboxes to allow multiple selections. If it is not present, the plugin uses radio buttons to allow single selections. When using the plugin for single selections (without the <code>multiple</code> attribute present), the first option will automatically be selected if no other option is selected in advance. See <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/129">#129</a> for how to avoid this behavior.
@@ -319,7 +399,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>enableHTML</code></td>
+                                <td><code id="configuration-options-enableHTML">enableHTML</code></td>
                                 <td>
                                     <p>
                                         XSS injection is a serious thread for all modern web applications. Setting <code>enableHTML</code> to <code>false</code> (default setting) will create a XSS save multiselect.
@@ -377,7 +457,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>enableClickableOptGroups</code></td>
+                                <td><code id="configuration-options-enableClickableOptGroups">enableClickableOptGroups</code></td>
                                 <td>
                                     <p>
                                         If set to <code>true</code>, <code>optgroup</code>'s will be clickable, allowing to easily select multiple options belonging to the same group.
@@ -497,7 +577,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>enableCollapsibleOptGroups</code>
+                                    <code id="configuration-options-enableCollapsibleOptGroups">enableCollapsibleOptGroups</code>
                                 </td>
                                 <td>
                                     <p class="alert alert-info">
@@ -557,7 +637,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>disableIfEmpty</code></td>
+                                <td><code id="configuration-options-disableIfEmpty">disableIfEmpty</code></td>
                                 <td>
                                     <p>
                                         If set to <code>true</code>, the multiselect will be disabled if no options are given.
@@ -587,7 +667,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>dropRight</code></td>
+                                <td><code id="configuration-options-dropRight">dropRight</code></td>
                                 <td>
                                     <p>
                                         The dropdown can also be dropped right.
@@ -626,7 +706,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>maxHeight</code></td>
+                                <td><code id="configuration-options-maxHeight">maxHeight</code></td>
                                 <td>
                                     <p>
                                         The maximum height of the dropdown. This is useful when using the plugin with plenty of options.
@@ -707,7 +787,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>checkboxName</code></td>
+                                <td><code id="configuration-options-checkboxName">checkboxName</code></td>
                                 <td>
                                     <p>
                                         The name used for the generated checkboxes. See <a href="#post">Server-Side Processing</a> for details.
@@ -744,7 +824,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>onChange</code></td>
+                                <td><code id="configuration-options-onChange">onChange</code></td>
                                 <td>
                                     <p>
                                         A function which is triggered on the change event of the options. Note that the event is not triggered when selecting or deselecting options using the <code>select</code> and <code>deselect</code> methods provided by the plugin.
@@ -789,7 +869,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>onInitialized</code></td>
+                                <td><code id="configuration-options-onInitialized">onInitialized</code></td>
                                 <td>
                                     <p>
                                         A function which is triggered when the multiselect is finished initializing.
@@ -848,7 +928,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>onDropdownShow</code></td>
+                                <td><code id="configuration-options-onDropdownShow">onDropdownShow</code></td>
                                 <td>
                                     <p>
                                         A callback called when the dropdown is shown.
@@ -893,7 +973,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>onDropdownHide</code></td>
+                                <td><code id="configuration-options-onDropdownHide">onDropdownHide</code></td>
                                 <td>
                                     <p>
                                         A callback called when the dropdown is closed.
@@ -938,7 +1018,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>onDropdownShown</code></td>
+                                <td><code id="configuration-options-onDropdownShown">onDropdownShown</code></td>
                                 <td>
                                     <p>
                                         A callback called <i>after</i> the dropdown has been shown.
@@ -983,7 +1063,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>onDropdownHidden</code></td>
+                                <td><code id="configuration-options-onDropdownHidden">onDropdownHidden</code></td>
                                 <td>
                                     <p>
                                         A callback called <i>after</i> the dropdown has been closed.
@@ -1028,7 +1108,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>buttonClass</code></td>
+                                <td><code id="configuration-options-buttonClass">buttonClass</code></td>
                                 <td>
                                     <p>
                                         The class of the multiselect button.
@@ -1065,7 +1145,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>inheritClass</code></td>
+                                <td><code id="configuration-options-inheritClass">inheritClass</code></td>
                                 <td>
                                     <p>
                                         Inherit the class of the button from the original select.
@@ -1102,7 +1182,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>buttonContainer</code></td>
+                                <td><code id="configuration-options-buttonContainer">buttonContainer</code></td>
                                 <td>
                                     <p>
                                         The container holding both the button as well as the dropdown.
@@ -1139,7 +1219,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>buttonWidth</code></td>
+                                <td><code id="configuration-options-buttonWidth">buttonWidth</code></td>
                                 <td>
                                     <p>
                                         The width of the multiselect button may be fixed using this option.
@@ -1238,7 +1318,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>buttonText</code></td>
+                                <td><code id="configuration-options-buttonText">buttonText</code></td>
                                 <td>
                                     <p>
                                         A callback specifying the text shown on the button dependent on the currently selected options.
@@ -1317,7 +1397,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>buttonTitle</code></td>
+                                <td><code id="configuration-options-buttonTitle">buttonTitle</code></td>
                                 <td>
                                     <p>
                                         A callback specifying the title of the button.
@@ -1376,7 +1456,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>nonSelectedText</code></td>
+                                <td><code id="configuration-options-nonSelectedText">nonSelectedText</code></td>
                                 <td>
                                     <p>
                                         The text displayed when no option is selected. This option is used in the default <code>buttonText</code> and <code>buttonTitle</code> functions.
@@ -1413,7 +1493,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>nSelectedText</code></td>
+                                <td><code id="configuration-options-nSelectedText">nSelectedText</code></td>
                                 <td>
                                     <p>
                                         The text displayed if more than <code>numberDisplayed</code> options are selected. This option is used by the default <code>buttonText</code> and <code>buttonTitle</code> callbacks.
@@ -1450,7 +1530,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>allSelectedText</code></td>
+                                <td><code id="configuration-options-allSelectedText">allSelectedText</code></td>
                                 <td>
                                     <p>
                                         The text displayed if all options are selected.
@@ -1522,7 +1602,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>numberDisplayed</code></td>
+                                <td><code id="configuration-options-numberDisplayed">numberDisplayed</code></td>
                                 <td>
                                     <p>
                                         This option is used by the <code>buttonText</code> and <code>buttonTitle</code> functions to determine of too much options would be displayed.
@@ -1559,7 +1639,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>delimiterText</code></td>
+                                <td><code id="configuration-options-delimiterText">delimiterText</code></td>
                                 <td>
                                     <p>
                                         Sets the separator for the list of selected items for mouse-over. Defaults to ', '. Set to '\n' for a neater display.
@@ -1596,7 +1676,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>optionLabel</code></td>
+                                <td><code id="configuration-options-optionLabel">optionLabel</code></td>
                                 <td>
                                     <p>
                                         A callback used to define the labels of the options.
@@ -1645,7 +1725,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>optionClass</code></td>
+                                <td><code id="configuration-options-optionClass">optionClass</code></td>
                                 <td>
                                     <p>
                                         A callback used to define the classes for the <code>li</code> elements containing checkboxes and labels.
@@ -1722,7 +1802,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code>selectedClass</code></td>
+                                <td><code id="configuration-options-selectedClass">selectedClass</code></td>
                                 <td>
                                     <p>
                                         The class(es) applied on selected options.
@@ -1772,7 +1852,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>includeSelectAllOption</code>
+                                    <code id="configuration-options-includeSelectAllOption">includeSelectAllOption</code>
                                 </td>
                                 <td>
                                     <p>
@@ -1852,7 +1932,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>selectAllJustVisible</code>
+                                    <code id="configuration-options-selectAllJustVisible">selectAllJustVisible</code>
                                 </td>
                                 <td>
                                     <p>
@@ -1895,7 +1975,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>selectAllText</code>
+                                    <code id="configuration-options-selectAllText">selectAllText</code>
                                 </td>
                                 <td>
                                     <p>
@@ -1936,7 +2016,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>selectAllValue</code>
+                                    <code id="configuration-options-selectAllValue">selectAllValue</code>
                                 </td>
                                 <td>
                                     <p>
@@ -2010,7 +2090,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>selectAllName</code>
+                                    <code id="configuration-options-selectAllName">selectAllName</code>
                                 </td>
                                 <td>
                                     <p>
@@ -2051,7 +2131,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>selectAllNumber</code>
+                                    <code id="configuration-options-selectAllNumber">selectAllNumber</code>
                                 </td>
                                 <td>
                                     <p>
@@ -2092,7 +2172,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>onSelectAll</code>
+                                    <code id="configuration-options-onSelectAll">onSelectAll</code>
                                 </td>
                                 <td>
                                     <p>
@@ -2135,7 +2215,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>enableFiltering</code>
+                                    <code id="configuration-options-enableFiltering">enableFiltering</code>
                                 </td>
                                 <td>
                                     <p>
@@ -2354,7 +2434,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>enableCaseInsensitiveFiltering</code>
+                                    <code id="configuration-options-enableCaseInsensitiveFiltering">enableCaseInsensitiveFiltering</code>
                                 </td>
                                 <td>
                                     <p>
@@ -2402,7 +2482,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>enableFullValueFiltering</code>
+                                    <code id="configuration-options-enableFullValueFiltering">enableFullValueFiltering</code>
                                 </td>
                                 <td>
                                     <p>
@@ -2452,7 +2532,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>filterBehavior</code>
+                                    <code id="configuration-options-filterBehavior">filterBehavior</code>
                                 </td>
                                 <td>
                                     <p>
@@ -2522,7 +2602,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <code>filterPlaceholder</code>
+                                    <code id="configuration-options-filterPlaceholder">filterPlaceholder</code>
                                 </td>
                                 <td>
                                     <p>
