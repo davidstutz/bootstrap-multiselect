@@ -452,6 +452,47 @@
     });
 &lt;/script&gt;
 </pre>
+                                    </div>
+                                    
+                                    <p>
+                                        Note that the behavior of <code>onChange</code> changes. Whenever an optgroup is changed/clicked, the <code>onChange</code> event is fired with all affected options as first parameter.
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-enableClickableOptGroups-onChange').multiselect({
+                                                    enableClickableOptGroups: true,
+                                                    onChange: function(option, checked) {
+                                                        alert(option.length + ' options ' + (checked ? 'selected' : 'deselected'));
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-enableClickableOptGroups-onChange" multiple="multiple">
+                                            <optgroup label="Group 1">
+                                                <option value="1-1">Option 1.1</option>
+                                                <option value="1-2" selected="selected">Option 1.2</option>
+                                                <option value="1-3" selected="selected">Option 1.3</option>
+                                            </optgroup>
+                                            <optgroup label="Group 2">
+                                                <option value="2-1">Option 2.1</option>
+                                                <option value="2-2">Option 2.2</option>
+                                                <option value="2-3">Option 2.3</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-enableClickableOptGroups').multiselect({
+            enableClickableOptGroups: true
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -709,6 +750,10 @@
                                         A function which is triggered on the change event of the options. Note that the event is not triggered when selecting or deselecting options using the <code>select</code> and <code>deselect</code> methods provided by the plugin.
                                     </p>
 
+                                    <p class="alert alert-warning">
+                                        Note that the behavior of <code>onChange</code> changes when setting <code>enableClickableOptGroups</code> to <code>true</code>.
+                                    </p>
+                                    
                                     <div class="example">
                                         <script type="text/javascript">
                                             $(document).ready(function() {

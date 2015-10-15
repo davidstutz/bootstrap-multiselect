@@ -675,11 +675,21 @@
                     // check or uncheck items
                     var allChecked = true;
                     var optionInputs = $visibleOptions.find('input');
+                    var values = [];
+                    
                     optionInputs.each(function() {
                         allChecked = allChecked && $(this).prop('checked');
+                        values.push($(this).val());
                     });
 
-                    optionInputs.prop('checked', !allChecked).trigger('change');
+                    if (!allChecked) {
+                        this.select(values, false);
+                    }
+                    else {
+                        this.deselect(values, false);
+                    }
+                    
+                    this.options.onChange(optionInputs, !allChecked);
                }, this));
             }
         },

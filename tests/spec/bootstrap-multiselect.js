@@ -267,6 +267,10 @@ describe('Bootstrap Multiselect "Single Selection"', function() {
 });
 
 describe('Bootstrap Multiselect "Optgroups"', function() {
+    
+    // Count the number of onChanges fired.
+    var fired = 0;
+    
     beforeEach(function() {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
         
@@ -284,7 +288,10 @@ describe('Bootstrap Multiselect "Optgroups"', function() {
         
         $select.multiselect({
             buttonContainer: '<div id="multiselect-container"></div>',
-            enableClickableOptGroups: true
+            enableClickableOptGroups: true,
+            onChange: function(option, checked) {
+                fired++;
+            }
         });
     });
     
@@ -307,6 +314,30 @@ describe('Bootstrap Multiselect "Optgroups"', function() {
             expect($('#multiselect option:selected').length).toBe(10);
             
             $('label', $(this)).click();
+            i++;
+        });
+    });
+    
+    it('Clickable groups should fire onChange only once.', function() {
+        expect($('#multiselect option:selected').length).toBe(0);
+        
+        fired = 0;
+        expect(fired).toBe(0);
+        
+        var i = 0;
+        $('#multiselect-container li.multiselect-group').each(function() {
+            $('label', $(this)).click();
+            
+            // Selected
+            expect(fired).toBe(1);
+            fired = 0;
+            
+            $('label', $(this)).click();
+            
+            // Deselected
+            expect(fired).toBe(1);
+            fired = 0;
+            
             i++;
         });
     });
