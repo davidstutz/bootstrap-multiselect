@@ -455,6 +455,8 @@ describe('Bootstrap Multiselect "Select All".', function() {
     var onSelectAllTriggered = false;
     var onDeselectAllTriggered = false;
     
+    var fired = 0;
+    
     beforeEach(function() {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
         
@@ -473,6 +475,9 @@ describe('Bootstrap Multiselect "Select All".', function() {
             },
             onDeselectAll: function() {
                 onDeselectAllTriggered = true;
+            },
+            onChange: function(option, checked) {
+                fired++;
             }
         });
     });
@@ -610,6 +615,13 @@ describe('Bootstrap Multiselect "Select All".', function() {
     it('Should trigger onSelectAll on function call.', function() {
         $('#multiselect').multiselect('selectAll', true, true);
         expect(onSelectAllTriggered).toBe(true);
+    });
+    
+    it('Should not trigger onChange for select all option.', function() {
+        fired = 0;
+        expect(fired).toBe(0);
+        $('#multiselect-container input[value="multiselect-all"]').click();
+        expect(fired).toBe(0);
     });
     
     afterEach(function() {

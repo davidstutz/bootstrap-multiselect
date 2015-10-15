@@ -198,7 +198,7 @@
                                 <td><a href="#configuration-options-nonSelectedText"><code>nonSelectedText</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-nSelectedText"><code>buttonText</code></a></td>
+                                <td><a href="#configuration-options-nSelectedText"><code>nSelectedText</code></a></td>
                                 <td><a href="#configuration-options-allSelectedText"><code>allSelectedText</code></a></td>
                                 <td><a href="#configuration-options-numberDisplayed"><code>numberDisplayed</code></a></td>
                             </tr>
@@ -1592,6 +1592,36 @@
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
         $('#example-allSelectedText-includeSelectAllOption').multiselect({
+            includeSelectAllOption: true,
+            allSelectedText: 'No option left ...'
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                    
+                                    <p>
+                                        Note that the <code>allSelectedText</code> is not shown if only one option is available.
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-allSelectedText-allSelectedText-single').multiselect({
+                                                    includeSelectAllOption: true,
+                                                    allSelectedText: 'No option left ...'
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-allSelectedText-allSelectedText-single" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-allSelectedText-allSelectedText-single').multiselect({
             includeSelectAllOption: true,
             allSelectedText: 'No option left ...'
         });

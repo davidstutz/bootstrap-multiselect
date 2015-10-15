@@ -509,8 +509,7 @@
                         this.deselectAll(this.options.selectAllJustVisible);
                     }
                 }
-
-                if(!isSelectAllOption){
+                else {
                     if (checked) {
                         $option.prop('selected', true);
 
@@ -539,14 +538,15 @@
                         // Unselect option.
                         $option.prop('selected', false);
                     }
+                    
+                    // To prevent select all from firing onChange: #575
+                    this.options.onChange($option, checked);
                 }
 
                 this.$select.change();
 
                 this.updateButtonText();
                 this.updateSelectAll();
-
-                this.options.onChange($option, checked);
 
                 if(this.options.preventInputChangeEvent) {
                     return false;
