@@ -173,61 +173,62 @@
                                 <td><a href="#configuration-options-dropRight"><code>dropRight</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-dropUp"><code>dropUp</code></a></td>
                                 <td><a href="#configuration-options-maxHeight"><code>maxHeight</code></a></td>
                                 <td><a href="#configuration-options-disableIfEmpty"><code>disableIfEmpty</code></a></td>
+                            <tr>
+                            <tr>
                                 <td><a href="#configuration-options-disabledText"><code>disabledText</code></a>
-                            <tr>
-                            <tr>
                                 <td><a href="#configuration-options-onChange"><code>onChange</code></a></td>
                                 <td><a href="#configuration-options-onInitialized"><code>onInitialized</code></a></td>
-                                <td><a href="#configuration-options-onDropdownShow"><code>onDropdownShow</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-onDropdownShow"><code>onDropdownShow</code></a></td>
                                 <td><a href="#configuration-options-onDropdownHide"><code>onDropdownHide</code></a></td>
                                 <td><a href="#configuration-options-onDropdownShown"><code>onDropdownShown</code></a></td>
-                                <td><a href="#configuration-options-onDropdownHidden"><code>onDropdownHidden</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-onDropdownHidden"><code>onDropdownHidden</code></a></td>
                                 <td><a href="#configuration-options-buttonClass"><code>buttonClass</code></a></td>
                                 <td><a href="#configuration-options-inheritClass"><code>inheritClass</code></a></td>
-                                <td><a href="#configuration-options-buttonContainer"><code>buttonContainer</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-buttonContainer"><code>buttonContainer</code></a></td>
                                 <td><a href="#configuration-options-buttonWidth"><code>buttonWidth</code></a></td>
                                 <td><a href="#configuration-options-buttonText"><code>buttonText</code></a></td>
-                                <td><a href="#configuration-options-buttonTitle"><code>buttonTitle</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-buttonTitle"><code>buttonTitle</code></a></td>
                                 <td><a href="#configuration-options-nonSelectedText"><code>nonSelectedText</code></a></td>
                                 <td><a href="#configuration-options-nSelectedText"><code>nSelectedText</code></a></td>
-                                <td><a href="#configuration-options-allSelectedText"><code>allSelectedText</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-allSelectedText"><code>allSelectedText</code></a></td>
                                 <td><a href="#configuration-options-numberDisplayed"><code>numberDisplayed</code></a></td>
                                 <td><a href="#configuration-options-delimiterText"><code>delimiterText</code></a></td>
-                                <td><a href="#configuration-options-optionLabel"><code>optionLabel</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-optionLabel"><code>optionLabel</code></a></td>
                                 <td><a href="#configuration-options-optionClass"><code>optionClass</code></a></td>
                                 <td><a href="#configuration-options-selectedClass"><code>selectedClass</code></a></td>
-                                <td><a href="#configuration-options-includeSelectAllOption"><code>includeSelectAllOption</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-includeSelectAllOption"><code>includeSelectAllOption</code></a></td>
                                 <td><a href="#configuration-options-selectAllJustVisible"><code>selectAllJustVisible</code></a></td>
                                 <td><a href="#configuration-options-selectAllText"><code>selectAllText</code></a></td>
-                                <td><a href="#configuration-options-selectAllValue"><code>selectAllValue</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-selectAllValue"><code>selectAllValue</code></a></td>
                                 <td><a href="#configuration-options-selectAllName"><code>selectAllName</code></a></td>
                                 <td><a href="#configuration-options-selectAllNumber"><code>selectAllNumber</code></a></td>
-                                <td><a href="#configuration-options-onSelectAll"><code>onSelectAll</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-onSelectAll"><code>onSelectAll</code></a></td>
                                 <td><a href="#configuration-options-enableFiltering"><code>enableFiltering</code></a></td>
                                 <td><a href="#configuration-options-enableCaseInsensitiveFiltering"><code>enableCaseInsensitiveFiltering</code></a></td>
-                                <td><a href="#configuration-options-enableFullValueFiltering"><code>enableFullValueFiltering</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-enableFullValueFiltering"><code>enableFullValueFiltering</code></a></td>
                                 <td><a href="#configuration-options-filterBehavior"><code>filterBehavior</code></a></td>
                                 <td><a href="#configuration-options-filterPlaceholder"><code>filterPlaceholder</code></a></td>
                             </tr>
@@ -668,7 +669,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><code id="configuration-options-disableIfEmpty">disabledText</code></td>
+                                <td><code id="configuration-options-disabledText">disabledText</code></td>
                                 <td>
                                     <p>
                                         The text shown if the multiselect is disabled. Note that this option is set to the empty string <code>''</code> by default, that is <code>nonSelectedText</code> is shown if the multiselect is disabled and no options are selected.
@@ -816,6 +817,63 @@
         });
     });
 &lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code id="configuration-options-dropUp">dropUp</code></td>
+                                <td>
+                                    <p>
+                                        The dropdown can also be dropped up. Note that it is recommended to also set <code>maxHeight</code>. The plugin calculates the necessary height of the dropdown and takes the minimum of the calculated value and <code>maxHeight</code>.
+                                    </p>
+                                    
+                                    <p class="alert alert-warning">
+                                        Note that this feature has been introduced in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/594">#594</a> and is known to have issues depending on the environment.
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-dropUp').multiselect({
+                                                    enableFiltering: true,
+                                                    includeSelectAllOption: true,
+                                                    maxHeight: 400,
+                                                    dropUp: true
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-dropUp" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option data-role="divider"></option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-dropUp').multiselect({
+            enableFiltering: true,
+            includeSelectAllOption: true,
+            maxHeight: 400,
+            dropUp: true
+        });
+    });
+&lt;/script&gt;
+&lt;select id=&quot;example-dropUp&quot; multiple=&quot;multiple&quot;&gt;
+    &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+    &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+    &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+    &lt;option data-role=&quot;divider&quot;&gt;&lt;/option&gt;
+    &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+    &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+    &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+&lt;/select&gt;
 </pre>
                                     </div>
                                 </td>
@@ -4075,7 +4133,6 @@
                         <script type="text/javascript">
                             $(document).ready(function() {
                                 var lastSelected = $('#example-confirmation-single option:selected').val();
-                                console.log(lastSelected);
                                 $('#example-confirmation-single').multiselect({
                                     onChange: function(element, checked) {
                                         if (confirm('Do you wish to change the selection?')) {
@@ -4102,18 +4159,15 @@
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-confirmation').multiselect({
+        var lastSelected = $('#example-confirmation-single option:selected').val();
+        $('#example-confirmation-single').multiselect({
             onChange: function(element, checked) {
-                if(checked === true) {
-                    //action taken here if true
+                if (confirm('Do you wish to change the selection?')) {
+                    lastSelected = element.val();
                 }
-                else if(checked === false) {
-                    if(confirm('Do you wish to deselect the element?')) {
-                        //action taken here
-                    }
-                    else {
-                        $("#example-confirmation").multiselect('select', element.val());
-                    }
+                else {
+                    $(&quot;#example-confirmation-single&quot;).multiselect('select', lastSelected);
+                    $(&quot;#example-confirmation-single&quot;).multiselect('deselect', element.val());
                 }
             }
         });

@@ -370,6 +370,7 @@
             buttonWidth: 'auto',
             buttonContainer: '<div class="btn-group" />',
             dropRight: false,
+            dropUp: false,
             selectedClass: 'active',
             // Maximum height of the dropdown menu.
             // If maximum height is exceeded a scrollbar will be displayed.
@@ -480,7 +481,20 @@
                     'overflow-x': 'hidden'
                 });
             }
-
+            
+            if (this.options.dropUp) {
+                
+                var height = Math.min(this.options.maxHeight, $('option[data-role!="divider"]', this.$select).length*26 + $('option[data-role="divider"]', this.$select).length*19 + (this.options.includeSelectAllOption ? 26 : 0) + (this.options.enableFiltering || this.options.enableCaseInsensitiveFiltering ? 44 : 0));
+                var moveCalc = height + 34;
+                
+                this.$ul.css({
+                    'max-height': height + 'px',
+                    'overflow-y': 'auto',
+                    'overflow-x': 'hidden',
+                    'margin-top': "-" + moveCalc + 'px'
+                });
+            }
+            
             this.$container.append(this.$ul);
         },
 
