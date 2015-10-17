@@ -230,13 +230,19 @@
              * @returns {String}
              */
             buttonText: function(options, select) {
-                if (options.length === 0) {
+                if (this.disabledText.length > 0 
+                        && (this.disableIfEmpty || select.prop('disabled')) 
+                        && options.length == 0) {
+                    
+                    return this.disabledText;
+                }
+                else if (options.length === 0) {
                     return this.nonSelectedText;
                 }
                 else if (this.allSelectedText 
-                            && options.length === $('option', $(select)).length 
-                            && $('option', $(select)).length !== 1 
-                            && this.multiple) {
+                        && options.length === $('option', $(select)).length 
+                        && $('option', $(select)).length !== 1 
+                        && this.multiple) {
 
                     if (this.selectAllNumber) {
                         return this.allSelectedText + ' (' + options.length + ')';
@@ -390,6 +396,7 @@
             allSelectedText: 'All selected',
             numberDisplayed: 3,
             disableIfEmpty: false,
+            disabledText: '',
             delimiterText: ', ',
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
