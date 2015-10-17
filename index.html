@@ -4019,11 +4019,11 @@
                             $(document).ready(function() {
                                 $('#example-confirmation').multiselect({
                                     onChange: function(element, checked) {
-                                        if(checked === true) {
+                                        if (checked === true) {
                                             //action taken here if true
                                         }
-                                        else if(checked === false) {
-                                            if(confirm('Do you wish to deselect the element?')) {
+                                        else if (checked === false) {
+                                            if (confirm('Do you wish to deselect the element?')) {
                                                 //action taken here
                                             }
                                             else {
@@ -4035,6 +4035,61 @@
                             });
                         </script>
                         <select id="example-confirmation" multiple="multiple">
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                            <option value="6">Option 6</option>
+                        </select>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-confirmation').multiselect({
+            onChange: function(element, checked) {
+                if (checked === true) {
+                    //action taken here if true
+                }
+                else if (checked === false) {
+                    if (confirm('Do you wish to deselect the element?')) {
+                        //action taken here
+                    }
+                    else {
+                        $("#example-confirmation").multiselect('select', element.val());
+                    }
+                }
+            }
+        });
+    });
+&lt;/script&gt;
+</pre>
+                    </div>
+
+                    <p>
+                        The above approach can also be adapted to be used in 
+                    </p>
+
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                var lastSelected = $('#example-confirmation-single option:selected').val();
+                                console.log(lastSelected);
+                                $('#example-confirmation-single').multiselect({
+                                    onChange: function(element, checked) {
+                                        if (confirm('Do you wish to change the selection?')) {
+                                            lastSelected = element.val();
+                                        }
+                                        else {
+                                            $("#example-confirmation-single").multiselect('select', lastSelected);
+                                            $("#example-confirmation-single").multiselect('deselect', element.val());
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <select id="example-confirmation-single">
                             <option value="1">Option 1</option>
                             <option value="2">Option 2</option>
                             <option value="3">Option 3</option>
@@ -4066,7 +4121,7 @@
 &lt;/script&gt;
 </pre>
                     </div>
-
+                    
                     <p>
                         Limit the number of selected options using the <code>onChange</code> option. The user may only select a maximum of 4 options. Then all other options are disabled.
                     </p>
