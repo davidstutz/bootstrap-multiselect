@@ -725,7 +725,7 @@
                 $('li.multiselect-group', this.$ul).on('click', $.proxy(function(event) {
                     event.stopPropagation();
                     console.log('test');
-                    var group = $(event.target).parent();
+                    var group = $(event.delegateTarget);
 
                     // Search all option in optgroup
                     var $options = group.nextUntil('li.multiselect-group');
