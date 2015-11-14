@@ -1133,19 +1133,19 @@
          * @returns string
          */
         replaceDiacritics: function (s) {
-            var in_chrs = '¹²³áàâãäåaaaÀÁÂÃÄÅAAAÆccç©CCÇÐÐèéê?əëeeeeeÈÊË?EEEEE€gGiìíîïìiiiÌÍÎÏ?ÌIIIlLnnñNNÑòóôõöoooøÒÓÔÕÖOOOØŒr®Ršs?ßŠS?ùúûüuuuuÙÚÛÜUUUUýÿÝŸžzzŽZZ',
-                out_chrs = '123aaaaaaaaaaaaaaaaaaacccccccddeeeeeeeeeeeeeeeeeeeeeggiiiiiiiiiiiiiiiiiillnnnnnnoooooooooooooooorrrsssssssuuuuuuuuuuuuuuuuyyyyzzzzzz',
-                chars_rgx = new RegExp('[' + in_chrs + ']', 'g'),
+            var _in  = '¹²³áàâãäåaaaÀÁÂÃÄÅAAAÆccç©CCÇÐÐèéêəëeeeeeÈÊËEEEEE€gGiìíîïìiiiÌÍÎÏÌIIIlLnnñNNÑòóôõöoooøÒÓÔÕÖOOOØŒ®ЯšsßŠSùúûüuuuuÙÚÛÜUUUUýÿÝŸžzzŽZZ',
+                _out = '123aaaaaaaaaAAAAAAAAAaccccCCCDDeeeeeeeeeeEEEEEEEEEgGiiiiiiiiiIIIIIIIIILnnnNNNoooooooooOOOOOOOOOOcRssbSSuuuuuuuuUUUUUUUUyyYYzzzZZZ',
+                _rgx = new RegExp('[' + _in + ']', 'g'),
                 transl = {}, i,
                 lookup = function (m) {
                     return transl[m] || m;
                 };
 
-            for (i = 0; i < in_chrs.length; i++) {
-                transl[in_chrs[i]] = out_chrs[i];
+            for (i = 0; i < _in.length; i++) {
+                transl[_in[i]] = _out[i];
             }
 
-            return s.replace(chars_rgx, lookup);
+            return s.replace(_rgx, lookup);
         },
 
         /**
