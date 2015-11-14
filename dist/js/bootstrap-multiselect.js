@@ -385,6 +385,7 @@
             selectAllJustVisible: true,
             enableFiltering: false,
             enableCaseInsensitiveFiltering: false,
+            enableReplaceDiacritics: true,
             enableFullValueFiltering: false,
             enableClickableOptGroups: false,
             enableCollapsibelOptGroups: false,
@@ -1079,6 +1080,11 @@
                                             this.query = this.query.toLowerCase();
                                         }
 
+                                        if (this.options.enableReplaceDiacritics) {
+                                            filterCandidate = this.replaceDiacritics(filterCandidate);
+                                            this.query = this.replaceDiacritics(this.query);
+                                        }
+
                                         if (this.options.enableFullValueFiltering && this.options.filterBehavior !== 'both') {
                                             var valueToMatch = filterCandidate.trim().substring(0, this.query.length);
                                             if (this.query.indexOf(valueToMatch) > -1) {
@@ -1118,6 +1124,28 @@
                     }, this));
                 }
             }
+        },
+
+        /**
+         * Replace diacritics (ă,ş,ţ etc) with their "normal" form
+         *
+         * @param s
+         * @returns string
+         */
+        replaceDiacritics: function (s) {
+            var _in  = '¹²³áàâãäåaaaÀÁÂÃÄÅAAAÆccç©CCÇÐÐèéêəëeeeeeÈÊËEEEEE€gGiìíîïìiiiÌÍÎÏÌIIIlLnnñNNÑòóôõöoooøÒÓÔÕÖOOOØŒ®ЯšsßŠSùúûüuuuuÙÚÛÜUUUUýÿÝŸžzzŽZZ',
+                _out = '123aaaaaaaaaAAAAAAAAAaccccCCCDDeeeeeeeeeeEEEEEEEEEgGiiiiiiiiiIIIIIIIIILnnnNNNoooooooooOOOOOOOOOOcRssbSSuuuuuuuuUUUUUUUUyyYYzzzZZZ',
+                _rgx = new RegExp('[' + _in + ']', 'g'),
+                transl = {}, i,
+                lookup = function (m) {
+                    return transl[m] || m;
+                };
+
+            for (i = 0; i < _in.length; i++) {
+                transl[_in[i]] = _out[i];
+            }
+
+            return s.replace(_rgx, lookup);
         },
 
         /**
