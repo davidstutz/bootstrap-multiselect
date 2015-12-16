@@ -1008,8 +1008,8 @@
             }
         },
 
-        runFilter: function() {
-            this.query = this.query || '';
+        runFilter: function(query) {
+            this.query = query || '';
             var currentGroup, currentGroupVisible;
             $.each($('li', this.$ul), $.proxy(function(index, element) {
                 var value = $('input', element).length > 0 ? $('input', element).val() : "";
@@ -1103,8 +1103,7 @@
                     this.$ul.prepend(this.$filter);
 
                     if (this.options.preFilter) {
-                        this.query = this.options.preFilter;
-                        this.runFilter();
+                        this.runFilter(this.options.preFilter);
                     }
 
                     this.$filter.val(this.query).on('click', function(event) {
@@ -1121,8 +1120,7 @@
                         this.searchTimeout = this.asyncFunction($.proxy(function() {
 
                             if (this.query !== event.target.value) {
-                                this.query = event.target.value;
-                                this.runFilter();
+                                this.runFilter(event.target.value);
                             }
 
                             this.updateSelectAll();
