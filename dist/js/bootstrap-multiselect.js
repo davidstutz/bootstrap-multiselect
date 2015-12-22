@@ -365,8 +365,8 @@
             onInitialized: function($select, $container) {
 
             },
-            onReset: function(){
-                $('option:selected').each(function() {
+            onReset: function(selectedOptions){
+                selectedOptions.each(function() {
                     $(this).prop('selected', false);
                 })
             },
@@ -417,7 +417,7 @@
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
                 liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>',
-                resetButton: '<li><button type="reset" id="reset-button" class="btn btn-default"></button></li>'
+                resetButton: '<li class="text-center"><button type="reset" class="btn btn-default"></button></li>'
             }
         },
 
@@ -990,7 +990,8 @@
                 }
 
                 $resetButton.click($.proxy(function(){
-                    this.options.onReset();
+                    var options = this.getSelected();
+                    this.options.onReset(options);
                 }, this));
 
                 this.$ul.prepend($resetButton);

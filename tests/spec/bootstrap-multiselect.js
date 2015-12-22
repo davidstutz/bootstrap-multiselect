@@ -720,6 +720,7 @@ describe('Bootstrap Multiselect "Reset".', function() {
         $('body').append($select);
 
         $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
             includeResetOption: true
         });
     });
@@ -729,13 +730,13 @@ describe('Bootstrap Multiselect "Reset".', function() {
     });
 
     it('Should add reset button.', function() {
-        expect($('#reset-button').text()).toBe(" Reset");
+        expect($('#multiselect-container').find('button[type="reset"]').text()).toBe(" Reset");
     });
 
     it('Should trigger onReset if button clicked.', function() {
         $select.multiselect('selectAll', true, false);
         expect($select.find('option:selected').length).toBe(99);
-        $('#reset-button').click();
+        $('#multiselect-container').find('button[type="reset"]').click();
         expect($select.find('option:selected').length).toBe(0);
     });
 
