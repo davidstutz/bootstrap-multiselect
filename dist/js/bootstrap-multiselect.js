@@ -416,7 +416,8 @@
                 filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
-                liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
+                liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>',
+                resetButton: '<li><button type="reset" id="reset-button" class="btn btn-default"></button></li>'
             }
         },
 
@@ -979,18 +980,20 @@
                     this.$ul.prepend($(this.options.templates.divider));
                 }
 
-                var $li = $(this.options.templates.li);
+                var $resetButton = $(this.options.templates.resetButton);
 
                 if (this.options.enableHTML) {
-                    $('label', $li).html(" " + this.options.resetText);
+                    $('button', $resetButton).html(" " + this.options.resetText);
                 }
                 else {
-                    $('label', $li).text(" " + this.options.resetText);
+                    $('button', $resetButton).text(" " + this.options.resetText);
                 }
 
-                $li.onclick(this.onReset());
+                $resetButton.click($.proxy(function(){
+                    this.options.onReset();
+                }, this));
 
-                this.$ul.prepend($li);
+                this.$ul.prepend($resetButton);
             }
         },
 
