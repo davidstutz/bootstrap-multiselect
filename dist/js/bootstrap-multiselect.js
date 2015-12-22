@@ -202,6 +202,7 @@
         this.buildContainer();
         this.buildButton();
         this.buildDropdown();
+        this.buildReset();
         this.buildSelectAll();
         this.buildDropdownOptions();
         this.buildFilter();
@@ -364,6 +365,11 @@
             onInitialized: function($select, $container) {
 
             },
+            onReset: function(){
+                $('option:selected').each(function() {
+                    $(this).prop('selected', false);
+                })
+            },
             enableHTML: false,
             buttonClass: 'btn btn-default',
             inheritClass: false,
@@ -400,6 +406,9 @@
             disableIfEmpty: false,
             disabledText: '',
             delimiterText: ', ',
+            includeResetOption: false,
+            includeResetDivider: true,
+            resetText: 'Reset',
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
@@ -955,6 +964,33 @@
                 $('option', group).each($.proxy(function(index, element) {
                     this.createOptionValue(element);
                 }, this));
+            }
+        },
+
+        /**
+         * Build the reset.
+         *
+         */
+        buildReset: function() {
+            if (this.options.includeResetOption) {
+
+                // Check whether to add a divider after the reset.
+                if (this.options.includeResetDivider) {
+                    this.$ul.prepend($(this.options.templates.divider));
+                }
+
+                var $li = $(this.options.templates.li);
+
+                if (this.options.enableHTML) {
+                    $('label', $li).html(" " + this.options.resetText);
+                }
+                else {
+                    $('label', $li).text(" " + this.options.resetText);
+                }
+
+                $li.onclick(this.onReset());
+
+                this.$ul.prepend($li);
             }
         },
 
