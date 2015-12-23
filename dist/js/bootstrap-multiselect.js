@@ -365,11 +365,6 @@
             onInitialized: function($select, $container) {
 
             },
-            onReset: function(selectedOptions){
-                selectedOptions.each(function() {
-                    $(this).prop('selected', false);
-                })
-            },
             enableHTML: false,
             buttonClass: 'btn btn-default',
             inheritClass: false,
@@ -989,9 +984,8 @@
                     $('a', $resetButton).text(this.options.resetText);
                 }
 
-                $resetButton.click($.proxy(function(){
-                    var options = this.getSelected();
-                    this.options.onReset(options);
+                $('a', $resetButton).click($.proxy(function(){
+                    this.clearSelection();
                 }, this));
 
                 this.$ul.prepend($resetButton);
