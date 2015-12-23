@@ -730,13 +730,13 @@ describe('Bootstrap Multiselect "Reset".', function() {
     });
 
     it('Should add reset button.', function() {
-        expect($('#multiselect-container').find('button[type="reset"]').text()).toBe(" Reset");
+        expect($('#multiselect-container').find('li.reset > a').text()).toBe("Reset");
     });
 
     it('Should trigger onReset if button clicked.', function() {
         $select.multiselect('selectAll', true, false);
         expect($select.find('option:selected').length).toBe(99);
-        $('#multiselect-container').find('button[type="reset"]').click();
+        $('#multiselect-container').find('li.reset').click();
         expect($select.find('option:selected').length).toBe(0);
     });
 

@@ -407,7 +407,7 @@
             disabledText: '',
             delimiterText: ', ',
             includeResetOption: false,
-            includeResetDivider: true,
+            includeResetDivider: false,
             resetText: 'Reset',
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
@@ -417,7 +417,7 @@
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
                 liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>',
-                resetButton: '<li class="text-center"><button type="reset" class="btn btn-default"></button></li>'
+                resetButton: '<li class="reset text-center"><a class="btn btn-default"></a></li>'
             }
         },
 
@@ -983,10 +983,10 @@
                 var $resetButton = $(this.options.templates.resetButton);
 
                 if (this.options.enableHTML) {
-                    $('button', $resetButton).html(" " + this.options.resetText);
+                    $('a', $resetButton).html(this.options.resetText);
                 }
                 else {
-                    $('button', $resetButton).text(" " + this.options.resetText);
+                    $('a', $resetButton).text(this.options.resetText);
                 }
 
                 $resetButton.click($.proxy(function(){
