@@ -1,0 +1,6 @@
+Is there a way I can use refresh or destory in multiselect list like 
+$("#mylist").multiselect({ refresh:ture }) or
+$("#mylist").multiselect({ destory:ture }) or
+$("#mylist").refresh() or
+$("#mylist").destory()? 
+The result list is dynamicly returned through Ajax call so those contents would be different everytime depends on upper level selection.
