@@ -1627,4 +1627,4 @@
         $("select[data-role=multiselect]").multiselect();
     });
 
-}(window.jQuery);
+}(window.jQuery || jQuery);
