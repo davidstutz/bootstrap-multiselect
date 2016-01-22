@@ -212,8 +212,8 @@
         if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
             this.disable();
         }
-        
-        this.$select.hide().after(this.$container);
+
+        this.$select.wrap('<span class="hide-native-select">').after(this.$container);
         this.options.onInitialized(this.$select, this.$container);
     }
 
