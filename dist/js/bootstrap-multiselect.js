@@ -804,24 +804,19 @@
                 
                 // Update the group checkbox based on new selections among the
                 // corresponding children.
-                $("li input", this.$ul).on("change", $.proxy(function(t) {
+                $("li:not(.multiselect-group) input", this.$ul).on("change", $.proxy(function(t) {
                     t.stopPropagation();
                     var n = $(t.target).closest('li');
-                    var r1 = n.prevUntil("li.multiselect-group", ':not(.disabled)');
-                    var r2 = n.nextUntil("li.multiselect-group", ':not(.disabled)');
-                    var s1 = r1.find("input");
-                    var s2 = r2.find("input");
+                    var r = n.prev("li.multiselect-group", ':not(.disabled)');
+                    var q = r.nextUntil("li.multiselect-group", ':not(.disabled)');
+                    var s = q.find("input");
                     
                     var i = $(t.target).prop('checked');
-                    s1.each(function() {
+                    s.each(function() {
                         i = i && $(this).prop("checked");
                     });
                     
-                    s2.each(function() {
-                        i = i && $(this).prop("checked");
-                    });
-                    
-                    n.prevAll('.multiselect-group').find('input').prop('checked', i);
+                    n.prev('li.multiselect-group').find('input').prop('checked', i);
                 }, this));
                 
                 $("li.multiselect-all", this.$ul).css('background', '#f3f3f3').css('border-bottom', '1px solid #eaeaea');
