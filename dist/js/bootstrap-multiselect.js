@@ -263,7 +263,7 @@
                         selected += label + delimiter;
                     });
                     
-                    return selected.substr(0, selected.length - 2);
+                    return selected.substr(0, selected.length - delimiter.length);
                 }
             },
             /**
@@ -285,7 +285,7 @@
                         var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
                         selected += label + delimiter;
                     });
-                    return selected.substr(0, selected.length - 2);
+                    return selected.substr(0, selected.length - delimiter.length);
                 }
             },
             /**
