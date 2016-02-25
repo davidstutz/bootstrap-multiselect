@@ -724,7 +724,7 @@
             if(this.options.enableClickableOptGroups && this.options.multiple) {
                 $('li.multiselect-group', this.$ul).on('click', $.proxy(function(event) {
                     event.stopPropagation();
-                    console.log('test');
+                    
                     var group = $(event.target).parent();
 
                     // Search all option in optgroup
