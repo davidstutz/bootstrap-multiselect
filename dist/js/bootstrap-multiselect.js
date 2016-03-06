@@ -1424,12 +1424,12 @@
                 }
                 else {
                     $tag = $('<option/>').attr({
-                        value: option.value,
-                        label: option.label || option.value,
-                        title: option.title,
-                        class: option.class,
-                        selected: !!option.selected,
-                        disabled: !!option.disabled
+                        'value': option.value,
+                        'label': option.label || option.value,
+                        'title': option.title,
+                        'class': option['class'],
+                        'selected': !!option.selected,
+                        'disabled': !!option.disabled
                     });
                     $tag.text(option.label || option.value);
                 }
