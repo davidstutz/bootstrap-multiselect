@@ -2990,7 +2990,7 @@
                     <table class="table layout-fixed">
                         <tbody>
                             <tr>
-                                <td>
+                                <td width="30%">
                                     <code>.multiselect('destroy')</code>
                                 </td>
                                 <td>
@@ -3998,20 +3998,12 @@
 &lt;select id=&quot;example-dataprovider-optgroups&quot; multiple=&quot;multiple&quot;&gt;&lt;/select&gt;
 </pre>
                                     </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                </td>
-                                <td>
-                                                        <p>
+                                    
+                                    <p>
                                         You can add custom data attributes on option group children and non-grouped options:
                                     </p>
-                                     <p>
-                                       Renders as: <pre class="prettyprint">&lt;option value=&quot;1&quot; label=&quot;Option 1&quot; selected=&quot;selected&quot; data-some-attribute=&quot;1&quot; data-another-attribute=&quot;false&quot;&gt;&lt;/option&gt;
-&lt;option value=&quot;2&quot; label=&quot;Option 2&quot; data-some-attribute=&quot;2&quot;&gt;&lt;/option&gt;</pre>
-                                    </p>
-                                     <div class="example">
+                                    
+                                    <div class="example">
                                         <div class="btn-group">
                                             <script type="text/javascript">
                                                 $(document).ready(function() {
@@ -4042,7 +4034,7 @@
                                             
                                          
                                         </div>
-                                         <div class="highlight">
+                                        <div class="highlight">
 <pre class="prettyprint linenums">
       $(&#39;#example-dataprovider-data-attributes&#39;).multiselect();
 
@@ -4070,8 +4062,15 @@
 &lt;/script&gt;
 &lt;select id=&quot;example-dataprovider-data-attributes&quot; multiple=&quot;multiple&quot;&gt;&lt;/select&gt;
 </pre>
+                                        </div>
                                     </div>
-                                    </div>
+                                    <p>
+                                        Renders as:
+                                    </p>
+<pre class="prettyprint">
+&lt;option value=&quot;1&quot; label=&quot;Option 1&quot; selected=&quot;selected&quot; data-some-attribute=&quot;1&quot; data-another-attribute=&quot;false&quot;&gt;&lt;/option&gt;
+&lt;option value=&quot;2&quot; label=&quot;Option 2&quot; data-some-attribute=&quot;2&quot;&gt;&lt;/option&gt;
+</pre>
                                 </td>
                             </tr>
                             <tr>

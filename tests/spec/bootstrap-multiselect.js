@@ -360,13 +360,17 @@ describe('Bootstrap Multiselect "Dataprovider"', function() {
     });
     
     var options = [
-            {label: 'Option 1', value: '1', selected: true, title: 'Option 1 Title'},
-            {label: 'Option 2', value: '2', title: 'Option 2 Title'},
-            {label: 'Option 3', value: '3', selected: true, title: 'Option 3 Title'},
-            {label: 'Option 4', value: '4', title: 'Option 4 Title'},
-            {label: 'Option 5', value: '5', title: 'Option 5 Title'},
-            {label: 'Option 6', value: '6', title: 'Option 6 Title'}
-        ];
+        {label: 'Option 1', value: '1', selected: true, title: 'Option 1 Title'},
+        {label: 'Option 2', value: '2', title: 'Option 2 Title'},
+        {label: 'Option 3', value: '3', selected: true, title: 'Option 3 Title'},
+        {label: 'Option 4', value: '4', title: 'Option 4 Title'},
+        {label: 'Option 5', value: '5', title: 'Option 5 Title'},
+        {label: 'Option 6', value: '6', title: 'Option 6 Title'}
+    ];
+    
+    var options_attributes = [
+        {label: 'Option 1', value: '1', attributes: {'some-attribute': 'test'}}
+    ];
     
     it("Should be able to add options.", function() {
         $('#multiselect').multiselect('dataprovider', options);
@@ -414,6 +418,12 @@ describe('Bootstrap Multiselect "Dataprovider"', function() {
         expect($('#multiselect-container input[value="4"]').closest('label').attr('title')).toBe('Option 4 Title');
         expect($('#multiselect-container input[value="5"]').closest('label').attr('title')).toBe('Option 5 Title');
         expect($('#multiselect-container input[value="6"]').closest('label').attr('title')).toBe('Option 6 Title');
+    });
+    
+    it("Should be able to define data attributes.", function() {
+        $('#multiselect').multiselect('dataprovider', options_attributes)
+        expect($('#multiselect option[value="1"]').attr('value')).toBe('1');
+        expect($('#multiselect option[value="1"]').attr('data-some-attribute')).toBe('test');
     });
     
     var optgroups = [
@@ -630,7 +640,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
     });
 });
 
-describe('Bootstrap Multiselect Specific Issues', function() {
+describe('Bootstrap Multiselect Specific Issues.', function() {
     
     it('#393', function() {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
@@ -706,7 +716,7 @@ describe('Bootstrap Multiselect Specific Issues', function() {
     });
 });
 
-describe('Knockout Binding', function() {
+describe('Knockout Binding.', function() {
     var $testArea;
     afterEach(function() {
         if ($testArea) {
@@ -714,7 +724,7 @@ describe('Knockout Binding', function() {
         }
     });
 
-    it('Should update values and options with an observable array', function() {
+    it('Should update values and options with an observable array.', function() {
         jasmine.clock().install();
 
         $testArea = $('<select multiple="multiple" data-bind="selectedOptions: myValues, options: myOptions, multiselect: {numberDisplayed: 1}"></select>').appendTo(document.body);
