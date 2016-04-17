@@ -5374,7 +5374,43 @@ optionLabel: function(element){
                         
                         <dt>How to bind object values using Knockout JS?</dt>
                         <dd>
-                            This issue was discussed in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/532">#532</a>.
+                          This issue was discussed in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/532">#532</a>.
+                          <br>
+                          <br>
+                          <p>
+                            bootstrap-multiselect depends upon the following standard knockout bindings:
+                            <br>
+                            <code>options, value, selectedOptions, enable, disable</code>
+                            <br><br>
+                            When these options change, they will update the internal <code>&lt;select&gt;</code> box and then the jQuery multiselect plugin triggers a refresh.
+                          </p>
+                          <ul>
+                            <li><h4>options</h4></li>
+                            <ul>
+                              <li>When options is an observable and changes, your <code>&lt;select&gt;</code> options will be recalculated by knockout, then bootstrap-multiselect will refresh.</li>
+                            </ul>
+                            <li><h4>value</h4></li>
+                            <ul>
+                              <li>Only use this when you are using the radio button feature of bootstrap-multiselect.  Knockout doesn't support using the value binding handler to update <code>&ltselect multiple="multiple"&gt;</code></li>
+                            </ul>
+                            <li><h4>selectedOptions</h4></li>
+                            <ul>
+                              <li>This is a standard knockout binding that updates the checked options inside a select element.  Use this when trying to update a multiple type select box.</li>
+                            </ul>
+                            <li><h4>enable</h4></li>
+                            <ul>
+                              <li>Use it to enable the bootstrap dropdown.</li>
+                            </ul>
+                            <li><h4>disable</h4></li>
+                            <ul>
+                              <li>Use it to enable the bootstrap dropdown.</li>
+                            </ul>
+                          </ul>
+                          <br>
+                          <p>
+                            Any other options inside the multiselect data bind are passed to the jQuery multiselect plugin.
+                          </p>
+                          <br>
                         </dd>
                         
                         <dt>Options do net get updated when using Angular JS?</dt>

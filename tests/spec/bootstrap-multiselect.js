@@ -705,3 +705,73 @@ describe('Bootstrap Multiselect Specific Issues', function() {
         $selection.remove();
     });
 });
+
+describe('Test knockout binding', function() {
+  var $testArea;
+  afterEach(function() {
+    if ($testArea) {
+      $testArea.multiselect('destroy').remove();
+    }
+  });
+
+  it('should update values and options with an observable array', function() {
+    jasmine.clock().install();
+
+    $testArea = $('<select multiple="multiple" data-bind="selectedOptions: myValues, options: myOptions, multiselect: {numberDisplayed: 1}"></select>').appendTo(document.body);
+    var viewModel = {
+      myValues: ko.observableArray(),
+      myOptions: ko.observableArray([])
+    };
+
+    expect(ko.bindingHandlers.multiselect.init !== undefined).toEqual(true);
+    
+    var optionSpy = spyOn(ko.bindingHandlers.selectedOptions, 'init').and.callThrough(),
+        multiSpy = spyOn(ko.bindingHandlers.multiselect, 'init').and.callThrough();
+
+    ko.applyBindings(viewModel, $testArea[0]);
+
+    // knockout bindings were called
+    expect(optionSpy.calls.count()).toEqual(1);
+    expect(multiSpy.calls.count()).toEqual(1);
+
+    // no options are present since myOptions was empty
+    expect($testArea.find('option').length).toEqual(0);
+    expect($testArea.val()).toEqual(null);
+    
+    expect($testArea.next().find('button.multiselect').text().trim()).toEqual('None selected');
+    expect($testArea.next().find('ul li').length).toEqual(0);
+
+    // Add more options
+    viewModel.myOptions(['option1', 'option2']);
+    jasmine.clock().tick(1000);
+    
+    expect($testArea.next().find('ul li').length).toEqual(2);
+    expect($testArea.find('option').length).toEqual(2);
+    expect($testArea.find('option:checked').length).toEqual(0);
+
+    // select one
+    viewModel.myValues(['option2']);
+    jasmine.clock().tick(1000);
+    
+    expect($testArea.find('option:checked').length).toEqual(1);
+    expect($testArea.find('option:checked').text().trim()).toEqual('option2');
+    
+
+    // select all
+    viewModel.myValues(['option1', 'option2']);
+    jasmine.clock().tick(1000);
+    
+    expect($testArea.find('option:checked').length).toEqual(2);
+    expect($testArea.find('option:checked').map(function() { return $(this).text().trim() }).toArray()).toEqual(['option1', 'option2']);
+    expect($testArea.next().find('button.multiselect').text().trim()).toEqual('All selected (2)');    
+
+    // add another option
+    viewModel.myOptions.push('wacky option');
+    jasmine.clock().tick(1000);
+    
+    expect($testArea.find('option:checked').length).toEqual(2);
+    expect($testArea.find('option:checked').map(function() { return $(this).text().trim() }).toArray()).toEqual(['option1', 'option2']);
+    expect($testArea.find('option').map(function() { return $(this).text().trim() }).toArray()).toEqual(['option1', 'option2', 'wacky option']);
+    expect($testArea.next().find('button.multiselect').text().trim()).toEqual('2 selected');    
+  });
+});
