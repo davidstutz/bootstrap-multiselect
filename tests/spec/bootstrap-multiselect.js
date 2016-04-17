@@ -295,7 +295,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         });
     });
     
-    it('Should correctly create labels for optgroups.', function() {
+    it('Should correctly create inputs for optgroups.', function() {
         expect($('#multiselect-container li.multiselect-group').length).toBe(10);
         expect($('#multiselect-container li.multiselect-group input').length).toBe(10);
         
@@ -339,6 +339,248 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
             fired = 0;
             
             i++;
+        });
+    });
+    
+    afterEach(function() {
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
+});
+
+describe('Bootstrap Multiselect "Collapsible Optgroups"', function() {
+    
+    // Count the number of onChanges fired.
+    var fired = 0;
+    
+    beforeEach(function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        
+        for (var i = 1; i < 11; i++) {
+            var $optgroup = $('<optgroup label="Group ' + i + '"></optgroup>');
+            
+            for (var j = 1; j < 11; j++) {
+                $optgroup.append('<option value="' + i + '-' + j + '">Option ' + i + '.' + j + '</option>');
+            }
+            
+            $select.append($optgroup);
+        }
+        
+        $('body').append($select);
+        
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableCollapsibleOptGroups: true,
+            onChange: function(option, checked) {
+                fired++;
+            }
+        });
+    });
+    
+    it('Should correctly create headers for optgroups.', function() {
+        expect($('#multiselect-container li.multiselect-group').length).toBe(10);
+        
+        $('#multiselect-container label.multiselect-group').each(function() {
+            expect($('input', $(this)).length).toBe(10);
+        });
+    });
+    
+    if ('Should not create inputs.', function() {
+        expect($('#multiselect-container li.multiselect-group input').length).toBe(0);
+    });
+    
+    it('Groups should not be clickable.', function() {
+        expect($('#multiselect option:selected').length).toBe(0);
+        
+        var i = 0;
+        $('#multiselect-container li.multiselect-group').each(function() {
+            $('label', $(this)).click();
+            expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(0);
+            expect($('#multiselect option:selected').length).toBe(0);
+            
+            $('label', $(this)).click();
+            i++;
+        });
+    });
+    
+    it('Should be collapsible.', function() {
+        var $group = $('#multiselect-container li.multiselect-group:first');
+        $('.caret-container', $group).click();
+        
+        var $lis = $group.nextUntil('li.multiselect-group');
+        $lis.each(function() {
+            expect($(this).hasClass('hidden')).toBe(false);
+        });
+        
+        $('.caret-container', $group).click();
+        
+        var $lis = $group.nextUntil('li.multiselect-group');
+        $lis.each(function() {
+            expect($(this).hasClass('hidden')).toBe(true);
+        });
+    });
+    
+    afterEach(function() {
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
+});
+
+describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
+    
+    // Count the number of onChanges fired.
+    var fired = 0;
+    
+    beforeEach(function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        
+        for (var i = 1; i < 11; i++) {
+            var $optgroup = $('<optgroup label="Group ' + i + '"></optgroup>');
+            
+            for (var j = 1; j < 11; j++) {
+                $optgroup.append('<option value="' + i + '-' + j + '">Option ' + i + '.' + j + '</option>');
+            }
+            
+            $select.append($optgroup);
+        }
+        
+        $('body').append($select);
+        
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableClickableOptGroups: true,
+            enableCollapsibleOptGroups: true,
+            onChange: function(option, checked) {
+                fired++;
+            }
+        });
+    });
+    
+    it('Should correctly create inputs for optgroups.', function() {
+        expect($('#multiselect-container li.multiselect-group').length).toBe(10);
+        expect($('#multiselect-container li.multiselect-group input').length).toBe(10);
+        
+        $('#multiselect-container label.multiselect-group').each(function() {
+            expect($('input', $(this)).length).toBe(10);
+        });
+    });
+    
+    it('Groups should be clickable.', function() {
+        expect($('#multiselect option:selected').length).toBe(0);
+        
+        var i = 0;
+        $('#multiselect-container li.multiselect-group').each(function() {
+            $('label', $(this)).click();
+            expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
+            expect($('#multiselect option:selected').length).toBe(10);
+            
+            $('label', $(this)).click();
+            i++;
+        });
+    });
+    
+    it('Clickable groups should fire onChange only once.', function() {
+        expect($('#multiselect option:selected').length).toBe(0);
+        
+        fired = 0;
+        expect(fired).toBe(0);
+        
+        var i = 0;
+        $('#multiselect-container li.multiselect-group').each(function() {
+            $('label', $(this)).click();
+            
+            // Selected
+            expect(fired).toBe(1);
+            fired = 0;
+            
+            $('label', $(this)).click();
+            
+            // Deselected
+            expect(fired).toBe(1);
+            fired = 0;
+            
+            i++;
+        });
+    });
+    
+    it('Should be collapsible.', function() {
+        var $group = $('#multiselect-container li.multiselect-group:first');
+        $('.caret-container', $group).click();
+        
+        var $lis = $group.nextUntil('li.multiselect-group');
+        $lis.each(function() {
+            expect($(this).hasClass('hidden')).toBe(false);
+        });
+        
+        $('.caret-container', $group).click();
+        
+        var $lis = $group.nextUntil('li.multiselect-group');
+        $lis.each(function() {
+            expect($(this).hasClass('hidden')).toBe(true);
+        });
+    });
+    
+    afterEach(function() {
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
+});
+
+describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', function() {
+    
+    // Count the number of onChanges fired.
+    var fired = 0;
+    
+    beforeEach(function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        
+        for (var i = 1; i < 11; i++) {
+            var $optgroup = $('<optgroup label="Group ' + i + '"></optgroup>');
+            
+            for (var j = 1; j < 11; j++) {
+                $optgroup.append('<option value="' + i + '-' + j + '">Option ' + i + '.' + j + '</option>');
+            }
+            
+            $select.append($optgroup);
+        }
+        
+        $('body').append($select);
+        
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableClickableOptGroups: true,
+            enableCollapsibleOptGroups: true,
+            includeSelectAllOption: true,
+            selectAllValue: 'multiselect-all',
+            onChange: function(option, checked) {
+                fired++;
+            }
+        });
+    });
+    
+    it('Should handle option groups differently, i.e. not set class to active.', function() {
+        // Otherwise they are hidden.
+        $('#multiselect-container li.multiselect-group .caret-container').click();
+        $('#multiselect-container input[value="multiselect-all"]').click();
+        
+        $groups = $('#multiselect-container li.multiselect-group');
+        $groups.each(function() {
+            expect($(this).hasClass('active')).toBe(false);
+        });
+        
+        $lis = $('#multiselect-container li:not(.multiselect-group)');
+        $lis.each(function() {
+            expect($(this).hasClass('active')).toBe(true);
+        });
+    });
+    
+    it('Should select all options (including option groups).', function() {
+        //$('#multiselect-container li.multiselect-group .caret-container').click();
+        $('#multiselect-container input[value="multiselect-all"]').click();
+        
+        $lis = $('#multiselect-container li');
+        $lis.each(function() {
+            expect($('input', this).prop('checked')).toBe(true);
         });
     });
     
@@ -713,6 +955,55 @@ describe('Bootstrap Multiselect Specific Issues.', function() {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
         $selection.remove();
+    });
+    
+    it('#679', function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        
+        for (var i = 1; i < 11; i++) {
+            var $optgroup = $('<optgroup label="Group ' + i + '"></optgroup>');
+            
+            for (var j = 1; j < 11; j++) {
+                $optgroup.append('<option value="' + i + '-' + j + '">Option ' + i + '.' + j + '</option>');
+            }
+            
+            $select.append($optgroup);
+        }
+        
+        $('body').append($select);
+        
+        var fired = 0;
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableClickableOptGroups: true,
+            enableCollapsibleOptGroups: true,
+            onChange: function(option, checked) {
+                fired++;
+            }
+        });
+        
+        expect($('#multiselect option:selected').length).toBe(0);
+        expect(fired).toBe(0);
+        
+        var i = 0;
+        $('#multiselect-container li.multiselect-group').each(function() {
+            $('label', $(this)).click();
+            
+            // Selected
+            expect(fired).toBe(1);
+            fired = 0;
+            
+            $('label', $(this)).click();
+            
+            // Deselected
+            expect(fired).toBe(1);
+            fired = 0;
+            
+            i++;
+        });
+        
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
     });
 });
 

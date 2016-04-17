@@ -726,7 +726,7 @@
             }, this));
             
             if (this.options.enableClickableOptGroups && this.options.multiple) {
-                $("li.multiselect-group input", this.$ul).on("change", $.proxy(function(event) {console.log('test')
+                $("li.multiselect-group input", this.$ul).on("change", $.proxy(function(event) {
                     event.stopPropagation();
                     
                     var $target = $(event.target);
@@ -763,31 +763,13 @@
                     $(this).toggleClass('hidden', true);
                 });
                 
-                $("li.multiselect-group > a > .caret-container", this.$ul).on("click", $.proxy(function(event) {
+                $("li.multiselect-group .caret-container", this.$ul).on("click", $.proxy(function(event) {
                     event.stopPropagation();
                     var $li = $(event.target).closest('li');
                     var $inputs = $li.nextUntil("li.multiselect-group");
                     
-                    var selected = true;
-                    $inputs.each(function() {
-                        selected = selected && $(this).hasClass('hidden');
-                    });
-                    
-                    $inputs.toggleClass('hidden', !selected);
+                    $inputs.toggleClass('hidden');
                 }, this));
-                
-                // Set the initial selection state of the groups.
-                $('li.multiselect-group', this.$ul).each(function() {
-                    var $group = $(this).nextUntil("li.multiselect-group", ':not(.disabled)');
-                    var $inputs = $group.find("input");
-                    
-                    var selected = true;
-                    $inputs.each(function() {
-                        selected = selected && $(this).prop("checked");
-                    });
-                    
-                    $(this).find('input').prop("checked", selected);
-                });
                 
                 $("li.multiselect-all", this.$ul).css('background', '#f3f3f3').css('border-bottom', '1px solid #eaeaea');
                 $("li.multiselect-all > a > label.checkbox", this.$ul).css('padding', '3px 20px 3px 35px');
@@ -1250,11 +1232,11 @@
             
             if(justVisible) {
                 visibleCheckboxes.prop('checked', true);
-                $("li:not(.divider):not(.disabled)", this.$ul).filter(":visible").addClass(this.options.selectedClass);
+                $("li:not(.divider):not(.disabled):not(.multiselect-group)", this.$ul).filter(":visible").addClass(this.options.selectedClass);
             }
             else {
                 allCheckboxes.prop('checked', true);
-                $("li:not(.divider):not(.disabled)", this.$ul).addClass(this.options.selectedClass);
+                $("li:not(.divider):not(.disabled):not(.multiselect-group)", this.$ul).addClass(this.options.selectedClass);
             }
                 
             if (allCheckboxesCount === visibleCheckboxesCount || justVisible === false) {
