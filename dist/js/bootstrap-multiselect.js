@@ -387,7 +387,7 @@
             enableCaseInsensitiveFiltering: false,
             enableFullValueFiltering: false,
             enableClickableOptGroups: false,
-            enableCollapsibelOptGroups: false,
+            enableCollapsibleOptGroups: false,
             filterPlaceholder: 'Search',
             // possible options: 'text', 'value', 'both'
             filterBehavior: 'text',
@@ -535,7 +535,7 @@
             }, this));
 
             // Bind the change event on the dropdown elements.
-            $('li input', this.$ul).on('change', $.proxy(function(event) {
+            $('li:not(.multiselect-group) input', this.$ul).on('change', $.proxy(function(event) {
                 var $target = $(event.target);
 
                 var checked = $target.prop('checked') || false;
@@ -606,7 +606,11 @@
 
                 this.updateButtonText();
                 this.updateSelectAll();
-
+                
+                if (this.options.enableClickableOptGroups && this.options.multiple) {
+                    this.updateOptGroups($target, checked);
+                }
+                
                 if(this.options.preventInputChangeEvent) {
                     return false;
                 }
@@ -720,107 +724,73 @@
                     event.preventDefault();
                 }
             }, this));
-
-            if(this.options.enableClickableOptGroups && this.options.multiple) {
-                $('li.multiselect-group', this.$ul).on('click', $.proxy(function(event) {
+            
+            if (this.options.enableClickableOptGroups && this.options.multiple) {
+                $("li.multiselect-group input", this.$ul).on("change", $.proxy(function(event) {console.log('test')
                     event.stopPropagation();
-                    console.log('test');
-                    var group = $(event.target).parent();
-
-                    // Search all option in optgroup
-                    var $options = group.nextUntil('li.multiselect-group');
-                    var $visibleOptions = $options.filter(":visible:not(.disabled)");
-
-                    // check or uncheck items
-                    var allChecked = true;
-                    var optionInputs = $visibleOptions.find('input');
-                    var values = [];
                     
-                    optionInputs.each(function() {
-                        allChecked = allChecked && $(this).prop('checked');
-                        values.push($(this).val());
-                    });
-
-                    if (!allChecked) {
+                    var $target = $(event.target);
+                    var checked = $target.prop('checked') || false;
+                    
+                    var $li = $(event.target).closest('li');
+                    var $group = $li.nextUntil("li.multiselect-group").filter(":visible:not(.disabled)");
+                    var $inputs = $group.find("input");
+                    
+                    var values = [];
+                    var $options = [];
+                    
+                    $.each($inputs, $.proxy(function(index, input) {
+                        var value = $(input).val();
+                        values.push(value);
+                        $options.push(this.getOptionByValue(value));
+                    }, this))
+                    
+                    if (checked) {
                         this.select(values, false);
                     }
                     else {
                         this.deselect(values, false);
                     }
                     
-                    this.options.onChange(optionInputs, !allChecked);
-               }, this));
+                    this.options.onChange($options, checked);
+//                    $inputs.prop("checked", checked).trigger("change");
+                }, this));
             }
-
+            
             if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
-                $("li.multiselect-group input", this.$ul).off();
-                $("li.multiselect-group", this.$ul).siblings().not("li.multiselect-group, li.multiselect-all", this.$ul).each( function () {
+                //$("li.multiselect-group input", this.$ul).off();
+                $("li.multiselect-group", this.$ul).siblings().not("li.multiselect-group, li.multiselect-all", this.$ul).each(function () {
                     $(this).toggleClass('hidden', true);
                 });
                 
-                $("li.multiselect-group", this.$ul).on("click", $.proxy(function(group) {
-                    group.stopPropagation();
-                }, this));
-                
-                $("li.multiselect-group > a > b", this.$ul).on("click", $.proxy(function(t) {
-                    t.stopPropagation();
-                    var n = $(t.target).closest('li');
-                    var r = n.nextUntil("li.multiselect-group");
-                    var i = true;
+                $("li.multiselect-group > a > .caret-container", this.$ul).on("click", $.proxy(function(event) {
+                    event.stopPropagation();
+                    var $li = $(event.target).closest('li');
+                    var $inputs = $li.nextUntil("li.multiselect-group");
                     
-                    r.each(function() {
-                        i = i && $(this).hasClass('hidden');
+                    var selected = true;
+                    $inputs.each(function() {
+                        selected = selected && $(this).hasClass('hidden');
                     });
                     
-                    r.toggleClass('hidden', !i);
-                }, this));
-                
-                $("li.multiselect-group > a > input", this.$ul).on("change", $.proxy(function(t) {
-                    t.stopPropagation();
-                    var n = $(t.target).closest('li');
-                    var r = n.nextUntil("li.multiselect-group", ':not(.disabled)');
-                    var s = r.find("input");
-                    
-                    var i = true;
-                    s.each(function() {
-                        i = i && $(this).prop("checked");
-                    });
-                    
-                    s.prop("checked", !i).trigger("change");
+                    $inputs.toggleClass('hidden', !selected);
                 }, this));
                 
                 // Set the initial selection state of the groups.
                 $('li.multiselect-group', this.$ul).each(function() {
-                    var r = $(this).nextUntil("li.multiselect-group", ':not(.disabled)');
-                    var s = r.find("input");
+                    var $group = $(this).nextUntil("li.multiselect-group", ':not(.disabled)');
+                    var $inputs = $group.find("input");
                     
-                    var i = true;
-                    s.each(function() {
-                        i = i && $(this).prop("checked");
+                    var selected = true;
+                    $inputs.each(function() {
+                        selected = selected && $(this).prop("checked");
                     });
                     
-                    $(this).find('input').prop("checked", i);
+                    $(this).find('input').prop("checked", selected);
                 });
                 
-                // Update the group checkbox based on new selections among the
-                // corresponding children.
-                $("li:not(.multiselect-group) input", this.$ul).on("change", $.proxy(function(t) {
-                    t.stopPropagation();
-                    var n = $(t.target).closest('li');
-                    var r = n.prev("li.multiselect-group", ':not(.disabled)');
-                    var q = r.nextUntil("li.multiselect-group", ':not(.disabled)');
-                    var s = q.find("input");
-                    
-                    var i = $(t.target).prop('checked');
-                    s.each(function() {
-                        i = i && $(this).prop("checked");
-                    });
-                    
-                    n.prev('li.multiselect-group').find('input').prop('checked', i);
-                }, this));
-                
                 $("li.multiselect-all", this.$ul).css('background', '#f3f3f3').css('border-bottom', '1px solid #eaeaea');
-                $("li.multiselect-group > a, li.multiselect-all > a > label.checkbox", this.$ul).css('padding', '3px 20px 3px 35px');
+                $("li.multiselect-all > a > label.checkbox", this.$ul).css('padding', '3px 20px 3px 35px');
                 $("li.multiselect-group > a > input", this.$ul).css('margin', '4px 0px 5px -20px');
             }
         },
@@ -907,50 +877,34 @@
          * @param {jQuery} group
          */
         createOptgroup: function(group) {            
-            if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
-                var label = $(group).attr("label");
-                var value = $(group).attr("value");
-                var r = $('<li class="multiselect-item multiselect-group"><a href="javascript:void(0);"><input type="checkbox" value="' + value + '"/><b> ' + label + '<b class="caret"></b></b></a></li>');
-
-                if (this.options.enableClickableOptGroups) {
-                    r.addClass("multiselect-group-clickable")
-                }
-                this.$ul.append(r);
-                if ($(group).is(":disabled")) {
-                    r.addClass("disabled")
-                }
-                $("option", group).each($.proxy(function($, group) {
-                    this.createOptionValue(group)
-                }, this))
+            var label = $(group).attr("label");
+            var value = $(group).attr("value");
+            var $li = $('<li class="multiselect-item multiselect-group"><a href="javascript:void(0);"><label><b></b></label></a></li>');
+            
+            if (this.options.enableHTML) {
+                $('label b', $li).html(" " + label);
             }
             else {
-                var groupName = $(group).prop('label');
-
-                // Add a header for the group.
-                var $li = $(this.options.templates.liGroup);
-
-                if (this.options.enableHTML) {
-                    $('label', $li).html(groupName);
-                }
-                else {
-                    $('label', $li).text(groupName);
-                }
-
-                if (this.options.enableClickableOptGroups) {
-                    $li.addClass('multiselect-group-clickable');
-                }
-
-                this.$ul.append($li);
-
-                if ($(group).is(':disabled')) {
-                    $li.addClass('disabled');
-                }
-
-                // Add the options of the group.
-                $('option', group).each($.proxy(function(index, element) {
-                    this.createOptionValue(element);
-                }, this));
+                $('label b', $li).text(" " + label);
             }
+            
+            if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
+                $('a', $li).append('<span class="caret-container"><b class="caret"></b></span>');
+            }
+            
+            if (this.options.enableClickableOptGroups && this.options.multiple) {
+                $('a label', $li).prepend('<input type="checkbox" value="' + value + '"/>');
+            }
+            
+            if ($(group).is(':disabled')) {
+                $li.addClass('disabled');
+            }
+            
+            this.$ul.append($li);
+            
+            $("option", group).each($.proxy(function($, group) {
+                this.createOptionValue(group);
+            }, this))
         },
 
         /**
@@ -1495,7 +1449,37 @@
         hasSelectAll: function() {
             return $('li.multiselect-all', this.$ul).length > 0;
         },
-
+        
+        /**
+         * Update opt groups.
+         */
+        updateOptGroups: function($element, checked) {
+            var $prevs = $element.closest('li').prevUntil('li.multiselect-group').filter(":visible:not(.disabled)");
+            var $nexts = $element.closest('li').nextUntil('li.multiselect-group').filter(":visible:not(.disabled)");
+            
+            var selected = checked;
+            $prevs.each(function() {
+                if (!$('input', this).prop('checked')) {
+                    selected = false;
+                }
+            });
+            
+            $nexts.each(function() {
+                if (!$('input', this).prop('checked')) {
+                    selected = false;
+                }
+            });
+            
+            var $group = $element.closest('li').prevAll('li.multiselect-group');
+            
+            if (selected) {
+                $('input', $group).prop('checked', true);
+            }
+            else {
+                $('input', $group).prop('checked', false);
+            }
+        },
+        
         /**
          * Updates the select all checkbox based on the currently displayed and selected checkboxes.
          */

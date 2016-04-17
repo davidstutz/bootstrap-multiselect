@@ -266,7 +266,7 @@ describe('Bootstrap Multiselect "Single Selection"', function() {
     });
 });
 
-describe('Bootstrap Multiselect "Optgroups"', function() {
+describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
     
     // Count the number of onChanges fired.
     var fired = 0;
@@ -297,7 +297,7 @@ describe('Bootstrap Multiselect "Optgroups"', function() {
     
     it('Should correctly create labels for optgroups.', function() {
         expect($('#multiselect-container li.multiselect-group').length).toBe(10);
-        expect($('#multiselect-container li.multiselect-group-clickable').length).toBe(10);
+        expect($('#multiselect-container li.multiselect-group input').length).toBe(10);
         
         $('#multiselect-container label.multiselect-group').each(function() {
             expect($('input', $(this)).length).toBe(10);
