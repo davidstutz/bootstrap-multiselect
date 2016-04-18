@@ -358,8 +358,9 @@
 </pre>
                                     
                                     <p>
-                                        The plugin naturally supports <code>optgroup</code>'s, however the group headers are not clickable by default. See the <code>enableClickableOptGroups</code> option for details.
+                                        The plugin naturally supports <code>optgroup</code>s, however the group headers are not clickable by default. See the <code>enableClickableOptGroups</code> option for details.
                                     </p>
+                                    
                                     <div class="example">
                                         <script type="text/javascript">
                                             $(document).ready(function() {
@@ -398,6 +399,48 @@
 &lt;/select&gt;
 </pre>
                                     </div>
+                                    
+                                    <p>
+                                        Note that the classes of the <code>optgroup</code>s are adopted, allowing to select individual <code>optgroup</code>s easily (inspect the created markup to note the difference!):
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-multiple-optgroups-classes').multiselect();
+                                            });
+                                        </script>
+                                        <select id="example-multiple-optgroups-classes" multiple="multiple">
+                                            <optgroup label="Group 1" class="group-1">
+                                                <option value="1-1">Option 1.1</option>
+                                                <option value="1-2" selected="selected">Option 1.2</option>
+                                                <option value="1-3" selected="selected">Option 1.3</option>
+                                            </optgroup>
+                                            <optgroup label="Group 2" class="group-2">
+                                                <option value="2-1">Option 2.1</option>
+                                                <option value="2-2">Option 2.2</option>
+                                                <option value="2-3">Option 2.3</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $('#example-multiple-optgroups-classes').multiselect();
+&lt;/script&gt;
+&lt;select id=&quot;example-multiple-optgroups&quot;&gt;
+    &lt;optgroup label=&quot;Group 1&quot; class=&quot;group-1&quot;&gt;
+        &lt;option value=&quot;1-1&quot;&gt;Option 1.1&lt;/option&gt;
+        &lt;option value=&quot;1-2&quot; selected=&quot;selected&quot;&gt;Option 1.2&lt;/option&gt;
+        &lt;option value=&quot;1-3&quot; selected=&quot;selected&quot;&gt;Option 1.3&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label=&quot;Group 2&quot; class=&quot;group-2&quot;&gt;
+        &lt;option value=&quot;2-1&quot;&gt;Option 2.1&lt;/option&gt;
+        &lt;option value=&quot;2-2&quot;&gt;Option 2.2&lt;/option&gt;
+        &lt;option value=&quot;2-3&quot;&gt;Option 2.3&lt;/option&gt;
+    &lt;/optgroup&gt;
+&lt;/select&gt;
+</pre>
                                 </td>
                             </tr>
                             <tr>
@@ -3125,7 +3168,7 @@
 </pre>
                     
                     <p>
-                        The most important classes are: <code>multiselect-container</code>, <code>multiselect-filter<code>, <code>multiselect-all</code>, <code>multiselect-item</code>, <code>multiselect-group</code> as well as <code>disabled</code> and <code>active</code>. Both for collapsing and filtering options, the classes <code>multiselect-filter-hidden</code> and <code>multiselect-collapsible-hidden</code> are used.
+                        The most important classes are: <code>multiselect-container</code>, <code>multiselect-filter</code>, <code>multiselect-all</code>, <code>multiselect-item</code>, <code>multiselect-group</code> as well as <code>disabled</code> and <code>active</code>. Both for collapsing and filtering options, the classes <code>multiselect-filter-hidden</code> and <code>multiselect-collapsible-hidden</code> are used.
                     </p>
                     
                     <div class="page-header">
@@ -5251,7 +5294,88 @@ $(document).ready(function() {
 &lt;/script&gt;
 </pre>
                     </div>
-                        
+                    
+                    <p>The following example demonstrates how to limit the number of selections of a specific <code>optgroup</code>:</p>
+                    
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-optgroup-limit').multiselect({
+                                    onChange: function(options, checked) {
+                                        var $option = $(options);
+                                        if ($option.length == 1) {
+                                            
+                                            var $group = $option.parent('optgroup')
+                                            if ($group.hasClass('group-1')) {
+                                                var $options = $('option', $group);
+                                                $options = $options.filter(':selected');
+                                                
+                                                if (checked && $options.length > 2) {
+                                                    alert('Cannot select more than 2 elements in this group!');
+                                                    $("#example-optgroup-limit").multiselect('deselect', $option.val());
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <div class="btn-group">
+                            <select id="example-optgroup-limit" multiple="multiple">
+                                <optgroup class="group-1" label="Group 1">
+                                    <option value="1-1">Option 1.1</option>
+                                    <option value="1-2">Option 1.2</option>
+                                    <option value="1-3">Option 1.3</option>
+                                </optgroup>
+                                <optgroup class="group-2" label="Group 2">
+                                    <option value="2-1">Option 2.1</option>
+                                    <option value="2-2">Option 2.2</option>
+                                    <option value="2-3">Option 2.3</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-optgroup-limit').multiselect({
+            onChange: function(options, checked) {
+                var $option = $(options);
+                if ($option.length == 1) {
+
+                    var $group = $option.parent('optgroup')
+                    if ($group.hasClass('group-1')) {
+                        var $options = $('option', $group);
+                        $options = $options.filter(':selected');
+
+                        if (checked && $options.length &gt; 2) {
+                            alert('Cannot select more than 2 elements in this group!');
+                            $(&quot;#example-optgroup-limit&quot;).multiselect('deselect', $option.val());
+                        }
+                    }
+                }
+            }
+        });
+    });
+&lt;/script&gt;
+&lt;div class=&quot;btn-group&quot;&gt;
+    &lt;select id=&quot;example-optgroup-limit&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;optgroup class=&quot;group-1&quot; label=&quot;Group 1&quot;&gt;
+            &lt;option value=&quot;1-1&quot;&gt;Option 1.1&lt;/option&gt;
+            &lt;option value=&quot;1-2&quot;&gt;Option 1.2&lt;/option&gt;
+            &lt;option value=&quot;1-3&quot;&gt;Option 1.3&lt;/option&gt;
+        &lt;/optgroup&gt;
+        &lt;optgroup class=&quot;group-2&quot; label=&quot;Group 2&quot;&gt;
+            &lt;option value=&quot;2-1&quot;&gt;Option 2.1&lt;/option&gt;
+            &lt;option value=&quot;2-2&quot;&gt;Option 2.2&lt;/option&gt;
+            &lt;option value=&quot;2-3&quot;&gt;Option 2.3&lt;/option&gt;
+        &lt;/optgroup&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
+                    
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
                     </div>
