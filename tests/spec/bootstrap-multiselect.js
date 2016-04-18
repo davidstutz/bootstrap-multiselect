@@ -630,6 +630,174 @@ describe('Bootstrap Multiselect "Select All".', function() {
     });
 });
 
+describe('Bootstrap Multiselect "setSelection".', function () {
+
+    var onChangeSelected = [];
+    var onChangeDeselected = [];
+    var onChangeFired = 0;
+    var $select;
+
+    beforeEach(function () {
+        $select = $('<select id="multiselect" multiple="multiple"></select>');
+
+        for (var i = 1; i < 100; i++) {
+            $select.append('<option value="' + i + '">1</option>');
+        }
+
+        $('body').append($select);
+
+        $select.multiselect({
+            onChange: function (option, checked) {
+                ++onChangeFired;
+
+                (checked ? onChangeSelected : onChangeDeselected).push($(option).val());
+            }
+        });
+
+        onChangeFired = 0;
+        onChangeSelected = [];
+        onChangeDeselected = [];
+    });
+
+    var VALS_A = [3, 25, 19, 76];
+    var VALS_B = [11, 23, 92];
+    var VALS_C = [37, 69, 40];
+    var VALS_AB = VALS_A.concat(VALS_B);
+    var VALS_BC = VALS_B.concat(VALS_C);
+    var VALS_ABC = VALS_A.concat(VALS_B).concat(VALS_C);
+
+    function sortInt(x, y) { return (x - y); }
+
+    VALS_A = VALS_A.sort(sortInt).map(function (n) { return n.toString(); });
+    VALS_B = VALS_B.sort(sortInt).map(function (n) { return n.toString(); });
+    VALS_C = VALS_C.sort(sortInt).map(function (n) { return n.toString(); });
+    VALS_AB = VALS_AB.sort(sortInt).map(function (n) { return n.toString(); });
+    VALS_BC = VALS_BC.sort(sortInt).map(function (n) { return n.toString(); });
+    VALS_ABC = VALS_ABC.sort(sortInt).map(function (n) { return n.toString(); });
+
+    it('Should be able to set selected values', function () {
+        var values = VALS_AB;
+
+        expect($('option:selected', $select).length).toBe(0);
+        expect($select.val()).toBeNull();
+
+        $select.multiselect("setSelected", values);
+        for (var i = 0; i < values.length; ++i) {
+            expect($('option[value="' + values[i].toString() + '"]').prop('selected')).toBe(true);
+        }
+        expect($select.val()).toEqual(values);
+    });
+
+    it('Should be able to deselect values', function () {
+        var values = VALS_AB;
+        var i;
+
+        // Verify initial state
+        expect($('option:selected', $select).length).toBe(0);
+        expect($select.val()).toBeNull();
+
+        // Select some values and test the state
+        $select.multiselect("select", values);
+        expect($select.val()).toEqual(values);
+        for (i = 0; i < VALS_C.length; ++i) {
+            expect($('option[value="' + VALS_C[i].toString() + '"]').prop('selected')).toBe(false);
+        }
+        for (i = 0; i < values.length; ++i) {
+            expect($('option[value="' + values[i].toString() + '"]').prop('selected')).toBe(true);
+        }
+
+        // Set the selection to a different set of values
+        $select.multiselect("setSelected", VALS_C);
+        expect($select.val()).toEqual(VALS_C);
+        for (i = 0; i < VALS_C.length; ++i) {
+            expect($('option[value="' + VALS_C[i].toString() + '"]').prop('selected')).toBe(true);
+        }
+        for (i = 0; i < values.lengths; ++i) {
+            expect($('option[value="' + values[i].toString() + '"]').prop('selected')).toBe(false);
+        }
+    });
+
+    it('Should be able to receive onChange notifications for only the values that changed', function () {
+        var initVals = VALS_AB;
+        var setVals = VALS_BC;
+        var i;
+
+        expect(onChangeFired).toBe(0);
+        expect(onChangeSelected.length).toBe(0);
+        expect(onChangeDeselected.length).toBe(0);
+
+        $select.multiselect("setSelected", initVals, true);
+        expect(onChangeSelected).toEqual(initVals);
+        expect($select.val()).toEqual(initVals);
+        expect(onChangeSelected).toEqual($select.val());
+        expect(onChangeDeselected.length).toBe(0);
+        expect(onChangeFired).toBe(initVals.length);
+        for (i = 0; i < VALS_A.length; ++i) {
+            expect($('option[value="' + VALS_A[i].toString() + '"]').prop('selected')).toBe(true);
+        }
+        for (i = 0; i < VALS_B.length; ++i) {
+            expect($('option[value="' + VALS_B[i].toString() + '"]').prop('selected')).toBe(true);
+        }
+        for (i = 0; i < VALS_C.length; ++i) {
+            expect($('option[value="' + VALS_C[i].toString() + '"]').prop('selected')).toBe(false);
+        }
+
+        onChangeSelected = [];
+        onChangeFired = 0;
+        $select.multiselect("setSelected", setVals, true);  // Unselect "A", Select "C", Leave "B" Selected
+        expect($select.val()).toEqual(setVals);
+        expect(onChangeSelected).toEqual(VALS_C);
+        expect(onChangeDeselected).toEqual(VALS_A);
+        expect(onChangeFired).toBe(VALS_C.length + VALS_A.length);
+        for (i = 0; i < VALS_A.length; ++i) {
+            expect($('option[value="' + VALS_A[i].toString() + '"]').prop('selected')).toBe(false);
+        }
+        for (i = 0; i < VALS_B.length; ++i) {
+            expect($('option[value="' + VALS_B[i].toString() + '"]').prop('selected')).toBe(true);
+        }
+        for (i = 0; i < VALS_C.length; ++i) {
+            expect($('option[value="' + VALS_C[i].toString() + '"]').prop('selected')).toBe(true);
+        }
+    });
+
+    it('Should not fire onChange notifications if they\'re not requested', function () {
+        expect(onChangeFired).toBe(0);
+        expect(onChangeSelected.length).toBe(0);
+        expect(onChangeDeselected.length).toBe(0);
+
+        // Set a new selection
+        $select.multiselect('setSelected', VALS_AB, false);
+
+        // Verify the selection changed but events did not fire
+        expect($select.val()).toEqual(VALS_AB);
+        expect(onChangeFired).toBe(0);
+        expect(onChangeSelected.length).toBe(0);
+        expect(onChangeDeselected.length).toBe(0);
+
+        // Set a new selection
+        $select.multiselect('setSelected', VALS_BC, false);
+
+        // Verify the selection changed but events did not fire
+        expect($select.val()).toEqual(VALS_BC);
+        expect(onChangeFired).toBe(0);
+        expect(onChangeSelected.length).toBe(0);
+        expect(onChangeDeselected.length).toBe(0);
+
+        // Set a new selection
+        $select.multiselect('setSelected', VALS_ABC, false);
+
+        // Verify the selection changed but events did not fire
+        expect($select.val()).toEqual(VALS_ABC);
+        expect(onChangeFired).toBe(0);
+        expect(onChangeSelected.length).toBe(0);
+        expect(onChangeDeselected.length).toBe(0);
+    });
+
+    afterEach(function () {
+        $select.multiselect('destroy');
+        $select.remove();
+    });
+});
 describe('Bootstrap Multiselect Specific Issues', function() {
     
     it('#393', function() {
