@@ -409,14 +409,14 @@ describe('Bootstrap Multiselect "Collapsible Optgroups"', function() {
         
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
         });
         
         $('.caret-container', $group).click();
         
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
         });
     });
     
@@ -509,14 +509,14 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
         
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
         });
         
         $('.caret-container', $group).click();
         
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
         });
     });
     

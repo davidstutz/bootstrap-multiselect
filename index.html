@@ -32,6 +32,7 @@
                         <li class="active"><a href="#getting-started">Getting Started</a></li>
                         <li><a href="#configuration-options">Configuration Options</a></li>
                         <li><a href="#templates">Templates</a></li>
+                        <li><a href="#styling">Styling</a></li>
                         <li><a href="#methods">Methods</a></li>
                         <li><a href="#further-examples">Further Examples</a></li>
                         <li><a href="#post">Server-Side Processing</a></li>
@@ -3070,6 +3071,62 @@
 &lt;/style&gt;
 </pre>
                     </div>
+                    
+                    <div class="page-header">
+                        <h2 id="styling">Styling</h2>
+                    </div>
+                    
+                    <p>The style of the pluign is fully adaptable through CSS; a completely rendered example is shown below - including select all option, filter and option gorups_</p>
+                    
+<pre class="prettyprint linenums">
+&lt;ul class=&quot;multiselect-container dropdown-menu&quot;&gt;
+    &lt;!-- Filter --&gt;
+    &lt;li class=&quot;multiselect-item multiselect-filter&quot; value=&quot;0&quot;&gt;
+        &lt;div class=&quot;input-group&quot;&gt;
+            &lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-search&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+            &lt;input class=&quot;form-control multiselect-search&quot; type=&quot;text&quot; placeholder=&quot;Search&quot;&gt;
+            &lt;span class=&quot;input-group-btn&quot;&gt;
+                &lt;button class=&quot;btn btn-default multiselect-clear-filter&quot; type=&quot;button&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-remove-circle&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+            &lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/li&gt;
+    &lt;!-- Select all --&gt;
+    &lt;li class=&quot;multiselect-item multiselect-all&quot; style=&quot;border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(234, 234, 234); background: rgb(243, 243, 243);&quot;&gt;
+        &lt;a tabindex=&quot;0&quot; class=&quot;multiselect-all&quot;&gt;&lt;label class=&quot;checkbox&quot; style=&quot;padding: 3px 20px 3px 35px;&quot;&gt;&lt;input type=&quot;checkbox&quot; value=&quot;multiselect-all&quot;&gt;  Select all&lt;/label&gt;&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;!-- Collapsible and clickable opt group --&gt;
+    &lt;li class=&quot;multiselect-item multiselect-group&quot;&gt;
+        &lt;a href=&quot;javascript:void(0);&quot;&gt;
+            &lt;label&gt;&lt;input type=&quot;checkbox&quot; value=&quot;undefined&quot;&gt;&lt;b&gt; Group 1&lt;/b&gt;&lt;/label&gt;
+            &lt;span class=&quot;caret-container&quot;&gt;&lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;&lt;/span&gt;
+        &lt;/a&gt;
+    &lt;/li&gt;
+    &lt;!-- Disabled and hidden option (hidden because of collapsible opt groups) --&gt;
+    &lt;li class=&quot;disabled hidden&quot;&gt;
+        &lt;a tabindex=&quot;-1&quot;&gt;&lt;label class=&quot;checkbox&quot;&gt;&lt;input type=&quot;checkbox&quot; value=&quot;1-1&quot; disabled=&quot;&quot;&gt; Option 1.1&lt;/label&gt;&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;!-- Hidden but select option --&gt;
+    &lt;li class=&quot;active hidden&quot;&gt;
+        &lt;a tabindex=&quot;0&quot;&gt;&lt;label class=&quot;checkbox&quot;&gt;&lt;input type=&quot;checkbox&quot; value=&quot;1-2&quot;&gt; Option 1.2&lt;/label&gt;&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;!-- ... --&gt;
+    &lt;!-- Another opt group --&gt;
+    &lt;li class=&quot;multiselect-item multiselect-group&quot;&gt;
+        &lt;a href=&quot;javascript:void(0);&quot;&gt;
+            &lt;label&gt;&lt;input type=&quot;checkbox&quot; value=&quot;undefined&quot;&gt;&lt;b&gt; Group 2&lt;/b&gt;&lt;/label&gt;
+            &lt;span class=&quot;caret-container&quot;&gt;&lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;&lt;/span&gt;
+        &lt;/a&gt;
+    &lt;/li&gt;
+    &lt;!-- Visible but not selected option --&gt;
+    &lt;li&gt;
+        &lt;a tabindex=&quot;0&quot;&gt;&lt;label class=&quot;checkbox&quot;&gt;&lt;input type=&quot;checkbox&quot; value=&quot;2-1&quot;&gt; Option 2.1&lt;/label&gt;&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+                    
+                    <p>
+                        The most important classes are: <code>multiselect-container</code>, <code>multiselect-filter<code>, <code>multiselect-all</code>, <code>multiselect-item</code>, <code>multiselect-group</code> as well as <code>disabled</code> and <code>active</code>. Both for collapsing and filtering options, the classes <code>multiselect-filter-hidden</code> and <code>multiselect-collapsible-hidden</code> are used.
+                    </p>
                     
                     <div class="page-header">
                         <h2 id="methods">Methods</h2>
