@@ -208,7 +208,11 @@
 
         this.updateButtonText();
         this.updateSelectAll(true);
-
+        
+        if (this.options.enableClickableOptGroups && this.options.multiple) {
+            this.updateOptGroups();
+        }
+        
         if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
             this.disable();
         }
@@ -608,7 +612,7 @@
                 this.updateSelectAll();
                 
                 if (this.options.enableClickableOptGroups && this.options.multiple) {
-                    this.updateOptGroups($target, checked);
+                    this.updateOptGroup($target, checked);
                 }
                 
                 if(this.options.preventInputChangeEvent) {
@@ -741,19 +745,29 @@
                     
                     $.each($inputs, $.proxy(function(index, input) {
                         var value = $(input).val();
-                        values.push(value);
+                        var $option = this.getOptionByValue(value);
+                        
+                        if (checked) {
+                            $(input).prop('checked', true);
+                            $(input).closest('li')
+                                .addClass(this.options.selectedClass);
+                        
+                            $option.prop('selected', true);
+                        }
+                        else {
+                            $(input).prop('checked', false);
+                            $(input).closest('li')
+                                .removeClass(this.options.selectedClass);
+                        
+                            $option.prop('selected', false);
+                        }
+                        
                         $options.push(this.getOptionByValue(value));
                     }, this))
                     
-                    if (checked) {
-                        this.select(values, false);
-                    }
-                    else {
-                        this.deselect(values, false);
-                    }
+                    // Cannot use select or deselect here because it would call updateOptGroups again.
                     
                     this.options.onChange($options, checked);
-//                    $inputs.prop("checked", checked).trigger("change");
                 }, this));
             }
             
@@ -961,9 +975,16 @@
                         var clearBtn = $(this.options.templates.filterClearBtn);
                         clearBtn.on('click', $.proxy(function(event){
                             clearTimeout(this.searchTimeout);
+                            
                             this.$filter.find('.multiselect-search').val('');
                             $('li', this.$ul).show().removeClass('multiselect-filter-hidden');
+                            
                             this.updateSelectAll();
+                            
+                            if (this.options.enableClickableOptGroups && this.options.multiple) {
+                                this.updateOptGroups();
+                            }
+                            
                         }, this));
                         this.$filter.find('.input-group').append(clearBtn);
                     }
@@ -1048,6 +1069,10 @@
                             }
 
                             this.updateSelectAll();
+                            
+                            if (this.options.enableClickableOptGroups && this.options.multiple) {
+                                this.updateOptGroups();
+                            }
                         }, this), 300, this);
                     }, this));
                 }
@@ -1111,6 +1136,10 @@
 
             this.updateButtonText();
             this.updateSelectAll();
+            
+            if (this.options.enableClickableOptGroups && this.options.multiple) {
+                this.updateOptGroups();
+            }
         },
 
         /**
@@ -1160,6 +1189,10 @@
 
             this.updateButtonText();
             this.updateSelectAll();
+            
+            if (this.options.enableClickableOptGroups && this.options.multiple) {
+                this.updateOptGroups();
+            }
         },
 
         /**
@@ -1169,6 +1202,10 @@
             this.deselectAll(false);
             this.updateButtonText();
             this.updateSelectAll();
+            
+            if (this.options.enableClickableOptGroups && this.options.multiple) {
+                this.updateOptGroups();
+            }
         },
 
         /**
@@ -1214,6 +1251,10 @@
 
             this.updateButtonText();
             this.updateSelectAll();
+            
+            if (this.options.enableClickableOptGroups && this.options.multiple) {
+                this.updateOptGroups();
+            }
         },
         
         /**
@@ -1314,6 +1355,10 @@
 
             this.updateButtonText();
             this.updateSelectAll(true);
+            
+            if (this.options.enableClickableOptGroups && this.options.multiple) {
+                this.updateOptGroups();
+            }
             
             if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
                 this.disable();
@@ -1436,9 +1481,9 @@
         },
         
         /**
-         * Update opt groups.
+         * Update a particular opt group.
          */
-        updateOptGroups: function($element, checked) {
+        updateOptGroup: function($element, checked) {
             var $prevs = $element.closest('li').prevUntil('li.multiselect-group').filter(":visible:not(.disabled)");
             var $nexts = $element.closest('li').nextUntil('li.multiselect-group').filter(":visible:not(.disabled)");
             
@@ -1455,7 +1500,7 @@
                 }
             });
             
-            var $group = $element.closest('li').prevAll('li.multiselect-group');
+            var $group = $element.closest('li').prevAll('li.multiselect-group')[0];
             
             if (selected) {
                 $('input', $group).prop('checked', true);
@@ -1463,6 +1508,28 @@
             else {
                 $('input', $group).prop('checked', false);
             }
+        },
+        
+        /**
+         * Update opt groups.
+         */
+        updateOptGroups: function() {
+            var $groups = $('li.multiselect-group', this.$ul)
+            
+            $groups.each(function() {
+                var $options = $(this).nextUntil('li.multiselect-group').filter(":not(.disabled)");
+                
+                var checked = true;
+                $options.each(function() {
+                    var $input = $('input', this);
+                    
+                    if (!$input.prop('checked')) {
+                        checked = false;
+                    }
+                });
+                
+                $('input', this).prop('checked', checked);
+            });
         },
         
         /**

@@ -278,7 +278,12 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
             var $optgroup = $('<optgroup label="Group ' + i + '"></optgroup>');
             
             for (var j = 1; j < 11; j++) {
-                $optgroup.append('<option value="' + i + '-' + j + '">Option ' + i + '.' + j + '</option>');
+                if (i == 1) {
+                    $optgroup.append('<option value="' + i + '-' + j + '" selected="selected">Option ' + i + '.' + j + '</option>');
+                }
+                else {
+                    $optgroup.append('<option value="' + i + '-' + j + '">Option ' + i + '.' + j + '</option>');
+                }
             }
             
             $select.append($optgroup);
@@ -304,22 +309,35 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         });
     });
     
-    it('Groups should be clickable.', function() {
-        expect($('#multiselect option:selected').length).toBe(0);
+    it('Groups should be clickable and correctly initialized.', function() {
+        expect($('#multiselect option:selected').length).toBe(10);
+        expect(fired).toBe(0);
         
         var i = 0;
         $('#multiselect-container li.multiselect-group').each(function() {
-            $('label', $(this)).click();
-            expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
-            expect($('#multiselect option:selected').length).toBe(10);
+            if (i == 0) {
+                expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
+                expect($('#multiselect option:selected').length).toBe(10);
+                
+                $('label', $(this)).click()
+                
+                expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(0);
+                expect($('#multiselect option:selected').length).toBe(0);
+            }
+            else {
+                $('label', $(this)).click();
+                expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
+                expect($('#multiselect option:selected').length).toBe(10);
+
+                $('label', $(this)).click();
+            }
             
-            $('label', $(this)).click();
             i++;
         });
     });
     
     it('Clickable groups should fire onChange only once.', function() {
-        expect($('#multiselect option:selected').length).toBe(0);
+        expect($('#multiselect option:selected').length).toBe(10);
         
         fired = 0;
         expect(fired).toBe(0);
