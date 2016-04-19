@@ -267,7 +267,7 @@
                         selected += label + delimiter;
                     });
                     
-                    return selected.substr(0, selected.length - 2);
+                    return selected.substr(0, selected.length - this.delimiterText.length);
                 }
             },
             /**
@@ -289,7 +289,7 @@
                         var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
                         selected += label + delimiter;
                     });
-                    return selected.substr(0, selected.length - 2);
+                    return selected.substr(0, selected.length - this.delimiterText.length);
                 }
             },
             /**
@@ -768,6 +768,9 @@
                     // Cannot use select or deselect here because it would call updateOptGroups again.
                     
                     this.options.onChange($options, checked);
+                    
+                    this.updateButtonText();
+                    this.updateSelectAll();
                 }, this));
             }
             

@@ -294,6 +294,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         $select.multiselect({
             buttonContainer: '<div id="multiselect-container"></div>',
             enableClickableOptGroups: true,
+            numberDisplayed: 10,
             onChange: function(option, checked) {
                 fired++;
             }
@@ -355,6 +356,42 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
             // Deselected
             expect(fired).toBe(1);
             fired = 0;
+            
+            i++;
+        });
+    });
+    
+    it('Should update button text.', function() {
+        expect($('#multiselect option:selected').length).toBe(10);
+        expect(fired).toBe(0);
+        
+        var i = 0;
+        $('#multiselect-container li.multiselect-group').each(function() {
+            if (i == 0) {
+                
+                var text = ''
+                $('option:selected', $('#multiselect optgroup')[i]).each(function() {
+                    text += $(this).text() + ', '
+                });
+                
+                text = text.substr(0, text.length - 2);
+                expect($('#multiselect-container .multiselect-selected-text').text()).toBe(text);
+                
+                $('label', $(this)).click()
+            }
+            else {
+                $('label', $(this)).click();
+                
+                var text = ''
+                $('option:selected', $('#multiselect optgroup')[i]).each(function() {
+                    text += $(this).text() + ', '
+                });
+                
+                text = text.substr(0, text.length - 2);
+                expect($('#multiselect-container .multiselect-selected-text').text()).toBe(text);
+                
+                $('label', $(this)).click();
+            }
             
             i++;
         });
@@ -569,10 +606,7 @@ describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', fu
             enableClickableOptGroups: true,
             enableCollapsibleOptGroups: true,
             includeSelectAllOption: true,
-            selectAllValue: 'multiselect-all',
-            onChange: function(option, checked) {
-                fired++;
-            }
+            selectAllValue: 'multiselect-all'
         });
     });
     
@@ -581,12 +615,12 @@ describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', fu
         $('#multiselect-container li.multiselect-group .caret-container').click();
         $('#multiselect-container input[value="multiselect-all"]').click();
         
-        $groups = $('#multiselect-container li.multiselect-group');
+        var $groups = $('#multiselect-container li.multiselect-group');
         $groups.each(function() {
             expect($(this).hasClass('active')).toBe(false);
         });
         
-        $lis = $('#multiselect-container li:not(.multiselect-group)');
+        var $lis = $('#multiselect-container li:not(.multiselect-group)');
         $lis.each(function() {
             expect($(this).hasClass('active')).toBe(true);
         });
@@ -596,10 +630,23 @@ describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', fu
         //$('#multiselect-container li.multiselect-group .caret-container').click();
         $('#multiselect-container input[value="multiselect-all"]').click();
         
-        $lis = $('#multiselect-container li');
+        var $lis = $('#multiselect-container li');
         $lis.each(function() {
             expect($('input', this).prop('checked')).toBe(true);
         });
+    });
+    
+    it('Should automatically update select all.', function() {
+        var i = 0;
+        $('#multiselect-container li.multiselect-group').each(function() {
+            $('label', $(this)).click();
+            expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
+            expect($('#multiselect option:selected').length).toBe((i + 1)*10);
+
+            i++;
+        });
+        
+        expect($('#multiselect-container li input[value="multiselect-all"]').prop('checked')).toBe(true);
     });
     
     afterEach(function() {
