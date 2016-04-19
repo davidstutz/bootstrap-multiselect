@@ -5413,6 +5413,10 @@ $(document).ready(function() {
 </pre>
                     </div>
                     
+                    <p>
+                        The below example demonstrates how to show the <code>optgroup</code>'s label if all <code>option</code>'s within this group are selected:
+                    </p>
+                    
                     <div class="example">
                         <script type="text/javascript">
                             $(document).ready(function() {
@@ -5478,7 +5482,67 @@ $(document).ready(function() {
                     </div>
                     <div class="highlight">
 <pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-optgroup-buttonText').multiselect({
+            buttonText: function(options, select) {
 
+                // First consider the simple cases, i.e. disabled and empty.
+                if (this.disabledText.length &gt; 0 
+                        && (this.disableIfEmpty || select.prop('disabled')) 
+                        && options.length == 0) {
+
+                    return this.disabledText;
+                }
+                else if (options.length === 0) {
+                    return this.nonSelectedText;
+                }
+
+                var $select = $(select);
+                var $optgroups = $('optgroup', $select);
+
+                var delimiter = this.delimiterText;
+                var text = '';
+
+                // Go through groups.
+                $optgroups.each(function() {
+                    var $selectedOptions = $('option:selected', this);
+                    var $options = $('option', this);
+
+                    if ($selectedOptions.length == $options.length) {
+                        text += $(this).attr('label') + delimiter;
+                    }
+                    else {
+                        $selectedOptions.each(function() {
+                            text += $(this).text() + delimiter;
+                        });
+                    }
+                });
+
+                var $remainingOptions = $('option:selected', $select).not('optgroup option');
+                $remainingOptions.each(function() {
+                    text += $(this).text() + delimiter;
+                });
+
+                return text.substr(0, text.length - 2);
+            }
+        });
+    });
+&lt;/script&gt;
+&lt;div class=&quot;btn-group&quot;&gt;
+    &lt;select id=&quot;example-optgroup-buttonText&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;optgroup class=&quot;group-1&quot; label=&quot;Group 1&quot;&gt;
+            &lt;option value=&quot;1-1&quot;&gt;Option 1.1&lt;/option&gt;
+            &lt;option value=&quot;1-2&quot;&gt;Option 1.2&lt;/option&gt;
+            &lt;option value=&quot;1-3&quot;&gt;Option 1.3&lt;/option&gt;
+        &lt;/optgroup&gt;
+        &lt;optgroup class=&quot;group-2&quot; label=&quot;Group 2&quot;&gt;
+            &lt;option value=&quot;2-1&quot;&gt;Option 2.1&lt;/option&gt;
+            &lt;option value=&quot;2-2&quot;&gt;Option 2.2&lt;/option&gt;
+            &lt;option value=&quot;2-3&quot;&gt;Option 2.3&lt;/option&gt;
+        &lt;/optgroup&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
 </pre>
                     </div>
                     
