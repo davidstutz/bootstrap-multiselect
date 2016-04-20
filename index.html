@@ -53,11 +53,11 @@
                     </p>
                     
                     <p class="alert alert-info">
-                        <b>Please consult the <a href="#faq">FAQ</a> and the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> before creating a new issue.</b>
+                        <b>Please consult the <a href="#faq">FAQ</a>, the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> or <a href="http://stackoverflow.com/questions/tagged/bootstrap-multiselect">StackOverflow</a> before creating a new issue.</b>
                     </p>
                     
                     <p class="alert alert-info">
-                        <b>Please have a look at <a href="#how-to-contribute">How to contribute?</a> and the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a>.</b>
+                        <b>Please have a look at <a href="#how-to-contribute">"How to contribute?"</a>.</b>
                     </p>
                     
                     <div class="page-header">
@@ -5742,18 +5742,21 @@ $(document).ready(function() {
                     </div>
                     
                     <dl>
-                        <dt id="how-to-contribute">How to contribute?</dt>
-                        <dd>
-                            Pull requests to add additional feature or fix known bugs are always welcome! However, to make it easy for me to review and merge your pull request, the following guidelines should be considered:
-                            <ul>
-                                <li>Add one pull request per feature/fix. Otherwise, I cannot guarantee that I will merge the pull request.</li>
-                                <li>Always document your changes. If new features are added, new options or methods should be added to the documentation (<code>index.html</code>) and appropriate examples should be added.</li>
-                                <li>Add a throrough description to your pull request - yes, I am able to read your code, however, reading your description may speed up things!</li>
-                                <li>Add comments to your code.</li>
-                            </ul>
-                            A full list of contributors can be found <a href="https://github.com/davidstutz/bootstrap-multiselect/graphs/contributors">here</a>.
-                        </dd>
-                        
+                        <div class="alert alert-info">
+                            <dt id="how-to-contribute">How to contribute?</dt>
+                            <dd>
+                                Pull requests to add additional feature or fix known bugs are always welcome! However, to make it easy for me to review and merge your pull request, the following guidelines should be considered:
+                                <ul>
+                                    <li>Check the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> and the <a href="#faq">FAQ</a> before starting to implement a feature or fix.</li>
+                                    <li>Add one pull request per feature/fix. Otherwise, I cannot guarantee that I will merge the pull request.</li>
+                                    <li>Always document your changes. If new features are added, new options or methods should be added to the documentation (<code>index.html</code>) and appropriate examples should be added.</li>
+                                    <li>Add a thorough description to your pull request - yes, I am able to read your code, however, reading your description may speed things up!</li>
+                                    <li>Add comments to your code!</li>
+                                </ul>
+                                A full list of contributors can be found <a href="https://github.com/davidstutz/bootstrap-multiselect/graphs/contributors">here</a>.
+                            </dd>
+                        </div>
+                    
                         <dt>How about older browsers as for example Internet Explorer 6, 7 and 8?</dt>
                         <dd>
                             With version 2.0, jQuery no longer supports the older IE versions. Nevertheless, the plugin should run as expected using the 1.x branch of jQuery. See <a href="http://blog.jquery.com/2013/04/18/jquery-2-0-released/">here</a> for details.
@@ -5959,17 +5962,9 @@ optionLabel: function(element){
                         <h2 id="known-issues">Known Issues</h2>
                     </div>
                     
-                    <dl>
-                        <dt>Slow dropdown on Chrome 35.</dt>
-                        <dd>
-                            As discussed in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/268">#268</a>, certain versions seem to have some performance problems, especially Chrome 35.0.1916.114m.
-                        </dd>
-                        
-                        <dt>Using <code>maxHeight</code> results in the filter being not fixed at the top.</dt>
-                        <dd>
-                            See issue <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/396"></a>. Pull requests are welcome.
-                        </dd>
-                    </dl>
+                    <p>
+                        See the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a>.
+                    </p>
                     
                     <div class="page-header">
                         <h2 id="license">License</h2>
