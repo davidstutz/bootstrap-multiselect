@@ -447,7 +447,7 @@
             // Manually add button width if set.
             if (this.options.buttonWidth && this.options.buttonWidth !== 'auto') {
                 this.$button.css({
-                    'width' : this.options.buttonWidth,
+                    'width' : '100%', //this.options.buttonWidth,
                     'overflow' : 'hidden',
                     'text-overflow' : 'ellipsis'
                 });
