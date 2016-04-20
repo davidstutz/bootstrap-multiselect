@@ -504,7 +504,7 @@
         },
 
         /**
-         * Build the dropdown options and binds all nessecary events.
+         * Build the dropdown options and binds all necessary events.
          * 
          * Uses createDivider and createOptionValue to create the necessary options.
          */
