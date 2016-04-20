@@ -2324,6 +2324,39 @@
 &lt;/script&gt;
 </pre>
                                     </div>
+                                    
+                                    <p>
+                                        The select all element naturally respects disabled elements:
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-includeSelectAllOption-disbled').multiselect({
+                                                    includeSelectAllOption: true
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-includeSelectAllOption-disbled" multiple="multiple">
+                                            <option value="1" disabled="disabled">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function() {
+        $('#example-includeSelectAllOption-disbled').multiselect({
+            includeSelectAllOption: true
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>

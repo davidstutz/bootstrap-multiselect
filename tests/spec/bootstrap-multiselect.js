@@ -516,14 +516,16 @@ describe('Bootstrap Multiselect "Collapsible Optgroups"', function() {
         
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
         });
         
         $('.caret-container', $group).click();
         
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
         });
     });
     
@@ -616,14 +618,16 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
         
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
         });
         
         $('.caret-container', $group).click();
         
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
         });
     });
     
@@ -664,7 +668,6 @@ describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', fu
     
     it('Should handle option groups differently, i.e. not set class to active.', function() {
         // Otherwise they are hidden.
-        $('#multiselect-container li.multiselect-group .caret-container').click();
         $('#multiselect-container input[value="multiselect-all"]').click();
         
         var $groups = $('#multiselect-container li.multiselect-group');
