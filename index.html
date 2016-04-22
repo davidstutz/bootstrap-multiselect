@@ -5593,6 +5593,8 @@ $(document).ready(function() {
                     
                     <p>
                         In order to receive the correct data after submitting the form, the used <code>select</code> has to have an appropriate name. Note that an <code>[]</code> needs to be appended to the name when using the <code>multiple</code> option/attribute. Per default, the checkboxes used within the multiselect will not be submitted, however, this can be changed by adapting <code>checkboxName</code>. The select all option as well as the text input used for the filter will not be submitted. As this may be useful, the name of the select all checkbox may be adapted using the <code>selectAllName</code> option. The value of the select all checkbox can be controlled by the <code>selectAllValue</code> option while the values of the remaining checkboxes correspond to the values used by the <code>option</code>'s of the original <code>select</code>.
+
+                        <code>required</code> attribute has supported.
                     </p>
                     
                     <div class="example">
@@ -5608,7 +5610,7 @@ $(document).ready(function() {
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Multiselect</label>
                                 <div class="col-sm-10">
-                                    <select id="example-post" name="multiselect[]" multiple="multiple">
+                                    <select id="example-post" name="multiselect[]" multiple="multiple" required>
                                         <option value="1">Option 1</option>
                                         <option value="2">Option 2</option>
                                         <option value="3">Option 3</option>
