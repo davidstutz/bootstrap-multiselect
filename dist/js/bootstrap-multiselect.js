@@ -293,6 +293,9 @@
                     return selected.substr(0, selected.length - this.delimiterText.length);
                 }
             },
+            checkboxName: function(option) {
+                return false; // no checkbox name
+            },
             /**
              * Create a label.
              *
@@ -386,7 +389,6 @@
             // Maximum height of the dropdown menu.
             // If maximum height is exceeded a scrollbar will be displayed.
             maxHeight: false,
-            checkboxName: false,
             includeSelectAllOption: false,
             includeSelectAllIfMoreThan: 0,
             selectAllText: ' Select all',
@@ -843,10 +845,12 @@
             }
         
             var $checkbox = $('<input/>').attr('type', inputType);
-
-            if (this.options.checkboxName) {
-                $checkbox.attr('name', this.options.checkboxName);
+            
+            var name = this.options.checkboxName($element);
+            if (name) {
+                $checkbox.attr('name', name);
             }
+            
             $label.prepend($checkbox);
 
             var selected = $element.prop('selected') || false;
@@ -1367,8 +1371,9 @@
             if (this.options.enableClickableOptGroups && this.options.multiple) {
                 this.updateOptGroups();
             }
-            
+            console.log('test')
             if (triggerOnDeselectAll) {
+                console.log('test2')
                 this.options.onDeselectAll();
             }
         },
@@ -1553,14 +1558,14 @@
                 if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
                     selectAllInput.prop("checked", true);
                     selectAllLi.addClass(this.options.selectedClass);
-                    this.options.onSelectAll(true);
+                    this.options.onSelectAll();
                 }
                 else {
                     selectAllInput.prop("checked", false);
                     selectAllLi.removeClass(this.options.selectedClass);
                     if (checkedBoxesLength === 0) {
                         if (!notTriggerOnSelectAll) {
-                            this.options.onSelectAll(false);
+                            this.options.onDeselectAll();
                         }
                     }
                 }
