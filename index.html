@@ -5587,6 +5587,85 @@ $(document).ready(function() {
 </pre>
                     </div>
                     
+                    <p>The following example demonstrates how to set the class of <code>li.active</code>'s parent elements:</p>
+                    
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-selected-parents').multiselect({
+                                    buttonContainer: '<div id="example-selected-parents-container"></div>',
+                                    onChange: function(options, selected) {
+                                        // Get checkbox corresponding to option:
+                                        var value = $(options).val();
+                                        var $input = $('#example-selected-parents-container input[value="' + value + '"]');
+                                        
+                                        // Adapt label class:
+                                        if (selected) {
+                                            $input.closest('label').addClass('active');
+                                        }
+                                        else {
+                                            $input.closest('label').removeClass('active');
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <style type="text/css">
+                            #example-selected-parents-container label.active {
+                                font-weight: bold;
+                            }
+                        </style>
+                        <div class="btn-group">
+                            <select id="example-selected-parents" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-selected-parents').multiselect({
+            buttonContainer: '&lt;div id=&quot;example-selected-parents-container&quot;&gt;&lt;/div&gt;',
+            onChange: function(options, selected) {
+                // Get checkbox corresponding to option:
+                var value = $(options).val();
+                var $input = $('#example-selected-parents-container input[value=&quot;' + value + '&quot;]');
+
+                // Adapt label class:
+                if (selected) {
+                    $input.closest('label').addClass('active');
+                }
+                else {
+                    $input.closest('label').removeClass('active');
+                }
+            }
+        });
+    });
+&lt;/script&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+    #example-selected-parents-container label.active {
+        font-weight: bold;
+    }
+&lt;/style&gt;
+&lt;div class=&quot;btn-group&quot;&gt;
+    &lt;select id=&quot;example-selected-parents&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
+                    
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
                     </div>
