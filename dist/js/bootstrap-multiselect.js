@@ -403,7 +403,7 @@
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-                filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
+                filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
                 filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
@@ -760,7 +760,7 @@
             if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
                 //$("li.multiselect-group input", this.$ul).off();
                 $("li.multiselect-group", this.$ul).siblings().not("li.multiselect-group, li.multiselect-all", this.$ul).each(function () {
-                    $(this).toggleClass('hidden', true);
+                    $(this).toggleClass('multiselect-collapsible-hidden', true);
                 });
                 
                 $("li.multiselect-group .caret-container", this.$ul).on("click", $.proxy(function(event) {
@@ -768,7 +768,7 @@
                     var $li = $(event.target).closest('li');
                     var $inputs = $li.nextUntil("li.multiselect-group");
                     
-                    $inputs.toggleClass('hidden');
+                    $inputs.toggleClass('multiselect-collapsible-hidden');
                 }, this));
                 
                 $("li.multiselect-all", this.$ul).css('background', '#f3f3f3').css('border-bottom', '1px solid #eaeaea');
@@ -862,6 +862,9 @@
             var label = $(group).attr("label");
             var value = $(group).attr("value");
             var $li = $('<li class="multiselect-item multiselect-group"><a href="javascript:void(0);"><label><b></b></label></a></li>');
+            
+            var classes = this.options.optionClass(group);
+            $li.addClass(classes);
             
             if (this.options.enableHTML) {
                 $('label b', $li).html(" " + label);
@@ -959,7 +962,7 @@
                         clearBtn.on('click', $.proxy(function(event){
                             clearTimeout(this.searchTimeout);
                             this.$filter.find('.multiselect-search').val('');
-                            $('li', this.$ul).show().removeClass("filter-hidden");
+                            $('li', this.$ul).show().removeClass('multiselect-filter-hidden');
                             this.updateSelectAll();
                         }, this));
                         this.$filter.find('.input-group').append(clearBtn);
@@ -1021,7 +1024,7 @@
                                         }
 
                                         // Toggle current element (group or group item) according to showElement boolean.
-                                        $(element).toggle(showElement).toggleClass('filter-hidden', !showElement);
+                                        $(element).toggle(showElement).toggleClass('multiselect-filter-hidden', !showElement);
                                         
                                         // Differentiate groups and group items.
                                         if ($(element).hasClass('multiselect-group')) {
@@ -1032,12 +1035,12 @@
                                         else {
                                             // Show group name when at least one of its items is visible.
                                             if (showElement) {
-                                                $(currentGroup).show().removeClass('filter-hidden');
+                                                $(currentGroup).show().removeClass('multiselect-filter-hidden');
                                             }
                                             
                                             // Show all group items when group name satisfies filter.
                                             if (!showElement && currentGroupVisible) {
-                                                $(element).show().removeClass('filter-hidden');
+                                                $(element).show().removeClass('multiselect-filter-hidden');
                                             }
                                         }
                                     }
@@ -1519,7 +1522,7 @@
          */
         updateSelectAll: function(notTriggerOnSelectAll) {
             if (this.hasSelectAll()) {
-                var allBoxes = $("li:not(.multiselect-item):not(.filter-hidden) input:enabled", this.$ul);
+                var allBoxes = $("li:not(.multiselect-item):not(.multiselect-filter-hidden) input:enabled", this.$ul);
                 var allBoxesLength = allBoxes.length;
                 var checkedBoxesLength = allBoxes.filter(":checked").length;
                 var selectAllLi  = $("li.multiselect-all", this.$ul);
