@@ -575,6 +575,9 @@
 
                 if (isSelectAllOption) {
                     
+                    //Select all firing change
+                    //this.options.onChange($option, checked);
+                    
                     if (checked) {
                         this.selectAll(this.options.selectAllJustVisible);
                     }
