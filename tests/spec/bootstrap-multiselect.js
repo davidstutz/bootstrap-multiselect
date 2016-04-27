@@ -1,6 +1,6 @@
 describe('Bootstrap Multiselect "Core".', function() {
     var onInitialized = false;
-
+    
     beforeEach(function() {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
 
@@ -20,6 +20,9 @@ describe('Bootstrap Multiselect "Core".', function() {
             buttonContainer: '<div id="multiselect-container"></div>',
             onInitialized: function($select) {
                 onInitialized = true;
+            },
+            checkboxName: function($option) {
+                return 'value-' + $($option).attr('value');
             }
         });
     });
@@ -206,7 +209,13 @@ describe('Bootstrap Multiselect "Core".', function() {
     it('Should trigger onInitialized.', function() {
         expect(onInitialized).toBe(true);
     });
-
+    
+    it('Should correctly apply checkboxName.', function() {
+        $('#multiselect-container input').each(function() {
+            expect($(this).attr('name')).toBe('value-' + $(this).attr('value'));
+        });
+    });
+    
     afterEach(function() {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
@@ -278,7 +287,12 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
             var $optgroup = $('<optgroup label="Group ' + i + '"></optgroup>');
 
             for (var j = 1; j < 11; j++) {
-                $optgroup.append('<option value="' + i + '-' + j + '">Option ' + i + '.' + j + '</option>');
+                if (i == 1) {
+                    $optgroup.append('<option value="' + i + '-' + j + '" selected="selected">Option ' + i + '.' + j + '</option>');
+                }
+                else {
+                    $optgroup.append('<option value="' + i + '-' + j + '">Option ' + i + '.' + j + '</option>');
+                }
             }
 
             $select.append($optgroup);
@@ -289,6 +303,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         $select.multiselect({
             buttonContainer: '<div id="multiselect-container"></div>',
             enableClickableOptGroups: true,
+            numberDisplayed: 10,
             onChange: function(option, checked) {
                 fired++;
             }
@@ -304,22 +319,38 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         });
     });
 
-    it('Groups should be clickable.', function() {
-        expect($('#multiselect option:selected').length).toBe(0);
+    it('Groups should be clickable and correctly initialized.', function() {
+        expect($('#multiselect option:selected').length).toBe(10);
+        expect(fired).toBe(0);
 
         var i = 0;
         $('#multiselect-container li.multiselect-group').each(function() {
-            $('label', $(this)).click();
-            expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
-            expect($('#multiselect option:selected').length).toBe(10);
+            if (i == 0) {
+                $('label', $(this)).click();
+                
+                expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(0);
+                expect($('#multiselect option:selected').length).toBe(0);
+                
+                $('label', $(this)).click()
+                
+                expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
+                expect($('#multiselect option:selected').length).toBe(10);
+            }
+            else {
+                $('label', $(this)).click();
+            
+                expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
+                expect($('#multiselect option:selected').length).toBe(20);
 
-            $('label', $(this)).click();
+                $('label', $(this)).click();
+            }
+            
             i++;
         });
     });
 
     it('Clickable groups should fire onChange only once.', function() {
-        expect($('#multiselect option:selected').length).toBe(0);
+        expect($('#multiselect option:selected').length).toBe(10);
 
         fired = 0;
         expect(fired).toBe(0);
@@ -340,6 +371,91 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
 
             i++;
         });
+    });
+    
+    it('Should update button text.', function() {
+        expect($('#multiselect option:selected').length).toBe(10);
+        expect(fired).toBe(0);
+        
+        var i = 0;
+        $('#multiselect-container li.multiselect-group').each(function() {
+            if (i == 0) {
+                
+                var text = ''
+                $('option:selected', $('#multiselect optgroup')[i]).each(function() {
+                    text += $(this).text() + ', '
+                });
+                
+                text = text.substr(0, text.length - 2);
+                expect($('#multiselect-container .multiselect-selected-text').text()).toBe(text);
+                
+                $('label', $(this)).click();
+            }
+            else {
+                $('label', $(this)).click();
+                
+                var text = ''
+                $('option:selected', $('#multiselect optgroup')[i]).each(function() {
+                    text += $(this).text() + ', '
+                });
+                
+                text = text.substr(0, text.length - 2);
+                expect($('#multiselect-container .multiselect-selected-text').text()).toBe(text);
+                
+                $('label', $(this)).click();
+            }
+            
+            i++;
+        });
+    });
+    
+    it('Should be updated by clicking corresponding options.', function() {
+        
+        for (var i = 1; i < 10; i++) {
+            expect($('option:selected', $('#multiselect optgroup')[0]).length).toBe(10);
+            expect($('#multiselect option:selected').length).toBe(10);
+
+            var $group = $($('#multiselect-container li.multiselect-group')[i]);
+            var $optGroup = $($('#multiselect optgroup')[i]);
+            
+            $group.nextUntil('li.multiselect-item').each(function() {
+                var $input = $('input', this);
+                $input.click();
+                
+                expect($input.prop('checked')).toBe(true);
+            });
+            
+            expect($('option:selected', $optGroup).length).toBe(10);
+            expect($('#multiselect option:selected').length).toBe(20);
+            expect($('input', $group).prop('checked')).toBe(true);
+            
+            // Undo changes
+            $group.nextUntil('li.multiselect-item').each(function() {
+                var $input = $('input', this);
+                $input.click();
+                
+                expect($input.prop('checked')).toBe(false);
+            });
+            
+            expect($('#multiselect option:selected').length).toBe(10);
+            expect($('input', $group).prop('checked')).toBe(false);
+        }
+    });
+    
+    it('Should be updated through select/deselect.', function() {
+        
+        var values = [];
+        for (var i = 1; i < 11; i++) {
+            values.push('1-' + i)
+        }
+        
+        var $group = $('#multiselect-container li.multiselect-group')[0];
+        
+        $('#multiselect').multiselect('deselect', values);
+        expect($('input', $group).prop('checked')).toBe(false);
+        
+        $('#multiselect').multiselect('select', values);
+        expect($('input', $group).prop('checked')).toBe(true);
     });
 
     afterEach(function() {
@@ -409,14 +525,16 @@ describe('Bootstrap Multiselect "Collapsible Optgroups"', function() {
 
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
         });
 
         $('.caret-container', $group).click();
 
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
         });
     });
 
@@ -509,14 +627,16 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
 
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
         });
 
         $('.caret-container', $group).click();
 
         var $lis = $group.nextUntil('li.multiselect-group');
         $lis.each(function() {
-            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
         });
     });
 
@@ -551,24 +671,20 @@ describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', fu
             enableClickableOptGroups: true,
             enableCollapsibleOptGroups: true,
             includeSelectAllOption: true,
-            selectAllValue: 'multiselect-all',
-            onChange: function(option, checked) {
-                fired++;
-            }
+            selectAllValue: 'multiselect-all'
         });
     });
 
     it('Should handle option groups differently, i.e. not set class to active.', function() {
         // Otherwise they are hidden.
-        $('#multiselect-container li.multiselect-group .caret-container').click();
         $('#multiselect-container input[value="multiselect-all"]').click();
 
-        $groups = $('#multiselect-container li.multiselect-group');
+        var $groups = $('#multiselect-container li.multiselect-group');
         $groups.each(function() {
             expect($(this).hasClass('active')).toBe(false);
         });
 
-        $lis = $('#multiselect-container li:not(.multiselect-group)');
+        var $lis = $('#multiselect-container li:not(.multiselect-group)');
         $lis.each(function() {
             expect($(this).hasClass('active')).toBe(true);
         });
@@ -578,10 +694,23 @@ describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', fu
         //$('#multiselect-container li.multiselect-group .caret-container').click();
         $('#multiselect-container input[value="multiselect-all"]').click();
 
-        $lis = $('#multiselect-container li');
+        var $lis = $('#multiselect-container li');
         $lis.each(function() {
             expect($('input', this).prop('checked')).toBe(true);
         });
+    });
+    
+    it('Should automatically update select all.', function() {
+        var i = 0;
+        $('#multiselect-container li.multiselect-group').each(function() {
+            $('label', $(this)).click();
+            expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
+            expect($('#multiselect option:selected').length).toBe((i + 1)*10);
+
+            i++;
+        });
+        
+        expect($('#multiselect-container li input[value="multiselect-all"]').prop('checked')).toBe(true);
     });
 
     afterEach(function() {
@@ -778,81 +907,89 @@ describe('Bootstrap Multiselect "Select All".', function() {
     it('Should update the select all option when all options are selected by the change event.', function() {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
-
+        
         // Change all checkboxes except the select all one.
         $('#multiselect-container input[value!="multiselect-all"]').prop('checked', true);
         $('#multiselect-container input[value!="multiselect-all"]').trigger('change');
-
+        
         expect($('#multiselect option:selected[value!="multiselect-all"]').length).toBe(99);
-
+        
         // 100 options seleted including the select all.
         expect($('#multiselect option:selected').length).toBe(99);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
     });
-
+    
     it('Should update the select all option when all options are deselected by the change event.', function() {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
-
+        
         $('#multiselect-container input[value!="multiselect-all"]').prop('checked', true);
         $('#multiselect-container input[value!="multiselect-all"]').trigger('change');
-
+        
         expect($('#multiselect option:selected[value!="multiselect-all"]').length).toBe(99);
-
+        
         expect($('#multiselect option:selected').length).toBe(99);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
-
+        
         // Change all checkboxes except the select all one.
         $('#multiselect-container input[value!="multiselect-all"]').prop('checked', false);
         $('#multiselect-container input[value!="multiselect-all"]').trigger('change');
-
+        
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
     });
-
+    
     it('Should update the select all option when all options are selected by the click event.', function() {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
-
+        
         $('#multiselect-container input[value!="multiselect-all"]').click();
-
+        
         expect($('#multiselect option:selected').length).toBe(99);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
     });
-
+    
     it('Should update the select all option when all options are deselected by the click event.', function() {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
-
+        
         $('#multiselect-container input[value!="multiselect-all"]').click();
-
+        
         expect($('#multiselect option:selected').length).toBe(99);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
-
+        
         $('#multiselect-container input[value!="multiselect-all"]').click();
-
+        
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
     });
-
-    it('Should trigger onSelectAll based on the change event.', function() {
+    
+    it('Should trigger onSelectAll/onDeselectAll based on the change event.', function() {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
-
-        // Change all checkboxes except the select all one.
+        
         $('#multiselect-container input[value!="multiselect-all"]').prop('checked', true);
         $('#multiselect-container input[value!="multiselect-all"]').trigger('change');
-
+        
         expect($('#multiselect option:selected[value!="multiselect-all"]').length).toBe(99);
-
-        // 100 options seleted including the select all.
+        
         expect($('#multiselect option:selected').length).toBe(99);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
-
+        
         expect(onSelectAllTriggered).toBe(true);
+        console.log('t')
+        $('#multiselect-container input[value!="multiselect-all"]').prop('checked', false);
+        $('#multiselect-container input[value!="multiselect-all"]').trigger('change');
+        
+        expect($('#multiselect option:selected[value!="multiselect-all"]').length).toBe(0);
+        
+        expect($('#multiselect option:selected').length).toBe(0);
+        expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
+        console.log('tt')
+        expect(onDeselectAllTriggered).toBe(true);
     });
-
-    it('Should trigger onSelectAll based on the click event.', function() {
+    
+    it('Should trigger onSelectAll/onDeselectAll based on the click event.', function() {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
 
@@ -860,20 +997,23 @@ describe('Bootstrap Multiselect "Select All".', function() {
 
         expect($('#multiselect option:selected').length).toBe(99);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
-
+        
         expect(onSelectAllTriggered).toBe(true);
+        
+        $('#multiselect-container input[value!="multiselect-all"]').click();
+        
+        expect($('#multiselect option:selected').length).toBe(0);
+        expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
+        
+        expect(onDeselectAllTriggered).toBe(true);
     });
-
-    it('Should trigger onSelectAll on function call.', function() {
+    
+    it('Should trigger onSelectAll/onDeselectAll on function call.', function() {
         $('#multiselect').multiselect('selectAll', true, true);
         expect(onSelectAllTriggered).toBe(true);
-    });
-
-    it('Should not trigger onChange for select all option.', function() {
-        fired = 0;
-        expect(fired).toBe(0);
-        $('#multiselect-container input[value="multiselect-all"]').click();
-        expect(fired).toBe(0);
+        
+        $('#multiselect').multiselect('deselectAll', true, true);
+        expect(onDeselectAllTriggered).toBe(true);
     });
 
     afterEach(function() {

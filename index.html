@@ -53,11 +53,11 @@
                     </p>
                     
                     <p class="alert alert-info">
-                        <b>Please consult the <a href="#faq">FAQ</a> and the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> before creating a new issue.</b>
+                        <b>Please consult the <a href="#faq">FAQ</a>, the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> or <a href="http://stackoverflow.com/questions/tagged/bootstrap-multiselect">StackOverflow</a> before creating a new issue.</b>
                     </p>
                     
                     <p class="alert alert-info">
-                        <b>Please have a look at <a href="#how-to-contribute">How to contribute?</a> and the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a>.</b>
+                        <b>Please have a look at <a href="#how-to-contribute">"How to contribute?"</a>.</b>
                     </p>
                     
                     <div class="page-header">
@@ -620,6 +620,43 @@
 &lt;/script&gt;
 </pre>
                                     </div>
+                                    
+                                    <p>
+                                        Note that the <code>optgroup</code>'s are automatically selected if a whole group is selected by default:
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-enableClickableOptGroups-init').multiselect({
+                                                    enableClickableOptGroups: true
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-enableClickableOptGroups-init" multiple="multiple">
+                                            <optgroup label="Group 1">
+                                                <option value="1-1" disabled="disabled">Option 1.1</option>
+                                                <option value="1-2" selected="selected">Option 1.2</option>
+                                                <option value="1-3" selected="selected">Option 1.3</option>
+                                            </optgroup>
+                                            <optgroup label="Group 2">
+                                                <option value="2-1">Option 2.1</option>
+                                                <option value="2-2">Option 2.2</option>
+                                                <option value="2-3">Option 2.3</option>
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-enableClickableOptGroups-init').multiselect({
+            enableClickableOptGroups: true
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -1083,7 +1120,9 @@
                                         <script type="text/javascript">
                                             $(document).ready(function() {
                                                 $('#example-checkboxName').multiselect({
-                                                    checkboxName: 'multiselect[]'
+                                                    checkboxName: function(option) {
+                                                        return 'multiselect[]';
+                                                    }
                                                 });
                                             });
                                         </script>
@@ -1101,7 +1140,9 @@
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
         $('#example-checkboxName').multiselect({
-            checkboxName: 'multiselect[]'
+            checkboxName: function(option) {
+                return 'multiselect[]';
+            }
         });
     });
 &lt;/script&gt;
@@ -1510,7 +1551,11 @@
                                     <p>
                                         The width of the multiselect button may be fixed using this option.
                                     </p>
-
+                                    
+                                    <p class="alert alert-info">
+                                        Actually, <code>buttonWidth</code> describes the width of the <code>.btn-group</code> container and the width of the <code>button</code> is set to <code>100%</code>.
+                                    </p>
+                                    
                                     <div class="example">
                                         <script type="text/javascript">
                                             $(document).ready(function() {
@@ -2278,6 +2323,39 @@
             onChange: function(option, checked) {
                 alert('Not triggered when clicking the select all!');
             },
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                    
+                                    <p>
+                                        The select all element naturally respects disabled elements:
+                                    </p>
+                                    
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-includeSelectAllOption-disbled').multiselect({
+                                                    includeSelectAllOption: true
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-includeSelectAllOption-disbled" multiple="multiple">
+                                            <option value="1" disabled="disabled">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function() {
+        $('#example-includeSelectAllOption-disbled').multiselect({
+            includeSelectAllOption: true
         });
     });
 &lt;/script&gt;
@@ -5530,6 +5608,218 @@ $(document).ready(function() {
 </pre>
                     </div>
                     
+                    <p>
+                        The below example demonstrates how to show the <code>optgroup</code>'s label if all <code>option</code>'s within this group are selected:
+                    </p>
+                    
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-optgroup-buttonText').multiselect({
+                                    buttonText: function(options, select) {
+                                        
+                                        // First consider the simple cases, i.e. disabled and empty.
+                                        if (this.disabledText.length > 0 
+                                                && (this.disableIfEmpty || select.prop('disabled')) 
+                                                && options.length == 0) {
+
+                                            return this.disabledText;
+                                        }
+                                        else if (options.length === 0) {
+                                            return this.nonSelectedText;
+                                        }
+                                        
+                                        var $select = $(select);
+                                        var $optgroups = $('optgroup', $select);
+                                        
+                                        var delimiter = this.delimiterText;
+                                        var text = '';
+                                        
+                                        // Go through groups.
+                                        $optgroups.each(function() {
+                                            var $selectedOptions = $('option:selected', this);
+                                            var $options = $('option', this);
+                                            
+                                            if ($selectedOptions.length == $options.length) {
+                                                text += $(this).attr('label') + delimiter;
+                                            }
+                                            else {
+                                                $selectedOptions.each(function() {
+                                                    text += $(this).text() + delimiter;
+                                                });
+                                            }
+                                        });
+                                        
+                                        var $remainingOptions = $('option:selected', $select).not('optgroup option');
+                                        $remainingOptions.each(function() {
+                                            text += $(this).text() + delimiter;
+                                        });
+                                        
+                                        return text.substr(0, text.length - 2);
+                                    }
+                                });
+                            });
+                        </script>
+                        <div class="btn-group">
+                            <select id="example-optgroup-buttonText" multiple="multiple">
+                                <optgroup class="group-1" label="Group 1">
+                                    <option value="1-1">Option 1.1</option>
+                                    <option value="1-2">Option 1.2</option>
+                                    <option value="1-3">Option 1.3</option>
+                                </optgroup>
+                                <optgroup class="group-2" label="Group 2">
+                                    <option value="2-1">Option 2.1</option>
+                                    <option value="2-2">Option 2.2</option>
+                                    <option value="2-3">Option 2.3</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-optgroup-buttonText').multiselect({
+            buttonText: function(options, select) {
+
+                // First consider the simple cases, i.e. disabled and empty.
+                if (this.disabledText.length &gt; 0 
+                        && (this.disableIfEmpty || select.prop('disabled')) 
+                        && options.length == 0) {
+
+                    return this.disabledText;
+                }
+                else if (options.length === 0) {
+                    return this.nonSelectedText;
+                }
+
+                var $select = $(select);
+                var $optgroups = $('optgroup', $select);
+
+                var delimiter = this.delimiterText;
+                var text = '';
+
+                // Go through groups.
+                $optgroups.each(function() {
+                    var $selectedOptions = $('option:selected', this);
+                    var $options = $('option', this);
+
+                    if ($selectedOptions.length == $options.length) {
+                        text += $(this).attr('label') + delimiter;
+                    }
+                    else {
+                        $selectedOptions.each(function() {
+                            text += $(this).text() + delimiter;
+                        });
+                    }
+                });
+
+                var $remainingOptions = $('option:selected', $select).not('optgroup option');
+                $remainingOptions.each(function() {
+                    text += $(this).text() + delimiter;
+                });
+
+                return text.substr(0, text.length - 2);
+            }
+        });
+    });
+&lt;/script&gt;
+&lt;div class=&quot;btn-group&quot;&gt;
+    &lt;select id=&quot;example-optgroup-buttonText&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;optgroup class=&quot;group-1&quot; label=&quot;Group 1&quot;&gt;
+            &lt;option value=&quot;1-1&quot;&gt;Option 1.1&lt;/option&gt;
+            &lt;option value=&quot;1-2&quot;&gt;Option 1.2&lt;/option&gt;
+            &lt;option value=&quot;1-3&quot;&gt;Option 1.3&lt;/option&gt;
+        &lt;/optgroup&gt;
+        &lt;optgroup class=&quot;group-2&quot; label=&quot;Group 2&quot;&gt;
+            &lt;option value=&quot;2-1&quot;&gt;Option 2.1&lt;/option&gt;
+            &lt;option value=&quot;2-2&quot;&gt;Option 2.2&lt;/option&gt;
+            &lt;option value=&quot;2-3&quot;&gt;Option 2.3&lt;/option&gt;
+        &lt;/optgroup&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
+                    
+                    <p>The following example demonstrates how to set the class of <code>li.active</code>'s parent elements:</p>
+                    
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-selected-parents').multiselect({
+                                    buttonContainer: '<div id="example-selected-parents-container"></div>',
+                                    onChange: function(options, selected) {
+                                        // Get checkbox corresponding to option:
+                                        var value = $(options).val();
+                                        var $input = $('#example-selected-parents-container input[value="' + value + '"]');
+                                        
+                                        // Adapt label class:
+                                        if (selected) {
+                                            $input.closest('label').addClass('active');
+                                        }
+                                        else {
+                                            $input.closest('label').removeClass('active');
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <style type="text/css">
+                            #example-selected-parents-container label.active {
+                                font-weight: bold;
+                            }
+                        </style>
+                        <div class="btn-group">
+                            <select id="example-selected-parents" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-selected-parents').multiselect({
+            buttonContainer: '&lt;div id=&quot;example-selected-parents-container&quot;&gt;&lt;/div&gt;',
+            onChange: function(options, selected) {
+                // Get checkbox corresponding to option:
+                var value = $(options).val();
+                var $input = $('#example-selected-parents-container input[value=&quot;' + value + '&quot;]');
+
+                // Adapt label class:
+                if (selected) {
+                    $input.closest('label').addClass('active');
+                }
+                else {
+                    $input.closest('label').removeClass('active');
+                }
+            }
+        });
+    });
+&lt;/script&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+    #example-selected-parents-container label.active {
+        font-weight: bold;
+    }
+&lt;/style&gt;
+&lt;div class=&quot;btn-group&quot;&gt;
+    &lt;select id=&quot;example-selected-parents&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
+                    
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
                     </div>
@@ -5540,6 +5830,10 @@ $(document).ready(function() {
                     
                     <p>
                         In order to receive the correct data after submitting the form, the used <code>select</code> has to have an appropriate name. Note that an <code>[]</code> needs to be appended to the name when using the <code>multiple</code> option/attribute. Per default, the checkboxes used within the multiselect will not be submitted, however, this can be changed by adapting <code>checkboxName</code>. The select all option as well as the text input used for the filter will not be submitted. As this may be useful, the name of the select all checkbox may be adapted using the <code>selectAllName</code> option. The value of the select all checkbox can be controlled by the <code>selectAllValue</code> option while the values of the remaining checkboxes correspond to the values used by the <code>option</code>'s of the original <code>select</code>.
+                    </p>
+                    
+                    <p class="alert alert-info">
+                        The plugin naturally supports the <code>required</code> attribute.
                     </p>
                     
                     <div class="example">
@@ -5555,7 +5849,7 @@ $(document).ready(function() {
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Multiselect</label>
                                 <div class="col-sm-10">
-                                    <select id="example-post" name="multiselect[]" multiple="multiple">
+                                    <select id="example-post" name="multiselect[]" multiple="multiple" required>
                                         <option value="1">Option 1</option>
                                         <option value="2">Option 2</option>
                                         <option value="3">Option 3</option>
@@ -5663,6 +5957,99 @@ $(document).ready(function() {
 </pre>
                     </div>
                     
+                    <p>
+                        The <code>checkboxName</code> option can also be used to assign different names to the <code>option's</code>, for example for different <code>optgroup</code>s.
+                    </p>
+                    
+                    <p class="alert alert-warning">
+                        Note that in the below example, <code>$_POST</code> will contain both the <code>multiselect</code> and the <code>group1</code> as well as <code>group2</code> keys.
+                    </p>
+                    
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-post-checkboxName').multiselect({
+                                    checkboxName: function(option) {
+                                        var $optgroup = $(option).closest('optgroup');
+                                        if ($optgroup.id == 'example-post-checkboxName-1') {
+                                            return 'group1[]';
+                                        }
+                                        else {
+                                            return 'group2[]';
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <form class="form-horizontal" method="POST" action="post.php">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Multiselect</label>
+                                <div class="col-sm-10">
+                                    <select id="example-post-checkboxName" name="multiselect[]" multiple="multiple" required>
+                                        <optgroup label="Group 1" id="example-post-checkboxName-1">
+                                            <option value="1-1">Option 1.1</option>
+                                            <option value="1-2">Option 1.2</option>
+                                            <option value="1-3">Option 1.3</option>
+                                        </optgroup>
+                                        <optgroup label="Group 1" id="example-post-checkboxName-2">
+                                            <option value="2-1">Option 2.1</option>
+                                            <option value="2-2">Option 2.2</option>
+                                            <option value="2-3">Option 2.3</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-post-checkboxName').multiselect({
+            checkboxName: function(option) {
+                var $optgroup = $(option).closest('optgroup');
+                if ($optgroup.id == 'example-post-checkboxName-1') {
+                    return 'group1[]';
+                }
+                else {
+                    return 'group2[]';
+                }
+            }
+        });
+    });
+&lt;/script&gt;
+&lt;form class=&quot;form-horizontal&quot; method=&quot;POST&quot; action=&quot;post.php&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;Multiselect&lt;/label&gt;
+        &lt;div class=&quot;col-sm-10&quot;&gt;
+            &lt;select id=&quot;example-post-checkboxName&quot; name=&quot;multiselect[]&quot; multiple=&quot;multiple&quot; required&gt;
+                &lt;optgroup label=&quot;Group 1&quot; id=&quot;example-post-checkboxName-1&quot;&gt;
+                    &lt;option value=&quot;1-1&quot;&gt;Option 1.1&lt;/option&gt;
+                    &lt;option value=&quot;1-2&quot;&gt;Option 1.2&lt;/option&gt;
+                    &lt;option value=&quot;1-3&quot;&gt;Option 1.3&lt;/option&gt;
+                &lt;/optgroup&gt;
+                &lt;optgroup label=&quot;Group 1&quot; id=&quot;example-post-checkboxName-2&quot;&gt;
+                    &lt;option value=&quot;2-1&quot;&gt;Option 2.1&lt;/option&gt;
+                    &lt;option value=&quot;2-2&quot;&gt;Option 2.2&lt;/option&gt;
+                    &lt;option value=&quot;2-3&quot;&gt;Option 2.3&lt;/option&gt;
+                &lt;/optgroup&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;div class=&quot;col-sm-offset-2 col-sm-10&quot;&gt;
+            &lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot;&gt;Submit&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+                    </div>
+                    
                     <div class="page-header">
                         <h2 id="keyboard-support">Keyboard Support</h2>
                     </div>
@@ -5689,18 +6076,21 @@ $(document).ready(function() {
                     </div>
                     
                     <dl>
-                        <dt id="how-to-contribute">How to contribute?</dt>
-                        <dd>
-                            Pull requests to add additional feature or fix known bugs are always welcome! However, to make it easy for me to review and merge your pull request, the following guidelines should be considered:
-                            <ul>
-                                <li>Add one pull request per feature/fix. Otherwise, I cannot guarantee that I will merge the pull request.</li>
-                                <li>Always document your changes. If new features are added, new options or methods should be added to the documentation (<code>index.html</code>) and appropriate examples should be added.</li>
-                                <li>Add a throrough description to your pull request - yes, I am able to read your code, however, reading your description may speed up things!</li>
-                                <li>Add comments to your code.</li>
-                            </ul>
-                            A full list of contributors can be found <a href="https://github.com/davidstutz/bootstrap-multiselect/graphs/contributors">here</a>.
-                        </dd>
-                        
+                        <div class="alert alert-info">
+                            <dt id="how-to-contribute">How to contribute?</dt>
+                            <dd>
+                                Pull requests to add additional feature or fix known bugs are always welcome! However, to make it easy for me to review and merge your pull request, the following guidelines should be considered:
+                                <ul>
+                                    <li>Check the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> and the <a href="#faq">FAQ</a> before starting to implement a feature or fix.</li>
+                                    <li>Add one pull request per feature/fix. Otherwise, I cannot guarantee that I will merge the pull request.</li>
+                                    <li>Always document your changes. If new features are added, new options or methods should be added to the documentation (<code>index.html</code>) and appropriate examples should be added.</li>
+                                    <li>Add a thorough description to your pull request - yes, I am able to read your code, however, reading your description may speed things up!</li>
+                                    <li>Add comments to your code!</li>
+                                </ul>
+                                A full list of contributors can be found <a href="https://github.com/davidstutz/bootstrap-multiselect/graphs/contributors">here</a>.
+                            </dd>
+                        </div>
+                    
                         <dt>How about older browsers as for example Internet Explorer 6, 7 and 8?</dt>
                         <dd>
                             With version 2.0, jQuery no longer supports the older IE versions. Nevertheless, the plugin should run as expected using the 1.x branch of jQuery. See <a href="http://blog.jquery.com/2013/04/18/jquery-2-0-released/">here</a> for details.
@@ -5761,7 +6151,9 @@ $('#example option:selected').map(function(a, item){return item.value;});
                         <p>Or add an appropriate name to the checkboxes:</p>
 <pre class="linenums prettyprint">
 $('#example2').multiselect({
-    checkboxName: 'multiselect[]'
+    checkboxName: function(option) {
+        return 'multiselect[]';
+    }
 });
 </pre>
                         </dd>
@@ -5821,7 +6213,9 @@ validator.settings.ignore = ':hidden:not(".multiselect")';
                             This issue is discussed in detail here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/362">#362</a>. A simple solution is to use different option values for the option <code>checkboxName</code>:
 <pre class="prettyprint linenums">
 $('.multiselect').multiselect({
-    checkboxName: _.uniqueId('multiselect_')
+    checkboxName: function(option) {
+        return _.uniqueId('multiselect_');
+    }
 });
 </pre>
                             where <code>_.uniqueId('multiselect_')</code> should be replaced with a random generator. Alternatively, a unique value for <code>checkboxName</code> can be used for each multiselect.
@@ -5906,17 +6300,9 @@ optionLabel: function(element){
                         <h2 id="known-issues">Known Issues</h2>
                     </div>
                     
-                    <dl>
-                        <dt>Slow dropdown on Chrome 35.</dt>
-                        <dd>
-                            As discussed in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/268">#268</a>, certain versions seem to have some performance problems, especially Chrome 35.0.1916.114m.
-                        </dd>
-                        
-                        <dt>Using <code>maxHeight</code> results in the filter being not fixed at the top.</dt>
-                        <dd>
-                            See issue <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/396"></a>. Pull requests are welcome.
-                        </dd>
-                    </dl>
+                    <p>
+                        See the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a>.
+                    </p>
                     
                     <div class="page-header">
                         <h2 id="license">License</h2>
