@@ -1379,6 +1379,58 @@
         },
 
         /**
+         * Set the current selection
+         *
+         * Helper function to set which options are currently selected by invoking
+         * 'select' for all unselected values that appear in the given list and
+         * invoking 'deselect' for all selected values that do NOT appear in the
+         * given list
+         *
+         * @param {Array} selection
+         * @param {Boolean} triggerOnChange
+         */
+        setSelected: function (selection, triggerOnChange) {
+            if (!$.isArray(selection)) {
+                selection = [selection];
+            }
+
+            // Get all of the enabled options
+            var opts = $("option:enabled", this.$select);
+            var selectedOpts = opts.filter(":selected");
+            var notSelectedOpts = opts.not(":selected");
+            var values;
+            var val;
+
+            // Find all the not-selected options
+            values = notSelectedOpts.map(function () {
+                // If their value is in the array, it should be selected so
+                // return that value (otherwise, return null to omit it from the result)
+                val = $(this).val();
+                return ($.inArray(val, selection) > -1) ? val : null;
+            }).get();
+
+            if ( values.length )
+            {
+                // Select all that need to be selected
+                this.select(values, triggerOnChange);
+            }
+
+            // Find all the selected options
+            values = selectedOpts.map(function () {
+                // If their value is NOT in the array, it should be deselected so
+                // return that value (otherwise, return null to omit it from the result)
+                val = $(this).val();
+                return ($.inArray(val, selection) == -1) ? val : null;
+            }).get();
+
+            if ( values.length )
+            {
+                // Deselect all that should not be selected
+                this.deselect(values, triggerOnChange);
+            }
+        },
+
+        /**
          * Rebuild the plugin.
          * 
          * Rebuilds the dropdown, the filter and the select all option.

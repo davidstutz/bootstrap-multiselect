@@ -3756,6 +3756,160 @@
                             </tr>
                             <tr>
                                 <td>
+                                    <code>.multiselect('setSelected', selection)</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Explicitly sets which options are selected (also works with an array of values).  Any currently selected options
+                                        that do not appear in the given array will be deselected.  Any deselected options that do appear in the given array
+                                        will be selected.
+                                    </p>
+
+                                    <div class="example">
+                                        <div class="btn-group">
+                                            <script type="text/javascript">
+                                                $(document).ready(function() {
+                                                    $('#example-setSelected').multiselect();
+
+                                                    $('#example-setSelected-button').on('click', function() {
+                                                        $('#example-setSelected').multiselect('setSelected', ['1', '2', '4']);
+
+                                                        alert('Selected 1, 2 and 4.  Deselected 3, 5, and 6.');
+                                                    });
+                                                });
+                                            </script>
+                                            <div class="btn-group">
+                                                <select id="example-setSelected" multiple="multiple">
+                                                    <option value="1">Option 1</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3" selected="selected">Option 3</option>
+                                                    <option value="4">Option 4</option>
+                                                    <option value="5" selected="selected">Option 5</option>
+                                                    <option value="6" selected="selected">Option 6</option>
+                                                </select>
+                                                <button id="example-setSelected-button" class="btn btn-default">Set the Selection...</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-setSelected').multiselect();
+
+        $('#example-setSelected-button').on('click', function() {
+            $('#example-setSelected').multiselect('setSelected', ['1', '2', '4']);
+
+            alert('Selected 1, 2 and 4.  Deselected 3, 5, and 6.');
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+
+                                    <p>
+                                        The method provides an additional parameter: <code>.multiselect('setSelected', selection, triggerOnChange)</code>. If the third parameter is set to true, the method will manually trigger the <code>onChange</code> option.
+                                    </p>
+
+                                    <div class="example">
+                                        <div class="btn-group">
+                                            <script type="text/javascript">
+                                                $(document).ready(function() {
+                                                    $('#example-setSelected-onChange').multiselect({
+                                                        onChange: function(option, checked, select) {
+                                                            alert('onChange triggered: ' + $(option).val() + ' was ' + (checked ? '' : 'de') + 'selected.');
+                                                        }
+                                                    });
+
+                                                    $('#example-setSelected-onChange-button').on('click', function() {
+                                                        $('#example-setSelected-onChange').multiselect('setSelected', '1', true);
+                                                    });
+                                                });
+                                            </script>
+                                            <div class="btn-group">
+                                                <select id="example-setSelected-onChange" multiple="multiple">
+                                                    <option value="1">Option 1</option>
+                                                    <option value="2" selected="selected">Option 2</option>
+                                                    <option value="3">Option 3</option>
+                                                    <option value="4">Option 4</option>
+                                                    <option value="5">Option 5</option>
+                                                    <option value="6">Option 6</option>
+                                                </select>
+                                                <button id="example-setSelected-onChange-button" class="btn btn-default">Set Selected</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-setSelected-onChange').multiselect({
+            onChange: function(option, checked, select) {
+                alert('onChange triggered: ' + $(option).val() + ' was ' + (checked ? '' : 'de') + 'selected.');
+            }
+        });
+
+        $('#example-setSelected-onChange-button').on('click', function() {
+            $('#example-setSelected-onChange').multiselect('setSelected', '1', true);
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+
+                                    <p>
+                                        The above parameter also works when multiple options change (selected or deselected). Note that <code>onChange</code> is called for each selected and deselected option individually.
+                                    </p>
+
+                                    <div class="example">
+                                        <div class="btn-group">
+                                            <script type="text/javascript">
+                                                $(document).ready(function() {
+                                                    $('#example-setSelected-onChange-array').multiselect({
+                                                        onChange: function(option, checked, select) {
+                                                            alert('onChange triggered: ' + $(option).val() + ' was ' + (checked ? '' : 'de') + 'selected.');
+                                                        }
+                                                    });
+
+                                                    $('#example-setSelected-onChange-array-button').on('click', function() {
+                                                        $('#example-setSelected-onChange-array').multiselect('setSelected', ['2', '4'], true);
+                                                    });
+                                                });
+                                            </script>
+                                            <div class="btn-group">
+                                                <select id="example-setSelected-onChange-array" multiple="multiple">
+                                                    <option value="1" selected="selected">Option 1</option>
+                                                    <option value="2">Option 2</option>
+                                                    <option value="3" selected="selected">Option 3</option>
+                                                    <option value="4">Option 4</option>
+                                                    <option value="5">Option 5</option>
+                                                    <option value="6">Option 6</option>
+                                                </select>
+                                                <button id="example-setSelected-onChange-array-button" class="btn btn-default">Change Multiple Selections</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-setSelected-onChange-array').multiselect({
+            onChange: function(option, checked, select) {
+                alert('onChange triggered: ' + $(option).val() + ' was ' + (checked ? '' : 'de') + 'selected.');
+            }
+        });
+
+        $('#example-setSelected-onChange-array-button').on('click', function() {
+            $('#example-setSelected-onChange-array').multiselect('setSelected', ['2','4'], true);
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
                                     <code>.multiselect('selectAll', justVisible)</code>
                                 </td>
                                 <td>
