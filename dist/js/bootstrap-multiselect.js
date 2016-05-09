@@ -199,6 +199,7 @@
         this.options.onDropdownShown = $.proxy(this.options.onDropdownShown, this);
         this.options.onDropdownHidden = $.proxy(this.options.onDropdownHidden, this);
         this.options.onInitialized = $.proxy(this.options.onInitialized, this);
+        this.options.onFiltering = $.proxy(this.options.onFiltering, this);
 
         // Build select all if enabled.
         this.buildContainer();
@@ -376,6 +377,14 @@
              * @param {jQuery} $container
              */
             onInitialized: function($select, $container) {
+
+            },
+            /**
+             * Triggered on filtering.
+             *
+             * @param {jQuery} $filter
+             */
+            onFiltering: function($filter) {
 
             },
             enableHTML: false,
@@ -796,7 +805,7 @@
 
                     var visible = true;
                     $inputs.each(function() {
-                        visible = visible && !$(this).hasClass('multiselect-collapsible-hidden');
+                        visible = visible && $(this).is(':visible');
                     });
 
                     if (visible) {
@@ -1023,7 +1032,7 @@
                         // Cancel enter key default behaviour
                         if (event.which === 13) {
                           event.preventDefault();
-                        }
+                      }
 
                         // This is useful to catch "keydown" events after the browser has updated the control.
                         clearTimeout(this.searchTimeout);
@@ -1102,6 +1111,9 @@
                             if (this.options.enableClickableOptGroups && this.options.multiple) {
                                 this.updateOptGroups();
                             }
+
+                            this.options.onFiltering(event.target);
+
                         }, this), 300, this);
                     }, this));
                 }
@@ -1371,9 +1383,8 @@
             if (this.options.enableClickableOptGroups && this.options.multiple) {
                 this.updateOptGroups();
             }
-            console.log('test')
+
             if (triggerOnDeselectAll) {
-                console.log('test2')
                 this.options.onDeselectAll();
             }
         },
