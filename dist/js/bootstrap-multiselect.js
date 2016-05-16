@@ -1333,7 +1333,7 @@
                 }, this));
             }
 
-            $('li input[value="' + this.options.selectAllValue + '"]').prop('checked', true);
+            $('li input[value="' + this.options.selectAllValue + '"]', this.$ul).prop('checked', true);
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {
                 this.updateOptGroups();
@@ -1378,7 +1378,7 @@
                 }, this));
             }
 
-            $('li input[value="' + this.options.selectAllValue + '"]').prop('checked', false);
+            $('li input[value="' + this.options.selectAllValue + '"]', this.$ul).prop('checked', false);
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {
                 this.updateOptGroups();
