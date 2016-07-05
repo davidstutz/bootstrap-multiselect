@@ -585,10 +585,10 @@
                 if (isSelectAllOption) {
 
                     if (checked) {
-                        this.selectAll(this.options.selectAllJustVisible);
+                        this.selectAll(this.options.selectAllJustVisible, true);
                     }
                     else {
-                        this.deselectAll(this.options.selectAllJustVisible);
+                        this.deselectAll(this.options.selectAllJustVisible, true);
                     }
                 }
                 else {
