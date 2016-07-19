@@ -4559,7 +4559,6 @@ $(document).ready(function() {
                                                 return !$(this).is(':selected');
                                             });
 
-                                            var dropdown = $('#example-limit').siblings('.multiselect-container');
                                             nonSelectedOptions.each(function() {
                                                 var input = $('input[value="' + $(this).val() + '"]');
                                                 input.prop('disabled', true);
@@ -4568,7 +4567,6 @@ $(document).ready(function() {
                                         }
                                         else {
                                             // Enable all checkboxes.
-                                            var dropdown = $('#example-limit').siblings('.multiselect-container');
                                             $('#example-limit option').each(function() {
                                                 var input = $('input[value="' + $(this).val() + '"]');
                                                 input.prop('disabled', false);
@@ -4603,7 +4601,6 @@ $(document).ready(function() {
                         return !$(this).is(':selected');
                     });
 
-                    var dropdown = $('#example-limit').siblings('.multiselect-container');
                     nonSelectedOptions.each(function() {
                         var input = $('input[value="' + $(this).val() + '"]');
                         input.prop('disabled', true);
@@ -4612,7 +4609,6 @@ $(document).ready(function() {
                 }
                 else {
                     // Enable all checkboxes.
-                    var dropdown = $('#example-limit').siblings('.multiselect-container');
                     $('#example-limit option').each(function() {
                         var input = $('input[value="' + $(this).val() + '"]');
                         input.prop('disabled', false);
