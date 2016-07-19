@@ -6190,6 +6190,18 @@ optionLabel: function(element){
                         <dd>
                             This issue is discussed in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/615">#615</a> and <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/153">#153</a>.
                         </dd>
+
+                        <dt>How to initialize the plugin in npm?</dt>
+                        <dd>
+                            This issue is discussed here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/585">#585</a>. The proposed workaround looks as follows:
+<pre class="linenums prettyprint">
+var $ = require('jquery');
+var multiselect = require('bootstrap-multiselect');
+$.multiselect = multiselect;
+
+$("#example").multiselect();
+</pre>
+                        </dd>
                     </dl>
 
                     <div class="page-header">
