@@ -766,6 +766,15 @@
                     var values = [];
                     var $options = [];
 
+                    if (this.options.selectedClass) {
+                        if (checked) {
+                            $li.addClass(this.options.selectedClass);
+                        }
+                        else {
+                            $li.removeClass(this.options.selectedClass);
+                        }
+                    }
+
                     $.each($inputs, $.proxy(function(index, input) {
                         var value = $(input).val();
                         var $option = this.getOptionByValue(value);
@@ -1536,6 +1545,7 @@
          */
         updateOptGroups: function() {
             var $groups = $('li.multiselect-group', this.$ul)
+            var selectedClass = this.options.selectedClass;
 
             $groups.each(function() {
                 var $options = $(this).nextUntil('li.multiselect-group')
@@ -1550,6 +1560,15 @@
                         checked = false;
                     }
                 });
+
+                if (selectedClass) {
+                    if (checked) {
+                        $(this).addClass(selectedClass);
+                    }
+                    else {
+                        $(this).removeClass(selectedClass);
+                    }
+                }
 
                 $('input', this).prop('checked', checked);
             });
@@ -1569,14 +1588,10 @@
                 if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
                     selectAllInput.prop("checked", true);
                     selectAllLi.addClass(this.options.selectedClass);
-                    //this.options.onSelectAll();
                 }
                 else {
                     selectAllInput.prop("checked", false);
                     selectAllLi.removeClass(this.options.selectedClass);
-                    //if (checkedBoxesLength === 0) {
-                    //    this.options.onDeselectAll();
-                    //}
                 }
             }
         },

@@ -510,6 +510,14 @@
                                         If set to <code>true</code>, <code>optgroup</code>'s will be clickable, allowing to easily select multiple options belonging to the same group.
                                     </p>
 
+                                    <p class="alert alert-warning">
+                                        <code>enableClickableOptGroups</code> is not available in single selection mode, i.e. when the <code>multiple</code> attribute is not present.
+                                    </p>
+
+                                    <p class="alert alert-info">
+                                        When using <code>selectedClass</code>, the selected classes are also applied on the option groups.
+                                    </p>
+
                                     <div class="example">
                                         <script type="text/javascript">
                                             $(document).ready(function() {

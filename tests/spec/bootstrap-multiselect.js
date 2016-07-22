@@ -812,13 +812,13 @@ describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', fu
         });
     });
 
-    it('Should handle option groups differently, i.e. not set class to active.', function() {
+    it('Should NOT handle option groups differently, i.e. not set class to active.', function() {
         // Otherwise they are hidden.
         $('#multiselect-container input[value="multiselect-all"]').click();
 
         var $groups = $('#multiselect-container li.multiselect-group');
         $groups.each(function() {
-            expect($(this).hasClass('active')).toBe(false);
+            expect($(this).hasClass('active')).toBe(true);
         });
 
         var $lis = $('#multiselect-container li:not(.multiselect-group)');
@@ -1194,6 +1194,58 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect(onDeselectAllTriggered).toBe(true);
     });
 
+    it('Should NOT trigger onSelectAll on initialization but initialize the select all option correctly.', function() {
+        var $select = $('<select id="multiselect-onSelectAll" multiple="multiple"></select>');
+
+        for (var i = 1; i < 10; i++) {
+            $select.append('<option value="' + i + '" selected>1</option>');
+        }
+
+        $('body').append($select);
+
+        onSelectAllTriggered = false;
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-onSelectAll-container"></div>',
+            includeSelectAllOption: true,
+            selectAllValue: 'multiselect-all',
+            onSelectAll: function() {
+                onSelectAllTriggered = true;
+            },
+        });
+
+        expect($('#multiselect-onSelectAll-container input[value="multiselect-all"]').prop('checked')).toBe(true);
+        expect(onSelectAllTriggered).toBe(false);
+
+        $('#multiselect-onSelectAll').multiselect('destroy');
+        $('#multiselect-onSelectAll').remove();
+    });
+
+    it('Should NOT trigger onDeselectAll on initialization but initialize the select all option correctly.', function() {
+        var $select = $('<select id="multiselect-onDeselectAll" multiple="multiple"></select>');
+
+        for (var i = 1; i < 10; i++) {
+            $select.append('<option value="' + i + '">1</option>');
+        }
+
+        $('body').append($select);
+
+        onDeselectAllTriggered = false;
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-onDeselectAll-container"></div>',
+            includeSelectAllOption: true,
+            selectAllValue: 'multiselect-all',
+            onDeselectAll: function() {
+                onDeselectAllTriggered = true;
+            },
+        });
+
+        expect($('#multiselect-onDeselectAll-container input[value="multiselect-all"]').prop('checked')).toBe(false);
+        expect(onDeselectAllTriggered).toBe(false);
+
+        $('#multiselect-onDeselectAll').multiselect('destroy');
+        $('#multiselect-onDeselectAll').remove();
+    });
+
     afterEach(function() {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
@@ -1276,9 +1328,9 @@ describe('Bootstrap Multiselect "Filter".', function() {
     });
 });
 
-describe('Bootstrap Multiselect Specific Issues.', function() {
+describe('Bootstrap Multiselect "Specific Issues".', function() {
 
-    it('#393', function() {
+    it('#393.', function() {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
 
         for (var i = 1; i < 100; i++) {
@@ -1320,7 +1372,7 @@ describe('Bootstrap Multiselect Specific Issues.', function() {
         $('#multiselect').remove();
     });
 
-    it('#405', function() {
+    it('#405.', function() {
         var selection = document.getSelection();
         var range = document.createRange();
         var $selection = $('<span>Some text to select</span>');
@@ -1351,7 +1403,7 @@ describe('Bootstrap Multiselect Specific Issues.', function() {
         $selection.remove();
     });
 
-    it('#679', function() {
+    it('#679.', function() {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
 
         for (var i = 1; i < 11; i++) {
@@ -1395,6 +1447,124 @@ describe('Bootstrap Multiselect Specific Issues.', function() {
 
             i++;
         });
+
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
+
+    it('#655/1 when clicking the options.', function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        $select.append('<optgroup label="Group 1"><option value="1-1">Option 1.1</option><option value="1-2">Option 1.2</option><option value="1-3">Option 1.3</option></optgroup>');
+        $select.append('<optgroup label="Group 2"><option value="2-1">Option 2.1</option><option value="2-2">Option 2.2</option><option value="2-3">Option 2.3</option></optgroup>');
+
+        $('body').append($select);
+
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableClickableOptGroups: true
+        });
+
+        $('#multiselect-container input[value="2-1"]').click();
+        $('#multiselect-container input[value="2-2"]').click();
+        $('#multiselect-container input[value="2-3"]').click();
+
+        expect($($('#multiselect-container li.multiselect-group input')[0]).prop('checked')).toBe(false);
+        expect($('#multiselect-container input[value="1-1"]').prop('checked')).toBe(false);
+        expect($('#multiselect-container input[value="1-2"]').prop('checked')).toBe(false);
+        expect($('#multiselect-container input[value="1-3"]').prop('checked')).toBe(false);
+
+        expect($($('#multiselect-container li.multiselect-group input')[1]).prop('checked')).toBe(true);
+        expect($('#multiselect-container input[value="2-1"]').prop('checked')).toBe(true);
+        expect($('#multiselect-container input[value="2-2"]').prop('checked')).toBe(true);
+        expect($('#multiselect-container input[value="2-3"]').prop('checked')).toBe(true);
+
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
+
+    it('#655/1 when clicking the optgroup.', function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        $select.append('<optgroup label="Group 1"><option value="1-1">Option 1.1</option><option value="1-2">Option 1.2</option><option value="1-3">Option 1.3</option></optgroup>');
+        $select.append('<optgroup label="Group 2"><option value="2-1">Option 2.1</option><option value="2-2">Option 2.2</option><option value="2-3">Option 2.3</option></optgroup>');
+
+        $('body').append($select);
+
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableClickableOptGroups: true
+        });
+
+        $($('#multiselect-container li.multiselect-group input')[1]).click();
+
+        expect($($('#multiselect-container li.multiselect-group input')[0]).prop('checked')).toBe(false);
+        expect($('#multiselect-container input[value="1-1"]').prop('checked')).toBe(false);
+        expect($('#multiselect-container input[value="1-2"]').prop('checked')).toBe(false);
+        expect($('#multiselect-container input[value="1-3"]').prop('checked')).toBe(false);
+
+        expect($($('#multiselect-container li.multiselect-group input')[1]).prop('checked')).toBe(true);
+        expect($('#multiselect-container input[value="2-1"]').prop('checked')).toBe(true);
+        expect($('#multiselect-container input[value="2-2"]').prop('checked')).toBe(true);
+        expect($('#multiselect-container input[value="2-3"]').prop('checked')).toBe(true);
+
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
+
+    it('#655/2 when clicking the options.', function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        $select.append('<optgroup label="Group 1"><option value="1-1">Option 1.1</option><option value="1-2">Option 1.2</option><option value="1-3">Option 1.3</option></optgroup>');
+        $select.append('<optgroup label="Group 2"><option value="2-1">Option 2.1</option><option value="2-2">Option 2.2</option><option value="2-3">Option 2.3</option></optgroup>');
+
+        $('body').append($select);
+
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableClickableOptGroups: true,
+            selectedClass: 'multiselect-custom-selected'
+        });
+
+        $('#multiselect-container input[value="2-1"]').click();
+        $('#multiselect-container input[value="2-2"]').click();
+        $('#multiselect-container input[value="2-3"]').click();
+
+        expect($($('#multiselect-container li.multiselect-group')[0]).prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="1-1"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="1-2"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="1-3"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+
+        expect($($('#multiselect-container li.multiselect-group')[1]).prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="2-1"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="2-2"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="2-3"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
+
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
+
+    it('#655/2 when clicking the optgroup.', function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        $select.append('<optgroup label="Group 1"><option value="1-1">Option 1.1</option><option value="1-2">Option 1.2</option><option value="1-3">Option 1.3</option></optgroup>');
+        $select.append('<optgroup label="Group 2"><option value="2-1">Option 2.1</option><option value="2-2">Option 2.2</option><option value="2-3">Option 2.3</option></optgroup>');
+
+        $('body').append($select);
+
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableClickableOptGroups: true,
+            selectedClass: 'multiselect-custom-selected'
+        });
+
+        $($('#multiselect-container li.multiselect-group input')[1]).click();
+
+        expect($($('#multiselect-container li.multiselect-group')[0]).prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="1-1"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="1-2"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="1-3"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+
+        expect($($('#multiselect-container li.multiselect-group')[1]).prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="2-1"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="2-2"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container li:has(input[value="2-3"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
 
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
