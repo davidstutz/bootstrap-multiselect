@@ -224,12 +224,15 @@
                             </tr>
                             <tr>
                                 <td><a href="#configuration-options-onSelectAll"><code>onSelectAll</code></a></td>
+                                <td><a href="#configuration-options-onDeselectAll"><code>onDeselectAll</code></a></td>
                                 <td><a href="#configuration-options-enableFiltering"><code>enableFiltering</code></a></td>
-                                <td><a href="#configuration-options-enableCaseInsensitiveFiltering"><code>enableCaseInsensitiveFiltering</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-enableCaseInsensitiveFiltering"><code>enableCaseInsensitiveFiltering</code></a></td>
                                 <td><a href="#configuration-options-enableFullValueFiltering"><code>enableFullValueFiltering</code></a></td>
                                 <td><a href="#configuration-options-filterBehavior"><code>filterBehavior</code></a></td>
+                            </tr>
+                            <tr>
                                 <td><a href="#configuration-options-filterPlaceholder"><code>filterPlaceholder</code></a></td>
                             </tr>
                         </tbody>
@@ -2657,13 +2660,21 @@ $(document).ready(function() {
                                         This function is triggered when the select all option is used to select all options. Note that this can also be triggered manually using the <code>.multiselect('selectAll')</code> method.
                                     </p>
 
+                                    <p class="alert alert-warning">
+                                        Note that the <code>onChange</code> option is not triggered when (de)selecting all options using the select all option.
+                                    </p>
+
+                                    <p class="alert alert-warning">
+                                        The <code>onSelectAll</code> option is only triggered if the select all option was checked; it is not triggered if all options were checked manually (causing the select all option to be checked as well).
+                                    </p>
+
                                     <div class="example">
                                         <script type="text/javascript">
                                             $(document).ready(function() {
                                                 $('#example-onSelectAll').multiselect({
                                                     includeSelectAllOption: true,
-                                                    onSelectAll: function(checked) {
-                                                        alert('onSelectAll triggered: ' + (checked ? 'selected all' : 'deselected all') + '!');
+                                                    onSelectAll: function() {
+                                                        alert('onSelectAll triggered!');
                                                     }
                                                 });
                                             });
@@ -2683,8 +2694,61 @@ $(document).ready(function() {
     $('#example-onSelectAll').multiselect({
         includeSelectAllOption: true,
         onSelectAll: function() {
-            alert('onSelectAll triggered.');
+            alert('onSelectAll triggered!');
         }
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-onDeselectAll">onDeselectAll</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        This function is triggered when the select all option is used to <b>de</b>select all options. Note that this can also be triggered manually using the <code>.multiselect('deselectAll')</code> method.
+                                    </p>
+
+                                    <p class="alert alert-warning">
+                                        Note that the <code>onChange</code> option is not triggered when (de)selecting all options using the select all option.
+                                    </p>
+
+                                    <p class="alert alert-warning">
+                                        The <code>onDeselectAll</code> option is only triggered if the select all option was unchecked; it is not triggered if all options were unchecked manually (causing the select all option to be unchecked as well).
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-onDeselectAll').multiselect({
+                                                    includeSelectAllOption: true,
+                                                    onDeselectAll: function() {
+                                                        alert('onDeselectAll triggered!');
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-onDeselectAll" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-onDeselectAll').multiselect({
+            includeSelectAllOption: true,
+            onDeselectAll: function() {
+                alert('onDeselectAll triggered!');
+            }
+        });
     });
 &lt;/script&gt;
 </pre>

@@ -1569,16 +1569,14 @@
                 if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
                     selectAllInput.prop("checked", true);
                     selectAllLi.addClass(this.options.selectedClass);
-                    this.options.onSelectAll();
+                    //this.options.onSelectAll();
                 }
                 else {
                     selectAllInput.prop("checked", false);
                     selectAllLi.removeClass(this.options.selectedClass);
-                    if (checkedBoxesLength === 0) {
-                        if (!notTriggerOnSelectAll) {
-                            this.options.onDeselectAll();
-                        }
-                    }
+                    //if (checkedBoxesLength === 0) {
+                    //    this.options.onDeselectAll();
+                    //}
                 }
             }
         },
