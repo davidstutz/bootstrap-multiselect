@@ -220,7 +220,7 @@
             this.disable();
         }
 
-        this.$select.wrap('<span class="hide-native-select" />').after(this.$container);
+        this.$select.wrap('<span class="multiselect-native-select" />').after(this.$container);
         this.options.onInitialized(this.$select, this.$container);
     }
 
