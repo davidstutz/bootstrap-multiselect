@@ -1254,72 +1254,418 @@ describe('Bootstrap Multiselect "Select All".', function() {
 
 describe('Bootstrap Multiselect "Filter".', function() {
 
-    function beforeCreate() {
-        // Reset
+    var $select = null;
+    beforeEach(function() {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
 
-        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        $select = $('<select id="multiselect" multiple="multiple"></select>');
 
-        for (var i = 1; i < 100; i++) {
-            $select.append('<option value="' + i + '">1</option>');
+        for (var i = 1; i < 10; i++) {
+            $select.append('<option value="value-' + i + '">Option ' + i + '</option>');
         }
 
         $('body').append($select);
-
-        $select.multiselect({
-            buttonContainer: '<div id="multiselect-container"></div>',
-            enableFiltering: true
-        });
-    }
-
-    function beforeFilterElements() {
-        // Reset
-        $('#multiselect').multiselect('destroy');
-        $('#multiselect').remove();
-
-        var $select = $('<select id="multiselect" multiple="multiple"></select>');
-
-        for (var i = 1; i < 100; i++) {
-            $select.append('<option value="' + i + '">1</option>');
-        }
-
-        $('body').append($select);
-
-        $select.multiselect({
-            buttonContainer: '<div id="multiselect-container"></div>',
-            enableFiltering: true,
-            onFiltering: function($filter) {
-                var val = $($filter).val();
-
-                $('#multiselect-container li input[value!="' + val + '"]').closest('li').each(function() {
-                    expect($(this).is(':visible')).toBe(false);
-                    expect($(this).hasClass('multiselect-filter-hidden')).toBe(true);
-                });
-                $('#multiselect-container li input[value="' + val + '"]').closest('li').each(function() {
-                    expect($(this).is(':visible')).toBe(true);
-                    expect($(this).hasClass('multiselect-filter-hidden')).toBe(false);
-                });
-
-                done();
-            }
-        });
-    }
-
-    it('Should create filter.', function() {
-        beforeCreate();
-
-        expect($('#multiselect-container li.multiselect-filter').length).toBe(1);
-        expect($('#multiselect-container li.multiselect-filter input').length).toBe(1);
     });
 
-    it('Should filter elements.', function() {
-        beforeFilterElements();
+    describe('Should create filter.', function() {
+        beforeEach(function() {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'value'
+            });
+        });
 
-        $('#multiselect-container li.multiselect-filter input').val('11').trigger('keydown');
+        it('Should create filter.', function() {
+            expect($('#multiselect-container li.multiselect-filter').length).toBe(1);
+            expect($('#multiselect-container li.multiselect-filter input').length).toBe(1);
+            expect($('#multiselect-container li.multiselect-filter .multiselect-clear-filter').length).toBe(1);
+        });
+    });
 
-        // Expectations are in onFiltering.
-        expect(true).toBe(true);
+    describe('Should filter elements by value.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'value',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+        });
+
+        it('Should filter elements.', function() {
+            for (var i = 1; i < 10; i++) {
+                if (i != 9) {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                }
+                else {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+                }
+            }
+        });
+    });
+
+    describe('Should filter elements by value only.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'value',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            $('#multiselect-container li.multiselect-filter input').val('Option').trigger('keydown');
+        });
+
+        it('Should filter elements.', function() {
+            for (var i = 1; i < 10; i++) {
+                expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+            }
+        });
+    });
+
+    describe('Should filter elements by text.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'text',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            $('#multiselect-container li.multiselect-filter input').val('Option 9').trigger('keydown');
+        });
+
+        it('Should filter elements.', function() {
+            for (var i = 1; i < 10; i++) {
+                if (i != 9) {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                }
+                else {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+                }
+            }
+        });
+    });
+
+    describe('Should filter elements by text only.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'text',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            $('#multiselect-container li.multiselect-filter input').val('value').trigger('keydown');
+        });
+
+        it('Should filter elements.', function() {
+            for (var i = 1; i < 10; i++) {
+                expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+            }
+        });
+    });
+
+    describe('Should filter elements by text and value - text.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'both',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            $('#multiselect-container li.multiselect-filter input').val('Option 9').trigger('keydown');
+        });
+
+        it('Should filter elements.', function() {
+            for (var i = 1; i < 10; i++) {
+                if (i != 9) {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                }
+                else {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+                }
+            }
+        });
+    });
+
+    describe('Should filter elements by text and value - value.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'both',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+        });
+
+        it('Should filter elements.', function() {
+            for (var i = 1; i < 10; i++) {
+                if (i != 9) {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                }
+                else {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+                }
+            }
+        });
+    });
+
+    describe('Should remove filter on clicking the clear button.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'value',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+        });
+
+        it('Should remove filter.', function() {
+            for (var i = 1; i < 10; i++) {
+                if (i != 9) {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                }
+                else {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+                }
+            }
+
+            $('#multiselect-container li.multiselect-filter .multiselect-clear-filter').click();
+
+            for (var i = 1; i < 10; i++) {
+                expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+            }
+        });
+    });
+
+    describe('Filtering and removing the filter should not alter selection.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'value',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            $('#multiselect-container li input[value="value-1"]').click();
+            $('#multiselect-container li input[value="value-9"]').click();
+
+            for (var i = 1; i < 10; i++) {
+                if (i != 9 && i != 1) {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                }
+                else {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                }
+            }
+
+            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+        });
+
+        it('Should not alter selection.', function() {
+            for (var i = 1; i < 10; i++) {
+                if (i != 9 && i != 1) {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                }
+                else {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                }
+            }
+
+            $('#multiselect-container li.multiselect-filter .multiselect-clear-filter').click();
+
+            for (var i = 1; i < 10; i++) {
+                if (i != 9 && i != 1) {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                }
+                else {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                }
+            }
+        });
+    });
+
+    afterEach(function() {
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
+});
+
+describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', function() {
+    var $select = null;
+    beforeEach(function() {
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+
+        $select = $('<select id="multiselect" multiple="multiple"></select>');
+
+        for (var i = 1; i < 10; i++) {
+            $select.append('<option value="value-' + i + '">Option ' + i + '</option>');
+        }
+
+        $('body').append($select);
+    });
+
+    describe('Should select only visible options if selectAllJustVisible is true.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'value',
+                includeSelectAllOption: true,
+                selectAllJustVisible: true,
+                selectAllValue: 'multiselect-all',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            for (var i = 1; i < 10; i++) {
+                expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+            }
+
+            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+        });
+
+        it('Should select one option.', function() {
+            $('#multiselect-container li input[value="multiselect-all"]').click();
+            for (var i = 1; i < 10; i++) {
+                if (i != 9) {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                }
+                else {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                }
+            }
+        });
+    });
+
+    describe('Should deselect only visible options if selectAllJustVisible is true.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'value',
+                includeSelectAllOption: true,
+                selectAllJustVisible: true,
+                selectAllValue: 'multiselect-all',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            $('#multiselect-container li input[value="value-1"]').click();
+            $('#multiselect-container li input[value="value-9"]').click();
+
+            for (var i = 1; i < 10; i++) {
+                if (i != 9 && i != 1) {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                }
+                else {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                }
+            }
+
+            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+        });
+
+        it('Should deselect one option.', function() {
+            $('#multiselect-container li input[value="multiselect-all"]').click();
+            for (var i = 1; i < 10; i++) {
+                if (i != 1) {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                }
+                else {
+                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                }
+            }
+        });
+    });
+
+    describe('Should select all options if selectAllJustVisible is false.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'value',
+                includeSelectAllOption: true,
+                selectAllJustVisible: false,
+                selectAllValue: 'multiselect-all',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            for (var i = 1; i < 10; i++) {
+                expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+            }
+
+            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+        });
+
+        it('Should select all options.', function() {
+            $('#multiselect-container li input[value="multiselect-all"]').click();
+
+            for (var i = 1; i < 10; i++) {
+                expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+            }
+        });
+    });
+
+    describe('Should deselect all options if selectAllJustVisible is false.', function() {
+        beforeEach(function(done) {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                filterBehavior: 'value',
+                includeSelectAllOption: true,
+                selectAllJustVisible: false,
+                selectAllValue: 'multiselect-all',
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            for (var i = 1; i < 10; i++) {
+                $('#multiselect-container li input[value="value-' + i + '"]').click();
+                expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+            }
+
+            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+        });
+
+        it('Should select all options.', function() {
+            $('#multiselect-container li input[value="multiselect-all"]').click();
+            for (var i = 1; i < 10; i++) {
+                expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+            }
+        });
     });
 
     afterEach(function() {
