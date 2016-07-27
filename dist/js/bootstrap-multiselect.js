@@ -216,6 +216,7 @@
             this.updateOptGroups();
         }
 
+        this.options.wasDisabled = this.$select.prop('disabled');
         if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
             this.disable();
         }
@@ -1135,6 +1136,10 @@
         destroy: function() {
             this.$container.remove();
             this.$select.show();
+
+            // reset original state
+            this.$select.prop('disabled', this.options.wasDisabled);
+
             this.$select.data('multiselect', null);
         },
 

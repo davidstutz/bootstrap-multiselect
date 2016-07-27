@@ -359,7 +359,7 @@ describe('Bootstrap Multiselect "Multiple Multiselects".', function() {
     });
 });
 
-describe('Bootstrap Multiselect "Single Selection"', function() {
+describe('Bootstrap Multiselect "Single Selection".', function() {
     beforeEach(function() {
         var $select = $('<select id="multiselect"></select>');
 
@@ -409,6 +409,56 @@ describe('Bootstrap Multiselect "Single Selection"', function() {
     afterEach(function() {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
+    });
+});
+
+describe('Bootstrap Multiselect "Individual Configuration Options".', function() {
+
+    describe('disableIfEmpty.', function() {
+
+        var $select = null;
+        beforeEach(function() {
+            $select = $('<select id="multiselect"></select>');
+
+            $('body').append($select);
+
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                disableIfEmpty: true
+            });
+        });
+
+        it('Should disable button if emppty.', function() {
+            expect($('#multiselect-container button').prop('disabled')).toBe(true);
+        });
+
+        it('Should still be disabled after invoking rebuild.', function() {
+            $select.multiselect('rebuild');
+            expect($('#multiselect-container button').prop('disabled')).toBe(true);
+        });
+
+        it('Should not be disabled after invoking rebuild after adding options.', function() {
+            $select.append('<option value="value-1">Option 1</option>');
+            $select.multiselect('rebuild');
+            expect($('#multiselect-container button').prop('disabled')).toBe(false);
+        });
+
+        it('Should not be disabled after rebuilding with more options after invoking destroy.', function() {
+            $select.append('<option value="value-1">Option 1</option>');
+
+            $select.multiselect('destroy');
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                disableIfEmpty: true
+            });
+
+            expect($('#multiselect-container button').prop('disabled')).toBe(false);
+        });
+
+        afterEach(function() {
+            $('#multiselect').multiselect('destroy');
+            $('#multiselect').remove();
+        });
     });
 });
 
