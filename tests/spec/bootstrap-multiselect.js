@@ -1965,6 +1965,54 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
+
+    describe('#732.', function() {
+
+        var triggeredOnSelectAll = false;
+        var triggeredOnDeselectAll = false;
+
+        beforeEach(function(done) {
+            triggeredOnSelectAll = false;
+            triggeredOnDeselectAll = false;
+
+            var $select = $('<select id="multiselect" multiple="multiple"></select>');
+            $select.append('<option value="value-1">Option 1</option><option value="value-2">Option 2</option><option value="value-1">Option 1</option>');
+
+            $('body').append($select);
+
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                includeSelectAllOption: true,
+                onSelectAll: function() {
+                    triggeredOnSelectAll = true;
+                },
+                onDeselectAll: function() {
+                    triggeredOnDeselectAll = false;
+                },
+                onFiltering: function() {
+                    done();
+                }
+            });
+
+            $('#multiselect-container li.multiselect-filter input').val('2').trigger('keydown');
+        });
+
+        it('Should not fire onSelectAll or onDeselectAll when filtering or clearing filter.', function() {
+            expect(triggeredOnSelectAll).toBe(false);
+            expect(triggeredOnDeselectAll).toBe(false);
+
+            $('#multiselect-container li.multiselect-filter .multiselect-clear-filter').click();
+
+            expect(triggeredOnSelectAll).toBe(false);
+            expect(triggeredOnDeselectAll).toBe(false);
+        });
+
+        afterEach(function() {
+            $('#multiselect').multiselect('destroy');
+            $('#multiselect').remove();
+        });
+    });
 });
 
 describe('Knockout Binding.', function() {
