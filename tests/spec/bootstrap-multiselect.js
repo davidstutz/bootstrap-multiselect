@@ -2013,6 +2013,22 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
             $('#multiselect').remove();
         });
     });
+
+    it('#759.', function() {
+        var $select = $('<select data-placeholder="Test" id="multiselect" multiple="multiple"></select>');
+        $select.append('<option value="value-1">Option 1</option><option value="value-2">Option 2</option><option value="value-3">Option 3</option>');
+
+        $('body').append($select);
+
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>'
+        });
+
+        expect($('#multiselect-container .multiselect-selected-text').text()).toBe('Test');
+
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
 });
 
 describe('Knockout Binding.', function() {
