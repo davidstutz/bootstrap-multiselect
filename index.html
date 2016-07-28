@@ -5779,6 +5779,59 @@ $(document).ready(function() {
 </pre>
                     </div>
 
+                    <p>
+                        The following example demonstrates how to clear filtering as soon as an option is selected after the filter was used. Note that the filter is cleared both when an option is selected and deselected.
+                    </p>
+
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-clear-after-filter-selection').multiselect({
+                                    buttonContainer: '<div id="example-clear-after-filter-selection-container"></div>',
+                                    enableFiltering: true,
+                                    onChange: function($option) {
+                                        // Check if the filter was used.
+                                        var query = $('#example-clear-after-filter-selection-container li.multiselect-filter input').val();
+
+                                        if (query) {
+                                            $('#example-clear-after-filter-selection-container li.multiselect-filter input').val('').trigger('keydown');
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <div class="btn-group">
+                            <select id="example-clear-after-filter-selection" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-clear-after-filter-selection').multiselect({
+            buttonContainer: '<div id="example-clear-after-filter-selection-container"></div>',
+            enableFiltering: true,
+            onChange: function($option) {
+                // Check if the filter was used.
+                var query = $('#example-clear-after-filter-selection-container li.multiselect-filter input').val();
+
+                if (query) {
+                    $('#example-clear-after-filter-selection-container li.multiselect-filter input').val('').trigger('keydown');
+                }
+            }
+        });
+    });
+&lt;/script&gt;
+</pre>
+                    </div>
+
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
                     </div>
