@@ -1654,7 +1654,7 @@
          */
         getInputByValue: function (value) {
 
-            var checkboxes = $('li input', this.$ul);
+            var checkboxes = $('li input:not(.multiselect-search)', this.$ul);
             var valueToCompare = value.toString();
 
             for (var i = 0; i < checkboxes.length; i = i + 1) {
