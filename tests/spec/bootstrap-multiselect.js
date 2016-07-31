@@ -2095,6 +2095,98 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
+
+        it('#720/1 Should deselect all in multiple selection, justVisible = true.', function() {
+        var nonSelectedText = "None selected";
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        $select.append('<option value="value-1" selected>Option 1</option><option value="value-2" selected>Option 2</option><option value="value-3" selected>Option 1</option>');
+
+        $('body').append($select);
+
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableFiltering: true,
+            includeSelectAllOption: true,
+            nonSelectedText: nonSelectedText,
+        });
+
+        $('#multiselect').multiselect('deselectAll', false);
+        $('#multiselect').multiselect('updateButtonText');
+        
+        expect($("#multiselect-container span.multiselect-selected-text").html()).toBe(nonSelectedText);
+        
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
+
+    it('#720/2 Should deselect all in multiple selection, justVisible = false.', function() {
+        var nonSelectedText = "None selected";
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        $select.append('<option value="value-1" selected>Option 1</option><option value="value-2" selected>Option 2</option><option value="value-3" selected>Option 1</option>');
+
+        $('body').append($select);
+
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableFiltering: true,
+            includeSelectAllOption: true,
+            nonSelectedText: nonSelectedText,
+        });
+
+        $('#multiselect').multiselect('deselectAll', true);
+        $('#multiselect').multiselect('updateButtonText');
+        
+        expect($("#multiselect-container span.multiselect-selected-text").html()).toBe(nonSelectedText);
+        
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
+
+    it('#720/3 Should deselect all in single selection, size = 2, justVisible = true.', function() {
+        var nonSelectedText = "None selected";
+        var $select = $('<select id="multiselect" size="2"></select>');
+        $select.append('<option value="value-1" selected>Option 1</option><option value="value-2" selected>Option 2</option><option value="value-3" selected>Option 1</option>');
+
+        $('body').append($select);
+
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableFiltering: true,
+            includeSelectAllOption: true,
+            nonSelectedText: nonSelectedText,
+        });
+
+        $('#multiselect').multiselect('deselectAll', false);
+        $('#multiselect').multiselect('updateButtonText');
+        
+        expect($("#multiselect-container span.multiselect-selected-text").html()).toBe(nonSelectedText);
+        
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
+
+    it('#720/4 Should deselect all in single selection, size = 2, justVisible = false.', function() {
+        var nonSelectedText = "None selected";
+        var $select = $('<select id="multiselect" size="2"></select>');
+        $select.append('<option value="value-1" selected>Option 1</option><option value="value-2" selected>Option 2</option><option value="value-3" selected>Option 1</option>');
+
+        $('body').append($select);
+
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            enableFiltering: true,
+            includeSelectAllOption: true,
+            nonSelectedText: nonSelectedText,
+        });
+
+        $('#multiselect').multiselect('deselectAll', false);
+        $('#multiselect').multiselect('updateButtonText');
+        
+        expect($("#multiselect-container span.multiselect-selected-text").html()).toBe(nonSelectedText);
+        
+        $('#multiselect').multiselect('destroy');
+        $('#multiselect').remove();
+    });
 });
 
 describe('Knockout Binding.', function() {
