@@ -2,7 +2,7 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
- - "4.2"
+ - "node"
 
 script: karma start tests/karma.conf.js --single-run
 
