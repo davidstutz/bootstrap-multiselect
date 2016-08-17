@@ -33,6 +33,7 @@
     "karma": "*",
     "karma-cli": "*",
     "karma-jasmine": "*",
-    "karma-phantomjs-launcher": "*"
+    "karma-phantomjs-launcher": "*",
+    "karma-chrome-launcher": "*"
   }
 }
