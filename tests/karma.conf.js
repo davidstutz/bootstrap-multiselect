@@ -7,13 +7,17 @@ module.exports = function(config) {
       // base path that will be used to resolve all patterns (eg. files, exclude)
       basePath: '',
 
+      // plugins starting with karma- are autoloaded
+      plugins: ['karma-chrome-launcher', 'karma-jasmine'],
+
       // frameworks to use
       // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-      frameworks: ['karma-jquery', 'jasmine-jquery', 'jasmine'],
+      frameworks: ['jasmine'],
 
       // list of files / patterns to load in the browser
       files: [
         '../dist/js/bootstrap-multiselect.js',
+        '../docs/js/jquery-2.1.3.min.js', // dirty hack for including jQuery
         '*.js'
       ],
 
