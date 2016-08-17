@@ -16,8 +16,8 @@ module.exports = function(config) {
 
       // list of files / patterns to load in the browser
       files: [
-        '../dist/js/bootstrap-multiselect.js',
         '../docs/js/jquery-2.1.3.min.js', // dirty hack for including jQuery
+        '../dist/js/bootstrap-multiselect.js',
         '*.js'
       ],
 
