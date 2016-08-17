@@ -35,6 +35,7 @@
     "karma-jasmine": "*",
     "karma-phantomjs-launcher": "*",
     "karma-chrome-launcher": "*",
-    "karma-jasmine-jquery": "*"
+    "karma-jasmine-jquery": "*",
+    "karma-jquery": "*"
   }
 }
