@@ -7,9 +7,6 @@
     "doc": "docs",
     "test": "tests"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/davidstutz/bootstrap-multiselect"
@@ -27,5 +24,15 @@
   "bugs": {
     "url": "https://github.com/davidstutz/bootstrap-multiselect/issues"
   },
-  "homepage": "https://github.com/davidstutz/bootstrap-multiselect"
+  "homepage": "https://github.com/davidstutz/bootstrap-multiselect",
+  "scripts": {
+    "test": "karma start tests/karma.conf.js --single-run"
+  },
+  "devDependencies": {
+    "jasmine-core": "*",
+    "karma": "*",
+    "karma-cli": "*",
+    "karma-jasmine": "*",
+    "karma-phantomjs-launcher": "*"
+  }
 }
