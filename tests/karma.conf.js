@@ -58,12 +58,12 @@ module.exports = function(config) {
       browsers: ['Chrome', 'Firefox', 'Opera', 'IE'],
 
       // e.g see https://swizec.com/blog/how-to-run-javascript-tests-in-chrome-on-travis/swizec/6647
-      //customLaunchers: {
-      //  Chrome_travis_ci: {
-      //    base: 'Chrome',
-      //    flags: ['--no-sandbox']
-      //  }
-      //},
+      customLaunchers: {
+        Chrome_travis_ci: {
+          base: 'Chrome',
+          flags: ['--no-sandbox']
+        }
+      },
 
       // Continuous Integration mode
       // if true, Karma captures browsers, runs the tests and exits
@@ -75,7 +75,7 @@ module.exports = function(config) {
   };
 
   if (process.env.TRAVIS) {
-    configuration.browsers = ['PhantomJS'];
+    configuration.browsers = ['Chrome_travis_ci'];
   }
 
   config.set(configuration);
