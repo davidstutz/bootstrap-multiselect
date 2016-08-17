@@ -17,6 +17,7 @@ module.exports = function(config) {
       // list of files / patterns to load in the browser
       files: [
         '../docs/js/jquery-2.1.3.min.js', // dirty hack for including jQuery
+        'http://knockoutjs.com/downloads/knockout-3.4.0.debug.js',
         '../dist/js/bootstrap-multiselect.js',
         '*.js'
       ],
