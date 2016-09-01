@@ -208,9 +208,6 @@
         this.buildDropdownOptions();
         this.buildFilter();
 
-        this.updateButtonText();
-        this.updateSelectAll(true);
-
         if (this.options.enableClickableOptGroups && this.options.multiple) {
             this.updateOptGroups();
         }
@@ -219,6 +216,9 @@
         if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
             this.disable();
         }
+
+        this.updateButtonText();
+        this.updateSelectAll(true);
 
         this.$select.wrap('<span class="multiselect-native-select" />').after(this.$container);
         this.options.onInitialized(this.$select, this.$container);
@@ -238,7 +238,7 @@
              */
             buttonText: function(options, select) {
                 if (this.disabledText.length > 0
-                        && (select.prop('disabled') || (options.length == 0 && this.disableIfEmpty)))  {
+                        && this.isDisabled)  {
 
                     return this.disabledText;
                 }
@@ -1505,6 +1505,7 @@
             this.$select.prop('disabled', false);
             this.$button.prop('disabled', false)
                 .removeClass('disabled');
+            this.options.isDisabled = false;
         },
 
         /**
@@ -1514,6 +1515,7 @@
             this.$select.prop('disabled', true);
             this.$button.prop('disabled', true)
                 .addClass('disabled');
+            this.options.isDisabled = true;
         },
 
         /**

@@ -460,6 +460,60 @@ describe('Bootstrap Multiselect "Individual Configuration Options".', function()
             $('#multiselect').remove();
         });
     });
+
+    describe('disabledText.', function(){
+
+      it('Should display if original select element is disabled.', function(){
+        var $select = $('<select id="multiselect" multiple="multiple" disabled></select>');
+            $select.append('<option value="value-1">Option 1</option>');
+
+        $('body').append($select);
+        var text = "disabledText";
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            disabledText: text
+        });
+        expect($('#multiselect-container button').prop('disabled')).toBe(true);
+        expect($('#multiselect-container button').hasClass('disabled')).toBe(true);
+        expect($('#multiselect-container button span.multiselect-selected-text').text()).toBe(text);
+      });
+
+      it('Should display if disableIfEmpty is true and no options exist.', function(){
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+
+        $('body').append($select);
+        var text = "disabledText";
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            disableIfEmpty: true,
+            disabledText: text
+        });
+        expect($('#multiselect-container button').prop('disabled')).toBe(true);
+        expect($('#multiselect-container button').hasClass('disabled')).toBe(true);
+        expect($('#multiselect-container button span.multiselect-selected-text').text()).toBe(text);
+      });
+
+      it('Should override nonSelectedText.', function(){
+        var $select = $('<select id="multiselect" multiple="multiple" disabled></select>');
+            $select.append('<option value="value-1">Option 1</option>');
+
+        $('body').append($select);
+        var text = "disabledText";
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            nonSelectedText: 'nonSelectedText',
+            disabledText: text
+        });
+        expect($('#multiselect-container button').prop('disabled')).toBe(true);
+        expect($('#multiselect-container button').hasClass('disabled')).toBe(true);
+        expect($('#multiselect-container button span.multiselect-selected-text').text()).toBe(text);
+      });
+
+      afterEach(function() {
+          $('#multiselect').multiselect('destroy');
+          $('#multiselect').remove();
+      });
+    });
 });
 
 describe('Bootstrap Multiselect "individual Methods".', function() {
