@@ -428,7 +428,7 @@ describe('Bootstrap Multiselect "Individual Configuration Options".', function()
             });
         });
 
-        it('Should disable button if emppty.', function() {
+        it('Should disable button if empty.', function() {
             expect($('#multiselect-container button').prop('disabled')).toBe(true);
         });
 
