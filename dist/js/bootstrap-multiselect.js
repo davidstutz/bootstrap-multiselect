@@ -444,9 +444,7 @@
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
                 liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
-            },
-            hideInputButton: false
-
+            }
         },
 
         constructor: Multiselect,
@@ -884,11 +882,7 @@
             if (name) {
                 $checkbox.attr('name', name);
             }
-          
-           if(this.options.hideInputButton){
-                $checkbox.css("display", "none");
-                $label.css("padding-left", "10px");
-           }
+
             $label.prepend($checkbox);
 
             var selected = $element.prop('selected') || false;
