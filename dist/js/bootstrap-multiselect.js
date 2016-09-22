@@ -297,14 +297,28 @@
             checkboxName: function(option) {
                 return false; // no checkbox name
             },
+              /**
+             * Override the HTML structure on an individual list item basis. 
+             *
+             * @param {string} item
+             * @param {jQuery} element
+             */
+            templateResult: function (item, element) {
+                //console.log(item)
+                return item;
+            },
             /**
              * Create a label.
              *
              * @param {jQuery} element
              * @returns {String}
              */
-            optionLabel: function(element){
-                return $(element).attr('label') || $(element).text();
+            optionLabel: function (element) {
+                var val = $(element).attr('label') || $(element).text();
+                if (typeof this.templateResult !== "function") {
+                    throw TypeError("templateResult option should be a function.")
+                }
+                return this.templateResult(val, element);
             },
             /**
              * Create a class.
@@ -430,7 +444,9 @@
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
                 liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
-            }
+            },
+            hideInputButton: false
+
         },
 
         constructor: Multiselect,
@@ -868,7 +884,11 @@
             if (name) {
                 $checkbox.attr('name', name);
             }
-
+          
+           if(this.options.hideInputButton){
+                $checkbox.css("display", "none");
+                $label.css("padding-left", "10px");
+           }
             $label.prepend($checkbox);
 
             var selected = $element.prop('selected') || false;
