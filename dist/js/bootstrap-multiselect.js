@@ -873,6 +873,7 @@
           
            if(this.options.hideInputButton){
                 $checkbox.css("display", "none");
+                $label.css("padding-left", "10px");
            }
             $label.prepend($checkbox);
 
