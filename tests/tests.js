@@ -2261,3 +2261,42 @@ describe('Knockout Binding.', function() {
         expect($testArea.next().find('button.multiselect').text().trim()).toEqual('2 selected');
     });
 });
+describe('Template result.', function () {
+    var $select;
+    beforeEach(function () {
+
+        $select = $('<select id="multiselect" multiple="multiple"></select>');
+
+        for (var i = 1; i < 100; i++) {
+            var $option = $('<option value="' + i + '">' + i + '</option>');
+
+
+            $select.append($option);
+        }
+
+        $('body').append($select);
+
+        
+
+    });
+
+    it("Should contain standard label if a custom template result is not defined", function () {
+     
+    expect($('#multiselect-container li span').length).toEqual(0)
+        
+    });
+
+    it('Should add template HTML to list item when defined', function () {
+        //  console.log($('#multiselect-container li'))
+        var formatItem = function (item, element) {
+            var $item = $(item), $el = $(element);
+            var $template = '<span>' + $el.val() + " - <span class='red-text'>" + $el.text() + "</span></span>"
+
+            return $template;
+        }
+
+        $select.multiselect({ enableHTML: true, buttonContainer: '<div id="multiselect-container"></div>', templateResult: formatItem })
+
+        expect($('#multiselect-container span.red-text').length).toBe(99)
+    });
+});

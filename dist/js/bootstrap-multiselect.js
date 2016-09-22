@@ -297,14 +297,28 @@
             checkboxName: function(option) {
                 return false; // no checkbox name
             },
+              /**
+             * Override the HTML structure on an individual list item basis. 
+             *
+             * @param {string} item
+             * @param {jQuery} element
+             */
+            templateResult: function (item, element) {
+                //console.log(item)
+                return item;
+            },
             /**
              * Create a label.
              *
              * @param {jQuery} element
              * @returns {String}
              */
-            optionLabel: function(element){
-                return $(element).attr('label') || $(element).text();
+            optionLabel: function (element) {
+                var val = $(element).attr('label') || $(element).text();
+                if (typeof this.templateResult !== "function") {
+                    throw TypeError("templateResult option should be a function.")
+                }
+                return this.templateResult(val, element);
             },
             /**
              * Create a class.
