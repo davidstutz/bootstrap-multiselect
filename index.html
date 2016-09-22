@@ -15,6 +15,8 @@
 
         <link rel="stylesheet" href="dist/css/bootstrap-multiselect.css" type="text/css">
         <script type="text/javascript" src="dist/js/bootstrap-multiselect.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+        
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -3286,25 +3288,81 @@ $(document).ready(function() {
                             <option value="6">Option 6</option>
                         </select>
                     </div>
+<p>The <code>templateResult</code> option will allow you to override how the list items are rendered. The function parameters are item, and a jQuery element. In order to use this, be sure to add <code>enableHTML</code></p>
+                      <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                var formatItem = function (item, element) {
+                                    var $item = $(item), $el = $(element);
+
+                                    var color = "red-text";
+                                    if($el.val() % 2 === 0){
+                                        color = "green-text";
+                                    }
+                                    var $template = '<span><i class="fa fa-circle ' + color + ' fa-lg fa-fw"></i>' + $el.val() + " - <span class='red-text'>" + $el.text() + "</span></span>"
+
+                                    return $template;
+                                }
+
+                                $('#example-template-result').multiselect({
+                                    buttonContainer: '<div></div>',
+                                    buttonClass: '',
+                                    templateResult: formatItem,
+                                    enableHTML: true
+                                });
+                            });
+                        </script>
+                        <style type="text/css">
+                         
+                            .red-text{
+                                color: red !important;
+                            }
+
+                            .green-text{
+                                color: green !important;
+                            }
+                        </style>
+                        <select id="example-template-result">
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                            <option value="6">Option 6</option>
+                        </select>
+                    </div>
                     <div class="highlight">
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-filter-placeholder').multiselect({
-            buttonContainer: '&lt;div&gt;&lt;/div&gt;',
-            buttonContainer: '',
-            buttonClass: '',
-            templates: {
-                button: '&lt;span class=&quot;multiselect dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;Click me!&lt;/span&gt;'
+        var formatItem = function (item, element) {
+            var $item = $(item), $el = $(element);
+
+            var color = &quot;red-text&quot;;
+            if($el.val() % 2 === 0){
+                color = &quot;green-text&quot;;
             }
+            var $template = '&lt;span&gt;&lt;i class=&quot;fa fa-circle ' + color + ' fa-lg fa-fw&quot;&gt;&lt;/i&gt;' + $el.val() + &quot; - &lt;span class='red-text'&gt;&quot; + $el.text() + &quot;&lt;/span&gt;&lt;/span&gt;&quot;
+
+            return $template;
+        }
+
+        $('#example-template-result').multiselect({
+            buttonContainer: '&lt;div&gt;&lt;/div&gt;',
+            buttonClass: '',
+            templateResult: formatItem,
+            enableHTML: true
         });
     });
 &lt;/script&gt;
 &lt;style type=&quot;text/css&quot;&gt;
-    span.multiselect {
-        padding: 2px 6px;
-        font-weight: bold;
-        cursor: pointer;
+    
+    .red-text{
+        color: red !important;
+    }
+
+    .green-text{
+        color: green !important;
     }
 &lt;/style&gt;
 </pre>
