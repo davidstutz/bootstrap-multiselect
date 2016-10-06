@@ -801,6 +801,7 @@
 
                     this.options.onChange($options, checked);
 
+                    this.$select.change();
                     this.updateButtonText();
                     this.updateSelectAll();
                 }, this));
