@@ -9,6 +9,7 @@
       "less",
       "bootstrap",
       "jquery",
+    "angular",
       "multiselect"
   ],
   "main": [
