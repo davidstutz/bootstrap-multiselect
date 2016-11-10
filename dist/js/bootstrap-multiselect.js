@@ -1560,11 +1560,14 @@
                     .not('.multiselect-filter-hidden')
                     .not('.disabled');
 
+                var hasAny = false;
                 var hasChecked = false;
                 var hasUnhecked = false;
                 $options.each(function () {
                     var $input = $('input', this);
-
+                    
+                    hasAny = true;
+                    
                     if (!$input.prop('checked')) {
                         hasUnhecked = true;
                     }
@@ -1586,7 +1589,7 @@
                     $('input', this).prop('indeterminate', false);
                     $('input', this).prop('checked', true);
                 }
-                else if (hasUnhecked && !hasChecked) {
+                else if ((hasUnhecked && !hasChecked) || !hasAny) {
                     $('input', this).prop('indeterminate', false);
                     $('input', this).prop('checked', false);
                 }
