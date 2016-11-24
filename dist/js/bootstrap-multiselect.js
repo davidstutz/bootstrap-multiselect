@@ -618,7 +618,7 @@
                     }
                     else {
                         // Unselect option.
-                        $option.prop('selected', false);
+                        if($option && typeof $option.prop === 'function') $option.prop('selected', false);
                     }
 
                     // To prevent select all from firing onChange: #575
