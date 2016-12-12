@@ -5832,6 +5832,185 @@ $(document).ready(function() {
 </pre>
                     </div>
 
+                    <p>The following example demonstrates how to display a list of checkboxes without a dropdown:</p>
+
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-checkbox-list').multiselect({
+                                    buttonContainer: '<div id="example-checkbox-list-container"></div>',
+                                    buttonClass: '',
+                                    templates: {
+                                        button: '',
+                                        ul: '<ul class="multiselect-container checkbox-list"></ul>',
+                                    }
+                                });
+                            });
+                        </script>
+                        <style type="text/css">
+
+                            #example-checkbox-list-container .checkbox-list > li > a {
+                                display: block;
+                                padding: 3px 0;
+                                clear: both;
+                                font-weight: normal;
+                                line-height: 1.42857143;
+                                color: #333;
+                                white-space: nowrap;
+                            }
+
+                            #example-checkbox-list-container .checkbox-list > li > a:hover,
+                            #example-checkbox-list-container .checkbox-list > li > a:focus {
+                                color: #333;
+                                text-decoration: none;
+                                background-color: transparent;
+                            }
+
+                            #example-checkbox-list-container .checkbox-list > .active > a,
+                            #example-checkbox-list-container .checkbox-list > .active > a:hover,
+                            #example-checkbox-list-container .checkbox-list > .active > a:focus {
+                                color: #333;
+                                text-decoration: none;
+                                background-color: transparent;
+                                outline: 0;
+                            }
+
+                            #example-checkbox-list-container .checkbox-list > .disabled > a,
+                            #example-checkbox-list-container .checkbox-list > .disabled > a:hover,
+                            #example-checkbox-list-container .checkbox-list > .disabled > a:focus {
+                                color: #777;
+                            }
+
+                            #example-checkbox-list-container .checkbox-list > .disabled > a:hover,
+                            #example-checkbox-list-container .checkbox-list > .disabled > a:focus {
+                                text-decoration: none;
+                                cursor: unset;
+                                background-color: transparent;
+                                background-image: none;
+                                filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+                            }
+
+                            #example-checkbox-list-container .checkbox-list > li > a > label {
+                                padding: 3px 0 3px 20px;
+                            }
+
+                            @media (min-width: 768px) {
+                                #example-checkbox-list-container .checkbox-list > li {
+                                    float: left;
+                                    width: 33%;
+                                }
+                                #example-checkbox-list-container .checkbox-list-vertical > li {
+                                    float: none;
+                                    width: 100%;
+                                }
+                            }
+
+                            #example-checkbox-list-container .multiselect-container.checkbox-list {
+                                position: static;
+                            }
+
+                        </style>
+                        <div class="btn-group">
+                            <select id="example-checkbox-list" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-checkbox-list').multiselect({
+            buttonContainer: '&lt;div id=&quot;example-checkbox-list-container&quot;&gt;&lt;/div&gt;',
+            buttonClass: '',
+            templates: {
+                button: '',
+                ul: '&lt;ul class=&quot;multiselect-container checkbox-list&quot;&gt;&lt;/ul&gt;',
+            }
+        });
+    });
+&lt;/script&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+
+    #example-checkbox-list-container .checkbox-list &gt; li &gt; a {
+        display: block;
+        padding: 3px 0;
+        clear: both;
+        font-weight: normal;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+
+    #example-checkbox-list-container .checkbox-list &gt; li &gt; a:hover,
+    #example-checkbox-list-container .checkbox-list &gt; li &gt; a:focus {
+        color: #333;
+        text-decoration: none;
+        background-color: transparent;
+    }
+
+    #example-checkbox-list-container .checkbox-list &gt; .active &gt; a,
+    #example-checkbox-list-container .checkbox-list &gt; .active &gt; a:hover,
+    #example-checkbox-list-container .checkbox-list &gt; .active &gt; a:focus {
+        color: #333;
+        text-decoration: none;
+        background-color: transparent;
+        outline: 0;
+    }
+
+    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a,
+    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:hover,
+    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:focus {
+        color: #777;
+    }
+
+    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:hover,
+    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:focus {
+        text-decoration: none;
+        cursor: unset;
+        background-color: transparent;
+        background-image: none;
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    }
+
+    #example-checkbox-list-container .checkbox-list &gt; li &gt; a &gt; label {
+        padding: 3px 0 3px 20px;
+    }
+
+    @media (min-width: 768px) {
+        #example-checkbox-list-container .checkbox-list &gt; li {
+            float: left;
+            width: 33%;
+        }
+        #example-checkbox-list-container .checkbox-list-vertical &gt; li {
+            float: none;
+            width: 100%;
+        }
+    }
+
+    #example-checkbox-list-container .multiselect-container.checkbox-list {
+        position: static;
+    }
+
+&lt;/style&gt;
+&lt;div class=&quot;btn-group&quot;&gt;
+    &lt;select id=&quot;example-checkbox-list&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
+
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
                     </div>
