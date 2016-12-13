@@ -360,14 +360,18 @@
             },
             /**
              * Triggered on select all.
+             *
+             * @param {jQuery} $container
              */
-            onSelectAll: function() {
+            onSelectAll: function($container) {
 
             },
             /**
              * Triggered on deselect all.
+             *
+             * @param {jQuery} $container
              */
-            onDeselectAll: function() {
+            onDeselectAll: function($container) {
 
             },
             /**
@@ -1353,7 +1357,7 @@
             }
 
             if (triggerOnSelectAll) {
-                this.options.onSelectAll();
+                this.options.onSelectAll(this.$container);
             }
         },
 
@@ -1398,7 +1402,7 @@
             }
 
             if (triggerOnDeselectAll) {
-                this.options.onDeselectAll();
+                this.options.onDeselectAll(this.$container);
             }
         },
 
