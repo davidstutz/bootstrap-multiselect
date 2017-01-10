@@ -1021,6 +1021,7 @@
                             clearTimeout(this.searchTimeout);
 
                             this.$filter.find('.multiselect-search').val('');
+                            this.query = '';
                             $('li', this.$ul).show().removeClass('multiselect-filter-hidden');
 
                             this.updateSelectAll();
