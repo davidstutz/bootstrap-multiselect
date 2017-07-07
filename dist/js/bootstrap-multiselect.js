@@ -204,9 +204,11 @@
         this.buildContainer();
         this.buildButton();
         this.buildDropdown();
-        this.buildSelectAll();
-        this.buildDropdownOptions();
-        this.buildFilter();
+        if(!this.options.enableLazyLoad){
+            this.buildSelectAll();
+            this.buildDropdownOptions();
+            this.buildFilter();
+        }
 
         this.updateButtonText();
         this.updateSelectAll(true);
@@ -421,6 +423,7 @@
             numberDisplayed: 3,
             disableIfEmpty: false,
             disabledText: '',
+            enableLazyLoad:false,
             delimiterText: ', ',
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
@@ -440,12 +443,27 @@
          */
         buildContainer: function() {
             this.$container = $(this.options.buttonContainer);
+            if(this.options.enableLazyLoad) this.$container.on('show.bs.dropdown', $.proxy( this.lazyLoad, this ));
             this.$container.on('show.bs.dropdown', this.options.onDropdownShow);
             this.$container.on('hide.bs.dropdown', this.options.onDropdownHide);
             this.$container.on('shown.bs.dropdown', this.options.onDropdownShown);
             this.$container.on('hidden.bs.dropdown', this.options.onDropdownHidden);
         },
 
+        /**
+         * Triggered when the dropdown is shown.
+         *
+         * @param {jQuery} event
+         */
+        lazyLoad: function(event) {
+            if(this.firstLazy){
+                this.buildSelectAll();
+                this.buildDropdownOptions();
+                this.buildFilter();
+                this.firstLazy = false;
+            }
+        },
+        firstLazy: true,
         /**
          * Builds the button of the multiselect.
          */
