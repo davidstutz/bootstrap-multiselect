@@ -725,7 +725,6 @@
                     if(index  === -1){ // double 'space' press
                        var $itemsLi = $(this.$container).find("li:not(.divider):not(.disabled)").filter(":visible");
                         index = $itemsLi.index($itemsLi.filter('.active'));
-                        console.log('Corrected index to :', index);
                     }
                     
                     // Navigation up.
