@@ -674,7 +674,7 @@
                         ++to;
 
                         // Change the checkboxes and underlying options
-                        var range = this.$ul.find("li").not(".filter-hidden").slice(from, to).find("input");
+                        var range = this.$ul.find("li").not(".multiselect-filter-hidden").slice(from, to).find("input");
 
                         range.prop('checked', checked);
 
