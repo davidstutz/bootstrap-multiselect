@@ -661,8 +661,8 @@
                     var checked = $target.prop('checked') || false;
 
                     if (this.lastToggledInput !== null && this.lastToggledInput !== $target) { // Make sure we actually have a range
-                        var from = $target.closest("li").index();
-                        var to = this.lastToggledInput.closest("li").index();
+                        var from = this.$ul.find("li:visible").index($target.parents("li"));
+                        var to = this.$ul.find("li:visible").index(this.lastToggledInput.parents("li"));
 
                         if (from > to) { // Swap the indices
                             var tmp = to;
@@ -674,7 +674,7 @@
                         ++to;
 
                         // Change the checkboxes and underlying options
-                        var range = this.$ul.find("li").not('.multiselect-filter-hidden').slice(from, to).find("input");
+                        var range = this.$ul.find("li").not(".filter-hidden").slice(from, to).find("input");
 
                         range.prop('checked', checked);
 
