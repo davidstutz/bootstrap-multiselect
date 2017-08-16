@@ -936,7 +936,7 @@
             }
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {
-                $('a label', $li).prepend('<input type="checkbox" value="' + value + '"/>');
+                $('a label', $li).prepend('<input type="checkbox" style="display:none" value="' + value + '"/>');
             }
 
             if ($(group).is(':disabled')) {
