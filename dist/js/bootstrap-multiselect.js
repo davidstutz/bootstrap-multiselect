@@ -557,7 +557,8 @@
             }, this));
 
             // Bind the change event on the dropdown elements.
-            $('li:not(.multiselect-group) input', this.$ul).on('change', $.proxy(function(event) {
+            $(this.$ul).off('change', 'li:not(.multiselect-group) input');
+            $(this.$ul).on('change', 'li:not(.multiselect-group) input', $.proxy(function(event) {
                 var $target = $(event.target);
 
                 var checked = $target.prop('checked') || false;
@@ -647,7 +648,7 @@
                 }
             });
 
-            $('li a', this.$ul).on('touchstart click', $.proxy(function(event) {
+            $(this.$ul).on('touchstart click', 'li a', $.proxy(function(event) {
                 event.stopPropagation();
 
                 var $target = $(event.target);
