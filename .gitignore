@@ -4,3 +4,4 @@
 *.iml
 nbproject/
 node_modules/
+.vscode
