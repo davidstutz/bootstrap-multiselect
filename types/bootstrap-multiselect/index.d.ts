@@ -102,15 +102,15 @@ interface MultiSelectOptions {
      * 
      * The onDropdownShow option is not available when using Twitter Bootstrap 2.3.
      */
-    onDropdownShow?:(event:Event)=>void;
+    onDropdownShow?: (event: Event) => void;
 
     /**
      * A callback called when the dropdown is closed.
      * 
      * The onDropdownHide option is not available when using Twitter Bootstrap 2.3.
      */
+    onDropdownHide?: (event: Event) => void;
 
-    onDropdownHide?:(event:Event)=>void;
     /**
      * A callback called after the dropdown has been shown.
      * 
