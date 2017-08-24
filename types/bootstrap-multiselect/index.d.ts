@@ -2,6 +2,7 @@
 // Project: https://github.com/davidstutz/bootstrap-multiselect
 // Definitions by: Makoto Schoppert <https://github.com/mak0t0san>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
@@ -15,10 +16,6 @@ interface Templates {
     liGroup?: string;
 }
 
-interface MultiSelectOptionElementAttribute {
-    [name: string]: any;
-}
-
 interface MultiSelectOptionElement {
     label: string;
     title?: string;
@@ -26,7 +23,7 @@ interface MultiSelectOptionElement {
     selected?: boolean;
     disabled?: boolean;
     children?: Array<MultiSelectOptionElement>;
-    attributes?: MultiSelectOptionElementAttribute;
+    attributes?: {[name: string]: any};
 }
 
 /**

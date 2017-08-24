@@ -1,7 +1,3 @@
-import * as $ from 'jquery';
-import './index';
-
-
 $('select').multiselect();
 $('select').multiselect('destroy');
 $('select').multiselect({ buttonText: (options, select) => { return 'text'; } });
@@ -21,3 +17,4 @@ $('select').multiselect('dataprovider', [{
 }])
 
 $('select').multiselect({ filterBehavior: 'text' });
+$('select').multiselect('setOptions', { nonSelectedText: '-- Select --' })
