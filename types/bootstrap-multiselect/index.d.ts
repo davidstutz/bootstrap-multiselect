@@ -89,8 +89,10 @@ interface MultiSelectOptions {
     /**
      * A function which is triggered on the change event of the options. 
      * Note that the event is not triggered when selecting or deselecting options using the select and deselect methods provided by the plugin.
+     * @param option The option item that was changed, wrapped in a JQuery object.
+     * @param checked Whether the checkbox was checked or not.
      */
-    onChange?: (option: HTMLOptionElement, checked: boolean, select: HTMLSelectElement) => void;
+    onChange?: (option: JQuery, checked: boolean) => void;
 
     /**
      * A function which is triggered when the multiselect is finished initializing.
