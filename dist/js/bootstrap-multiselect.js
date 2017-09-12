@@ -1478,7 +1478,7 @@
                         'value': option.value,
                         'label': option.label || option.value,
                         'title': option.title,
-                        'class': option.class,
+                        'class': option['class'],
                         'selected': !!option.selected,
                         'disabled': !!option.disabled
                     };
