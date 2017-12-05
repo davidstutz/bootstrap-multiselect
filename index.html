@@ -1038,6 +1038,10 @@ $(document).ready(function() {
                                         Note that this feature has been introduced in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/594">#594</a> and is known to have issues depending on the environment.
                                     </p>
 
+                                    <p class="alert alert-info">
+                                        An example of automatically adding the <code>dropUp</code> option when scrolling can be found in <a href="#further-examples">Further Examples</a>.
+                                    </p>
+
                                     <div class="example">
                                         <script type="text/javascript">
                                             $(document).ready(function() {
@@ -5802,6 +5806,63 @@ $(document).ready(function() {
                         </script>
                         <div class="btn-group">
                             <select id="example-clear-after-filter-selection" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-clear-after-filter-selection').multiselect({
+            buttonContainer: '<div id="example-clear-after-filter-selection-container"></div>',
+            enableFiltering: true,
+            onChange: function($option) {
+                // Check if the filter was used.
+                var query = $('#example-clear-after-filter-selection-container li.multiselect-filter input').val();
+
+                if (query) {
+                    $('#example-clear-after-filter-selection-container li.multiselect-filter input').val('').trigger('keydown');
+                }
+            }
+        });
+    });
+&lt;/script&gt;
+</pre>
+                    </div>
+
+                    <p>
+                        To automatically add the <code>.dropUp</code> class if the element is at the lower edge of the window, use the following snippet:
+                    </p>
+
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-automatic-dropup').multiselect({
+                                    buttonContainer: '<div id="example-automatic-dropup-container"></div>',
+                                    maxHeight: 200,
+                                });
+
+                                $(window).scroll(function() {
+                                    var top = $('#example-automatic-dropup-container')[0].getBoundingClientRect().top
+                                    var bottom = $(window).height() - top - $('#example-automatic-dropup-container').height();
+                                    console.log(bottom)
+                                    if (bottom < 250) {
+                                        $('#example-automatic-dropup-container').addClass('dropup');
+                                    }
+                                    if (bottom > 250) {
+                                        $('#example-automatic-dropup-container').removeClass('dropup');
+                                    }
+                                });
+                            });
+                        </script>
+                        <div class="btn-group">
+                            <select id="example-automatic-dropup" multiple="multiple">
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
                                 <option value="3">Option 3</option>
