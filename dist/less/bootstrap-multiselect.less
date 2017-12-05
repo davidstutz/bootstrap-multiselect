@@ -2,7 +2,7 @@
  * Bootstrap Multiselect (https://github.com/davidstutz/bootstrap-multiselect)
  *
  * Apache License, Version 2.0:
- * Copyright (c) 2012 - 2015 David Stutz
+ * Copyright (c) 2012 - 2017 David Stutz
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a
@@ -15,7 +15,7 @@
  * under the License.
  *
  * BSD 3-Clause License:
- * Copyright (c) 2012 - 2015 David Stutz
+ * Copyright (c) 2012 - 2017 David Stutz
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
