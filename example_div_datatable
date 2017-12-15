@@ -1,0 +1,74 @@
+$(".dataTables_scrollBody").scroll(function() {
+	var gee= new Array();
+	gee=[ 2,5,7,10];
+    clearTimeout($.data(this, 'scrollTimer'));
+    $.data(this, 'scrollTimer', setTimeout(function() {
+        scrollPos = $(".dataTables_scrollBody").scrollLeft();
+		
+	for (var i = 0; i < gee.length; i++) {
+		
+	 var $button = $('.bv'+gee[i]).next().children().first();
+        var $dropdown = $button.next();
+            var offset = $button.offset();
+            $dropdown.css({
+                'position': 'fixed',
+                'top': (offset.top+$button.outerHeight())+"px",
+                'left': offset.left+"px"
+            });
+	}
+        
+    }, 20));
+});
+$('#a2,#a5,#a7,#a10').multiselect({
+onDropdownHide: function(event) {
+var selectObj = $(event.target).prev("select"); /* seleziona l'elemento virgolettato in questo caso select PRECEDENTE */
+var oz = $(selectObj).attr('id') ;
+scann(oz);},
+onSelectAll: function() {
+scann(2);
+},
+onDeselectAll: function() {
+scann(3);
+},
+onInitialized : function ($aSelect, $aContainer) {
+var $dropdown = $aContainer.find('.bv'),
+offset = $dropdown.offset();
+scrollPos = $(".dataTables_scrollBody").scrollLeft();
+$aContainer.find('.dropdown-menu').css({
+position: 'fixed',
+top: (offset.top + $dropdown.outerHeight()),
+left: offset.left,
+})
+},
+includeSelectAllOption: true,
+selectAllValue: 0,
+selectAllText: 'Seleziona tutti',
+allSelectedText: 'Tutti selezionati',	
+maxHeight: '400px',
+buttonWidth: '150px',
+buttonClass: 'btn btn-default bv',
+buttonText: function(options, select, container) {
+var option;
+if (options.length === 0) {
+return 'Scegli';
+}
+else if (options.length > 8) {
+return options.length +' selezionati';
+}
+ else {
+	 var labels = [];
+	 options.each(function() {
+		option = select.find(this);
+		 if (option.attr('label') !== undefined) {
+			 labels.push(option.attr('label'));
+		 }
+		 else {
+			 labels.push(option.html());
+		 }
+	 });
+	 
+	return labels.join(', ') + '';
+ }
+
+}
+    });
