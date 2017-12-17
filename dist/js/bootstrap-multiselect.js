@@ -1480,9 +1480,9 @@
                         'value': option.value,
                         'label': option.label || option.value,
                         'title': option.title,
-                        'class': option.class,
-                        'selected': !!option.selected,
-                        'disabled': !!option.disabled
+                        'class': option['class'],
+                        'selected': !!option['selected'],
+                        'disabled': !!option['disabled']
                     };
                     //Loop through attributes object and add key-value for each attribute
                     for (var key in option.attributes) {
