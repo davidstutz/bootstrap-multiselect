@@ -655,6 +655,31 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         });
     });
 
+    it('Clickable groups should fire change only once', function() {
+        expect($('#multiselect option:selected').length).toBe(10);
+
+        var changed = 0;
+        $('#multiselect').on('change', function() {
+            changed++;
+        });
+
+        $('#multiselect-container li.multiselect-group').each(function() {
+            $('label', $(this)).click();
+
+            // Selected
+            expect(changed).toBe(1);
+            changed = 0;
+
+            $('label', $(this)).click();
+
+            // Deselected
+            expect(changed).toBe(1);
+            changed = 0;
+        });
+
+        fired = 0;
+    });
+
     it('Should update button text.', function() {
         expect($('#multiselect option:selected').length).toBe(10);
         expect(fired).toBe(0);

@@ -2,7 +2,7 @@
  * Bootstrap Multiselect (https://github.com/davidstutz/bootstrap-multiselect)
  *
  * Apache License, Version 2.0:
- * Copyright (c) 2012 - 2015 David Stutz
+ * Copyright (c) 2012 - 2017 David Stutz
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a
@@ -15,7 +15,7 @@
  * under the License.
  *
  * BSD 3-Clause License:
- * Copyright (c) 2012 - 2015 David Stutz
+ * Copyright (c) 2012 - 2017 David Stutz
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -257,7 +257,7 @@
                         return this.allSelectedText;
                     }
                 }
-                else if (options.length > this.numberDisplayed) {
+                else if (this.numberDisplayed != 0 && options.length > this.numberDisplayed) {
                     return options.length + ' ' + this.nSelectedText;
                 }
                 else {
@@ -425,7 +425,7 @@
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-                filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
+                filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text" /></div></li>',
                 filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
@@ -557,8 +557,8 @@
             }, this));
 
             // Bind the change event on the dropdown elements.
-            $(this.$ul).off('change', 'li:not(.multiselect-group) input');
-            $(this.$ul).on('change', 'li:not(.multiselect-group) input', $.proxy(function(event) {
+            $(this.$ul).off('change', ''li:not(.multiselect-group) input[type="checkbox"], li:not(.multiselect-group) input[type="radio"]');
+            $(this.$ul).on('change', ''li:not(.multiselect-group) input[type="checkbox"], li:not(.multiselect-group) input[type="radio"]', $.proxy(function(event) {
                 var $target = $(event.target);
 
                 var checked = $target.prop('checked') || false;
@@ -802,6 +802,7 @@
 
                     this.options.onChange($options, checked);
 
+                    this.$select.change();
                     this.updateButtonText();
                     this.updateSelectAll();
                 }, this));
@@ -1021,6 +1022,7 @@
                         clearBtn.on('click', $.proxy(function(event){
                             clearTimeout(this.searchTimeout);
 
+                            this.query = '';
                             this.$filter.find('.multiselect-search').val('');
                             $('li', this.$ul).show().removeClass('multiselect-filter-hidden');
 
@@ -1476,9 +1478,9 @@
                         'value': option.value,
                         'label': option.label || option.value,
                         'title': option.title,
-                        'class': option.class,
-                        'selected': !!option.selected,
-                        'disabled': !!option.disabled
+                        'class': option['class'],
+                        'selected': !!option['selected'],
+                        'disabled': !!option['disabled']
                     };
                     //Loop through attributes object and add key-value for each attribute
                     for (var key in option.attributes) {

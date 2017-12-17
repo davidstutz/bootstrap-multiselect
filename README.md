@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/davidstutz/bootstrap-multiselect.svg?branch=master)](https://travis-ci.org/davidstutz/bootstrap-multiselect)
 
-**In the future, I will not be able to maintain this amazing plugin as actively as I would like. Therefore, I decided to look for fellow coders interested in maintaining this project - preferably with some experience in the form of past pull requests. If you are interested, let me know: davidstutz@web.de.**
-
 Bootstrap Multiselect is a JQuery based plugin to provide an intuitive user interface for using select inputs with the multiple attribute present. Instead of a select a bootstrap button will be shown w dropdown menu containing the single options as checkboxes.
 
 Documentation, Examples, FAQ and License: [http://davidstutz.github.io/bootstrap-multiselect/](http://davidstutz.github.io/bootstrap-multiselect/).
 
-Bootstrap Multiselect is featured in an article on [tutorialzine](http://tutorialzine.com/): [50 must-Have Plugins for Extending Twitter Bootstrap](http://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap/); on [Bootsnipp](http://bootsnipp.com/)'s [list of Twitter Bootstrap recourses](http://bootsnipp.com/resources); and available on [NuGet](https://www.nuget.org/): [Bootstrap.Multiselect](https://www.nuget.org/packages/Bootstrap.Multiselect/0.9.9).
+Bootstrap Multiselect is featured in an article on [tutorialzine](http://tutorialzine.com/): [50 must-Have Plugins for Extending Twitter Bootstrap](http://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap/); on [Bootsnipp](http://bootsnipp.com/)'s [list of Twitter Bootstrap recourses](http://bootsnipp.com/resources); on [Design Your Way](http://www.designyourway.net/blog/resources/jquery-bootstrap-plugins/); and available on [NuGet](https://www.nuget.org/packages/Bootstrap.Multiselect/0.9.9).
+
+**If you use this plugin commercially, consider supporting the development by [making a donation](http://davidstutz.de/donate/).**
 
 Also check out [Bootstrap Strength Meter](https://github.com/davidstutz/bootstrap-strength-meter) - a Twitter Bootstrap plugin to visualize password strength using [Password Score](https://github.com/davidstutz/password-score).
 
@@ -18,7 +18,7 @@ Also check out [Bootstrap Strength Meter](https://github.com/davidstutz/bootstra
 
 **Apache License, Version 2.0**
 
-Copyright (c) 2012 - 2015 David Stutz
+Copyright (c) 2012 - 2017 [David Stutz](http://davidstutz.de/)
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,7 +26,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 **BSD 3-Clause License**
 
-Copyright (c) 2012 - 2015 David Stutz
+Copyright (c) 2012 - 2017 [David Stutz](http://davidstutz.de/)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

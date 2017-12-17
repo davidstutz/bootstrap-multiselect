@@ -48,17 +48,23 @@
                         <h1>Bootstrap Multiselect <img src="https://travis-ci.org/davidstutz/bootstrap-multiselect.svg?branch=master" alt="Build Status" /></h1>
                     </div>
 
-                    <p class="alert alert-warning">
-                        <b>Some option names may have changed during the last few commits!</b>
+                    <p class="alert alert-info">
+                        Please consult the <a href="#faq">FAQ</a>, the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> or <a href="http://stackoverflow.com/questions/tagged/bootstrap-multiselect">StackOverflow</a> before creating a new issue; when creating an issue or a pull request, read <a href="#how-to-contribute">how to contribute</a> first.
                     </p>
 
-                    <p class="alert alert-info">
-                        <b>Please consult the <a href="#faq">FAQ</a>, the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> or <a href="http://stackoverflow.com/questions/tagged/bootstrap-multiselect">StackOverflow</a> before creating a new issue.</b>
-                    </p>
-
-                    <p class="alert alert-info">
-                        <b>Please have a look at <a href="#how-to-contribute">"How to contribute?"</a>.</b>
-                    </p>
+                    <div class="well well-sm">
+                        <p><b>Consider making a donation to support the development of this plugin:</b></p>
+                        <div class="text-center">
+                            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                <input type="hidden" name="cmd" value="_s-xclick">
+                                <input type="hidden" name="hosted_button_id" value="V95Q7QK6JY32Q">
+                                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                                <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+                            </form>
+                        </div>
+                        <a href="http://davidstutz.de/donate/" class="small pull-right">Why Donate?</a>
+                        <div class="clearfix"></div>
+                    </div>
 
                     <div class="page-header">
                         <h2 id="getting-started">Getting Started</h2>
@@ -450,7 +456,7 @@
                                 <td><code id="configuration-options-enableHTML">enableHTML</code></td>
                                 <td>
                                     <p>
-                                        XSS injection is a serious thread for all modern web applications. Setting <code>enableHTML</code> to <code>false</code> (default setting) will create a XSS save multiselect.
+                                        XSS injection is a serious threat for all modern web applications. Setting <code>enableHTML</code> to <code>false</code> (default setting) will create a XSS safe multiselect.
                                     </p>
 
                                     <div class="example">
@@ -1036,6 +1042,10 @@ $(document).ready(function() {
 
                                     <p class="alert alert-warning">
                                         Note that this feature has been introduced in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/594">#594</a> and is known to have issues depending on the environment.
+                                    </p>
+
+                                    <p class="alert alert-info">
+                                        An example of automatically adding the <code>dropUp</code> option when scrolling can be found in <a href="#further-examples">Further Examples</a>.
                                     </p>
 
                                     <div class="example">
@@ -2022,8 +2032,10 @@ $(document).ready(function() {
                                 <td><code id="configuration-options-numberDisplayed">numberDisplayed</code></td>
                                 <td>
                                     <p>
-                                        This option is used by the <code>buttonText</code> and <code>buttonTitle</code> functions to determine of too much options would be displayed.
+                                        This option is used by the <code>buttonText</code> and <code>buttonTitle</code> functions to determine if too many options would be displayed.
                                     </p>
+
+                                    <p class="alert alert-info">The functionality can be disabled by setting <code>numberDisplayed</code> to <code>0</code>.</p>
 
                                     <div class="example">
                                         <script type="text/javascript">
@@ -3196,7 +3208,7 @@ $(document).ready(function() {
         });
     });
 &lt;/script&gt;
-&lt;select id="example-filterBehavior" multiple="multiple"&gt;
+&lt;select id="example-filter-placeholder" multiple="multiple"&gt;
     &lt;option value=&quot;a"&gt;Option 1&lt;/option&gt;
     &lt;option value="b"&gt;Option 2&lt;/option&gt;
     &lt;option value="c"&gt;Option 3&lt;/option&gt;
@@ -3290,7 +3302,7 @@ $(document).ready(function() {
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-filter-placeholder').multiselect({
+        $('#example-templates-button').multiselect({
             buttonContainer: '&lt;div&gt;&lt;/div&gt;',
             buttonContainer: '',
             buttonClass: '',
@@ -3309,6 +3321,49 @@ $(document).ready(function() {
 &lt;/style&gt;
 </pre>
                     </div>
+
+                    <p>
+                        The most interesting template is the <code>li</code> template as it allows to customize the displayed options; for example (see <a href="https://github.com/davidstutz/bootstrap-multiselect/pull/738">#738</a> for details) to include input elements in the options:
+                    </p>
+
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-templates-input').multiselect({
+                                    templates: {
+                                        li: '<li><a><label style="display:inline;"></label><input type="text" /></a></li>'
+                                    }
+                                });
+                            });
+                        </script>
+                        <style type="text/css">
+                            span.multiselect {
+                                padding: 2px 6px;
+                                font-weight: bold;
+                                cursor: pointer;
+                            }
+                        </style>
+                        <select id="example-templates-input" multiple="multiple">
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                            <option value="6">Option 6</option>
+                        </select>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-templates-input').multiselect({
+            templates: {
+                li: '&lt;li&gt;&lt;a&gt;&lt;label style=&quot;display:inline;&quot;&gt;&lt;/label&gt;&lt;input type=&quot;text&quot; /&gt;&lt;/a&gt;&lt;/li&gt;'
+            }
+        });
+    });
+&lt;/script&gt;
+</pre>
 
                     <div class="page-header">
                         <h2 id="styling">Styling</h2>
@@ -5832,6 +5887,63 @@ $(document).ready(function() {
 </pre>
                     </div>
 
+                    <p>
+                        To automatically add the <code>.dropUp</code> class if the element is at the lower edge of the window, use the following snippet:
+                    </p>
+
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-automatic-dropup').multiselect({
+                                    buttonContainer: '<div id="example-automatic-dropup-container"></div>',
+                                    maxHeight: 200,
+                                });
+
+                                $(window).scroll(function() {
+                                    var top = $('#example-automatic-dropup-container')[0].getBoundingClientRect().top
+                                    var bottom = $(window).height() - top - $('#example-automatic-dropup-container').height();
+                                    console.log(bottom)
+                                    if (bottom < 250) {
+                                        $('#example-automatic-dropup-container').addClass('dropup');
+                                    }
+                                    if (bottom > 250) {
+                                        $('#example-automatic-dropup-container').removeClass('dropup');
+                                    }
+                                });
+                            });
+                        </script>
+                        <div class="btn-group">
+                            <select id="example-automatic-dropup" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-clear-after-filter-selection').multiselect({
+            buttonContainer: '<div id="example-clear-after-filter-selection-container"></div>',
+            enableFiltering: true,
+            onChange: function($option) {
+                // Check if the filter was used.
+                var query = $('#example-clear-after-filter-selection-container li.multiselect-filter input').val();
+
+                if (query) {
+                    $('#example-clear-after-filter-selection-container li.multiselect-filter input').val('').trigger('keydown');
+                }
+            }
+        });
+    });
+&lt;/script&gt;
+</pre>
+                    </div>
+
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
                     </div>
@@ -6323,6 +6435,11 @@ $.multiselect = multiselect;
 $("#example").multiselect();
 </pre>
                         </dd>
+
+                        <dt>How to show the dropdown on hover?</dt>
+                        <dd>
+                            This can be achieved using a bit of CSS, see <a href="https://stackoverflow.com/questions/16214326/bootstrap-dropdown-with-hover">this StackOverflow discussion</a>.
+                        </dd>
                     </dl>
 
                     <div class="page-header">
@@ -6340,7 +6457,7 @@ $("#example").multiselect();
                     <dl>
                         <dt>Apache License, Version 2.0</dt>
                         <dd>
-                            <p>Copyright 2012 - 2014 David Stutz</p>
+                            <p>Copyright 2012 - 2017 <a href="http://davidstutz.de/">David Stutz</a></p>
                             <p>
                                 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">http://www.apache.org/licenses/LICENSE-2.0</a>.
                             </p>
@@ -6351,7 +6468,7 @@ $("#example").multiselect();
 
                         <dt>BSD 3-Clause License</dt>
                         <dd>
-                            <p>Copyright (c) 2012 - 2014 David Stutz</p>
+                            <p>Copyright (c) 2012 - 2017 <a href="http://davidstutz.de/">David Stutz</a></p>
                             <p>All rights reserved.</p>
                             <p>
                                 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -6369,7 +6486,7 @@ $("#example").multiselect();
 
                     <hr>
                     <p>
-                        &copy; 2012 - 2014
+                        &copy; 2012 - 2017
                         <a href="http://davidstutz.de">David Stutz</a> - dual licensed: <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>, <a href="http://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a>
                     </p>
                 </div>
