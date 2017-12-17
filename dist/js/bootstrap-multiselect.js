@@ -557,7 +557,8 @@
             }, this));
 
             // Bind the change event on the dropdown elements.
-            $('li:not(.multiselect-group) input[type="checkbox"], li:not(.multiselect-group) input[type="radio"]', this.$ul).on('change', $.proxy(function(event) {
+            $(this.$ul).off('change', ''li:not(.multiselect-group) input[type="checkbox"], li:not(.multiselect-group) input[type="radio"]');
+            $(this.$ul).on('change', ''li:not(.multiselect-group) input[type="checkbox"], li:not(.multiselect-group) input[type="radio"]', $.proxy(function(event) {
                 var $target = $(event.target);
 
                 var checked = $target.prop('checked') || false;
@@ -647,7 +648,7 @@
                 }
             });
 
-            $('li a', this.$ul).on('touchstart click', $.proxy(function(event) {
+            $(this.$ul).on('touchstart click', 'li a', $.proxy(function(event) {
                 event.stopPropagation();
 
                 var $target = $(event.target);
@@ -1148,45 +1149,42 @@
          * Refreshs the multiselect based on the selected options of the select.
          */
         refresh: function () {
-            var inputs = $.map($('li input', this.$ul), $);
+            var inputs = {};
+            $('li input', this.$ul).each(function() {
+              inputs[$(this).val()] = $(this);
+            });
 
             $('option', this.$select).each($.proxy(function (index, element) {
                 var $elem = $(element);
-                var value = $elem.val();
-                var $input;
-                for (var i = inputs.length; 0 < i--; /**/) {
-                    if (value !== ($input = inputs[i]).val())
-                        continue; // wrong li
+                var $input = inputs[$(element).val()];
 
-                    if ($elem.is(':selected')) {
-                        $input.prop('checked', true);
+                if ($elem.is(':selected')) {
+                    $input.prop('checked', true);
 
-                        if (this.options.selectedClass) {
-                            $input.closest('li')
-                                .addClass(this.options.selectedClass);
-                        }
+                    if (this.options.selectedClass) {
+                        $input.closest('li')
+                            .addClass(this.options.selectedClass);
                     }
-                    else {
-                        $input.prop('checked', false);
+                }
+                else {
+                    $input.prop('checked', false);
 
-                        if (this.options.selectedClass) {
-                            $input.closest('li')
-                                .removeClass(this.options.selectedClass);
-                        }
+                    if (this.options.selectedClass) {
+                        $input.closest('li')
+                            .removeClass(this.options.selectedClass);
                     }
+                }
 
-                    if ($elem.is(":disabled")) {
-                        $input.attr('disabled', 'disabled')
-                            .prop('disabled', true)
-                            .closest('li')
-                            .addClass('disabled');
-                    }
-                    else {
-                        $input.prop('disabled', false)
-                            .closest('li')
-                            .removeClass('disabled');
-                    }
-                    break; // assumes unique values
+                if ($elem.is(":disabled")) {
+                    $input.attr('disabled', 'disabled')
+                        .prop('disabled', true)
+                        .closest('li')
+                        .addClass('disabled');
+                }
+                else {
+                    $input.prop('disabled', false)
+                        .closest('li')
+                        .removeClass('disabled');
                 }
             }, this));
 
