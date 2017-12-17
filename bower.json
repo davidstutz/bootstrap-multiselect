@@ -1,8 +1,8 @@
 {
-  "name": "bootstrap-multiselect",
+  "name": "bootstrap-multiselect-patch",
   "description": "Twitter Bootstrap plugin to make selects user friendly.",
-  "homepage": "http://davidstutz.github.io/bootstrap-multiselect/",
-  "version": "0.9.13",
+  "homepage": "http://github.com/marina1349/bootstrap-multiselect-patch",
+  "version": "0.9.14",
   "keywords": [
       "js",
       "css",

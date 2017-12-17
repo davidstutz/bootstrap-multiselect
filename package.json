@@ -1,6 +1,6 @@
 {
-  "name": "bootstrap-multiselect",
-  "version": "0.9.13",
+  "name": "bootstrap-multiselect-patch",
+  "version": "0.9.14",
   "description": "JQuery multiselect plugin based on Twitter Bootstrap.",
   "main": "dist/js/bootstrap-multiselect.js",
   "directories": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/davidstutz/bootstrap-multiselect"
+    "url": "https://github.com/marina1349/bootstrap-multiselect-patch"
   },
   "keywords": [
     "js",
