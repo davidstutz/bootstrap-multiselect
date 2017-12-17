@@ -3302,7 +3302,7 @@ $(document).ready(function() {
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-filter-placeholder').multiselect({
+        $('#example-templates-button').multiselect({
             buttonContainer: '&lt;div&gt;&lt;/div&gt;',
             buttonContainer: '',
             buttonClass: '',
@@ -3321,6 +3321,49 @@ $(document).ready(function() {
 &lt;/style&gt;
 </pre>
                     </div>
+
+                    <p>
+                        The most interesting template is the <code>li</code> template as it allows to customize the displayed options; for example (see <a href="https://github.com/davidstutz/bootstrap-multiselect/pull/738">#738</a> for details) to include input elements in the options:
+                    </p>
+
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-templates-input').multiselect({
+                                    templates: {
+                                        li: '<li><a><label style="display:inline;"></label><input type="text" /></a></li>'
+                                    }
+                                });
+                            });
+                        </script>
+                        <style type="text/css">
+                            span.multiselect {
+                                padding: 2px 6px;
+                                font-weight: bold;
+                                cursor: pointer;
+                            }
+                        </style>
+                        <select id="example-templates-input" multiple="multiple">
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                            <option value="6">Option 6</option>
+                        </select>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-templates-input').multiselect({
+            templates: {
+                li: '&lt;li&gt;&lt;a&gt;&lt;label style=&quot;display:inline;&quot;&gt;&lt;/label&gt;&lt;input type=&quot;text&quot; /&gt;&lt;/a&gt;&lt;/li&gt;'
+            }
+        });
+    });
+&lt;/script&gt;
+</pre>
 
                     <div class="page-header">
                         <h2 id="styling">Styling</h2>

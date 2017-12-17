@@ -557,7 +557,7 @@
             }, this));
 
             // Bind the change event on the dropdown elements.
-            $('li:not(.multiselect-group) input', this.$ul).on('change', $.proxy(function(event) {
+            $('li:not(.multiselect-group) input[type="checkbox"], li:not(.multiselect-group) input[type="radio"]', this.$ul).on('change', $.proxy(function(event) {
                 var $target = $(event.target);
 
                 var checked = $target.prop('checked') || false;
