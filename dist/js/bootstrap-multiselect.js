@@ -723,6 +723,11 @@
 
                     var index = $items.index($items.filter(':focus'));
 
+                    if(index  === -1){ // double 'space' press
+                       var $itemsLi = $(this.$container).find("li:not(.divider):not(.disabled)").filter(":visible");
+                        index = $itemsLi.index($itemsLi.filter('.active'));
+                    }
+                    
                     // Navigation up.
                     if (event.keyCode === 38 && index > 0) {
                         index--;
@@ -1621,7 +1626,7 @@
             }
 
             // Now update the title attribute of the button.
-            $('.multiselect', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
+            $('.multiselect', this.$container).attr('title', this.options.buttonTitle(options, this.$select)).focus();
         },
 
         /**
