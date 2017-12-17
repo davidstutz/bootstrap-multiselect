@@ -257,7 +257,7 @@
                         return this.allSelectedText;
                     }
                 }
-                else if (options.length > this.numberDisplayed) {
+                else if (this.numberDisplayed != 0 && options.length > this.numberDisplayed) {
                     return options.length + ' ' + this.nSelectedText;
                 }
                 else {
