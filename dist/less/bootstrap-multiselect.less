@@ -1,5 +1,5 @@
 /**
- * Bootstrap Multiselect (https://github.com/davidstutz/bootstrap-multiselect)
+ * Bootstrap Multiselect (http://davidstutz.de/bootstrap-multiselect/)
  *
  * Apache License, Version 2.0:
  * Copyright (c) 2012 - 2017 David Stutz

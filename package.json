@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/davidstutz/bootstrap-multiselect/issues"
   },
-  "homepage": "https://github.com/davidstutz/bootstrap-multiselect",
+  "homepage": "http://davidstutz.de/bootstrap-multiselect/",
   "scripts": {
     "test": "karma start tests/karma.conf.js --single-run"
   },
