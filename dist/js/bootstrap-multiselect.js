@@ -441,7 +441,9 @@
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
                 liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
-            }
+            },
+            enableDelimiterFiltering: false,
+            filterDelimiter: ' '
         },
 
         constructor: Multiselect,
@@ -1100,6 +1102,18 @@
                                         }
                                         else if (filterCandidate.indexOf(this.query) > -1) {
                                             showElement = true;
+                                        }
+                                        else if(this.options.enableDelimiterFiltering) {
+                                            var queryArr = this.query.split(this.options.filterDelimiter);
+                                            var partialShow = true;
+                                            $(queryArr).each(function(key, value) {
+                                                if(filterCandidate.indexOf(value) === -1) {
+                                                    partialShow = false;
+                                                }
+                                            });
+                                            if(partialShow) {
+                                                showElement = true;
+                                            }
                                         }
 
                                         // Toggle current element (group or group item) according to showElement boolean.
