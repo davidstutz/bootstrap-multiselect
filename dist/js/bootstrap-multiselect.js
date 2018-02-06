@@ -441,7 +441,8 @@
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
                 liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
-            }
+            },
+            collapseOptGroupsByDefault: false
         },
 
         constructor: Multiselect,
@@ -867,7 +868,13 @@
             var $label = $('label', $li);
             $label.addClass(inputType);
             $li.addClass(classes);
-
+            
+            // Hide all children items when collapseOptGroupsByDefault is true
+            if(this.options.collapseOptGroupsByDefault && $(element).parent().prop("tagName").toLowerCase() === "optgroup") {
+              $li.addClass("multiselect-collapsible-hidden");
+              $li.hide();
+            }
+            
             if (this.options.enableHTML) {
                 $label.html(" " + label);
             }
