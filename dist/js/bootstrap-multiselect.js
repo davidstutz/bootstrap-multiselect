@@ -827,7 +827,7 @@
 
                     var visible = true;
                     $inputs.each(function() {
-                        visible = visible && $(this).is(':visible');
+                        visible = visible && !$(this).hasClass('multiselect-collapsible-hidden');
                     });
 
                     if (visible) {
