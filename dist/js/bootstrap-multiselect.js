@@ -1503,7 +1503,8 @@
 
                     $tag = $('<optgroup/>').attr({
                         label: option.label || 'Group ' + groupCounter,
-                        disabled: !!option.disabled
+                        disabled: !!option.disabled,
+                        value: option.value
                     });
 
                     forEach(option.children, function(subOption) { // add children option tags
