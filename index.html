@@ -242,6 +242,11 @@
                             <tr>
                                 <td><a href="#configuration-options-filterPlaceholder"><code>filterPlaceholder</code></a></td>
                             </tr>
+                            <tr>
+                                <td><a href="#configuration-options-includeResetOption"><code>includeResetOption</code></a></td>
+                                <td><a href="#configuration-options-includeResetDivider"><code>includeResetDivider</code></a></td>
+                                <td><a href="#configuration-options-resetText"><code>resetText</code></a></td>
+                            </tr>
                         </tbody>
                     </table>
 
@@ -3209,6 +3214,202 @@ $(document).ready(function() {
     });
 &lt;/script&gt;
 &lt;select id="example-filter-placeholder" multiple="multiple"&gt;
+    &lt;option value=&quot;a"&gt;Option 1&lt;/option&gt;
+    &lt;option value="b"&gt;Option 2&lt;/option&gt;
+    &lt;option value="c"&gt;Option 3&lt;/option&gt;
+    &lt;option value="d"&gt;Option 4&lt;/option&gt;
+    &lt;option value="e"&gt;Option 5&lt;/option&gt;
+    &lt;option value="f"&gt;Option 6&lt;/option&gt;
+    &lt;option value="g"&gt;Option 7&lt;/option&gt;
+    &lt;option value="h"&gt;Option 8&lt;/option&gt;
+    &lt;option value="i"&gt;Option 9&lt;/option&gt;
+    &lt;option value="j"&gt;Option 10&lt;/option&gt;
+    &lt;option value="k"&gt;Option 11&lt;/option&gt;
+    &lt;option value="l"&gt;Option 12&lt;/option&gt;
+    &lt;option value="m"&gt;Option 13&lt;/option&gt;
+    &lt;option value="n"&gt;Option 14&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-includeResetOption">includeResetOption</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Add reset button to dropdown.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-include-reset-option').multiselect({
+                                                    includeResetOption: true
+                                                });
+                                            });
+                                        </script>
+
+                                        <select id="example-include-reset-option" multiple="multiple">
+                                            <option value="a">Option 1</option>
+                                            <option value="b">Option 2</option>
+                                            <option value="c">Option 3</option>
+                                            <option value="d">Option 4</option>
+                                            <option value="e">Option 5</option>
+                                            <option value="f">Option 6</option>
+                                            <option value="g">Option 7</option>
+                                            <option value="h">Option 8</option>
+                                            <option value="i">Option 9</option>
+                                            <option value="j">Option 10</option>
+                                            <option value="k">Option 11</option>
+                                            <option value="l">Option 12</option>
+                                            <option value="m">Option 13</option>
+                                            <option value="n">Option 14</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-include-reset-option').multiselect({
+            includeResetOption: true
+        });
+    });
+&lt;/script&gt;
+&lt;select id="example-include-reset-option" multiple="multiple"&gt;
+    &lt;option value=&quot;a"&gt;Option 1&lt;/option&gt;
+    &lt;option value="b"&gt;Option 2&lt;/option&gt;
+    &lt;option value="c"&gt;Option 3&lt;/option&gt;
+    &lt;option value="d"&gt;Option 4&lt;/option&gt;
+    &lt;option value="e"&gt;Option 5&lt;/option&gt;
+    &lt;option value="f"&gt;Option 6&lt;/option&gt;
+    &lt;option value="g"&gt;Option 7&lt;/option&gt;
+    &lt;option value="h"&gt;Option 8&lt;/option&gt;
+    &lt;option value="i"&gt;Option 9&lt;/option&gt;
+    &lt;option value="j"&gt;Option 10&lt;/option&gt;
+    &lt;option value="k"&gt;Option 11&lt;/option&gt;
+    &lt;option value="l"&gt;Option 12&lt;/option&gt;
+    &lt;option value="m"&gt;Option 13&lt;/option&gt;
+    &lt;option value="n"&gt;Option 14&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-includeResetDivider">includeResetDivider</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Add a divider between reset button and options.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-include-reset-divider').multiselect({
+                                                    includeResetOption: true,
+                                                    includeResetDivider: true
+                                                });
+                                            });
+                                        </script>
+
+                                        <select id="example-include-reset-divider" multiple="multiple">
+                                            <option value="a">Option 1</option>
+                                            <option value="b">Option 2</option>
+                                            <option value="c">Option 3</option>
+                                            <option value="d">Option 4</option>
+                                            <option value="e">Option 5</option>
+                                            <option value="f">Option 6</option>
+                                            <option value="g">Option 7</option>
+                                            <option value="h">Option 8</option>
+                                            <option value="i">Option 9</option>
+                                            <option value="j">Option 10</option>
+                                            <option value="k">Option 11</option>
+                                            <option value="l">Option 12</option>
+                                            <option value="m">Option 13</option>
+                                            <option value="n">Option 14</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-include-reset-divider').multiselect({
+            includeResetOption: true,
+            includeResetDivider: true
+        });
+    });
+&lt;/script&gt;
+&lt;select id="example-include-reset-divider" multiple="multiple"&gt;
+    &lt;option value=&quot;a"&gt;Option 1&lt;/option&gt;
+    &lt;option value="b"&gt;Option 2&lt;/option&gt;
+    &lt;option value="c"&gt;Option 3&lt;/option&gt;
+    &lt;option value="d"&gt;Option 4&lt;/option&gt;
+    &lt;option value="e"&gt;Option 5&lt;/option&gt;
+    &lt;option value="f"&gt;Option 6&lt;/option&gt;
+    &lt;option value="g"&gt;Option 7&lt;/option&gt;
+    &lt;option value="h"&gt;Option 8&lt;/option&gt;
+    &lt;option value="i"&gt;Option 9&lt;/option&gt;
+    &lt;option value="j"&gt;Option 10&lt;/option&gt;
+    &lt;option value="k"&gt;Option 11&lt;/option&gt;
+    &lt;option value="l"&gt;Option 12&lt;/option&gt;
+    &lt;option value="m"&gt;Option 13&lt;/option&gt;
+    &lt;option value="n"&gt;Option 14&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-resetText">resetText</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Add reset button to dropdown.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-reset-text').multiselect({
+                                                    includeResetOption: true,
+                                                    resetText: "Reset all"
+                                                });
+                                            });
+                                        </script>
+
+                                        <select id="example-reset-text" multiple="multiple">
+                                            <option value="a">Option 1</option>
+                                            <option value="b">Option 2</option>
+                                            <option value="c">Option 3</option>
+                                            <option value="d">Option 4</option>
+                                            <option value="e">Option 5</option>
+                                            <option value="f">Option 6</option>
+                                            <option value="g">Option 7</option>
+                                            <option value="h">Option 8</option>
+                                            <option value="i">Option 9</option>
+                                            <option value="j">Option 10</option>
+                                            <option value="k">Option 11</option>
+                                            <option value="l">Option 12</option>
+                                            <option value="m">Option 13</option>
+                                            <option value="n">Option 14</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-reset-text').multiselect({
+            includeResetOption: true,
+            resetText: "Reset all"
+        });
+    });
+&lt;/script&gt;
+&lt;select id="example-reset-text" multiple="multiple"&gt;
     &lt;option value=&quot;a"&gt;Option 1&lt;/option&gt;
     &lt;option value="b"&gt;Option 2&lt;/option&gt;
     &lt;option value="c"&gt;Option 3&lt;/option&gt;

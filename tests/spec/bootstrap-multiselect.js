@@ -2286,3 +2286,43 @@ describe('Knockout Binding.', function() {
         expect($testArea.next().find('button.multiselect').text().trim()).toEqual('2 selected');
     });
 });
+
+describe('Bootstrap Multiselect "Reset".', function() {
+
+    var $select;
+
+    beforeEach(function() {
+        $select = $('<select id="multiselect" multiple="multiple"></select>');
+
+        for (var i = 1; i < 100; i++) {
+            $select.append('<option value="' + i + '">1</option>');
+        }
+
+        $('body').append($select);
+
+        $select.multiselect({
+            buttonContainer: '<div id="multiselect-container"></div>',
+            includeResetOption: true
+        });
+    });
+
+    it('Should not add an additional option to the select.', function() {
+        expect($select.find('option').length).toBe(99);
+    });
+
+    it('Should add reset button.', function() {
+        expect($('#multiselect-container').find('li.reset > a').text()).toBe("Reset");
+    });
+
+    it('Should trigger onReset if button clicked.', function() {
+        $select.multiselect('selectAll', true, false);
+        expect($select.find('option:selected').length).toBe(99);
+        $('#multiselect-container').find('li.reset').click();
+        expect($select.find('option:selected').length).toBe(0);
+    });
+
+    afterEach(function() {
+        $select.multiselect('destroy');
+        $select.remove();
+    });
+});

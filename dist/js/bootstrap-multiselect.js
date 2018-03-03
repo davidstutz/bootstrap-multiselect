@@ -215,6 +215,7 @@
         this.buildContainer();
         this.buildButton();
         this.buildDropdown();
+        this.buildReset();
         this.buildSelectAll();
         this.buildDropdownOptions();
         this.buildFilter();
@@ -433,6 +434,9 @@
             disableIfEmpty: false,
             disabledText: '',
             delimiterText: ', ',
+            includeResetOption: false,
+            includeResetDivider: false,
+            resetText: 'Reset',
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
@@ -440,7 +444,8 @@
                 filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
-                liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
+                liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>',
+                resetButton: '<li class="reset text-center"><a class="btn btn-default"></a></li>'
             }
         },
 
@@ -961,6 +966,35 @@
             $("option", group).each($.proxy(function($, group) {
                 this.createOptionValue(group);
             }, this))
+        },
+
+        /**
+         * Build the reset.
+         *
+         */
+        buildReset: function() {
+            if (this.options.includeResetOption) {
+
+                // Check whether to add a divider after the reset.
+                if (this.options.includeResetDivider) {
+                    this.$ul.prepend($(this.options.templates.divider));
+                }
+
+                var $resetButton = $(this.options.templates.resetButton);
+
+                if (this.options.enableHTML) {
+                    $('a', $resetButton).html(this.options.resetText);
+                }
+                else {
+                    $('a', $resetButton).text(this.options.resetText);
+                }
+
+                $('a', $resetButton).click($.proxy(function(){
+                    this.clearSelection();
+                }, this));
+
+                this.$ul.prepend($resetButton);
+            }
         },
 
         /**
