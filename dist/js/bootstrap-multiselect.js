@@ -445,7 +445,7 @@
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
                 liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>',
-                resetButton: '<li class="reset text-center"><a class="btn btn-default"></a></li>'
+                resetButton: '<li class="multiselect-reset text-center"><div class="input-group"><a class="btn btn-default btn-block"></a></div></li>'
             }
         },
 
@@ -990,6 +990,7 @@
                 }
 
                 $('a', $resetButton).click($.proxy(function(){
+                    console.log('test')
                     this.clearSelection();
                 }, this));
 

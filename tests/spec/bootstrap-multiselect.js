@@ -2311,13 +2311,13 @@ describe('Bootstrap Multiselect "Reset".', function() {
     });
 
     it('Should add reset button.', function() {
-        expect($('#multiselect-container').find('li.reset > a').text()).toBe("Reset");
+        expect($('#multiselect-container').find('li.multiselect-reset a').text()).toBe('Reset');
     });
 
-    it('Should trigger onReset if button clicked.', function() {
+    it('Should reset if button clicked.', function() {
         $select.multiselect('selectAll', true, false);
         expect($select.find('option:selected').length).toBe(99);
-        $('#multiselect-container').find('li.reset').click();
+        $('#multiselect-container').find('li.multiselect-reset a').click();
         expect($select.find('option:selected').length).toBe(0);
     });
 
