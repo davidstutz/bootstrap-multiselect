@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-multiselect",
-  "version": "0.9.13",
+  "version": "0.9.15",
   "description": "JQuery multiselect plugin based on Twitter Bootstrap.",
   "main": "dist/js/bootstrap-multiselect.js",
   "directories": {
@@ -32,13 +32,12 @@
     "jquery": "~2.1.3"
   },
   "devDependencies": {
-    "@types/jquery": "^3.2.12",
     "jasmine-core": "*",
     "karma": "*",
-    "karma-chrome-launcher": "*",
     "karma-cli": "*",
     "karma-jasmine": "*",
-    "karma-phantomjs-launcher": "*"
+    "karma-phantomjs-launcher": "*",
+    "karma-chrome-launcher": "*"
   },
   "types": "./types/index.d.ts"
 }
