@@ -422,6 +422,7 @@
             enableFullValueFiltering: false,
             enableClickableOptGroups: false,
             enableCollapsibleOptGroups: false,
+            collapseOptGroupsByDefault: false,
             filterPlaceholder: 'Search',
             // possible options: 'text', 'value', 'both'
             filterBehavior: 'text',
@@ -873,6 +874,12 @@
             $label.addClass(inputType);
             $label.attr("title", label);
             $li.addClass(classes);
+
+            // Hide all children items when collapseOptGroupsByDefault is true
+            if (this.options.collapseOptGroupsByDefault && $(element).parent().prop("tagName").toLowerCase() === "optgroup") {
+                $li.addClass("multiselect-collapsible-hidden");
+                $li.hide();
+            }
 
             if (this.options.enableHTML) {
                 $label.html(" " + label);
