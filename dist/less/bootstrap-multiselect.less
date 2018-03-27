@@ -41,95 +41,99 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-span.multiselect-native-select{
-  position:relative
+span.multiselect-native-select {
+    position: relative
 }
 
-span.multiselect-native-select select{
-  border :0 !important;
-  clip: rect(0 0 0 0) !important;
-  height: 1px !important;
-  margin: -1px -1px -1px -3px !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  position: absolute !important;
-  width: 1px !important;
-  left: 50%;
-  top: 30px;
+span.multiselect-native-select select {
+    border: 0 !important;
+    clip: rect(0 0 0 0) !important;
+    height: 1px !important;
+    margin: -1px -1px -1px -3px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    left: 50%;
+    top: 30px;
 }
 
 .multiselect-container {
-  position: absolute;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-
-  .input-group {
-    margin: 5px;
-  }
-
-  .multiselect-reset {
-    .input-group {
-      width: 93%;
-    }
-  }
-
-  > li {
+    position: absolute;
+    list-style-type: none;
+    margin: 0;
     padding: 0;
 
-    > a.multiselect-all label {
-      font-weight: bold;
+    .input-group {
+        margin: 5px;
+
+        & .multiselect-clear-filter {
+            padding-top: 7px;
+        }
     }
 
-    &.multiselect-group label {
-      margin: 0;
-      padding: 3px 20px 3px 20px;
-      height: 100%;
-      font-weight: bold;
+    .multiselect-reset {
+        .input-group {
+            width: 93%;
+        }
     }
 
-    &.multiselect-group-clickable label {
-      cursor: pointer;
-    }
+    > li {
+        padding: 0;
 
-    > a {
-      padding: 0;
-
-      > label {
-        margin: 0;
-        height: 100%;
-        cursor: pointer;
-        font-weight: normal;
-        padding: 3px 20px 3px 40px;
-
-        &.radio, &.checkbox {
-          margin: 0;
+        > a.multiselect-all label {
+            font-weight: bold;
         }
 
-        > input[type="checkbox"] {
-          margin-bottom:5px;
+        &.multiselect-group label {
+            margin: 0;
+            padding: 3px 20px 3px 20px;
+            height: 100%;
+            font-weight: bold;
         }
-      }
+
+        &.multiselect-group-clickable label {
+            cursor: pointer;
+        }
+
+        > a {
+            padding: 0;
+
+            > label {
+                margin: 0;
+                height: 100%;
+                cursor: pointer;
+                font-weight: normal;
+                padding: 3px 20px 3px 40px;
+
+                &.radio, &.checkbox {
+                    margin: 0;
+                }
+
+                > input[type="checkbox"] {
+                    margin-bottom: 5px;
+                }
+            }
+        }
     }
-  }
 }
 
 .btn-group > .btn-group:nth-child(2) > .multiselect.btn {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
 }
 
-.form-inline .multiselect-container{
+.form-inline .multiselect-container {
 
-  label.checkbox, label.radio{
-    padding: 3px 20px 3px 40px;
-  }
-
-  li a label{
-
-    &.checkbox input[type="checkbox"], &.radio input[type="radio"]{
-      margin-left: -20px;
-      margin-right: 0;
+    label.checkbox, label.radio {
+        padding: 3px 20px 3px 40px;
     }
-  }
+
+    li a label {
+
+        &.checkbox input[type="checkbox"], &.radio input[type="radio"] {
+            margin-left: -20px;
+            margin-right: 0;
+        }
+    }
 }
