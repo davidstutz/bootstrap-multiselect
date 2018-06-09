@@ -249,7 +249,8 @@
              * @returns {String}
              */
             buttonText: function(options, select) {
-                if (this.disabledText.length > 0 && select.prop('disabled'))  {
+                if (this.disabledText.length > 0
+                        && (select.prop('disabled') || (select.children().length === 0 && this.disableIfEmpty))) {
                     return this.disabledText;
                 }
                 else if (options.length === 0) {
