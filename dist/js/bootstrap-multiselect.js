@@ -400,10 +400,10 @@
 
             },
             enableHTML: false,
-            buttonClass: 'btn btn-default',
+            buttonClass: 'btn btn-secondary',
             inheritClass: false,
             buttonWidth: 'auto',
-            buttonContainer: '<div class="btn-group" />',
+            buttonContainer: '<div class="dropdown" />',
             dropRight: false,
             dropUp: false,
             selectedClass: 'active',
@@ -439,13 +439,13 @@
             includeResetDivider: false,
             resetText: 'Reset',
             templates: {
-                button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
-                ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-                filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text" /></div></li>',
-                filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
-                li: '<li><a tabindex="0"><label></label></a></li>',
+                button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown" data-flip="false"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
+                ul: '<ul class="multiselect-container dropdown-menu p-1 m-0"></ul>',
+                filter: '<li class="multiselect-item multiselect-filter"><div class="input-group m-0"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text" /></div></li>',
+                filterClearBtn: '<span class="input-group-btn"><button class="btn btn-secondary multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
+                li: '<li><a tabindex="0" class="dropdown-item"><label class="m-0 pl-2 pr-0"></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
-                liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>',
+                liGroup: '<li class="multiselect-item multiselect-group"><a class="dropdown-item"><label class="m-0 pl-2 pr-0"><b></b></label></a></li>',
                 resetButton: '<li class="multiselect-reset text-center"><div class="input-group"><a class="btn btn-default btn-block"></a></div></li>'
             }
         },
@@ -945,7 +945,7 @@
         createOptgroup: function(group) {
             var label = $(group).attr("label");
             var value = $(group).attr("value");
-            var $li = $('<li class="multiselect-item multiselect-group"><a href="javascript:void(0);"><label><b></b></label></a></li>');
+            var $li = $(this.options.templates.liGroup);
 
             var classes = this.options.optionClass(group);
             $li.addClass(classes);
@@ -1774,3 +1774,4 @@
     });
 
 });
+
