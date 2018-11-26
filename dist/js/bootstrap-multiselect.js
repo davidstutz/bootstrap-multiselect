@@ -211,6 +211,8 @@
         this.options.onInitialized = $.proxy(this.options.onInitialized, this);
         this.options.onFiltering = $.proxy(this.options.onFiltering, this);
 
+        this.updateButtonText = options.updateButtonText || this.updateButtonText;
+
         // Build select all if enabled.
         this.buildContainer();
         this.buildButton();
