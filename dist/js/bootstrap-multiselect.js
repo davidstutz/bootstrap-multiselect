@@ -257,7 +257,7 @@
                 else if (options.length === 0) {
                     return this.nonSelectedText;
                 }
-                else if (this.allSelectedText
+                else if (this.numberDisplayed == 0 || this.allSelectedText
                         && options.length === $('option', $(select)).length
                         && $('option', $(select)).length !== 1
                         && this.multiple) {
