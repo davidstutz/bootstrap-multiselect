@@ -872,7 +872,7 @@
             var $li = $(this.options.templates.li);
             var $label = $('label', $li);
             $label.addClass(inputType);
-            $label.attr("title", label);
+            $label.attr("title", element.label);
             $li.addClass(classes);
 
             // Hide all children items when collapseOptGroupsByDefault is true
