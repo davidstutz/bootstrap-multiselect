@@ -403,6 +403,7 @@
             buttonClass: 'btn btn-default',
             inheritClass: false,
             buttonWidth: 'auto',
+            buttonMaxWidth: 'auto',
             buttonContainer: '<div class="btn-group" />',
             dropRight: false,
             dropUp: false,
@@ -488,6 +489,17 @@
                 });
                 this.$container.css({
                     'width': this.options.buttonWidth
+                });
+            } else
+            // Manually add button max-width if set.
+            if (this.options.buttonMaxWidth && this.options.buttonMaxWidth !== 'auto') {
+                this.$button.css({
+                    'max-width' : this.options.buttonMaxWidth,
+                    'overflow' : 'hidden',
+                    'text-overflow' : 'ellipsis'
+                });
+                this.$container.css({
+                    'max-width': this.options.buttonMaxWidth
                 });
             }
 
