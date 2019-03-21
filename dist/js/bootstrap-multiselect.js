@@ -739,7 +739,7 @@
                     }
 
                     var index = $items.index($items.filter(':focus'));
-                    
+
                     // Navigation up.
                     if (event.keyCode === 38 && index > 0) {
                         index--;
@@ -1472,6 +1472,7 @@
             // Important to distinguish between radios and checkboxes.
             this.options.multiple = this.$select.attr('multiple') === "multiple";
 
+            this.buildReset();
             this.buildSelectAll();
             this.buildDropdownOptions();
             this.buildFilter();
