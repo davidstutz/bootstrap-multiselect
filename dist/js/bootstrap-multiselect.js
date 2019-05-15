@@ -933,8 +933,8 @@
          * @param {jQuery} element
          */
         createOptionValueString: function(element) {
-            var value = element.value;
-            var title = element.text;
+            var value = this.escapeHtml(element.value);
+            var title = this.escapeHtml(element.text);
             var selected = element.selected;
             var inputType = this.options.multiple ? "checkbox" : "radio";
              
@@ -947,6 +947,26 @@
             // TODO: Implement: element.disabled check
             
             return li;
+        },
+
+        /**
+         * Escapes a string for use in HTML
+         *
+         * @param {String} value
+         * @returns {String}
+         */
+        escapeHtml: function(s) {
+            var ESC_MAP = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+                };
+            
+            return s.replace(/[&<>'"]/g, function(c) {
+                return ESC_MAP[c];
+            });
         },
 
         /**
