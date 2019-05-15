@@ -133,3 +133,14 @@ span.multiselect-native-select select{
     }
   }
 }
+
+.multiselect-container.dropdown-menu {
+  display: block;
+  visibility: hidden;
+  height: 0;
+}
+
+.open > .multiselect-container.dropdown-menu {
+  visibility: inherit;
+  height: auto;
+}
