@@ -76,9 +76,14 @@ span.multiselect-native-select select{
 
   > li {
     padding: 0;
+    overflow: hidden;
 
     > a.multiselect-all label {
       font-weight: bold;
+    }
+
+    &.multiselect-filter-hidden {
+      height: 0;
     }
 
     &.multiselect-group label {
