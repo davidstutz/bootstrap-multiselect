@@ -1684,7 +1684,23 @@
          * @returns {jQUery}
          */
         getSelected: function() {
-            return $('option', this.$select).filter(":selected");
+            var select = this.$select[0];
+            if (select.selectedOptions !== undefined) {
+                return $(select.selectedOptions);
+            }
+
+            // selectedIndex is the index of the first option selected or -1 if nothing is selected
+            if (select.selectedIndex == -1) { 
+                return [];
+            }
+            
+            var selectedOptions = [];
+            for (var i = select.selectedIndex; i < select.length; i++) {
+                if (select.options[i].selected){
+                    selectedOptions.push(select.options[i]);
+                }
+            }
+            return $(selectedOptions);
         },
 
         /**
