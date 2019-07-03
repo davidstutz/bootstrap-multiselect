@@ -399,10 +399,10 @@
 
             },
             enableHTML: false,
-            buttonClass: 'btn btn-default',
+            buttonClass: 'btn btn-secondary',
             inheritClass: false,
             buttonWidth: 'auto',
-            buttonContainer: '<div class="btn-group" />',
+            buttonContainer: '<div class="btn-group" role="group" />',
             dropRight: false,
             dropUp: false,
             selectedClass: 'active',
@@ -438,14 +438,14 @@
             includeResetDivider: false,
             resetText: 'Reset',
             templates: {
-                button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
-                ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-                filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text" /></div></li>',
-                filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
-                li: '<li><a tabindex="0"><label></label></a></li>',
-                divider: '<li class="multiselect-item divider"></li>',
-                liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>',
-                resetButton: '<li class="multiselect-reset text-center"><div class="input-group"><a class="btn btn-default btn-block"></a></div></li>'
+                button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                ul: '<ul class="dropdown-menu"></ul>',
+                filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text" /></div></li>',
+                filterClearBtn: '<span class="input-group-btn"><button class="btn btn-secondary multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
+                li: '<li class="dropdown-item"><div class="form-check" tabindex="0"><label></label></div></li>',
+                divider: '<li class="dropdown-item multiselect-item dropdown-divider"></li>',
+                liGroup: '<li class="dropdown-item multiselect-item multiselect-group"><label></label></li>',
+                resetButton: '<li class="multiselect-reset text-center"><div class="input-group"><a class="btn btn-secondary btn-block"></a></div></li>'
             }
         },
 
@@ -508,7 +508,7 @@
             this.$ul = $(this.options.templates.ul);
 
             if (this.options.dropRight) {
-                this.$ul.addClass('pull-right');
+                this.$ul.addClass('float-right');
             }
 
             // Set max height of dropdown menu to activate auto scrollbar.
@@ -531,6 +531,13 @@
                     'overflow-y': 'auto',
                     'overflow-x': 'hidden',
                     'margin-top': "-" + moveCalc + 'px'
+                });
+            }
+
+            if (this.options.multiple) {
+                // Prevent the dropdown from closing after each click
+                this.$ul.on("click", function(e) {
+                    e.stopPropagation();
                 });
             }
 
@@ -624,9 +631,6 @@
 
                             $($checkboxesNotThis).prop('checked', false);
                             $optionsNotThis.prop('selected', false);
-
-                            // It's a single selection, so close.
-                            this.$button.click();
                         }
 
                         if (this.options.selectedClass === "active") {
@@ -738,7 +742,7 @@
                     }
 
                     var index = $items.index($items.filter(':focus'));
-                    
+
                     // Navigation up.
                     if (event.keyCode === 38 && index > 0) {
                         index--;
@@ -868,10 +872,20 @@
             var value = $element.val();
             var inputType = this.options.multiple ? "checkbox" : "radio";
 
+            // Generate a random number between 0 and MAX_SAFE_INTEGER to use as a highly unique ID
+            var randomNum = Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER));
+
+            // This element ID is required for the label and checkbox so that Bootstrap 4 will select the option when the label is clicked
+            // Ex: "bootstrap-multiselect-option-7-2193414947069541"
+            var optionComponentId = "bootstrap-multiselect-option-" + value + "-" + randomNum;
+
             var $li = $(this.options.templates.li);
             var $label = $('label', $li);
+            var $div = $('div', $li);
             $label.addClass(inputType);
+            $label.addClass("form-check-label");
             $label.attr("title", label);
+            $label.attr("for", optionComponentId);
             $li.addClass(classes);
 
             // Hide all children items when collapseOptGroupsByDefault is true
@@ -889,19 +903,22 @@
 
             var $checkbox = $('<input/>').attr('type', inputType);
 
+            $checkbox.attr('id', optionComponentId);
+            $checkbox.addClass('form-check-input');
+
             var name = this.options.checkboxName($element);
             if (name) {
                 $checkbox.attr('name', name);
             }
 
-            $label.prepend($checkbox);
+            $div.prepend($checkbox);
 
             var selected = $element.prop('selected') || false;
             $checkbox.val(value);
 
             if (value === this.options.selectAllValue) {
                 $li.addClass("multiselect-item multiselect-all");
-                $checkbox.parent().parent()
+                $checkbox.parent().parent().parent()
                     .addClass('multiselect-all');
             }
 
@@ -1045,7 +1062,7 @@
                 $checkbox.val(this.options.selectAllValue);
 
                 $li.addClass("multiselect-item multiselect-all");
-                $checkbox.parent().parent()
+                $checkbox.parent().parent().parent()
                     .addClass('multiselect-all');
 
                 this.$ul.prepend($li);
@@ -1381,7 +1398,7 @@
 
             var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
             var allLis = $("li:not(.divider):not(.disabled):not(.multiselect-group)", this.$ul);
-            var visibleLis = $("li:not(.divider):not(.disabled):not(.multiselect-group):not(.multiselect-filter-hidden):not(.multiselect-collapisble-hidden)", this.$ul).filter(':visible');
+            var visibleLis = $("li:not(.divider):not(.disabled):not(.multiselect-group):not(.multiselect-filter-hidden):not(.multiselect-collapsible-hidden)", this.$ul).filter(':visible');
 
             if(justVisible) {
                 $('input:enabled' , visibleLis).prop('checked', true);
@@ -1426,7 +1443,7 @@
 
             var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
             var allLis = $("li:not(.divider):not(.disabled):not(.multiselect-group)", this.$ul);
-            var visibleLis = $("li:not(.divider):not(.disabled):not(.multiselect-group):not(.multiselect-filter-hidden):not(.multiselect-collapisble-hidden)", this.$ul).filter(':visible');
+            var visibleLis = $("li:not(.divider):not(.disabled):not(.multiselect-group):not(.multiselect-filter-hidden):not(.multiselect-collapsible-hidden)", this.$ul).filter(':visible');
 
             if(justVisible) {
                 $('input[type="checkbox"]:enabled' , visibleLis).prop('checked', false);
