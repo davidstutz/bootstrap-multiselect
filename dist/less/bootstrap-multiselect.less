@@ -75,15 +75,13 @@ span.multiselect-native-select select{
   }
 
   > li {
-    padding: 0;
-
     > a.multiselect-all label {
       font-weight: bold;
     }
 
     &.multiselect-group label {
       margin: 0;
-      padding: 3px 20px 3px 20px;
+      width: 100%;
       height: 100%;
       font-weight: bold;
     }
@@ -92,23 +90,13 @@ span.multiselect-native-select select{
       cursor: pointer;
     }
 
-    > a {
-      padding: 0;
-
+    > div {
       > label {
         margin: 0;
+        width: 100%;
         height: 100%;
         cursor: pointer;
         font-weight: normal;
-        padding: 3px 20px 3px 40px;
-
-        &.radio, &.checkbox {
-          margin: 0;
-        }
-
-        > input[type="checkbox"] {
-          margin-bottom:5px;
-        }
       }
     }
   }
@@ -120,11 +108,6 @@ span.multiselect-native-select select{
 }
 
 .form-inline .multiselect-container{
-
-  label.checkbox, label.radio{
-    padding: 3px 20px 3px 40px;
-  }
-
   li a label{
 
     &.checkbox input[type="checkbox"], &.radio input[type="radio"]{
@@ -132,4 +115,8 @@ span.multiselect-native-select select{
       margin-right: 0;
     }
   }
+}
+
+.multiselect-filter {
+  padding-right: 1rem;
 }
