@@ -439,9 +439,9 @@
             resetText: 'Reset',
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
-                ul: '<ul class="dropdown-menu"></ul>',
-                filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="fa fa-search"></i></span><input class="form-control multiselect-search" type="text" /></div></li>',
-                filterClearBtn: '<span class="input-group-btn"><button class="btn btn-secondary multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
+                ul: '<ul class="multiselect-container dropdown-menu"></ul>',
+                filter: '<li class="multiselect-item multiselect-filter"><div class="input-group mx-2 mb-2"><div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div><input class="form-control multiselect-search" type="text" /></div></li>',
+                filterClearBtn: '<div class="input-group-append"><button class="btn btn-secondary multiselect-clear-filter" type="button"><i class="fa fa-times-circle"></i></button></div>',
                 li: '<li class="dropdown-item"><div class="form-check" tabindex="0"><label></label></div></li>',
                 divider: '<li class="dropdown-item multiselect-item dropdown-divider"></li>',
                 liGroup: '<li class="dropdown-item multiselect-item multiselect-group"><label></label></li>',
@@ -840,11 +840,11 @@
                     });
 
                     if (visible) {
-                        $inputs.hide()
+                        $inputs.attr('hidden', true)
                             .addClass('multiselect-collapsible-hidden');
                     }
                     else {
-                        $inputs.show()
+                        $inputs.removeAttr('hidden')
                             .removeClass('multiselect-collapsible-hidden');
                     }
                 }, this));
@@ -891,7 +891,7 @@
             // Hide all children items when collapseOptGroupsByDefault is true
             if (this.options.collapseOptGroupsByDefault && $(element).parent().prop("tagName").toLowerCase() === "optgroup") {
                 $li.addClass("multiselect-collapsible-hidden");
-                $li.hide();
+                $li.attr('hidden', true);
             }
 
             if (this.options.enableHTML) {
@@ -1093,7 +1093,7 @@
 
                             this.query = '';
                             this.$filter.find('.multiselect-search').val('');
-                            $('li', this.$ul).show().removeClass('multiselect-filter-hidden');
+                            $('li', this.$ul).removeAttr('hidden').removeClass('multiselect-filter-hidden');
 
                             this.updateSelectAll();
 
@@ -1179,13 +1179,13 @@
                                         else {
                                             // Show group name when at least one of its items is visible.
                                             if (showElement) {
-                                                $(currentGroup).show()
+                                                $(currentGroup).removeAttr('hidden')
                                                     .removeClass('multiselect-filter-hidden');
                                             }
 
                                             // Show all group items when group name satisfies filter.
                                             if (!showElement && currentGroupVisible) {
-                                                $(element).show()
+                                                $(element).removeAttr('hidden')
                                                     .removeClass('multiselect-filter-hidden');
                                             }
                                         }
@@ -1212,7 +1212,7 @@
          */
         destroy: function() {
             this.$container.remove();
-            this.$select.show();
+            this.$select.removeAttr('hidden');
 
             // reset original state
             this.$select.prop('disabled', this.options.wasDisabled);
