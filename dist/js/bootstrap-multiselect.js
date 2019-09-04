@@ -611,6 +611,10 @@
                 }
                 else {
                     if (checked) {
+                        // Must set selected index before making initial selection in IE
+                        if (this.$select[0].selectedIndex === -1){
+                            this.$select[0].selectedIndex = $option[0].index;
+                        }
                         $option.prop('selected', true);
 
                         if (this.options.multiple) {
@@ -636,6 +640,9 @@
                     }
                     else {
                         // Unselect option.
+                        if (this.$select.find(':selected').length  === 1){
+                            this.$select[0].selectedIndex = -1;
+                        }
                         $option.prop('selected', false);
                     }
 
