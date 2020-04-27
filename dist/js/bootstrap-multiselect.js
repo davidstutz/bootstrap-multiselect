@@ -829,7 +829,7 @@
             }
 
             if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
-                $("li.multiselect-group .caret-container", this.$ul).on("click", $.proxy(function(event) {
+                $("li.multiselect-group .optgroup-container", this.$ul).on("click", $.proxy(function(event) {
                     var $li = $(event.target).closest('li');
                     var $inputs = $li.nextUntil("li.multiselect-group")
                             .not('.multiselect-filter-hidden');
@@ -961,7 +961,7 @@
         createOptgroup: function(group) {
             var label = $(group).attr("label");
             var value = $(group).attr("value");
-            var $li = $('<li class="multiselect-item multiselect-group"><a href="javascript:void(0);"><label><b></b></label></a></li>');
+            var $li = $('<li class="multiselect-item multiselect-group"><div class="optgroup-container"><label><b></b></label></div></li>');
 
             var classes = this.options.optionClass(group);
             $li.addClass(classes);
@@ -974,11 +974,11 @@
             }
 
             if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
-                $('a', $li).append('<span class="caret-container"><b class="caret"></b></span>');
+                $('.optgroup-container', $li).append('<span class="caret-container"><b><i class="fas fa-caret-down"></i></b></span>');
             }
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {
-                $('a label', $li).prepend('<input type="checkbox" value="' + value + '"/>');
+                $('.optgroup-container label', $li).prepend('<input type="checkbox" value="' + value + '"/>');
             }
 
             if ($(group).is(':disabled')) {
