@@ -861,7 +861,7 @@ $(document).ready(function() {
                                     <p>This option will collapse all <code>optgroup</code>s by default.</p>
 
                                     <p class="alert alert-info">There is also an example in the <a href="#further-examples">Further Examples</a> section demonstrating an alternative way of collapsing <code>optgroups</code> by default.</a></p>
-                                
+
                                     <div class="example">
                                             <script type="text/javascript">
                                                 $(document).ready(function() {
@@ -2083,7 +2083,7 @@ $(document).ready(function() {
                                         This option is used by the <code>buttonText</code> and <code>buttonTitle</code> functions to determine if too many options would be displayed.
                                     </p>
 
-                                    <p class="alert alert-info">The functionality can be disabled by setting <code>numberDisplayed</code> to <code>0</code>.</p>
+                                    <p class="alert alert-info">The functionality can be disabled by setting <code>numberDisplayed</code> to <code>-1</code>.</p>
 
                                     <div class="example">
                                         <script type="text/javascript">
@@ -6146,7 +6146,7 @@ $(document).ready(function() {
                                 $(window).scroll(function() {
                                     var top = $('#example-automatic-dropup-container')[0].getBoundingClientRect().top
                                     var bottom = $(window).height() - top - $('#example-automatic-dropup-container').height();
-                                    
+
                                     if (bottom < 250) {
                                         $('#example-automatic-dropup-container').addClass('dropup');
                                     }
