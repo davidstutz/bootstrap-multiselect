@@ -445,7 +445,7 @@
                 li: '<li class="dropdown-item"><div class="form-check" tabindex="0"><label></label></div></li>',
                 divider: '<li class="dropdown-item multiselect-item dropdown-divider"></li>',
                 liGroup: '<li class="dropdown-item multiselect-item multiselect-group"><label></label></li>',
-                resetButton: '<li class="multiselect-reset text-center"><div class="input-group"><a class="btn btn-secondary btn-block"></a></div></li>'
+                resetButton: '<li class="multiselect-reset text-center"><div class="input-group mx-2"><button type="button" class="btn btn-outline-secondary btn-block"></button></div></li>'
             }
         },
 
@@ -1007,13 +1007,13 @@
                 var $resetButton = $(this.options.templates.resetButton);
 
                 if (this.options.enableHTML) {
-                    $('a', $resetButton).html(this.options.resetText);
+                    $('button', $resetButton).html(this.options.resetText);
                 }
                 else {
-                    $('a', $resetButton).text(this.options.resetText);
+                    $('button', $resetButton).text(this.options.resetText);
                 }
 
-                $('a', $resetButton).click($.proxy(function(){
+                $('button', $resetButton).click($.proxy(function(){
                     this.clearSelection();
                 }, this));
 
