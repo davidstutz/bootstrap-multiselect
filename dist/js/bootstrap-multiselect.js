@@ -1407,6 +1407,9 @@
 
             $('li input[value="' + this.options.selectAllValue + '"]', this.$ul).prop('checked', true);
 
+            this.updateButtonText();
+            this.updateSelectAll(true);
+
             if (this.options.enableClickableOptGroups && this.options.multiple) {
                 this.updateOptGroups();
             }
@@ -1451,6 +1454,9 @@
             }
 
             $('li input[value="' + this.options.selectAllValue + '"]', this.$ul).prop('checked', false);
+
+            this.updateButtonText();
+            this.updateSelectAll(true);
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {
                 this.updateOptGroups();
