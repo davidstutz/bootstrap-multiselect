@@ -895,6 +895,11 @@
                 $checkbox.attr('name', name);
             }
 
+            // Set data for filtering.
+            if ($(element).attr('data-filtering')) {
+                $checkbox.attr('data-filtering', $(element).attr('data-filtering'));
+            }
+
             $label.prepend($checkbox);
 
             var selected = $element.prop('selected') || false;
@@ -1111,6 +1116,7 @@
                                 $.each($('li', this.$ul), $.proxy(function(index, element) {
                                     var value = $('input', element).length > 0 ? $('input', element).val() : "";
                                     var text = $('label', element).text();
+                                    var filterData = $('input', element).attr('data-filtering');
 
                                     var filterCandidate = '';
                                     if ((this.options.filterBehavior === 'text')) {
@@ -1121,6 +1127,10 @@
                                     }
                                     else if (this.options.filterBehavior === 'both') {
                                         filterCandidate = text + '\n' + value;
+                                    }
+
+                                    if (filterData) {
+                                        filterCandidate = filterCandidate + '\n' + filterData;
                                     }
 
                                     if (value !== this.options.selectAllValue && text) {
