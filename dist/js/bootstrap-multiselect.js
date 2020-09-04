@@ -445,8 +445,9 @@
                 filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
-                liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>',
                 resetButton: '<li class="multiselect-reset text-center"><div class="input-group"><a class="btn btn-default btn-block"></a></div></li>'
+                liGroup: '<li class="multiselect-item multiselect-group"><a href="javascript:void(0);"><label><b></b></label></a></li>',
+                liGroupCaret: '<span class="caret-container"><b class="caret"></b></span>'
             }
         },
 
@@ -945,7 +946,8 @@
         createOptgroup: function(group) {
             var label = $(group).attr("label");
             var value = $(group).attr("value");
-            var $li = $('<li class="multiselect-item multiselect-group"><a href="javascript:void(0);"><label><b></b></label></a></li>');
+            var ipclass = $(group).attr("class");
+            var $li = $(this.options.templates.liGroup);
 
             var classes = this.options.optionClass(group);
             $li.addClass(classes);
@@ -958,11 +960,11 @@
             }
 
             if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
-                $('a', $li).append('<span class="caret-container"><b class="caret"></b></span>');
+                $('a', $li).append(this.options.templates.liGroupCaret);
             }
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {
-                $('a label', $li).prepend('<input type="checkbox" value="' + value + '"/>');
+                $('a label', $li).prepend('<input type="checkbox" value="' + value + '" class="' + ipclass + '"/>');
             }
 
             if ($(group).is(':disabled')) {
@@ -1617,13 +1619,18 @@
                     .not('.disabled');
 
                 var checked = true;
+                var checkedCount = 0;
                 $options.each(function() {
                     var $input = $('input', this);
 
                     if (!$input.prop('checked')) {
                         checked = false;
+                    } else {
+                        checkedCount++;
                     }
                 });
+
+                $('input', this).prop('indeterminate', (!checked && checkedCount > 0));
 
                 if (selectedClass) {
                     if (checked) {
