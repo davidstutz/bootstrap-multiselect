@@ -1385,20 +1385,20 @@
             var visibleLis = $("li:not(.divider):not(.disabled):not(.multiselect-group):not(.multiselect-filter-hidden):not(.multiselect-collapisble-hidden)", this.$ul).filter(':visible');
 
             if(justVisible) {
-                $('input:enabled' , visibleLis).prop('checked', true);
+                $('input[type="checkbox"]:enabled' , visibleLis).prop('checked', true);
                 visibleLis.addClass(this.options.selectedClass);
 
-                $('input:enabled' , visibleLis).each($.proxy(function(index, element) {
+                $('input[type="checkbox"]:enabled' , visibleLis).each($.proxy(function(index, element) {
                     var value = $(element).val();
                     var option = this.getOptionByValue(value);
                     $(option).prop('selected', true);
                 }, this));
             }
             else {
-                $('input:enabled' , allLis).prop('checked', true);
+                $('input[type="checkbox"]:enabled' , allLis).prop('checked', true);
                 allLis.addClass(this.options.selectedClass);
 
-                $('input:enabled' , allLis).each($.proxy(function(index, element) {
+                $('input[type="checkbox"]:enabled' , allLis).each($.proxy(function(index, element) {
                     var value = $(element).val();
                     var option = this.getOptionByValue(value);
                     $(option).prop('selected', true);
