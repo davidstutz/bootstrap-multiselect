@@ -608,6 +608,9 @@
                     else {
                         this.deselectAll(this.options.selectAllJustVisible, true);
                     }
+					
+					this.$select.change();
+                    this.updateButtonText();
                 }
                 else {
                     if (checked) {
@@ -639,19 +642,19 @@
                         $option.prop('selected', false);
                     }
 
-                    // To prevent select all from firing onChange: #575
-                    this.options.onChange($option, checked);
-
                     // Do not update select all or optgroups on select all change!
                     this.updateSelectAll();
 
                     if (this.options.enableClickableOptGroups && this.options.multiple) {
                         this.updateOptGroups();
                     }
+					
+					this.$select.change();
+                    this.updateButtonText();
+					
+					// To prevent select all from firing onChange: #575
+                    this.options.onChange($option, checked);
                 }
-
-                this.$select.change();
-                this.updateButtonText();
 
                 if(this.options.preventInputChangeEvent) {
                     return false;
