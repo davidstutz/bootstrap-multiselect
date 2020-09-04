@@ -545,33 +545,33 @@
          */
         buildDropdownOptions: function() {
 
+            var listOptions = [];
             this.$select.children().each($.proxy(function(index, element) {
-
-                var $element = $(element);
+                
                 // Support optgroups and options without a group simultaneously.
-                var tag = $element.prop('tagName')
-                    .toLowerCase();
+                var tag = element.tagName;
 
-                if ($element.prop('value') === this.options.selectAllValue) {
+                if (element.value === this.options.selectAllValue) {
                     return;
                 }
 
-                if (tag === 'optgroup') {
-                    this.createOptgroup(element);
+                if (tag === 'OPTGROUP') {
+                    listOptions.push.apply(listOptions, this.createOptgroup(element));
                 }
-                else if (tag === 'option') {
-
-                    if ($element.data('role') === 'divider') {
-                        this.createDivider();
-                    }
-                    else {
-                        this.createOptionValue(element);
-                    }
+                else if (tag === 'OPTION') {
+                    // TODO (if dividers required): Enable and add divider to listOptions 
+                    //if (element.getAttribute('data-role') === 'divider') {
+                    //    this.createDivider();
+                    //}
+                    //else {
+                        listOptions.push(this.createOptionValueString(element));
+                    //}
 
                 }
 
                 // Other illegal tags will be ignored.
             }, this));
+            this.$ul[0].innerHTML += listOptions.join('');
 
             // Bind the change event on the dropdown elements.
             $(this.$ul).off('change', 'li:not(.multiselect-group) input[type="checkbox"], li:not(.multiselect-group) input[type="radio"]');
@@ -928,6 +928,48 @@
         },
 
         /**
+         * Return an option string using the given select option.
+         *
+         * @param {jQuery} element
+         */
+        createOptionValueString: function(element) {
+            var value = this.escapeHtml(element.value);
+            var title = this.escapeHtml(element.text);
+            var selected = element.selected;
+            var inputType = this.options.multiple ? "checkbox" : "radio";
+             
+            var checkbox = '<input type="' + inputType + '" value="' + value + (selected ? '" checked>' : '">');
+            var label = '<label class="' + inputType + '" title="' + title + '">' + checkbox + " " + title + "</label>";
+            
+            var liClass = (selected && this.options.selectedClass ? ' class="' + this.options.selectedClass + '"' : '');
+            var li = '<li' + liClass + '><a tabindex="0">' + label + '</a></li>';
+            
+            // TODO: Implement: element.disabled check
+            
+            return li;
+        },
+
+        /**
+         * Escapes a string for use in HTML
+         *
+         * @param {String} value
+         * @returns {String}
+         */
+        escapeHtml: function(s) {
+            var ESC_MAP = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+                };
+            
+            return s.replace(/[&<>'"]/g, function(c) {
+                return ESC_MAP[c];
+            });
+        },
+
+        /**
          * Creates a divider using the given select option.
          *
          * @param {jQuery} element
@@ -969,11 +1011,14 @@
                 $li.addClass('disabled');
             }
 
-            this.$ul.append($li);
+            // TODO: Optimize above
+            var optGroupOptions = [$li[0].outerHTML];
 
             $("option", group).each($.proxy(function($, group) {
-                this.createOptionValue(group);
+                optGroupOptions.push(this.createOptionValueString(group));
             }, this))
+
+            return optGroupOptions;
         },
 
         /**
@@ -1146,11 +1191,9 @@
 
                                         // Toggle current element (group or group item) according to showElement boolean.
                                         if(!showElement){
-                                          $(element).css('display', 'none');
                                           $(element).addClass('multiselect-filter-hidden');
                                         }
                                         if(showElement){
-                                          $(element).css('display', 'block');
                                           $(element).removeClass('multiselect-filter-hidden');
                                         }
 
@@ -1684,7 +1727,23 @@
          * @returns {jQUery}
          */
         getSelected: function() {
-            return $('option', this.$select).filter(":selected");
+            var select = this.$select[0];
+            if (select.selectedOptions !== undefined) {
+                return $(select.selectedOptions);
+            }
+
+            // selectedIndex is the index of the first option selected or -1 if nothing is selected
+            if (select.selectedIndex == -1) { 
+                return [];
+            }
+            
+            var selectedOptions = [];
+            for (var i = select.selectedIndex; i < select.length; i++) {
+                if (select.options[i].selected){
+                    selectedOptions.push(select.options[i]);
+                }
+            }
+            return $(selectedOptions);
         },
 
         /**
