@@ -827,11 +827,13 @@
 
             if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
                 $("li.multiselect-group .caret-container", this.$ul).on("click", $.proxy(function(event) {
+                    var $target = $(event.target);
                     var $li = $(event.target).closest('li');
                     var $inputs = $li.nextUntil("li.multiselect-group")
                             .not('.multiselect-filter-hidden');
 
                     var visible = true;
+                    $target.toggleClass('expanded');
                     $inputs.each(function() {
                         visible = visible && !$(this).hasClass('multiselect-collapsible-hidden');
                     });
