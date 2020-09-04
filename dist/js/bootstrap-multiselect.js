@@ -426,6 +426,7 @@
             filterPlaceholder: 'Search',
             // possible options: 'text', 'value', 'both'
             filterBehavior: 'text',
+            filterCustomProp: [],
             includeFilterClearBtn: true,
             preventInputChangeEvent: false,
             nonSelectedText: 'None selected',
@@ -739,7 +740,7 @@
                     }
 
                     var index = $items.index($items.filter(':focus'));
-                    
+
                     // Navigation up.
                     if (event.keyCode === 38 && index > 0) {
                         index--;
@@ -1111,6 +1112,9 @@
                                 $.each($('li', this.$ul), $.proxy(function(index, element) {
                                     var value = $('input', element).length > 0 ? $('input', element).val() : "";
                                     var text = $('label', element).text();
+                                    var custom = this.options.filterCustomProp.map(function(prop) {
+                                      return $('input', element).attr(prop) || '';
+                                    }).join('');
 
                                     var filterCandidate = '';
                                     if ((this.options.filterBehavior === 'text')) {
@@ -1119,8 +1123,11 @@
                                     else if ((this.options.filterBehavior === 'value')) {
                                         filterCandidate = value;
                                     }
+                                    else if ((this.options.filterBehavior === 'custom')) {
+                                        filterCandidate = custom;
+                                    }
                                     else if (this.options.filterBehavior === 'both') {
-                                        filterCandidate = text + '\n' + value;
+                                        filterCandidate = text + '\n' + value + '\n' + custom;
                                     }
 
                                     if (value !== this.options.selectAllValue && text) {
