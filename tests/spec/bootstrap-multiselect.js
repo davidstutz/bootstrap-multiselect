@@ -1090,12 +1090,12 @@ describe('Bootstrap Multiselect "Dataprovider"', function() {
         expect($('#multiselect option[value="5"]').attr('title')).toBe('Option 5 Title');
         expect($('#multiselect option[value="6"]').attr('title')).toBe('Option 6 Title');
 
-        expect($('#multiselect-container input[value="1"]').closest('label').attr('title')).toBe('Option 1 Title');
-        expect($('#multiselect-container input[value="2"]').closest('label').attr('title')).toBe('Option 2 Title');
-        expect($('#multiselect-container input[value="3"]').closest('label').attr('title')).toBe('Option 3 Title');
-        expect($('#multiselect-container input[value="4"]').closest('label').attr('title')).toBe('Option 4 Title');
-        expect($('#multiselect-container input[value="5"]').closest('label').attr('title')).toBe('Option 5 Title');
-        expect($('#multiselect-container input[value="6"]').closest('label').attr('title')).toBe('Option 6 Title');
+        expect($('#multiselect-container input[value="1"]').siblings('label').attr('title')).toBe('Option 1 Title');
+        expect($('#multiselect-container input[value="2"]').siblings('label').attr('title')).toBe('Option 2 Title');
+        expect($('#multiselect-container input[value="3"]').siblings('label').attr('title')).toBe('Option 3 Title');
+        expect($('#multiselect-container input[value="4"]').siblings('label').attr('title')).toBe('Option 4 Title');
+        expect($('#multiselect-container input[value="5"]').siblings('label').attr('title')).toBe('Option 5 Title');
+        expect($('#multiselect-container input[value="6"]').siblings('label').attr('title')).toBe('Option 6 Title');
     });
 
     it("Should be able to define data attributes.", function() {
@@ -1976,7 +1976,7 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         selection.addRange(range);
 
         if (document.getSelection().type === 'Range') {
-            $('#multiselect-container').find('a:first label').trigger('click');
+            $('#multiselect-container').find('.form-check:first label').trigger('click');
             expect($('#multiselect-container').find('input:first').prop('checked')).toBe(true);
         }
 
