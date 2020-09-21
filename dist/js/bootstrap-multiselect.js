@@ -445,7 +445,7 @@
                 li: '<li class="dropdown-item"><div class="form-check" tabindex="0"><label></label></div></li>',
                 divider: '<li class="dropdown-item multiselect-item dropdown-divider"></li>',
                 liGroup: '<li class="dropdown-item multiselect-item multiselect-group"><label></label></li>',
-                resetButton: '<li class="multiselect-reset text-center"><div class="input-group mx-2"><button type="button" class="btn btn-outline-secondary btn-block"></button></div></li>'
+                resetButton: '<li class="multiselect-reset text-center"><div class="input-group mx-2"><button type="button" class="btn btn-sm btn-outline-secondary btn-block"></button></div></li>'
             }
         },
 
