@@ -439,13 +439,13 @@
             includeResetDivider: false,
             resetText: 'Reset',
             templates: {
-                button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
+                button: '<button role="combobox" type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> <b class="caret"></b></button>',
                 ul: '<ul class="multiselect-container dropdown-menu"></ul>',
                 filter: '<li class="multiselect-item multiselect-filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text" /></div></li>',
                 filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
                 li: '<li><a tabindex="0"><label></label></a></li>',
                 divider: '<li class="multiselect-item divider"></li>',
-                liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>',
+                liGroup: '<li class="multiselect-item multiselect-group"><a href="javascript:void(0);"><label><b></b></label></a></li>',
                 resetButton: '<li class="multiselect-reset text-center"><div class="input-group"><a class="btn btn-default btn-block"></a></div></li>'
             }
         },
@@ -584,12 +584,12 @@
                 // Apply or unapply the configured selected class.
                 if (this.options.selectedClass) {
                     if (checked) {
-                        $target.closest('li')
-                            .addClass(this.options.selectedClass);
+                        $target.closest('li').addClass(this.options.selectedClass);
+                        $target.closest("a").attr("aria-selected", true);
                     }
                     else {
-                        $target.closest('li')
-                            .removeClass(this.options.selectedClass);
+                        $target.closest('li').removeClass(this.options.selectedClass);
+                        $target.closest("a").attr("aria-selected", false);
                     }
                 }
 
@@ -621,6 +621,7 @@
                             // Unselect all other options and corresponding checkboxes.
                             if (this.options.selectedClass) {
                                 $($checkboxesNotThis).closest('li').removeClass(this.options.selectedClass);
+                                $($checkboxesNotThis).closest("a").attr("aria-selected", false);
                             }
 
                             $($checkboxesNotThis).prop('checked', false);
@@ -697,8 +698,8 @@
                         range.prop('checked', checked);
 
                         if (this.options.selectedClass) {
-                            range.closest('li')
-                                .toggleClass(this.options.selectedClass, checked);
+                            range.closest('li').toggleClass(this.options.selectedClass, checked);
+                            range.closest("a").attr("aria-selected", checked);
                         }
 
                         for (var i = 0, j = range.length; i < j; i++) {
@@ -792,8 +793,9 @@
                             $li.removeClass(this.options.selectedClass);
                         }
                     }
+                    $li.find("a").attr("aria-selected", checked);
 
-                    $.each($inputs, $.proxy(function(index, input) {
+                    $.each($inputs, $.proxy(function (index, input) {
                         var value = $(input).val();
                         var $option = this.getOptionByValue(value);
 
@@ -811,9 +813,10 @@
 
                             $option.prop('selected', false);
                         }
+                        $(input).closest("a").attr("aria-selected", checked);
 
                         $options.push(this.getOptionByValue(value));
-                    }, this))
+                    }, this));
 
                     // Cannot use select or deselect here because it would call updateOptGroups again.
 
@@ -924,6 +927,7 @@
             if (selected && this.options.selectedClass) {
                 $checkbox.closest('li')
                     .addClass(this.options.selectedClass);
+                $checkbox.closest("a").attr("aria-selected", selected);
             }
         },
 
@@ -945,7 +949,7 @@
         createOptgroup: function(group) {
             var label = $(group).attr("label");
             var value = $(group).attr("value");
-            var $li = $('<li class="multiselect-item multiselect-group"><a href="javascript:void(0);"><label><b></b></label></a></li>');
+            var $li = $(this.options.templates.liGroup);
 
             var classes = this.options.optionClass(group);
             $li.addClass(classes);
@@ -971,9 +975,9 @@
 
             this.$ul.append($li);
 
-            $("option", group).each($.proxy(function($, group) {
+            $("option", group).each($.proxy(function ($, group) {
                 this.createOptionValue(group);
-            }, this))
+            }, this));
         },
 
         /**
@@ -1052,6 +1056,7 @@
                 this.$ul.prepend($li);
 
                 $checkbox.prop('checked', false);
+                $li.find("a").attr("aria-selected", false);
             }
         },
 
@@ -1224,6 +1229,7 @@
                         $input.closest('li')
                             .addClass(this.options.selectedClass);
                     }
+                    $input.closest("a").attr("aria-selected", true);
                 }
                 else {
                     $input.prop('checked', false);
@@ -1232,6 +1238,7 @@
                         $input.closest('li')
                             .removeClass(this.options.selectedClass);
                     }
+                    $input.closest("a").attr("aria-selected", false);
                 }
 
                 if ($elem.is(":disabled")) {
@@ -1291,6 +1298,8 @@
                     $checkbox.closest('li')
                         .addClass(this.options.selectedClass);
                 }
+                
+                $checkbox.closest("a").attr("aria-selected", true);
 
                 $checkbox.prop('checked', true);
                 $option.prop('selected', true);
@@ -1354,6 +1363,8 @@
                         .removeClass(this.options.selectedClass);
                 }
 
+                $checkbox.closest("a").attr("aria-selected", false);
+
                 $checkbox.prop('checked', false);
                 $option.prop('selected', false);
 
@@ -1380,13 +1391,14 @@
          */
         selectAll: function (justVisible, triggerOnSelectAll) {
 
-            var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
+            var onlyVisible = typeof justVisible === 'undefined' ? true : justVisible;
             var allLis = $("li:not(.divider):not(.disabled):not(.multiselect-group)", this.$ul);
             var visibleLis = $("li:not(.divider):not(.disabled):not(.multiselect-group):not(.multiselect-filter-hidden):not(.multiselect-collapisble-hidden)", this.$ul).filter(':visible');
 
-            if(justVisible) {
+            if (onlyVisible) {
                 $('input:enabled' , visibleLis).prop('checked', true);
                 visibleLis.addClass(this.options.selectedClass);
+                visibleLis.find("a").attr("aria-selected", true);
 
                 $('input:enabled' , visibleLis).each($.proxy(function(index, element) {
                     var value = $(element).val();
@@ -1397,6 +1409,7 @@
             else {
                 $('input:enabled' , allLis).prop('checked', true);
                 allLis.addClass(this.options.selectedClass);
+                allLis.find("a").attr("aria-selected", true);
 
                 $('input:enabled' , allLis).each($.proxy(function(index, element) {
                     var value = $(element).val();
@@ -1425,13 +1438,14 @@
          */
         deselectAll: function (justVisible, triggerOnDeselectAll) {
 
-            var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
+            var onlyVisible = typeof justVisible === 'undefined' ? true : justVisible;
             var allLis = $("li:not(.divider):not(.disabled):not(.multiselect-group)", this.$ul);
             var visibleLis = $("li:not(.divider):not(.disabled):not(.multiselect-group):not(.multiselect-filter-hidden):not(.multiselect-collapisble-hidden)", this.$ul).filter(':visible');
 
-            if(justVisible) {
+            if (onlyVisible) {
                 $('input[type="checkbox"]:enabled' , visibleLis).prop('checked', false);
                 visibleLis.removeClass(this.options.selectedClass);
+                visibleLis.find("a").attr("aria-selected", false);
 
                 $('input[type="checkbox"]:enabled' , visibleLis).each($.proxy(function(index, element) {
                     var value = $(element).val();
@@ -1442,6 +1456,7 @@
             else {
                 $('input[type="checkbox"]:enabled' , allLis).prop('checked', false);
                 allLis.removeClass(this.options.selectedClass);
+                allLis.find("a").attr("aria-selected", false);
 
                 $('input[type="checkbox"]:enabled' , allLis).each($.proxy(function(index, element) {
                     var value = $(element).val();
@@ -1608,7 +1623,7 @@
          * Update opt groups.
          */
         updateOptGroups: function() {
-            var $groups = $('li.multiselect-group', this.$ul)
+            var $groups = $('li.multiselect-group', this.$ul);
             var selectedClass = this.options.selectedClass;
 
             $groups.each(function() {
@@ -1634,6 +1649,8 @@
                     }
                 }
 
+                $(this).find("a").attr("aria-selected", checked);
+
                 $('input', this).prop('checked', checked);
             });
         },
@@ -1652,10 +1669,12 @@
                 if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
                     selectAllInput.prop("checked", true);
                     selectAllLi.addClass(this.options.selectedClass);
+                    selectAllLi.find("a").attr("aria-selected", true);
                 }
                 else {
                     selectAllInput.prop("checked", false);
                     selectAllLi.removeClass(this.options.selectedClass);
+                    selectAllLi.find("a").attr("aria-selected", false);
                 }
             }
         },
