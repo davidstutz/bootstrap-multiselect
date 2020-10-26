@@ -441,12 +441,12 @@
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 ul: '<div class="multiselect-container dropdown-menu"></div>',
-                filter: '<div class="multiselect-item multiselect-filter"><div class="input-group input-group-sm p-1"><div class="input-group-prepend"><i class="input-group-text fas fa-search"></i></div><input class="form-control multiselect-search" type="text" /></div></div>',
+                filter: '<div class="multiselect-filter"><div class="input-group input-group-sm p-1"><div class="input-group-prepend"><i class="input-group-text fas fa-search"></i></div><input class="form-control multiselect-search" type="text" /></div></div>',
                 filterClearBtn: '<div class="input-group-append"><button class="multiselect-clear-filter input-group-text" type="button"><i class="fas fa-times"></i></button></div>',
-                li: '<a class="multiselect-option dropdown-item" href="#"></a>',
-                divider: '<div class="multiselect-item dropdown-divider"></div>',
-                liGroup: '<a class="multiselect-item multiselect-group" href="#"></a>',
-                resetButton: '<div class="multiselect-reset text-center p-2"><a class="btn btn-sm btn-block btn-outline-secondary"></a></div>'
+                li: '<button class="multiselect-option dropdown-item"></button>',
+                divider: '<div class="dropdown-divider"></div>',
+                liGroup: '<button class="multiselect-group dropdown-item"></button>',
+                resetButton: '<div class="multiselect-reset text-center p-2"><button class="btn btn-sm btn-block btn-outline-secondary"></button></div>'
             }
         },
 
@@ -652,6 +652,7 @@
                 }
             }, this));
 
+            $('.multiselect-option', this.$ul).off('mousedown');
             $('.multiselect-option', this.$ul).on('mousedown', function (e) {
                 if (e.shiftKey) {
                     // Prevent selecting text by Shift+click
@@ -659,7 +660,8 @@
                 }
             });
 
-            $(this.$ul).on('touchstart click', 'a', $.proxy(function (event) {
+            $(this.$ul).off('touchstart click', '.multiselect-option, .multiselect-all, .multiselect-group');
+            $(this.$ul).on('touchstart click', '.multiselect-option, .multiselect-all, .multiselect-group', $.proxy(function (event) {
                 event.stopPropagation();
 
                 var $target = $(event.target);
@@ -746,6 +748,7 @@
                     return;
                 }
 
+                // keyCode 9 == Tab
                 if (event.keyCode === 9 && this.$container.hasClass('show')) {
                     this.$button.click();
                 }
@@ -758,22 +761,10 @@
 
                     var index = $items.index($items.filter(':focus'));
 
-                    // Navigation up.
-                    // if (event.keyCode === 38 && index > 0) {
-                    //     index--;
-                    // }
-                    // Navigate down.
-                    // else if (event.keyCode === 40 && index < $items.length - 1) {
-                    //     index++;
-                    // }
-                    // else if (!~index) {
-                    //     index = 0;
-                    // }
-
                     var $current = $items.eq(index);
-                    //$current.focus();
 
-                    if (event.keyCode === 32/* || event.keyCode === 13*/) {
+                    // keyCode 32 = Space
+                    if (event.keyCode === 32) {
                         var $checkbox = $current.find('input');
 
                         $checkbox.prop("checked", !$checkbox.prop("checked"));
@@ -782,18 +773,17 @@
                         event.preventDefault();
                     }
 
+                    // keyCode 13 = Enter
                     if(event.keyCode === 13) {
                         setTimeout(function() {
                             $current.focus();
                         }, 0);
                     }
-
-                    //event.stopPropagation();
-                    //event.preventDefault();
                 }
             }, this));
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {
+                $(".multiselect-group input", this.$ul).off("change");
                 $(".multiselect-group input", this.$ul).on("change", $.proxy(function (event) {
                     event.stopPropagation();
 
@@ -852,6 +842,7 @@
             }
 
             if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
+                $(".multiselect-group .caret-container", this.$ul).off("click");
                 $(".multiselect-group .caret-container", this.$ul).on("click", $.proxy(function (event) {
                     var $li = $(event.target).closest('.multiselect-group');
                     var $inputs = $li.nextUntil(".multiselect-group")
@@ -871,8 +862,6 @@
                             .removeClass('multiselect-collapsible-hidden');
                     }
                 }, this));
-
-                $(".multiselect-all", this.$ul).css('background', '#f3f3f3').css('border-bottom', '1px solid #eaeaea');
             }
         },
 
@@ -887,8 +876,7 @@
          */
         createCheckbox: function ($item, label, name, value, title, inputType) {
             var $wrapper = $('<span />');
-            $wrapper.addClass("form-check d-inline-flex");
-            $wrapper.attr("title", label);
+            $wrapper.addClass("form-check");
 
             if (this.options.enableHTML && $(label).length > 0) {
                 $wrapper.append($(label));
@@ -907,9 +895,8 @@
                 $checkbox.attr('name', name);
             }
 
-            $wrapper.attr('title', title);
-
             $item.prepend($wrapper);
+            $item.attr("title", title || label);
 
             return $checkbox;
         },
@@ -947,7 +934,7 @@
             var selected = $element.prop('selected') || false;
 
             if (value === this.options.selectAllValue) {
-                $li.addClass("multiselect-item multiselect-all");
+                $li.addClass("multiselect-all");
                 $li.removeClass("multiselect-option");
                 $checkbox.parent().parent()
                     .addClass('multiselect-all');
@@ -990,17 +977,14 @@
             var label = $group.attr("label");
             var value = $group.attr("value");
             var title = $group.attr('title');
-            var $li = $(this.options.templates.liGroup);
 
-            var classes = this.options.optionClass(group);
-            $li.addClass(classes);
+            var $li = $("<span class='multiselect-group dropdown-item-text'></span>");
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {
-                $li.addClass("dropdown-item");
+                $li = $(this.options.templates.liGroup);
                 var $checkbox = this.createCheckbox($li, label, null, value, title, "checkbox");
             }
             else {
-                $li.addClass("dropdown-item-text");
                 if (this.options.enableHTML) {
                     $li.html(" " + label);
                 }
@@ -1009,7 +993,8 @@
                 }
             }
 
-
+            var classes = this.options.optionClass(group);
+            $li.addClass(classes);
 
             if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
                 $li.append('<span class="caret-container dropdown-toggle pl-1"></span>');
@@ -1043,13 +1028,13 @@
                 var $resetButton = $(this.options.templates.resetButton);
 
                 if (this.options.enableHTML) {
-                    $('a', $resetButton).html(this.options.resetText);
+                    $('button', $resetButton).html(this.options.resetText);
                 }
                 else {
-                    $('a', $resetButton).text(this.options.resetText);
+                    $('button', $resetButton).text(this.options.resetText);
                 }
 
-                $('a', $resetButton).click($.proxy(function () {
+                $('button', $resetButton).click($.proxy(function () {
                     this.clearSelection();
                 }, this));
 
@@ -1080,7 +1065,7 @@
                 var $li = $(this.options.templates.li);
                 var $checkbox = this.createCheckbox($li, this.options.selectAllText, this.options.selectAllName, this.options.selectAllValue, this.options.selectAllText, "checkbox");
 
-                $li.addClass("multiselect-item multiselect-all");
+                $li.addClass("multiselect-all");
                 $li.removeClass("multiselect-option");
                 $li.find(".form-check-label").addClass("font-weight-bold");
 

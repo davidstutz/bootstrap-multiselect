@@ -68,45 +68,36 @@ span.multiselect-native-select select {
 .multiselect-container .multiselect-reset .input-group {
   width: 93%;
 }
-.multiselect-container > a.dropdown-item,
-.multiselect-container > span.dropdown-item,
-.multiselect-container > a.dropdown-toggle,
-.multiselect-container > span.dropdown-toggle {
+.multiselect-container > .multiselect-option.dropdown-item,
+.multiselect-container > .multiselect-option.dropdown-toggle {
   cursor: pointer;
 }
-.multiselect-container > a.dropdown-item-text,
-.multiselect-container > span.dropdown-item-text {
+.multiselect-container > .multiselect-option.dropdown-item-text {
   text-decoration: none;
   color: initial;
 }
-.multiselect-container > a.multiselect-group,
-.multiselect-container > span.multiselect-group {
+.multiselect-container > .multiselect-option.multiselect-group {
   margin: 0;
   padding: 3px 15px;
   height: 100%;
 }
-.multiselect-container > a.multiselect-group-clickable label,
-.multiselect-container > span.multiselect-group-clickable label {
+.multiselect-container > .multiselect-option.multiselect-group-clickable label {
   cursor: pointer;
 }
-.multiselect-container > a > span,
-.multiselect-container > span > span {
+.multiselect-container > .multiselect-option > span {
   margin: 0;
   height: 100%;
   cursor: pointer;
   font-weight: normal;
   padding: 3px 20px;
 }
-.multiselect-container > a > span.form-check,
-.multiselect-container > span > span.form-check {
+.multiselect-container > .multiselect-option > span.form-check {
   margin: 0;
 }
-.multiselect-container > a > span > input[type="checkbox"],
-.multiselect-container > span > span > input[type="checkbox"] {
+.multiselect-container > .multiselect-option > span > input[type="checkbox"] {
   margin-bottom: 5px;
 }
-.multiselect-container > a > span > .form-check-label,
-.multiselect-container > span > span > .form-check-label {
+.multiselect-container > .multiselect-option > span > .form-check-label {
   cursor: pointer;
 }
 .btn-group > .btn-group:nth-child(2) > .multiselect.btn {

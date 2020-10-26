@@ -2240,7 +2240,7 @@ $(document).ready(function() {
                                             });
                                         </script>
                                         <style type="text/css">
-                                            #example-optionClass-container .multiselect-container .odd {
+                                            #example-optionClass-container .multiselect-container .odd:not(.active) {
                                                 background: #eeeeee;
                                             }
                                         </style>
@@ -2274,7 +2274,7 @@ $(document).ready(function() {
     });
 &lt;/script&gt;
 &lt;style type=&quot;text/css&quot;&gt;
-    #example-optionClass-container .multiselect-container .odd {
+    #example-optionClass-container .multiselect-container .odd:not(.active) {
         background: #eeeeee;
     }
 &lt;/style&gt;
@@ -2806,6 +2806,7 @@ $(document).ready(function() {
                                             $(document).ready(function() {
                                                 $('#example-onDeselectAll').multiselect({
                                                     includeSelectAllOption: true,
+                                                    enableFiltering: true,
                                                     onDeselectAll: function() {
                                                         alert('onDeselectAll triggered!');
                                                     }
@@ -6291,7 +6292,7 @@ $(document).ready(function() {
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Text Input</label>
                                 <div class="col-sm-10">
-                                    <input id="testestest" type="text" name="text" class="form-control" placeholder="Text Input" />
+                                    <input type="text" name="text" class="form-control" placeholder="Text Input" />
                                 </div>
                             </div>
                             <div class="form-group">
