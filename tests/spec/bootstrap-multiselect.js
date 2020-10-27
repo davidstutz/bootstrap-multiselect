@@ -598,8 +598,8 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         expect($('#multiselect-container .multiselect-group').length).toBe(10);
         expect($('#multiselect-container .multiselect-group input').length).toBe(10);
 
-        $('#multiselect-container .multiselect-group').each(function() {
-            expect($('input', $(this)).length).toBe(10);
+        $('#multiselect-container .multiselect-group').each(function() {            
+            expect($('input', $(this).nextUntil('.multiselect-group')).length).toBe(10);
         });
     });
 
@@ -805,7 +805,7 @@ describe('Bootstrap Multiselect "Collapsible Optgroups"', function() {
         expect($('#multiselect-container .multiselect-group').length).toBe(10);
 
         $('#multiselect-container .multiselect-group').each(function() {
-            expect($('input', $(this)).length).toBe(10);
+            expect($('input', $(this).nextUntil('.multiselect-group')).length).toBe(10);
         });
     });
 
@@ -887,7 +887,7 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
         expect($('#multiselect-container .multiselect-group input').length).toBe(10);
 
         $('#multiselect-container .multiselect-group').each(function() {
-            expect($('input', $(this)).length).toBe(10);
+            expect($('input', $(this).nextUntil('.multiselect-group')).length).toBe(10);
         });
     });
 
@@ -2251,13 +2251,13 @@ describe('Knockout Binding.', function() {
         expect($testArea.val()).toEqual(null);
 
         expect($testArea.next().find('button.multiselect').text().trim()).toEqual('None selected');
-        expect($testArea.next().find('ul .multiselect-option').length).toEqual(0);
+        expect($testArea.next().find('.multiselect-option').length).toEqual(0);
 
         // Add more options
         viewModel.myOptions(['option1', 'option2']);
         jasmine.clock().tick(1000);
 
-        expect($testArea.next().find('ul multiselect-option').length).toEqual(2);
+        expect($testArea.next().find('.multiselect-option').length).toEqual(2);
         expect($testArea.find('option').length).toEqual(2);
         expect($testArea.find('option:checked').length).toEqual(0);
 
