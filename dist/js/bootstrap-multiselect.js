@@ -440,14 +440,11 @@
             resetText: 'Reset',
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
-                ul: null,
                 popupContainer: '<div class="multiselect-container dropdown-menu"></div>',
                 filter: '<div class="multiselect-filter"><div class="input-group input-group-sm p-1"><div class="input-group-prepend"><i class="input-group-text fas fa-search"></i></div><input class="form-control multiselect-search" type="text" /></div></div>',
                 filterClearBtn: '<div class="input-group-append"><button class="multiselect-clear-filter input-group-text" type="button"><i class="fas fa-times"></i></button></div>',
-                li: null,
                 option: '<button class="multiselect-option dropdown-item"></button>',
                 divider: '<div class="dropdown-divider"></div>',
-                liGroup: null,
                 optionGroup: '<button class="multiselect-group dropdown-item"></button>',
                 resetButton: '<div class="multiselect-reset text-center p-2"><button class="btn btn-sm btn-block btn-outline-secondary"></button></div>'
             }
@@ -509,7 +506,7 @@
         buildDropdown: function () {
 
             // Build popup container.
-            this.$popupContainer = $(this.options.templates.ul || this.options.templates.popupContainer);
+            this.$popupContainer = $(this.options.templates.popupContainer);
 
             if (this.options.dropRight) {
                 this.$container.addClass('dropright');
@@ -922,7 +919,7 @@
             var inputType = this.options.multiple ? "checkbox" : "radio";
             var title = $element.attr('title');
 
-            var $option = $(this.options.templates.li || this.options.templates.option);
+            var $option = $(this.options.templates.option);
             $option.addClass(classes);
 
             // Hide all children items when collapseOptGroupsByDefault is true
@@ -984,7 +981,7 @@
             var $groupOption = $("<span class='multiselect-group dropdown-item-text'></span>");
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {
-                $groupOption = $(this.options.templates.liGroup || this.options.templates.optionGroup);
+                $groupOption = $(this.options.templates.optionGroup);
                 var $checkbox = this.createCheckbox($groupOption, label, null, value, title, "checkbox");
             }
             else {

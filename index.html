@@ -22,31 +22,40 @@
                 window.prettyPrint() && prettyPrint();
             });
         </script>
+
+        <style>
+            .nav-link.active {
+                font-weight: bold;
+            }
+        </style>
     </head>
     <body data-spy="scroll" data-target="#affix" style="font-size:14px;">
 	<a href="https://github.com/davidstutz/bootstrap-multiselect"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
         <div class="container">
             <div class="row">
-                <div class="col-md-3" id="affix">
-                    <div class="nav nav-pills flex-column" data-spy="affix" style="margin-top: 40px;">
-                        <a class="nav-link active" href="#getting-started">Getting Started</a>
-                        <a class="nav-link" href="#configuration-options">Configuration Options</a>
-                        <a class="nav-link" href="#templates">Templates</a>
-                        <a class="nav-link" href="#styling">Styling</a>
-                        <a class="nav-link" href="#methods">Methods</a>
-                        <a class="nav-link" href="#further-examples">Further Examples</a>
-                        <a class="nav-link" href="#post">Server-Side Processing</a>
-                        <a class="nav-link" href="#keyboard-support">Keyboard Support</a>
-                        <a class="nav-link" href="require.html">Require JS</a>
-                        <a class="nav-link" href="#faq">Frequently Asked Questions</a>
-                        <a class="nav-link" href="#known-issues">Known Issues</a>
-                        <a class="nav-link" href="tests/SpecRunner.html">Tests</a>
-                        <a class="nav-link" href="#license">License</a>
-                    </div>
+                <div class="col-md-3 pt-4" id="affix">
+                    <nav class="bg-light navbar navbar-light position-fixed">
+                        <div class="navbar-nav">
+                            <a class="nav-link" href="#getting-started">Getting Started</a>
+                            <a class="nav-link" href="#configuration-options">Configuration Options</a>
+                            <a class="nav-link" href="#templates">Templates</a>
+                            <a class="nav-link" href="#styling">Styling</a>
+                            <a class="nav-link" href="#methods">Methods</a>
+                            <a class="nav-link" href="#further-examples">Further Examples</a>
+                            <a class="nav-link" href="#post">Server-Side Processing</a>
+                            <a class="nav-link" href="#keyboard-support">Keyboard Support</a>
+                            <a class="nav-link" href="require.html">Require JS</a>
+                            <a class="nav-link" href="#faq">Frequently Asked Questions</a>
+                            <a class="nav-link" href="#known-issues">Known Issues</a>
+                            <a class="nav-link" href="tests/SpecRunner.html">Tests</a>
+                            <a class="nav-link" href="#migration">Migrating to Bootstrap v4</a>
+                            <a class="nav-link" href="#license">License</a>
+                        </div>
+                    </nav>
                 </div>
-                <div class="col-md-9"> 
-                    <div class="pb-2 mt-4 mb-2 border-bottom"> 
+                <div class="col-md-9 pt-4"> 
+                    <div class="pb-2 mb-2 border-bottom"> 
                         <h1>Bootstrap Multiselect</h1>
                     </div>
 
@@ -58,7 +67,7 @@
                         Please consult the <a href="#faq">FAQ</a>, the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> or <a href="http://stackoverflow.com/questions/tagged/bootstrap-multiselect">StackOverflow</a> before creating a new issue; when creating an issue or a pull request, read <a href="#how-to-contribute">how to contribute</a> first.
                     </p>
 
-                    <div class="well well-sm">
+                    <div class="alert alert-secondary">
                         <p><b>Consider making a donation to support the development of this plugin:</b></p>
                         <div class="text-center">
                             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -68,7 +77,7 @@
                                 <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
                             </form>
                         </div>
-                        <a href="http://davidstutz.de/donate/" class="small pull-right">Why Donate?</a>
+                        <a href="http://davidstutz.de/donate/" class="small float-right">Why Donate?</a>
                         <div class="clearfix"></div>
                     </div>
 
@@ -6762,6 +6771,31 @@ $("#example").multiselect();
                     </p>
 
                     <div class="page-header">
+                        <h2 id="migration">Migrating to Bootstrap v4</h2>
+                    </div>
+
+                    <p>
+                        For migrating your project to Bootstrap v4 follow the instructions from <a href="https://getbootstrap.com/docs/4.5/migration/">Bootstrap</a>.
+                        Breaking changes for the bootstrap-multiselect are described in the following section:
+                    </p>
+                    <h3>Templates</h3>
+                    <p>
+                        In Bootstrap v4 Dropdown menus are no longer created with <code>ul</code>s and <code>li</code>s but with <code>div</code>s and <code>a</code>s.
+                        The Dropdown of the multiselect was changed to work in the same way like it is recommended by Bootstrap.
+                        To make template names indepedent of the concrete HTML structure they were also adapted:
+                        <ul>
+                            <li>The template <code>ul</code> was renamed to <code>popupContainer</code></li>
+                            <li>The template <code>li</code> was renamed to <code>option</code></li>
+                            <li>The template <code>liGroup</code> was renamed to <code>optionGroup</code></li>
+                        </ul>
+                    </p>
+
+                    <h3>Fonts</h3>
+                    <p>
+                        Bootstrap dropped the Glyphicons icon font therefore the icons in the multiselect where changed to <a href="https://fontawesome.com/">FontAwesome</a>.
+                    </p>
+
+                    <div class="page-header">
                         <h2 id="license">License</h2>
                     </div>
 
@@ -6797,7 +6831,7 @@ $("#example").multiselect();
 
                     <hr>
                     <p>
-                        &copy; 2012 - 2018
+                        &copy; 2012 - 2020
                         <a href="http://davidstutz.de">David Stutz</a>, <a href="https://davidstutz.de/impressum/">Impressum</a>, <a href="https://davidstutz.de/datenschutz/">Datenschutz</a> - dual licensed: <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>, <a href="http://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a>
                     </p>
                 </div>
