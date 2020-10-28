@@ -3,7 +3,7 @@
  * Bootstrap Multiselect (http://davidstutz.de/bootstrap-multiselect/)
  *
  * Apache License, Version 2.0:
- * Copyright (c) 2012 - 2018 David Stutz
+ * Copyright (c) 2012 - 2020 David Stutz
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a
@@ -16,7 +16,7 @@
  * under the License.
  *
  * BSD 3-Clause License:
- * Copyright (c) 2012 - 2018 David Stutz
+ * Copyright (c) 2012 - 2020 David Stutz
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -75,41 +75,14 @@ span.multiselect-native-select select{
     }
   }
 
-  > .multiselect-option {
+  > .multiselect-option, .multiselect-group {
     &.dropdown-item,
     &.dropdown-toggle {
       cursor: pointer;
     }
 
-    &.dropdown-item-text {
-      text-decoration: none;
-      color: initial;
-    }
-
-    &.multiselect-group {
-      margin: 0;
-      padding: 3px 15px;
-      height: 100%;
-    }
-
-    &.multiselect-group-clickable label {
-      cursor: pointer;
-    }
-
     > span {
-      margin: 0;
-      height: 100%;
-      cursor: pointer;
-      font-weight: normal;
       padding: 3px 20px;
-
-      &.form-check {
-        margin: 0;
-      }
-
-      > input[type="checkbox"] {
-        margin-bottom:5px;
-      }
 
       > .form-check-label {
         cursor: pointer;
@@ -118,13 +91,7 @@ span.multiselect-native-select select{
   }
 }
 
-.btn-group > .btn-group:nth-child(2) > .multiselect.btn {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-
-.form-inline .multiselect-container{
-
+.form-inline .multiselect-container {
   span.form-check {
     padding: 3px 20px 3px 40px;
   }

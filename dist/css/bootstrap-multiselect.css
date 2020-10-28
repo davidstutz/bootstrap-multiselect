@@ -2,7 +2,7 @@
  * Bootstrap Multiselect (http://davidstutz.de/bootstrap-multiselect/)
  *
  * Apache License, Version 2.0:
- * Copyright (c) 2012 - 2018 David Stutz
+ * Copyright (c) 2012 - 2020 David Stutz
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a
@@ -15,7 +15,7 @@
  * under the License.
  *
  * BSD 3-Clause License:
- * Copyright (c) 2012 - 2018 David Stutz
+ * Copyright (c) 2012 - 2020 David Stutz
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -69,40 +69,18 @@ span.multiselect-native-select select {
   width: 93%;
 }
 .multiselect-container > .multiselect-option.dropdown-item,
-.multiselect-container > .multiselect-option.dropdown-toggle {
+.multiselect-container .multiselect-group.dropdown-item,
+.multiselect-container > .multiselect-option.dropdown-toggle,
+.multiselect-container .multiselect-group.dropdown-toggle {
   cursor: pointer;
 }
-.multiselect-container > .multiselect-option.dropdown-item-text {
-  text-decoration: none;
-  color: initial;
-}
-.multiselect-container > .multiselect-option.multiselect-group {
-  margin: 0;
-  padding: 3px 15px;
-  height: 100%;
-}
-.multiselect-container > .multiselect-option.multiselect-group-clickable label {
-  cursor: pointer;
-}
-.multiselect-container > .multiselect-option > span {
-  margin: 0;
-  height: 100%;
-  cursor: pointer;
-  font-weight: normal;
+.multiselect-container > .multiselect-option > span,
+.multiselect-container .multiselect-group > span {
   padding: 3px 20px;
 }
-.multiselect-container > .multiselect-option > span.form-check {
-  margin: 0;
-}
-.multiselect-container > .multiselect-option > span > input[type="checkbox"] {
-  margin-bottom: 5px;
-}
-.multiselect-container > .multiselect-option > span > .form-check-label {
+.multiselect-container > .multiselect-option > span > .form-check-label,
+.multiselect-container .multiselect-group > span > .form-check-label {
   cursor: pointer;
-}
-.btn-group > .btn-group:nth-child(2) > .multiselect.btn {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
 }
 .form-inline .multiselect-container span.form-check {
   padding: 3px 20px 3px 40px;
