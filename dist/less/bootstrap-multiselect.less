@@ -1,3 +1,4 @@
+// out: ../css/bootstrap-multiselect.css, compress: false, sourceMap: false
 /**
  * Bootstrap Multiselect (http://davidstutz.de/bootstrap-multiselect/)
  *
@@ -58,15 +59,15 @@ span.multiselect-native-select select{
   top: 30px;
 }
 
+.multiselect.dropdown-toggle:after {
+  display: none;
+}
+
 .multiselect-container {
   position: absolute;
   list-style-type: none;
   margin: 0;
   padding: 0;
-
-  .input-group {
-    margin: 5px;
-  }
 
   .multiselect-reset {
     .input-group {
@@ -74,41 +75,44 @@ span.multiselect-native-select select{
     }
   }
 
-  > li {
-    padding: 0;
-
-    > a.multiselect-all label {
-      font-weight: bold;
+  > .multiselect-option {
+    &.dropdown-item,
+    &.dropdown-toggle {
+      cursor: pointer;
     }
 
-    &.multiselect-group label {
+    &.dropdown-item-text {
+      text-decoration: none;
+      color: initial;
+    }
+
+    &.multiselect-group {
       margin: 0;
-      padding: 3px 20px 3px 20px;
+      padding: 3px 15px;
       height: 100%;
-      font-weight: bold;
     }
 
     &.multiselect-group-clickable label {
       cursor: pointer;
     }
 
-    > a {
-      padding: 0;
+    > span {
+      margin: 0;
+      height: 100%;
+      cursor: pointer;
+      font-weight: normal;
+      padding: 3px 20px;
 
-      > label {
+      &.form-check {
         margin: 0;
-        height: 100%;
+      }
+
+      > input[type="checkbox"] {
+        margin-bottom:5px;
+      }
+
+      > .form-check-label {
         cursor: pointer;
-        font-weight: normal;
-        padding: 3px 20px 3px 40px;
-
-        &.radio, &.checkbox {
-          margin: 0;
-        }
-
-        > input[type="checkbox"] {
-          margin-bottom:5px;
-        }
       }
     }
   }
@@ -121,15 +125,7 @@ span.multiselect-native-select select{
 
 .form-inline .multiselect-container{
 
-  label.checkbox, label.radio{
+  span.form-check {
     padding: 3px 20px 3px 40px;
-  }
-
-  li a label{
-
-    &.checkbox input[type="checkbox"], &.radio input[type="radio"]{
-      margin-left: -20px;
-      margin-right: 0;
-    }
   }
 }

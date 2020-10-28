@@ -5,14 +5,14 @@
         <meta name="robots" content="noindex, nofollow" />
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
-        <link rel="stylesheet" href="docs/css/bootstrap-3.3.2.min.css" type="text/css">
+        <link rel="stylesheet" href="docs/css/bootstrap-4.5.2.min.css" type="text/css">
         <link rel="stylesheet" href="docs/css/prettify.min.css" type="text/css">
         <link rel="stylesheet" href="dist/css/bootstrap-multiselect.css" type="text/css">
         <link rel="stylesheet" href="docs/css/bootstrap-example.min.css" type="text/css">
 
         <script data-main="dist/js/" src="docs/js/prettify.min.js"></script>
         <script data-main="dist/js/" src="docs/js/jquery-2.1.3.min.js"></script>
-        <script data-main="dist/js/" src="docs/js/bootstrap-3.3.2.min.js"></script>
+        <script type="text/javascript" src="docs/js/bootstrap.bundle-4.5.2.min.js"></script>
         <script data-main="dist/js/" src="docs/js/require-2.3.5.min.js"></script>
 
         <script type="text/javascript">
@@ -20,32 +20,40 @@
                 window.prettyPrint() && prettyPrint();
             });
         </script>
+
+        <style>
+            .nav-link.active {
+                font-weight: bold;
+            }
+        </style>
     </head>
-    <body data-spy="scroll" data-target="#affix">
+    <body data-spy="scroll" data-target="#affix" style="font-size:14px;">
 	<a href="https://github.com/davidstutz/bootstrap-multiselect"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
         <div class="container">
             <div class="row">
-                <div class="col-md-3" id="affix">
-                    <ul class="nav nav-pills nav-stacked sidebar" data-spy="affix" style="margin-top: 40px;">
-                        <li><a href="#getting-started">Getting Started</a></li>
-                        <li><a href="index.html#configuration-options">Configuration Options</a></li>
-                        <li><a href="index.html#templates">Templates</a></li>
-                        <li><a href="index.html#styling">Styling</a></li>
-                        <li><a href="index.html#methods">Methods</a></li>
-                        <li><a href="index.html#further-examples">Further Examples</a></li>
-                        <li><a href="index.html#post">Server-Side Processing</a></li>
-                        <li><a href="index.html#keyboard-support">Keyboard Support</a>
-                        <li class="active"><a href="#require-js">Require JS</a>
-                        <li><a href="index.html#faq">Frequently Asked Questions</a></li>
-                        <li><a href="index.html#known-issues">Known Issues</a></li>
-                        <li><a href="tests/SpecRunner.html">Tests</a></li>
-                        <li><a href="index.html#license">License</a></li>
-                    </ul>
+                <div class="col-md-3 pt-4" id="affix">
+                    <nav class="bg-light navbar navbar-light position-fixed">
+                        <div class="navbar-nav">
+                            <a class="nav-link" href="index.html#getting-started">Getting Started</a>
+                            <a class="nav-link" href="index.html#configuration-options">Configuration Options</a>
+                            <a class="nav-link" href="index.html#templates">Templates</a>
+                            <a class="nav-link" href="index.html#styling">Styling</a>
+                            <a class="nav-link" href="index.html#methods">Methods</a>
+                            <a class="nav-link" href="index.html#further-examples">Further Examples</a>
+                            <a class="nav-link" href="index.html#post">Server-Side Processing</a>
+                            <a class="nav-link" href="index.html#keyboard-support">Keyboard Support</a>
+                            <a class="nav-link active" href="#require-js">Require JS</a>
+                            <a class="nav-link" href="index.html#faq">Frequently Asked Questions</a>
+                            <a class="nav-link" href="index.html#known-issues">Known Issues</a>
+                            <a class="nav-link" href="tests/SpecRunner.html">Tests</a>
+                            <a class="nav-link" href="index.html#migration">Migrating to Bootstrap v4</a>
+                            <a class="nav-link" href="index.html#license">License</a>
+                        </div>
+                    </nav>
                 </div>
-                <div class="col-md-9">
-                    
-                    <div class="page-header">
+                <div class="col-md-9 pt-4">
+                    <div class="pb-2 mb-2 border-bottom"> 
                         <h1>Bootstrap Multiselect <img src="https://travis-ci.org/davidstutz/bootstrap-multiselect.svg?branch=master" alt="Build Status" /></h1>
                         <h2 style="display:none;" id="require-js"></h2>
                     </div>
@@ -54,7 +62,7 @@
                         Please consult the <a href="#faq">FAQ</a>, the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> or <a href="http://stackoverflow.com/questions/tagged/bootstrap-multiselect">StackOverflow</a> before creating a new issue; when creating an issue or a pull request, read <a href="#how-to-contribute">how to contribute</a> first.
                     </p>
 
-                    <div class="well well-sm">
+                    <div class="alert alert-secondary">
                         <p><b>Consider making a donation to support the development of this plugin:</b></p>
                         <div class="text-center">
                             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -64,7 +72,7 @@
                                 <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
                             </form>
                         </div>
-                        <a href="http://davidstutz.de/donate/" class="small pull-right">Why Donate?</a>
+                        <a href="http://davidstutz.de/donate/" class="small float-right">Why Donate?</a>
                         <div class="clearfix"></div>
                     </div>
 

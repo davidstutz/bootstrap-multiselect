@@ -40,8 +40,8 @@ describe('Bootstrap Multiselect "Core".', function() {
     });
 
     it('Should add an li element with checkbox and label for each option.', function() {
-        expect($('#multiselect-container li').length).toBe(99);
-        expect($('#multiselect-container label').length).toBe(99);
+        expect($('#multiselect-container .multiselect-option').length).toBe(99);
+        expect($('#multiselect-container .form-check-label').length).toBe(99);
         expect($('#multiselect-container input[type="checkbox"]').length).toBe(99);
     });
 
@@ -171,36 +171,36 @@ describe('Bootstrap Multiselect "Core".', function() {
     });
 
     it('Should select an option when checkbox is changed (change event).', function() {
-        $('#multiselect-container li input[value="10"]').prop('checked', true);
-        $('#multiselect-container li input[value="10"]').trigger('change');
+        $('#multiselect-container .multiselect-option input[value="10"]').prop('checked', true);
+        $('#multiselect-container .multiselect-option input[value="10"]').trigger('change');
 
         expect($('#multiselect-container input[value="10"]').prop('checked')).toBe(true);
         expect($('#multiselect option[value="10"]').prop('selected')).toBe(true);
     });
 
     it('Should deselect an option when checkbox is changed (change event).', function() {
-        $('#multiselect-container li input[value="10"]').prop('checked', true);
-        $('#multiselect-container li input[value="10"]').trigger('change');
+        $('#multiselect-container .multiselect-option input[value="10"]').prop('checked', true);
+        $('#multiselect-container .multiselect-option input[value="10"]').trigger('change');
 
         // Already checked above.
 
-        $('#multiselect-container li input[value="10"]').prop('checked', false);
-        $('#multiselect-container li input[value="10"]').trigger('change');
+        $('#multiselect-container .multiselect-option input[value="10"]').prop('checked', false);
+        $('#multiselect-container .multiselect-option input[value="10"]').trigger('change');
 
         expect($('#multiselect-container input[value="10"]').prop('checked')).toBe(false);
         expect($('#multiselect option[value="10"]').prop('selected')).toBe(false);
     });
 
     it('Should select an option when checkbox is clicked.', function() {
-        $('#multiselect-container li input[value="10"]').click();
+        $('#multiselect-container .multiselect-option input[value="10"]').click();
 
         expect($('#multiselect-container input[value="10"]').prop('checked')).toBe(true);
         expect($('#multiselect option[value="10"]').prop('selected')).toBe(true);
     });
 
     it('Should deselect an option when checkbox is clicked.', function() {
-        $('#multiselect-container li input[value="10"]').click();
-        $('#multiselect-container li input[value="10"]').click();
+        $('#multiselect-container .multiselect-option input[value="10"]').click();
+        $('#multiselect-container .multiselect-option input[value="10"]').click();
 
         expect($('#multiselect-container input[value="10"]').prop('checked')).toBe(false);
         expect($('#multiselect option[value="10"]').prop('selected')).toBe(false);
@@ -269,8 +269,9 @@ describe('Bootstrap Multiselect "Multiple Multiselects".', function() {
             expect($('#multiselect-container-' + multiselects[m]).length).toBe(1);
             expect($('#multiselect-container-' + multiselects[m] + ' .multiselect').length).toBe(1);
             expect($('#multiselect-container-' + multiselects[m] + ' .dropdown-menu').length).toBe(1);
-            expect($('#multiselect-container-' + multiselects[m] + ' li').length).toBe(10); // including select all
-            expect($('#multiselect-container-' + multiselects[m] + ' label').length).toBe(10); // including select all
+            expect($('#multiselect-container-' + multiselects[m] + ' .multiselect-option').length).toBe(9); 
+            expect($('#multiselect-container-' + multiselects[m] + ' .multiselect-all').length).toBe(1); 
+            expect($('#multiselect-container-' + multiselects[m] + ' .form-check-label').length).toBe(10); // including select all
             expect($('#multiselect-container-' + multiselects[m] + ' input[type="checkbox"]').length).toBe(10); // including select all
         }
     });
@@ -582,6 +583,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
 
         $('body').append($select);
 
+        fired = 0;
         $select.multiselect({
             buttonContainer: '<div id="multiselect-container"></div>',
             enableClickableOptGroups: true,
@@ -593,11 +595,11 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
     });
 
     it('Should correctly create inputs for optgroups.', function() {
-        expect($('#multiselect-container li.multiselect-group').length).toBe(10);
-        expect($('#multiselect-container li.multiselect-group input').length).toBe(10);
+        expect($('#multiselect-container .multiselect-group').length).toBe(10);
+        expect($('#multiselect-container .multiselect-group input').length).toBe(10);
 
-        $('#multiselect-container label.multiselect-group').each(function() {
-            expect($('input', $(this)).length).toBe(10);
+        $('#multiselect-container .multiselect-group').each(function() {            
+            expect($('input', $(this).nextUntil('.multiselect-group')).length).toBe(10);
         });
     });
 
@@ -606,25 +608,25 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         expect(fired).toBe(0);
 
         var i = 0;
-        $('#multiselect-container li.multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function() {
             if (i == 0) {
-                $('label', $(this)).click();
+                $('.form-check-label', $(this)).click();
 
                 expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(0);
                 expect($('#multiselect option:selected').length).toBe(0);
 
-                $('label', $(this)).click()
+                $('.form-check-label', $(this)).click()
 
                 expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
                 expect($('#multiselect option:selected').length).toBe(10);
             }
             else {
-                $('label', $(this)).click();
+                $('.form-check-label', $(this)).click();
 
                 expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
                 expect($('#multiselect option:selected').length).toBe(20);
 
-                $('label', $(this)).click();
+                $('.form-check-label', $(this)).click();
             }
 
             i++;
@@ -634,18 +636,17 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
     it('Clickable groups should fire onChange only once.', function() {
         expect($('#multiselect option:selected').length).toBe(10);
 
-        fired = 0;
         expect(fired).toBe(0);
 
         var i = 0;
-        $('#multiselect-container li.multiselect-group').each(function() {
-            $('label', $(this)).click();
+        $('#multiselect-container .multiselect-group').each(function() {
+            $('.form-check-label', $(this)).click();
 
             // Selected
             expect(fired).toBe(1);
             fired = 0;
 
-            $('label', $(this)).click();
+            $('.form-check-label', $(this)).click();
 
             // Deselected
             expect(fired).toBe(1);
@@ -663,14 +664,14 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
             changed++;
         });
 
-        $('#multiselect-container li.multiselect-group').each(function() {
-            $('label', $(this)).click();
+        $('#multiselect-container .multiselect-group').each(function() {
+            $('.form-check-label', $(this)).click();
 
             // Selected
             expect(changed).toBe(1);
             changed = 0;
 
-            $('label', $(this)).click();
+            $('.form-check-label', $(this)).click();
 
             // Deselected
             expect(changed).toBe(1);
@@ -685,7 +686,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         expect(fired).toBe(0);
 
         var i = 0;
-        $('#multiselect-container li.multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function() {
             if (i == 0) {
 
                 var text = ''
@@ -696,10 +697,10 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
                 text = text.substr(0, text.length - 2);
                 expect($('#multiselect-container .multiselect-selected-text').text()).toBe(text);
 
-                $('label', $(this)).click();
+                $('.form-check-label', $(this)).click();
             }
             else {
-                $('label', $(this)).click();
+                $('.form-check-label', $(this)).click();
 
                 var text = ''
                 $('option:selected', $('#multiselect optgroup')[i]).each(function() {
@@ -709,7 +710,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
                 text = text.substr(0, text.length - 2);
                 expect($('#multiselect-container .multiselect-selected-text').text()).toBe(text);
 
-                $('label', $(this)).click();
+                $('.form-check-label', $(this)).click();
             }
 
             i++;
@@ -722,10 +723,10 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
             expect($('option:selected', $('#multiselect optgroup')[0]).length).toBe(10);
             expect($('#multiselect option:selected').length).toBe(10);
 
-            var $group = $($('#multiselect-container li.multiselect-group')[i]);
+            var $group = $($('#multiselect-container .multiselect-group')[i]);
             var $optGroup = $($('#multiselect optgroup')[i]);
 
-            $group.nextUntil('li.multiselect-item').each(function() {
+            $group.nextUntil('.multiselect-group').each(function() {
                 var $input = $('input', this);
                 $input.click();
 
@@ -737,7 +738,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
             expect($('input', $group).prop('checked')).toBe(true);
 
             // Undo changes
-            $group.nextUntil('li.multiselect-item').each(function() {
+            $group.nextUntil('.multiselect-group').each(function() {
                 var $input = $('input', this);
                 $input.click();
 
@@ -756,7 +757,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
             values.push('1-' + i)
         }
 
-        var $group = $('#multiselect-container li.multiselect-group')[0];
+        var $group = $('#multiselect-container .multiselect-group')[0];
 
         $('#multiselect').multiselect('deselect', values);
         expect($('input', $group).prop('checked')).toBe(false);
@@ -801,45 +802,45 @@ describe('Bootstrap Multiselect "Collapsible Optgroups"', function() {
     });
 
     it('Should correctly create headers for optgroups.', function() {
-        expect($('#multiselect-container li.multiselect-group').length).toBe(10);
+        expect($('#multiselect-container .multiselect-group').length).toBe(10);
 
-        $('#multiselect-container label.multiselect-group').each(function() {
-            expect($('input', $(this)).length).toBe(10);
+        $('#multiselect-container .multiselect-group').each(function() {
+            expect($('input', $(this).nextUntil('.multiselect-group')).length).toBe(10);
         });
     });
 
     if ('Should not create inputs.', function() {
-        expect($('#multiselect-container li.multiselect-group input').length).toBe(0);
+        expect($('#multiselect-container .multiselect-group input').length).toBe(0);
     });
 
     it('Groups should not be clickable.', function() {
         expect($('#multiselect option:selected').length).toBe(0);
 
         var i = 0;
-        $('#multiselect-container li.multiselect-group').each(function() {
-            $('label', $(this)).click();
+        $('#multiselect-container .multiselect-group').each(function() {
+            $('.form-check-label', $(this)).click();
             expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(0);
             expect($('#multiselect option:selected').length).toBe(0);
 
-            $('label', $(this)).click();
+            $('.form-check-label', $(this)).click();
             i++;
         });
     });
 
     it('Should be collapsible.', function() {
-        var $group = $('#multiselect-container li.multiselect-group:first');
+        var $group = $('#multiselect-container .multiselect-group:first');
         $('.caret-container', $group).click();
 
-        var $lis = $group.nextUntil('li.multiselect-group');
-        $lis.each(function() {
+        var $options = $group.nextUntil('.multiselect-group');
+        $options.each(function() {
             expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
             expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
         });
 
         $('.caret-container', $group).click();
 
-        var $lis = $group.nextUntil('li.multiselect-group');
-        $lis.each(function() {
+        var $options = $group.nextUntil('li.multiselect-group');
+        $options.each(function() {
             expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
             expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
         });
@@ -882,11 +883,11 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
     });
 
     it('Should correctly create inputs for optgroups.', function() {
-        expect($('#multiselect-container li.multiselect-group').length).toBe(10);
-        expect($('#multiselect-container li.multiselect-group input').length).toBe(10);
+        expect($('#multiselect-container .multiselect-group').length).toBe(10);
+        expect($('#multiselect-container .multiselect-group input').length).toBe(10);
 
-        $('#multiselect-container label.multiselect-group').each(function() {
-            expect($('input', $(this)).length).toBe(10);
+        $('#multiselect-container .multiselect-group').each(function() {
+            expect($('input', $(this).nextUntil('.multiselect-group')).length).toBe(10);
         });
     });
 
@@ -894,12 +895,12 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
         expect($('#multiselect option:selected').length).toBe(0);
 
         var i = 0;
-        $('#multiselect-container li.multiselect-group').each(function() {
-            $('label', $(this)).click();
+        $('#multiselect-container .multiselect-group').each(function() {
+            $('.form-check-label', $(this)).click();
             expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
             expect($('#multiselect option:selected').length).toBe(10);
 
-            $('label', $(this)).click();
+            $('.form-check-label', $(this)).click();
             i++;
         });
     });
@@ -911,14 +912,14 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
         expect(fired).toBe(0);
 
         var i = 0;
-        $('#multiselect-container li.multiselect-group').each(function() {
-            $('label', $(this)).click();
+        $('#multiselect-container .multiselect-group').each(function() {
+            $('.form-check-label', $(this)).click();
 
             // Selected
             expect(fired).toBe(1);
             fired = 0;
 
-            $('label', $(this)).click();
+            $('.form-check-label', $(this)).click();
 
             // Deselected
             expect(fired).toBe(1);
@@ -929,10 +930,10 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
     });
 
     it('Should be collapsible.', function() {
-        var $group = $('#multiselect-container li.multiselect-group:first');
+        var $group = $('#multiselect-container .multiselect-group:first');
         $('.caret-container', $group).click();
 
-        var $lis = $group.nextUntil('li.multiselect-group');
+        var $lis = $group.nextUntil('.multiselect-group');
         $lis.each(function() {
             expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
             expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
@@ -940,7 +941,7 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
 
         $('.caret-container', $group).click();
 
-        var $lis = $group.nextUntil('li.multiselect-group');
+        var $lis = $group.nextUntil('.multiselect-group');
         $lis.each(function() {
             expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
             expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
@@ -986,12 +987,12 @@ describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', fu
         // Otherwise they are hidden.
         $('#multiselect-container input[value="multiselect-all"]').click();
 
-        var $groups = $('#multiselect-container li.multiselect-group');
+        var $groups = $('#multiselect-container .multiselect-group');
         $groups.each(function() {
             expect($(this).hasClass('active')).toBe(true);
         });
 
-        var $lis = $('#multiselect-container li:not(.multiselect-group)');
+        var $lis = $('#multiselect-container .multiselect-option:not(.multiselect-group)');
         $lis.each(function() {
             expect($(this).hasClass('active')).toBe(true);
         });
@@ -1001,23 +1002,23 @@ describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', fu
         //$('#multiselect-container li.multiselect-group .caret-container').click();
         $('#multiselect-container input[value="multiselect-all"]').click();
 
-        var $lis = $('#multiselect-container li');
-        $lis.each(function() {
+        var $options = $('#multiselect-container .multiselect-option');
+        $options.each(function() {
             expect($('input', this).prop('checked')).toBe(true);
         });
     });
 
     it('Should automatically update select all.', function() {
         var i = 0;
-        $('#multiselect-container li.multiselect-group').each(function() {
-            $('label', $(this)).click();
+        $('#multiselect-container .multiselect-group').each(function() {
+            $('.form-check-label', $(this)).click();
             expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
             expect($('#multiselect option:selected').length).toBe((i + 1)*10);
 
             i++;
         });
 
-        expect($('#multiselect-container li input[value="multiselect-all"]').prop('checked')).toBe(true);
+        expect($('#multiselect-container .multiselect-all input[value="multiselect-all"]').prop('checked')).toBe(true);
     });
 
     afterEach(function() {
@@ -1090,12 +1091,12 @@ describe('Bootstrap Multiselect "Dataprovider"', function() {
         expect($('#multiselect option[value="5"]').attr('title')).toBe('Option 5 Title');
         expect($('#multiselect option[value="6"]').attr('title')).toBe('Option 6 Title');
 
-        expect($('#multiselect-container input[value="1"]').closest('label').attr('title')).toBe('Option 1 Title');
-        expect($('#multiselect-container input[value="2"]').closest('label').attr('title')).toBe('Option 2 Title');
-        expect($('#multiselect-container input[value="3"]').closest('label').attr('title')).toBe('Option 3 Title');
-        expect($('#multiselect-container input[value="4"]').closest('label').attr('title')).toBe('Option 4 Title');
-        expect($('#multiselect-container input[value="5"]').closest('label').attr('title')).toBe('Option 5 Title');
-        expect($('#multiselect-container input[value="6"]').closest('label').attr('title')).toBe('Option 6 Title');
+        expect($('#multiselect-container input[value="1"]').closest('.multiselect-option').attr('title')).toBe('Option 1 Title');
+        expect($('#multiselect-container input[value="2"]').closest('.multiselect-option').attr('title')).toBe('Option 2 Title');
+        expect($('#multiselect-container input[value="3"]').closest('.multiselect-option').attr('title')).toBe('Option 3 Title');
+        expect($('#multiselect-container input[value="4"]').closest('.multiselect-option').attr('title')).toBe('Option 4 Title');
+        expect($('#multiselect-container input[value="5"]').closest('.multiselect-option').attr('title')).toBe('Option 5 Title');
+        expect($('#multiselect-container input[value="6"]').closest('.multiselect-option').attr('title')).toBe('Option 6 Title');
     });
 
     it("Should be able to define data attributes.", function() {
@@ -1448,9 +1449,9 @@ describe('Bootstrap Multiselect "Filter".', function() {
         });
 
         it('Should create filter.', function() {
-            expect($('#multiselect-container li.multiselect-filter').length).toBe(1);
-            expect($('#multiselect-container li.multiselect-filter input').length).toBe(1);
-            expect($('#multiselect-container li.multiselect-filter .multiselect-clear-filter').length).toBe(1);
+            expect($('#multiselect-container .multiselect-filter').length).toBe(1);
+            expect($('#multiselect-container .multiselect-filter input').length).toBe(1);
+            expect($('#multiselect-container .multiselect-filter .multiselect-clear-filter').length).toBe(1);
         });
     });
 
@@ -1465,16 +1466,16 @@ describe('Bootstrap Multiselect "Filter".', function() {
                 }
             });
 
-            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
         it('Should filter elements.', function() {
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(false, i);
                 }
             }
         });
@@ -1491,12 +1492,12 @@ describe('Bootstrap Multiselect "Filter".', function() {
                 }
             });
 
-            $('#multiselect-container li.multiselect-filter input').val('Option').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('Option').trigger('keydown');
         });
 
         it('Should filter elements.', function() {
             for (var i = 1; i < 10; i++) {
-                expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
             }
         });
     });
@@ -1512,16 +1513,16 @@ describe('Bootstrap Multiselect "Filter".', function() {
                 }
             });
 
-            $('#multiselect-container li.multiselect-filter input').val('Option 9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('Option 9').trigger('keydown');
         });
 
         it('Should filter elements.', function() {
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(false, i);
                 }
             }
         });
@@ -1538,12 +1539,12 @@ describe('Bootstrap Multiselect "Filter".', function() {
                 }
             });
 
-            $('#multiselect-container li.multiselect-filter input').val('value').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('value').trigger('keydown');
         });
 
         it('Should filter elements.', function() {
             for (var i = 1; i < 10; i++) {
-                expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
             }
         });
     });
@@ -1559,16 +1560,16 @@ describe('Bootstrap Multiselect "Filter".', function() {
                 }
             });
 
-            $('#multiselect-container li.multiselect-filter input').val('Option 9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('Option 9').trigger('keydown');
         });
 
         it('Should filter elements.', function() {
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(false, i);
                 }
             }
         });
@@ -1585,16 +1586,16 @@ describe('Bootstrap Multiselect "Filter".', function() {
                 }
             });
 
-            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
         it('Should filter elements.', function() {
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(false, i);
                 }
             }
         });
@@ -1611,23 +1612,23 @@ describe('Bootstrap Multiselect "Filter".', function() {
                 }
             });
 
-            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
         it('Should remove filter.', function() {
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(false, i);
                 }
             }
 
-            $('#multiselect-container li.multiselect-filter .multiselect-clear-filter').click();
+            $('#multiselect-container .multiselect-filter .multiselect-clear-filter').click();
 
             for (var i = 1; i < 10; i++) {
-                expect($('#multiselect-container li input[value="value-' + i + '"]').closest('li').hasClass('multiselect-filter-hidden')).toBe(false, i);
+                expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(false, i);
             }
         });
     });
@@ -1643,39 +1644,39 @@ describe('Bootstrap Multiselect "Filter".', function() {
                 }
             });
 
-            $('#multiselect-container li input[value="value-1"]').click();
-            $('#multiselect-container li input[value="value-9"]').click();
+            $('#multiselect-container .multiselect-option input[value="value-1"]').click();
+            $('#multiselect-container .multiselect-option input[value="value-9"]').click();
 
             for (var i = 1; i < 10; i++) {
                 if (i != 9 && i != 1) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
                 }
             }
 
-            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
         it('Should not alter selection.', function() {
             for (var i = 1; i < 10; i++) {
                 if (i != 9 && i != 1) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
                 }
             }
 
-            $('#multiselect-container li.multiselect-filter .multiselect-clear-filter').click();
+            $('#multiselect-container .multiselect-filter .multiselect-clear-filter').click();
 
             for (var i = 1; i < 10; i++) {
                 if (i != 9 && i != 1) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
                 }
             }
         });
@@ -1693,19 +1694,19 @@ describe('Bootstrap Multiselect "Filter".', function() {
             });
 
             for (var i = 1; i < 10; i++) {
-                expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
             }
 
-            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
         it('Should not alter selection.', function() {
             $('#multiselect').multiselect('select', 'value-1');
-            expect($('#multiselect-container li input[value="value-1"]').prop('checked')).toBe(true);
+            expect($('#multiselect-container .multiselect-option input[value="value-1"]').prop('checked')).toBe(true);
             expect($('#multiselect option[value="value-1"]').prop('selected')).toBe(true);
 
             $('#multiselect').multiselect('select', 'value-9');
-            expect($('#multiselect-container li input[value="value-9"]').prop('checked')).toBe(true);
+            expect($('#multiselect-container .multiselect-option input[value="value-9"]').prop('checked')).toBe(true);
             expect($('#multiselect option[value="value-9"]').prop('selected')).toBe(true);
         });
     });
@@ -1721,28 +1722,28 @@ describe('Bootstrap Multiselect "Filter".', function() {
                 }
             });
 
-            $('#multiselect-container li input[value="value-9"]').click();
-            $('#multiselect-container li input[value="value-1"]').click();
+            $('#multiselect-container .multiselect-option input[value="value-9"]').click();
+            $('#multiselect-container .multiselect-option input[value="value-1"]').click();
 
             for (var i = 1; i < 10; i++) {
                 if (i != 9 && i != 1) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
                 }
             }
 
-            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
         it('Should not alter selection.', function() {
             $('#multiselect').multiselect('deselect', 'value-1');
-            expect($('#multiselect-container li input[value="value-1"]').prop('checked')).toBe(false);
+            expect($('#multiselect-container .multiselect-option input[value="value-1"]').prop('checked')).toBe(false);
             expect($('#multiselect option[value="value-1"]').prop('selected')).toBe(false);
 
             $('#multiselect').multiselect('deselect', 'value-9');
-            expect($('#multiselect-container li input[value="value-9"]').prop('checked')).toBe(false);
+            expect($('#multiselect-container .multiselect-option input[value="value-9"]').prop('checked')).toBe(false);
             expect($('#multiselect option[value="value-9"]').prop('selected')).toBe(false);
         });
     });
@@ -1783,20 +1784,20 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
             });
 
             for (var i = 1; i < 10; i++) {
-                expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
             }
 
-            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
         it('Should select one option.', function() {
-            $('#multiselect-container li input[value="multiselect-all"]').click();
+            $('#multiselect-container .multiselect-all input[value="multiselect-all"]').click();
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
                 }
             }
         });
@@ -1816,29 +1817,29 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
                 }
             });
 
-            $('#multiselect-container li input[value="value-1"]').click();
-            $('#multiselect-container li input[value="value-9"]').click();
+            $('#multiselect-container .multiselect-option input[value="value-1"]').click();
+            $('#multiselect-container .multiselect-option input[value="value-9"]').click();
 
             for (var i = 1; i < 10; i++) {
                 if (i != 9 && i != 1) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
                 }
             }
 
-            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
         it('Should deselect one option.', function() {
-            $('#multiselect-container li input[value="multiselect-all"]').click();
+            $('#multiselect-container .multiselect-all input').click();
             for (var i = 1; i < 10; i++) {
                 if (i != 1) {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
                 }
                 else {
-                    expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                    expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
                 }
             }
         });
@@ -1859,17 +1860,17 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
             });
 
             for (var i = 1; i < 10; i++) {
-                expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
             }
 
-            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
         it('Should select all options.', function() {
-            $('#multiselect-container li input[value="multiselect-all"]').click();
+            $('#multiselect-container .multiselect-all input[value="multiselect-all"]').click();
 
             for (var i = 1; i < 10; i++) {
-                expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
             }
         });
     });
@@ -1889,17 +1890,17 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
             });
 
             for (var i = 1; i < 10; i++) {
-                $('#multiselect-container li input[value="value-' + i + '"]').click();
-                expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
+                $('#multiselect-container .multiselect-option input[value="value-' + i + '"]').click();
+                expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(true, i);
             }
 
-            $('#multiselect-container li.multiselect-filter input').val('value-9').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
         it('Should select all options.', function() {
-            $('#multiselect-container li input[value="multiselect-all"]').click();
+            $('#multiselect-container .multiselect-all input[value="multiselect-all"]').click();
             for (var i = 1; i < 10; i++) {
-                expect($('#multiselect-container li input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
+                expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
             }
         });
     });
@@ -1976,7 +1977,7 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         selection.addRange(range);
 
         if (document.getSelection().type === 'Range') {
-            $('#multiselect-container').find('a:first label').trigger('click');
+            $('#multiselect-container').find('.multiselect-option:first .form-check-label').trigger('click');
             expect($('#multiselect-container').find('input:first').prop('checked')).toBe(true);
         }
 
@@ -2014,14 +2015,14 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         expect(fired).toBe(0);
 
         var i = 0;
-        $('#multiselect-container li.multiselect-group').each(function() {
-            $('label', $(this)).click();
+        $('#multiselect-container .multiselect-group').each(function() {
+            $('.form-check-label', $(this)).click();
 
             // Selected
             expect(fired).toBe(1);
             fired = 0;
 
-            $('label', $(this)).click();
+            $('.form-check-label', $(this)).click();
 
             // Deselected
             expect(fired).toBe(1);
@@ -2050,12 +2051,12 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         $('#multiselect-container input[value="2-2"]').click();
         $('#multiselect-container input[value="2-3"]').click();
 
-        expect($($('#multiselect-container li.multiselect-group input')[0]).prop('checked')).toBe(false);
+        expect($($('#multiselect-container .multiselect-group input')[0]).prop('checked')).toBe(false);
         expect($('#multiselect-container input[value="1-1"]').prop('checked')).toBe(false);
         expect($('#multiselect-container input[value="1-2"]').prop('checked')).toBe(false);
         expect($('#multiselect-container input[value="1-3"]').prop('checked')).toBe(false);
 
-        expect($($('#multiselect-container li.multiselect-group input')[1]).prop('checked')).toBe(true);
+        expect($($('#multiselect-container .multiselect-group input')[1]).prop('checked')).toBe(true);
         expect($('#multiselect-container input[value="2-1"]').prop('checked')).toBe(true);
         expect($('#multiselect-container input[value="2-2"]').prop('checked')).toBe(true);
         expect($('#multiselect-container input[value="2-3"]').prop('checked')).toBe(true);
@@ -2076,14 +2077,14 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
             enableClickableOptGroups: true
         });
 
-        $($('#multiselect-container li.multiselect-group input')[1]).click();
+        $($('#multiselect-container .multiselect-group input')[1]).click();
 
-        expect($($('#multiselect-container li.multiselect-group input')[0]).prop('checked')).toBe(false);
+        expect($($('#multiselect-container .multiselect-group input')[0]).prop('checked')).toBe(false);
         expect($('#multiselect-container input[value="1-1"]').prop('checked')).toBe(false);
         expect($('#multiselect-container input[value="1-2"]').prop('checked')).toBe(false);
         expect($('#multiselect-container input[value="1-3"]').prop('checked')).toBe(false);
 
-        expect($($('#multiselect-container li.multiselect-group input')[1]).prop('checked')).toBe(true);
+        expect($($('#multiselect-container .multiselect-group input')[1]).prop('checked')).toBe(true);
         expect($('#multiselect-container input[value="2-1"]').prop('checked')).toBe(true);
         expect($('#multiselect-container input[value="2-2"]').prop('checked')).toBe(true);
         expect($('#multiselect-container input[value="2-3"]').prop('checked')).toBe(true);
@@ -2109,15 +2110,15 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         $('#multiselect-container input[value="2-2"]').click();
         $('#multiselect-container input[value="2-3"]').click();
 
-        expect($($('#multiselect-container li.multiselect-group')[0]).prop('class').split(' ')).not.toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="1-1"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="1-2"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="1-3"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($($('#multiselect-container .multiselect-group')[0]).prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="1-1"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="1-2"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="1-3"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
 
-        expect($($('#multiselect-container li.multiselect-group')[1]).prop('class').split(' ')).toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="2-1"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="2-2"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="2-3"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($($('#multiselect-container .multiselect-group')[1]).prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="2-1"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="2-2"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="2-3"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
 
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
@@ -2136,17 +2137,17 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
             selectedClass: 'multiselect-custom-selected'
         });
 
-        $($('#multiselect-container li.multiselect-group input')[1]).click();
+        $($('#multiselect-container .multiselect-group input')[1]).click();
 
-        expect($($('#multiselect-container li.multiselect-group')[0]).prop('class').split(' ')).not.toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="1-1"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="1-2"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="1-3"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($($('#multiselect-container .multiselect-group')[0]).prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="1-1"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="1-2"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="1-3"])').prop('class').split(' ')).not.toContain('multiselect-custom-selected');
 
-        expect($($('#multiselect-container li.multiselect-group')[1]).prop('class').split(' ')).toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="2-1"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="2-2"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
-        expect($('#multiselect-container li:has(input[value="2-3"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($($('#multiselect-container .multiselect-group')[1]).prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="2-1"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="2-2"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
+        expect($('#multiselect-container .multiselect-option:has(input[value="2-3"])').prop('class').split(' ')).toContain('multiselect-custom-selected');
 
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
@@ -2174,21 +2175,21 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
                     triggeredOnSelectAll = true;
                 },
                 onDeselectAll: function() {
-                    triggeredOnDeselectAll = false;
+                    triggeredOnDeselectAll = true;
                 },
                 onFiltering: function() {
                     done();
                 }
             });
 
-            $('#multiselect-container li.multiselect-filter input').val('2').trigger('keydown');
+            $('#multiselect-container .multiselect-filter input').val('2').trigger('keydown');
         });
 
         it('Should not fire onSelectAll or onDeselectAll when filtering or clearing filter.', function() {
             expect(triggeredOnSelectAll).toBe(false);
             expect(triggeredOnDeselectAll).toBe(false);
 
-            $('#multiselect-container li.multiselect-filter .multiselect-clear-filter').click();
+            $('#multiselect-container .multiselect-filter .multiselect-clear-filter').click();
 
             expect(triggeredOnSelectAll).toBe(false);
             expect(triggeredOnDeselectAll).toBe(false);
@@ -2250,13 +2251,13 @@ describe('Knockout Binding.', function() {
         expect($testArea.val()).toEqual(null);
 
         expect($testArea.next().find('button.multiselect').text().trim()).toEqual('None selected');
-        expect($testArea.next().find('ul li').length).toEqual(0);
+        expect($testArea.next().find('.multiselect-option').length).toEqual(0);
 
         // Add more options
         viewModel.myOptions(['option1', 'option2']);
         jasmine.clock().tick(1000);
 
-        expect($testArea.next().find('ul li').length).toEqual(2);
+        expect($testArea.next().find('.multiselect-option').length).toEqual(2);
         expect($testArea.find('option').length).toEqual(2);
         expect($testArea.find('option:checked').length).toEqual(0);
 
@@ -2311,13 +2312,13 @@ describe('Bootstrap Multiselect "Reset".', function() {
     });
 
     it('Should add reset button.', function() {
-        expect($('#multiselect-container').find('li.multiselect-reset a').text()).toBe('Reset');
+        expect($('#multiselect-container').find('.multiselect-reset button').text()).toBe('Reset');
     });
 
     it('Should reset if button clicked.', function() {
         $select.multiselect('selectAll', true, false);
         expect($select.find('option:selected').length).toBe(99);
-        $('#multiselect-container').find('li.multiselect-reset a').click();
+        $('#multiselect-container').find('.multiselect-reset button').click();
         expect($select.find('option:selected').length).toBe(0);
     });
 
