@@ -75,18 +75,56 @@ span.multiselect-native-select select{
     }
   }
 
-  > .multiselect-option, .multiselect-group {
+  .multiselect-filter {
+    > .fa-search {
+      z-index: 1;
+      padding-left: 0.75rem;
+    }
+
+    > input.multiselect-search {
+      border: none;
+      border-bottom: 1px solid lightgrey;
+      padding-left: 2rem;
+      margin-left: -1.625rem;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius:  0;
+
+      &:focus {
+        border-bottom-right-radius: 0.25rem;
+        border-bottom-left-radius:  0.25rem;;
+      }
+    }
+  }
+
+  .multiselect-option.multiselect-group-option-indented {
+    padding-left: 1.75rem;
+  }
+
+  .multiselect-option, .multiselect-group, .multiselect-all {
+    padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+
     &.dropdown-item,
     &.dropdown-toggle {
       cursor: pointer;
     }
 
-    > span {
-      padding: 3px 20px;
+    .form-check-label {
+      cursor: pointer;
+    }
+  }
 
-      > .form-check-label {
-        cursor: pointer;
-      }
+  .multiselect-option, .multiselect-group, .multiselect-all {
+    &.active:not(.multiselect-active-item-fallback), &:not(.multiselect-active-item-fallback):active {
+      background-color: lightgrey;
+      color: black;
+    }
+
+    .form-check {
+      padding: 0 5px 0 20px;
+    }
+
+    &:focus {
+      outline: none;
     }
   }
 }

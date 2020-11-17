@@ -438,11 +438,11 @@
             includeResetOption: false,
             includeResetDivider: false,
             resetText: 'Reset',
+            indentGroupOptions: true,
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 popupContainer: '<div class="multiselect-container dropdown-menu"></div>',
-                filter: '<div class="multiselect-filter"><div class="input-group input-group-sm p-1"><div class="input-group-prepend"><i class="input-group-text fas fa-search"></i></div><input class="form-control multiselect-search" type="text" /></div></div>',
-                filterClearBtn: '<div class="input-group-append"><button class="multiselect-clear-filter input-group-text" type="button"><i class="fas fa-times"></i></button></div>',
+                filter: '<div class="multiselect-filter d-flex align-items-center"><i class="fas fa-sm fa-search text-muted"></i><input type="search" class="multiselect-search form-control" /></div>',
                 option: '<button class="multiselect-option dropdown-item"></button>',
                 divider: '<div class="dropdown-divider"></div>',
                 optionGroup: '<button class="multiselect-group dropdown-item"></button>',
@@ -559,7 +559,7 @@
                         this.createDivider();
                     }
                     else {
-                        this.createOptionValue(element);
+                        this.createOptionValue(element, false);
                     }
 
                 }
@@ -744,7 +744,7 @@
 
             //Keyboard support.
             this.$container.off('keydown.multiselect').on('keydown.multiselect', $.proxy(function (event) {
-                if ($('input[type="text"]', this.$container).is(':focus')) {
+                if ($('input.multiselect-search', this.$container).is(':focus')) {
                     return;
                 }
 
@@ -906,7 +906,7 @@
          *
          * @param {jQuery} element
          */
-        createOptionValue: function (element) {
+        createOptionValue: function (element, isGroupOption) {
             var $element = $(element);
             if ($element.is(':selected')) {
                 $element.prop('selected', true);
@@ -921,6 +921,10 @@
 
             var $option = $(this.options.templates.option);
             $option.addClass(classes);
+
+            if(isGroupOption && this.options.indentGroupOptions) {
+                $option.addClass("multiselect-group-option-indented")
+            }
 
             // Hide all children items when collapseOptGroupsByDefault is true
             if (this.options.collapseOptGroupsByDefault && $(element).parent().prop("tagName").toLowerCase() === "optgroup") {
@@ -1008,7 +1012,7 @@
             this.$popupContainer.append($groupOption);
 
             $("option", group).each($.proxy(function ($, group) {
-                this.createOptionValue(group);
+                this.createOptionValue(group, true);
             }, this));
         },
 
@@ -1090,10 +1094,16 @@
                     this.$filter = $(this.options.templates.filter);
                     $('input', this.$filter).attr('placeholder', this.options.filterPlaceholder);
 
-                    // Adds optional filter clear button
-                    if (this.options.includeFilterClearBtn) {
-                        var clearBtn = $(this.options.templates.filterClearBtn);
-                        clearBtn.on('click', $.proxy(function (event) {
+                    // Handles optional filter clear button                        
+                    if (!this.options.includeFilterClearBtn) {
+                        this.$filter.find(".multiselect-search").attr("type", "text");
+
+                        // Remove clear button if the old design of the filter with input groups and separated clear button is used
+                        this.$filter.find(".multiselect-clear-filter").remove();
+                    }
+                    else {
+                        // This handler is needed for the old design of the filter with input groups and separated clear button
+                        this.$filter.find(".multiselect-clear-filter") .on('click', $.proxy(function (event) {
                             clearTimeout(this.searchTimeout);
 
                             this.query = '';
@@ -1107,7 +1117,6 @@
                             }
 
                         }, this));
-                        this.$filter.find('.input-group').append(clearBtn);
                     }
 
                     this.$popupContainer.prepend(this.$filter);

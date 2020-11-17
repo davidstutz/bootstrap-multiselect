@@ -1451,6 +1451,24 @@ describe('Bootstrap Multiselect "Filter".', function() {
         it('Should create filter.', function() {
             expect($('#multiselect-container .multiselect-filter').length).toBe(1);
             expect($('#multiselect-container .multiselect-filter input').length).toBe(1);
+        });
+    });
+
+    describe('Should create legacy filter.', function() {
+        beforeEach(function() {
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                enableFiltering: true,
+                templates: {
+                    filter: '<div class="multiselect-filter"><div class="input-group input-group-sm p-1"><div class="input-group-prepend"><i class="input-group-text fas fa-search"></i></div><input class="form-control multiselect-search" type="text" /><div class="input-group-append"><button class="multiselect-clear-filter input-group-text" type="button"><i class="fas fa-times"></i></button></div></div></div>'
+                },
+                filterBehavior: 'value'
+            });
+        });
+
+        it('Should create filter.', function() {
+            expect($('#multiselect-container .multiselect-filter').length).toBe(1);
+            expect($('#multiselect-container .multiselect-filter input').length).toBe(1);
             expect($('#multiselect-container .multiselect-filter .multiselect-clear-filter').length).toBe(1);
         });
     });
@@ -1601,11 +1619,14 @@ describe('Bootstrap Multiselect "Filter".', function() {
         });
     });
 
-    describe('Should remove filter on clicking the clear button.', function() {
+    describe('Should remove filter on clicking the legacy clear button.', function() {
         beforeEach(function(done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
+                templates: {
+                    filter: '<div class="multiselect-filter"><div class="input-group input-group-sm p-1"><div class="input-group-prepend"><i class="input-group-text fas fa-search"></i></div><input class="form-control multiselect-search" type="text" /><div class="input-group-append"><button class="multiselect-clear-filter input-group-text" type="button"><i class="fas fa-times"></i></button></div></div></div>'
+                },
                 filterBehavior: 'value',
                 onFiltering: function() {
                     done();
