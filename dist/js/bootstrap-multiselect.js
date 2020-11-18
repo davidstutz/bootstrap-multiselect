@@ -711,17 +711,17 @@
                 }
                 else if (!$target.is('input')) {
                     var $checkbox = $target.closest('.multiselect-option, .multiselect-all').find('.form-check-input');
-                    if($checkbox.length > 0) {
+                    if ($checkbox.length > 0) {
                         $checkbox.prop('checked', !$checkbox.prop('checked'));
                         $checkbox.change();
                     }
-                    else if(this.options.enableClickableOptGroups && this.options.multiple && !$target.hasClass("caret-container")) {
+                    else if (this.options.enableClickableOptGroups && this.options.multiple && !$target.hasClass("caret-container")) {
                         var groupItem = $target;
-                        if(!groupItem.hasClass("multiselect-group")){
+                        if (!groupItem.hasClass("multiselect-group")) {
                             groupItem = $target.closest('.multiselect-group');
                         }
                         $checkbox = groupItem.find(".form-check-input");
-                        if($checkbox.length > 0) {
+                        if ($checkbox.length > 0) {
                             $checkbox.prop('checked', !$checkbox.prop('checked'));
                             $checkbox.change();
                         }
@@ -774,8 +774,8 @@
                     }
 
                     // keyCode 13 = Enter
-                    if(event.keyCode === 13) {
-                        setTimeout(function() {
+                    if (event.keyCode === 13) {
+                        setTimeout(function () {
                             $current.focus();
                         }, 0);
                     }
@@ -922,7 +922,7 @@
             var $option = $(this.options.templates.option);
             $option.addClass(classes);
 
-            if(isGroupOption && this.options.indentGroupOptions) {
+            if (isGroupOption && this.options.indentGroupOptions) {
                 $option.addClass("multiselect-group-option-indented")
             }
 
@@ -1102,8 +1102,12 @@
                         this.$filter.find(".multiselect-clear-filter").remove();
                     }
                     else {
-                        // This handler is needed for the old design of the filter with input groups and separated clear button
-                        this.$filter.find(".multiselect-clear-filter") .on('click', $.proxy(function (event) {
+                        // Firefox does not support a clear button in search inputs right now therefore it must be added manually
+                        if (this.isFirefox() && this.$filter.find(".multiselect-clear-filter").length === 0) {
+                            this.$filter.append("<i class='fas fa-times text-muted multiselect-clear-filter multiselect-moz-clear-filter'></i>");
+                        }
+
+                        this.$filter.find(".multiselect-clear-filter").on('click', $.proxy(function (event) {
                             clearTimeout(this.searchTimeout);
 
                             this.query = '';
@@ -1127,6 +1131,15 @@
                         // Cancel enter key default behaviour
                         if (event.which === 13) {
                             event.preventDefault();
+                        }
+
+                        if (this.isFirefox() && this.options.includeFilterClearBtn) {
+                            if (event.target.value) {
+                                this.$filter.find(".multiselect-moz-clear-filter").show();
+                            }
+                            else {
+                                this.$filter.find(".multiselect-moz-clear-filter").hide();
+                            }
                         }
 
                         // This is useful to catch "keydown" events after the browser has updated the control.
@@ -1781,6 +1794,14 @@
         setAllSelectedText: function (allSelectedText) {
             this.options.allSelectedText = allSelectedText;
             this.updateButtonText();
+        },
+
+        isFirefox: function () {
+            if (navigator && navigator.userAgent) {
+                return navigator.userAgent.toLocaleLowerCase().indexOf('firefox') > -1;
+            }
+
+            return false;
         }
     };
 

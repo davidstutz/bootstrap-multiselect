@@ -84,6 +84,10 @@ span.multiselect-native-select select {
   border-bottom-right-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
+.multiselect-container .multiselect-filter > .multiselect-moz-clear-filter {
+  margin-left: -24px;
+  display: none;
+}
 .multiselect-container .multiselect-option.multiselect-group-option-indented {
   padding-left: 1.75rem;
 }
