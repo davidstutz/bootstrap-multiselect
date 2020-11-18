@@ -1797,8 +1797,11 @@
         },
 
         isFirefox: function () {
+            var firefoxIdentifier = 'firefox';
+            var valueNotFoundIndex = -1;
+
             if (navigator && navigator.userAgent) {
-                return navigator.userAgent.toLocaleLowerCase().indexOf('firefox') > -1;
+                return navigator.userAgent.toLocaleLowerCase().indexOf(firefoxIdentifier) > valueNotFoundIndex;
             }
 
             return false;
