@@ -68,19 +68,65 @@ span.multiselect-native-select select {
 .multiselect-container .multiselect-reset .input-group {
   width: 93%;
 }
-.multiselect-container > .multiselect-option.dropdown-item,
+.multiselect-container .multiselect-filter > .fa-search {
+  z-index: 1;
+  padding-left: 0.75rem;
+}
+.multiselect-container .multiselect-filter > input.multiselect-search {
+  border: none;
+  border-bottom: 1px solid lightgrey;
+  padding-left: 2rem;
+  margin-left: -1.625rem;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.multiselect-container .multiselect-filter > input.multiselect-search:focus {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+.multiselect-container .multiselect-filter > .multiselect-moz-clear-filter {
+  margin-left: -1.5rem;
+  display: none;
+}
+.multiselect-container .multiselect-option.multiselect-group-option-indented {
+  padding-left: 1.75rem;
+}
+.multiselect-container .multiselect-option,
+.multiselect-container .multiselect-group,
+.multiselect-container .multiselect-all {
+  padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+}
+.multiselect-container .multiselect-option.dropdown-item,
 .multiselect-container .multiselect-group.dropdown-item,
-.multiselect-container > .multiselect-option.dropdown-toggle,
-.multiselect-container .multiselect-group.dropdown-toggle {
+.multiselect-container .multiselect-all.dropdown-item,
+.multiselect-container .multiselect-option.dropdown-toggle,
+.multiselect-container .multiselect-group.dropdown-toggle,
+.multiselect-container .multiselect-all.dropdown-toggle {
   cursor: pointer;
 }
-.multiselect-container > .multiselect-option > span,
-.multiselect-container .multiselect-group > span {
-  padding: 3px 20px;
-}
-.multiselect-container > .multiselect-option > span > .form-check-label,
-.multiselect-container .multiselect-group > span > .form-check-label {
+.multiselect-container .multiselect-option .form-check-label,
+.multiselect-container .multiselect-group .form-check-label,
+.multiselect-container .multiselect-all .form-check-label {
   cursor: pointer;
+}
+.multiselect-container .multiselect-option.active:not(.multiselect-active-item-fallback),
+.multiselect-container .multiselect-group.active:not(.multiselect-active-item-fallback),
+.multiselect-container .multiselect-all.active:not(.multiselect-active-item-fallback),
+.multiselect-container .multiselect-option:not(.multiselect-active-item-fallback):active,
+.multiselect-container .multiselect-group:not(.multiselect-active-item-fallback):active,
+.multiselect-container .multiselect-all:not(.multiselect-active-item-fallback):active {
+  background-color: lightgrey;
+  color: black;
+}
+.multiselect-container .multiselect-option .form-check,
+.multiselect-container .multiselect-group .form-check,
+.multiselect-container .multiselect-all .form-check {
+  padding: 0 5px 0 20px;
+}
+.multiselect-container .multiselect-option:focus,
+.multiselect-container .multiselect-group:focus,
+.multiselect-container .multiselect-all:focus {
+  outline: none;
 }
 .form-inline .multiselect-container span.form-check {
   padding: 3px 20px 3px 40px;

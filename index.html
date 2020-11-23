@@ -27,6 +27,10 @@
             .nav-link.active {
                 font-weight: bold;
             }
+
+            .badge {
+                font-size: 85%;
+            }
         </style>
     </head>
     <body data-spy="scroll" data-target="#affix" style="font-size:14px;">
@@ -197,13 +201,13 @@
                                 <td><a href="#configuration-options-collapseOptGroupsByDefault"><code class="badge badge-secondary">collapseOptGroupsByDefault</code></a></td>
                                 <td><a href="#configuration-options-disableIfEmpty"><code class="badge badge-secondary">disableIfEmpty</code></a></td>
                             </tr>
+                                <td><a href="#configuration-options-disabledText"><code class="badge badge-secondary">disabledText</code></a></td>
                                 <td><a href="#configuration-options-dropRight"><code class="badge badge-secondary">dropRight</code></a></td>
                                 <td><a href="#configuration-options-dropUp"><code class="badge badge-secondary">dropUp</code></a></td>
-                                <td><a href="#configuration-options-maxHeight"><code class="badge badge-secondary">maxHeight</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-disableIfEmpty"><code class="badge badge-secondary">disableIfEmpty</code></a></td>
-                                <td><a href="#configuration-options-disabledText"><code class="badge badge-secondary">disabledText</code></a>
+                                <td><a href="#configuration-options-maxHeight"><code class="badge badge-secondary">maxHeight</code></a></td>
+                                <td><a href="#configuration-options-checkboxName"><code class="badge badge-secondary">checkboxName</code></a></td>
                                 <td><a href="#configuration-options-onChange"><code class="badge badge-secondary">onChange</code></a></td>
                             </tr>
                             <tr>
@@ -237,32 +241,36 @@
                                 <td><a href="#configuration-options-optionClass"><code class="badge badge-secondary">optionClass</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-indentGroupOptions"><code class="badge badge-secondary">indentGroupOptions</code></a></td>
                                 <td><a href="#configuration-options-selectedClass"><code class="badge badge-secondary">selectedClass</code></a></td>
                                 <td><a href="#configuration-options-includeSelectAllOption"><code class="badge badge-secondary">includeSelectAllOption</code></a></td>
-                                <td><a href="#configuration-options-selectAllJustVisible"><code class="badge badge-secondary">selectAllJustVisible</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-selectAllJustVisible"><code class="badge badge-secondary">selectAllJustVisible</code></a></td>
                                 <td><a href="#configuration-options-selectAllText"><code class="badge badge-secondary">selectAllText</code></a></td>
                                 <td><a href="#configuration-options-selectAllValue"><code class="badge badge-secondary">selectAllValue</code></a></td>
-                                <td><a href="#configuration-options-selectAllName"><code class="badge badge-secondary">selectAllName</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-selectAllName"><code class="badge badge-secondary">selectAllName</code></a></td>
                                 <td><a href="#configuration-options-selectAllNumber"><code class="badge badge-secondary">selectAllNumber</code></a></td>
                                 <td><a href="#configuration-options-onSelectAll"><code class="badge badge-secondary">onSelectAll</code></a></td>
-                                <td><a href="#configuration-options-onDeselectAll"><code class="badge badge-secondary">onDeselectAll</code></a></td>
                             </tr>
                             <tr>
+                                <td><a href="#configuration-options-onDeselectAll"><code class="badge badge-secondary">onDeselectAll</code></a></td>
                                 <td><a href="#configuration-options-enableFiltering"><code class="badge badge-secondary">enableFiltering</code></a></td>
+                                <td><a href="#configuration-options-includeFilterClearBtn"><code class="badge badge-secondary">includeFilterClearBtn</code></a></td>
+                            </tr>
+                            <tr>
                                 <td><a href="#configuration-options-enableCaseInsensitiveFiltering"><code class="badge badge-secondary">enableCaseInsensitiveFiltering</code></a></td>
                                 <td><a href="#configuration-options-enableFullValueFiltering"><code class="badge badge-secondary">enableFullValueFiltering</code></a></td>
+                                <td><a href="#configuration-options-filterBehavior"><code class="badge badge-secondary">filterBehavior</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-filterBehavior"><code class="badge badge-secondary">filterBehavior</code></a></td>
                                 <td><a href="#configuration-options-filterPlaceholder"><code class="badge badge-secondary">filterPlaceholder</code></a></td>
                                 <td><a href="#configuration-options-includeResetOption"><code class="badge badge-secondary">includeResetOption</code></a></td>
+                                <td><a href="#configuration-options-includeResetDivider"><code class="badge badge-secondary">includeResetDivider</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-includeResetDivider"><code class="badge badge-secondary">includeResetDivider</code></a></td>
                                 <td><a href="#configuration-options-resetText"><code class="badge badge-secondary">resetText</code></a></td>
                             </tr>
                         </tbody>
@@ -2304,6 +2312,58 @@ $(document).ready(function() {
                                 </td>
                             </tr>
                             <tr>
+                                <td><code id="configuration-options-indentGroupOptions">indentGroupOptions</code></td>
+                                <td>
+                                    <p>
+                                        This option controls if options inside a <code>optgroup</code> are indented.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-indentGroupOptions').multiselect({
+                                                    indentGroupOptions: false,
+                                                    enableCollapsibleOptGroups: true
+                                                });
+                                            });
+                                        </script>
+                                        <div>
+                                            <select id="example-indentGroupOptions" multiple="multiple">
+                                                <optgroup label="Group 1"></optgroup>
+                                                <option value="1">Option 1</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                                <option value="4">Option 4</option>
+                                                <option value="5">Option 5</option>
+                                                <option value="6">Option 6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-indentGroupOptions').multiselect({
+            indentGroupOptions: false,
+            enableCollapsibleOptGroups: true
+        });
+    });
+&lt;/script&gt;
+&lt;div&quot;&gt;
+    &lt;select id=&quot;example-indentGroupOptions&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td><code id="configuration-options-selectedClass">selectedClass</code></td>
                                 <td>
                                     <p>
@@ -2344,7 +2404,7 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#example-selectedClass').multiselect({
             buttonContainer: '&lt;div class=&quot;btn-group&quot; id=&quot;example-selectedClass-container&quot;&gt;&lt;/div&gt;',
-            selectedClass: 'multiselect-selected'
+            selectedClass: 'active multiselect-selected'
         });
     });
 &lt;/script&gt;
@@ -3068,6 +3128,49 @@ $(document).ready(function() {
                                     </div>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-includeFilterClearBtn">includeFilterClearBtn</code>
+                                </td>
+                                <td>
+
+                                    <p>
+                                        If it is not desired to have a clear button for the search it can also be disabled.
+                                    </p>
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-includeFilterClearBtn').multiselect({
+                                                    enableFiltering: true,
+                                                    includeFilterClearBtn: false
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-includeFilterClearBtn" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2" selected="selected">Option 2</option>
+                                            <option value="3" selected="selected">Option 3</option>
+                                            <option value="4" selected="selected">Option 4</option>
+                                            <option value="5" selected="selected">Option 5</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-includeFilterClearBtn').multiselect({
+            enableFiltering: true,
+            includeFilterClearBtn: false
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+
+                                </td>
+                            </tr>
+
                             <tr>
                                 <td>
                                     <code id="configuration-options-enableCaseInsensitiveFiltering">enableCaseInsensitiveFiltering</code>
@@ -3460,12 +3563,11 @@ $(document).ready(function() {
         $('#example').multiselect({
             templates: {
                 button: '&lt;button type=&quot;button&quot; class=&quot;multiselect dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;span class=&quot;multiselect-selected-text&quot;&gt;&lt;/span>&lt;/button&gt;',
-                ul: '&lt;div class=&quot;multiselect-container dropdown-menu&quot;&gt;&lt;/div&gt;',
-                filter: '&lt;div class=&quot;multiselect-item multiselect-filter&quot;&gt;&lt;div class=&quot;input-group input-group-sm p-1&quot;&gt;&lt;div class=&quot;input-group-prepend&quot;&gt;&lt;i class=&quot;input-group-text fas fa-search&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;input class=&quot;form-control multiselect-search&quot; type=&quot;text&quot;&gt;&lt;/div&gt;&lt;/div&gt;',
-                filterClearBtn: '&lt;div class=&quot;input-group-append&quot;&gt;&lt;button class=&quot;multiselect-clear-filter input-group-text&quot; type=&quot;button&quot;&gt;&lt;i class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/div&gt;',
-                li: '&lt;a class=&quot;multiselect-option dropdown-item&quot;&gt;&lt;/a&gt;',
+                popupContainer: '&lt;div class=&quot;multiselect-container dropdown-menu&quot;&gt;&lt;/div&gt;',
+                filter: '&lt;div class="multiselect-filter d-flex align-items-center"&gt;&lt;i class="fas fa-sm fa-search text-muted"&gt;&lt;/i&gt;&lt;input type="search" class="multiselect-search form-control" /&gt;&lt;/div&gt;',
+                option: '&lt;a class=&quot;multiselect-option dropdown-item&quot;&gt;&lt;/a&gt;',
                 divider: '&lt;div class=&quot;multiselect-item dropdown-divider&quot;&gt;&lt;/div&gt;',
-                liGroup: '&lt;a class=&quot;multiselect-item multiselect-group&quot;&gt;&lt;/a&gt;',
+                optionGroup: '&lt;a class=&quot;multiselect-item multiselect-group&quot;&gt;&lt;/a&gt;',
                 resetButton: '&lt;div class=&quot;multiselect-reset text-center p-2&quot;&gt;&lt;a class=&quot;btn btn-sm btn-block btn-outline-secondary&quot;&gt;&lt;/a&gt;&lt;/div&gt;'
             }
         });
@@ -6790,6 +6892,80 @@ $("#example").multiselect();
                             <li>The template <code>li</code> was renamed to <code>option</code></li>
                             <li>The template <code>liGroup</code> was renamed to <code>optionGroup</code></li>
                         </ul>
+
+                        Besides the refactoring of upgrading the multiselect to Bootstrap v4 also the filter controls were redesigned.
+                        To keep the old design the following template can be used for <code>filter</code>:
+
+                        <div class="example">
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#example-legacyFiltering').multiselect({
+                                        enableFiltering: true,
+                                        templates: {
+                                            filter: '<div class="multiselect-filter"><div class="input-group input-group-sm p-1"><div class="input-group-prepend"><i class="input-group-text fas fa-search"></i></div><input class="form-control multiselect-search" type="text" /><div class="input-group-append"><button class="multiselect-clear-filter input-group-text" type="button"><i class="fas fa-times"></i></button></div></div></div>'
+                                        }
+                                    });
+                                });
+                            </script>
+                            <select id="example-legacyFiltering" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                            </select>
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+   $('#example-legacyFiltering').multiselect({
+      enableFiltering: true,
+      templates: {
+         filter: '&lt;div class="multiselect-filter"&gt;&lt;div class="input-group input-group-sm p-1"&gt;&lt;div class="input-group-prepend"&gt;&lt;i class="input-group-text fas fa-search"&gt;&lt;/i&gt;&lt;/div&gt;&lt;input class="form-control multiselect-search" type="text" /&gt;&lt;div class="input-group-append"&gt;&lt;button class="multiselect-clear-filter input-group-text" type="button"&gt;&lt;i class="fas fa-times"&gt;&lt;/i&gt;&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;'
+      }
+   });
+});
+&lt;/script&gt;
+</pre>
+                        </div>
+                        
+                    </p>
+
+                    <h3>Colors</h3>
+                    <p>
+                        In Chrome checked checkboxes are highlighted in blue and also in Bootstrap v4 active dropdown items have a blue color. This led to the situation that checked checkboxes were almost not visible anymore. 
+                        Therefore the active color for dropdown items was changed a light grey.
+                        If you would like to use the Bootstrap default color you can use the <code>selectedClass</code> option with the value <code>multiselect-active-item-fallback</code>:
+
+                        <div class="example">
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#example-multiselect-fallback').multiselect({
+                                        selectedClass: "active multiselect-active-item-fallback"
+                                    });
+                                });
+                            </script>
+                            <select id="example-multiselect-fallback" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                            </select>
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+   $('#example-multiselect-fallback').multiselect({
+      selectedClass: "active multiselect-active-item-fallback"
+   });
+});
+&lt;/script&gt;
+</pre>
+                        </div>
+                        
                     </p>
 
                     <h3>Fonts</h3>
