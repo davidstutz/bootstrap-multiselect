@@ -254,7 +254,7 @@
 
                     return this.disabledText;
                 }
-                else if (options.length === 0) {
+                else if (this.numberDisplayed == 0 || options.length === 0) {
                     return this.nonSelectedText;
                 }
                 else if (this.allSelectedText
