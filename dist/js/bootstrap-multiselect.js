@@ -248,35 +248,33 @@
              * @param {jQuery} select
              * @returns {String}
              */
-            buttonText: function (options, select) {
-                if (this.disabledText.length > 0
-                    && (select.prop('disabled') || (options.length == 0 && this.disableIfEmpty))) {
-
+            buttonText: function (selectedOptions, select) {
+                if (this.disabledText.length > 0 && select.prop('disabled')) {
                     return this.disabledText;
                 }
-                else if (options.length === 0) {
+                else if (selectedOptions.length === 0) {
                     return this.nonSelectedText;
                 }
                 else if (this.allSelectedText
-                    && options.length === $('option', $(select)).length
+                    && selectedOptions.length === $('option', $(select)).length
                     && $('option', $(select)).length !== 1
                     && this.multiple) {
 
                     if (this.selectAllNumber) {
-                        return this.allSelectedText + ' (' + options.length + ')';
+                        return this.allSelectedText + ' (' + selectedOptions.length + ')';
                     }
                     else {
                         return this.allSelectedText;
                     }
                 }
-                else if (this.numberDisplayed != 0 && options.length > this.numberDisplayed) {
-                    return options.length + ' ' + this.nSelectedText;
+                else if (this.numberDisplayed != 0 && selectedOptions.length > this.numberDisplayed) {
+                    return selectedOptions.length + ' ' + this.nSelectedText;
                 }
                 else {
                     var selected = '';
                     var delimiter = this.delimiterText;
 
-                    options.each(function () {
+                    selectedOptions.each(function () {
                         var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).text();
                         selected += label + delimiter;
                     });
@@ -1617,6 +1615,8 @@
             this.$select.prop('disabled', false);
             this.$button.prop('disabled', false)
                 .removeClass('disabled');
+            
+            this.updateButtonText();
         },
 
         /**
@@ -1626,6 +1626,8 @@
             this.$select.prop('disabled', true);
             this.$button.prop('disabled', true)
                 .addClass('disabled');
+            
+            this.updateButtonText();
         },
 
         /**
