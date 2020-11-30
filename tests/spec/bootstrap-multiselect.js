@@ -23,7 +23,8 @@ describe('Bootstrap Multiselect "Core".', function() {
             },
             checkboxName: function($option) {
                 return 'value-' + $($option).attr('value');
-            }
+            },
+            disabledText: "Disabled"
         });
     });
 
@@ -110,6 +111,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         $('#multiselect').multiselect('disable');
 
         expect($('#multiselect').prop('disabled')).toBe(true);
+        expect($('#multiselect-container button .multiselect-selected-text').text()).toBe('Disabled');
     });
 
     it('Should be able to enable the multiselect', function() {
@@ -415,7 +417,7 @@ describe('Bootstrap Multiselect "Single Selection".', function() {
 
 describe('Bootstrap Multiselect "Individual Configuration Options".', function() {
 
-    describe('disableIfEmpty.', function() {
+    describe('disableIfEmpty without options.', function() {
 
         var $select = null;
         beforeEach(function() {
@@ -425,12 +427,14 @@ describe('Bootstrap Multiselect "Individual Configuration Options".', function()
 
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
-                disableIfEmpty: true
+                disableIfEmpty: true,
+                disabledText: 'Disabled'
             });
         });
 
-        it('Should disable button if emppty.', function() {
+        it('Should disable button if empty.', function() {
             expect($('#multiselect-container button').prop('disabled')).toBe(true);
+            expect($('#multiselect-container button .multiselect-selected-text').text()).toBe('Disabled');
         });
 
         it('Should still be disabled after invoking rebuild.', function() {
@@ -454,6 +458,35 @@ describe('Bootstrap Multiselect "Individual Configuration Options".', function()
             });
 
             expect($('#multiselect-container button').prop('disabled')).toBe(false);
+        });
+
+        afterEach(function() {
+            $('#multiselect').multiselect('destroy');
+            $('#multiselect').remove();
+        });
+    });
+
+    describe('disableIfEmpty with options.', function() {
+
+        var $select = null;
+        beforeEach(function() {
+            $select = $('<select id="multiselect" multiple="multiple"></select>');
+            $select.append('<option value="value-1">Option 1</option>');
+            $select.append('<option value="value-2">Option 2</option>');
+            $select.append('<option value="value-3">Option 3</option>');
+
+            $('body').append($select);
+
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                disableIfEmpty: true,
+                nonSelectedText: 'Enabled'
+            });
+        });
+
+        it('Should enable button.', function() {
+            expect($('#multiselect-container button').prop('disabled')).toBe(false);
+            expect($('#multiselect-container button .multiselect-selected-text').text()).toBe('Enabled');
         });
 
         afterEach(function() {
