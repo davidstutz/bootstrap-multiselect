@@ -142,6 +142,9 @@ span.multiselect-native-select select {
   flex: 1 1 auto;
   width: 1%;
 }
+.input-group > .multiselect-native-select > div.btn-group {
+  width: 100%;
+}
 .input-group > .multiselect-native-select:not(:first-child) .multiselect {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;

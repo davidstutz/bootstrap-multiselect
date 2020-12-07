@@ -401,7 +401,7 @@
             buttonClass: 'custom-select',
             inheritClass: false,
             buttonWidth: 'auto',
-            buttonContainer: '<div class="btn-group w-100" />',
+            buttonContainer: '<div class="btn-group" />',
             dropRight: false,
             dropUp: false,
             selectedClass: 'active',
