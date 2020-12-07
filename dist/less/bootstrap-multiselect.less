@@ -139,3 +139,28 @@ span.multiselect-native-select select{
     padding: 3px 20px 3px 40px;
   }
 }
+
+.input-group  { 
+  &.input-group-sm > .multiselect-native-select .multiselect {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    padding-right: 1.75rem;
+    height: calc(1.5em + .5rem + 2px);
+  }
+
+  > .multiselect-native-select {
+    flex: 1 1 auto;
+    width: 1%;
+
+    &:not(:first-child) .multiselect {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &:not(:last-child) .multiselect {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}

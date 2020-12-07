@@ -799,7 +799,7 @@
                                             $(document).ready(function() {
                                                 $('#example-enableCollapsibleOptGroups-collapsed').multiselect({
                                                     enableCollapsibleOptGroups: true,
-                                                    buttonContainer: '<div id="example-enableCollapsibleOptGroups-collapsed-container" class="btn-group" />'
+                                                    buttonContainer: '<div id="example-enableCollapsibleOptGroups-collapsed-container" class="btn-group w-100" />'
                                                 });
                                                 $('#example-enableCollapsibleOptGroups-collapsed-container .caret-container').click();
                                             });
@@ -823,7 +823,7 @@
 $(document).ready(function() {
     $('#example-enableCollapsibleOptGroups-collapsed').multiselect({
         enableCollapsibleOptGroups: true,
-        buttonContainer: '&lt;div id=&quot;example-enableCollapsibleOptGroups-collapsed-container&quot; class=&quot;btn-group&quot; /&gt;'
+        buttonContainer: '&lt;div id=&quot;example-enableCollapsibleOptGroups-collapsed-container&quot; class=&quot;btn-group w-100&quot; /&gt;'
     });
     $('#example-enableCollapsibleOptGroups-collapsed-container .caret-container').click();
 });
@@ -1666,7 +1666,7 @@ $(document).ready(function() {
                                         <script type="text/javascript">
                                             $(document).ready(function() {
                                                 $('#example-buttonContainer').multiselect({
-                                                    buttonContainer: '<div class="btn-group" />'
+                                                    buttonContainer: '<div class="btn-group w-100" />'
                                                 });
                                             });
                                         </script>
@@ -1684,7 +1684,7 @@ $(document).ready(function() {
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
         $('#example-buttonContainer').multiselect({
-            buttonContainer: '&lt;div class=&quot;btn-group&quot; /&gt;'
+            buttonContainer: '&lt;div class=&quot;btn-group w-100&quot; /&gt;'
         });
     });
 &lt;/script&gt;
@@ -6201,61 +6201,34 @@ $(document).ready(function() {
                                     buttonClass: '',
                                     templates: {
                                         button: '',
-                                        ul: '<div class="multiselect-container checkbox-list"></div>',
-                                        li: '<a class="multiselect-option text-dark text-decoration-none"></a>'
+                                        popupContainer: '<div class="multiselect-container checkbox-list"></div>',
+                                        option: '<a class="multiselect-option text-dark text-decoration-none"></a>'
                                     }
                                 });
                             });
                         </script>
                         <style type="text/css">
-                            #example-checkbox-list-container .checkbox-list > li > a {
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option {
                                 display: block;
                                 padding: 3px 0;
-                                clear: both;
-                                font-weight: normal;
-                                line-height: 1.42857143;
-                                color: #333;
-                                white-space: nowrap;
                             }
-                            #example-checkbox-list-container .checkbox-list > li > a:hover,
-                            #example-checkbox-list-container .checkbox-list > li > a:focus {
-                                color: #333;
-                                text-decoration: none;
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.active ,
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.active :hover,
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.active :focus {
                                 background-color: transparent;
                             }
-                            #example-checkbox-list-container .checkbox-list > .active > a,
-                            #example-checkbox-list-container .checkbox-list > .active > a:hover,
-                            #example-checkbox-list-container .checkbox-list > .active > a:focus {
-                                color: #333;
-                                text-decoration: none;
-                                background-color: transparent;
-                                outline: 0;
-                            }
-                            #example-checkbox-list-container .checkbox-list > .disabled > a,
-                            #example-checkbox-list-container .checkbox-list > .disabled > a:hover,
-                            #example-checkbox-list-container .checkbox-list > .disabled > a:focus {
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.disabled,
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.disabled:hover,
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.disabled:focus {
                                 color: #777;
                             }
-                            #example-checkbox-list-container .checkbox-list > .disabled > a:hover,
-                            #example-checkbox-list-container .checkbox-list > .disabled > a:focus {
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.disabled:hover,
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.disabled:focus {
                                 text-decoration: none;
                                 cursor: unset;
                                 background-color: transparent;
                                 background-image: none;
                                 filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-                            }
-                            #example-checkbox-list-container .checkbox-list > li > a > label {
-                                padding: 3px 0 3px 20px;
-                            }
-                            @media (min-width: 768px) {
-                                #example-checkbox-list-container .checkbox-list > li {
-                                    float: left;
-                                    width: 33%;
-                                }
-                                #example-checkbox-list-container .checkbox-list-vertical > li {
-                                    float: none;
-                                    width: 100%;
-                                }
                             }
                             #example-checkbox-list-container .multiselect-container.checkbox-list {
                                 position: static;
@@ -6265,8 +6238,8 @@ $(document).ready(function() {
                             <select id="example-checkbox-list" multiple="multiple">
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                                <option value="4">Option 4</option>
+                                <option value="3" disabled>Option 3</option>
+                                <option value="4" selected>Option 4</option>
                                 <option value="5">Option 5</option>
                                 <option value="6">Option 6</option>
                             </select>
@@ -6292,57 +6265,27 @@ $(document).ready(function() {
     #example-checkbox-list-container .checkbox-list &gt; li &gt; a {
         display: block;
         padding: 3px 0;
-        clear: both;
-        font-weight: normal;
-        line-height: 1.42857143;
-        color: #333;
-        white-space: nowrap;
     }
 
-    #example-checkbox-list-container .checkbox-list &gt; li &gt; a:hover,
-    #example-checkbox-list-container .checkbox-list &gt; li &gt; a:focus {
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.active,
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.active:hover,
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.active:focus {
         color: #333;
-        text-decoration: none;
-        background-color: transparent;
     }
 
-    #example-checkbox-list-container .checkbox-list &gt; .active &gt; a,
-    #example-checkbox-list-container .checkbox-list &gt; .active &gt; a:hover,
-    #example-checkbox-list-container .checkbox-list &gt; .active &gt; a:focus {
-        color: #333;
-        text-decoration: none;
-        background-color: transparent;
-        outline: 0;
-    }
-
-    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a,
-    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:hover,
-    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:focus {
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.disabled,
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.disabled:hover,
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.disabled:focus {
         color: #777;
     }
 
-    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:hover,
-    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:focus {
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.disabled:hover,
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.disabled:focus {
         text-decoration: none;
         cursor: unset;
         background-color: transparent;
         background-image: none;
         filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-    }
-
-    #example-checkbox-list-container .checkbox-list &gt; li &gt; a &gt; label {
-        padding: 3px 0 3px 20px;
-    }
-
-    @media (min-width: 768px) {
-        #example-checkbox-list-container .checkbox-list &gt; li {
-            float: left;
-            width: 33%;
-        }
-        #example-checkbox-list-container .checkbox-list-vertical &gt; li {
-            float: none;
-            width: 100%;
-        }
     }
 
     #example-checkbox-list-container .multiselect-container.checkbox-list {
@@ -6354,14 +6297,101 @@ $(document).ready(function() {
     &lt;select id=&quot;example-checkbox-list&quot; multiple=&quot;multiple&quot;&gt;
         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
-        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
-        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;3&quot; disabled &gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot; selected &gt;Option 4&lt;/option&gt;
         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
         &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
     &lt;/select&gt;
 &lt;/div&gt;
 </pre>
                     </div>
+
+                    <p>
+                        The select can also be embedded into an <code>input-group</code> and <code>input-group-sm</code>:
+                    </p>
+
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-input-group').multiselect();
+                                $('#example-input-group-sm').multiselect();
+                            });
+                        </script>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Prepend</span>
+                            </div>
+                            <select id="example-input-group" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Append</span>
+                            </div>
+                        </div>
+                        <div class="input-group input-group-sm mt-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Prepend</span>
+                            </div>
+                            <select id="example-input-group-sm" multiple="multipe">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Append</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-input-group').multiselect();
+    });
+&lt;/script&gt;
+
+&lt;div class=&quot;input-group&quot;&gt;
+    &lt;div class=&quot;input-group-prepend&quot;&gt;
+        &lt;span class&quot;input-group-text&quot;&gt;Prepend&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;select id=&quot;example-input-group&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;div class=&quot;input-group-append&quot;&gt;
+        &lt;span class&quot;input-group-text&quot;&gt;Append&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;input-group input-group-sm mt-2&quot;&gt;
+    &lt;div class=&quot;input-group-prepend&quot;&gt;
+        &lt;span class&quot;input-group-text&quot;&gt;Prepend&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;select id=&quot;example-input-group&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;div class=&quot;input-group-append&quot;&gt;
+        &lt;span class&quot;input-group-text&quot;&gt;Append&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
 
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
