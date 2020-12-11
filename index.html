@@ -272,6 +272,7 @@
                             </tr>
                             <tr>
                                 <td><a href="#configuration-options-resetText"><code class="badge badge-secondary">resetText</code></a></td>
+                                <td><a href="#configuration-options-synchronizeWidth"><code class="badge badge-secondary">synchronizeWidth</code></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -3533,6 +3534,52 @@ $(document).ready(function() {
         });
     });
 &lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-synchronizeWidth">synchronizeWidth</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Synchronizes the width of the select button and the popup.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-synchronizeWidth').multiselect({
+                                                    synchronizeWidth: true
+                                                });
+                                            });
+                                        </script>
+
+                                        <select id="example-synchronizeWidth" multiple="multiple">
+                                            <option>Option 1</option>
+                                            <option>Option 2</option>
+                                            <option>Long Long Long Option 3</option>
+                                            <option>Option 4</option>
+                                            <option>Option 5</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-synchronizeWidth').multiselect({
+            synchronizeWidth: true
+        });
+    });
+&lt;/script&gt;
+&lt;select id="example-filterBehavior" multiple="multiple"&gt;
+    &lt;option&gt;Option 1&lt;/option&gt;
+    &lt;option&gt;Option 2&lt;/option&gt;
+    &lt;option&gt;Long Long Long Option 3&lt;/option&gt;
+    &lt;option&gt;Option 4&lt;/option&gt;
+    &lt;option&gt;Option 5&lt;/option&gt;
+&lt;/select&gt;
 </pre>
                                     </div>
                                 </td>

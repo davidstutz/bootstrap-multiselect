@@ -233,6 +233,11 @@
         }
 
         this.$select.wrap('<span class="multiselect-native-select" />').after(this.$container);
+
+        if(this.options.synchronizeWidth) {
+            this.synchronizeButtonAndPopupWidth();
+        }
+
         this.options.onInitialized(this.$select, this.$container);
     }
 
@@ -437,6 +442,7 @@
             includeResetDivider: false,
             resetText: 'Reset',
             indentGroupOptions: true,
+            synchronizeWidth: false,
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 popupContainer: '<div class="multiselect-container dropdown-menu"></div>',
@@ -495,6 +501,10 @@
                 this.$button.attr('tabindex', tabindex);
             }
 
+            if(this.options.synchronizeWidth) {
+                this.$button.on("change", $.proxy(this.synchronizeButtonAndPopupWidth, this));
+            }
+
             this.$container.prepend(this.$button);
         },
 
@@ -523,11 +533,25 @@
                 });
             }
 
+            if(this.options.synchronizeWidth) {
+                this.$popupContainer.css('overflow-x', 'hidden');
+            }
+
             this.$popupContainer.on("touchstart click", function (e) {
                 e.stopPropagation();
             });
 
             this.$container.append(this.$popupContainer);
+        },
+
+        synchronizeButtonAndPopupWidth: function() {
+            if(!this.$popupContainer || !this.options.synchronizeWidth) {
+                return;
+            }
+
+            var buttonWidth = this.$button.outerWidth();
+            this.$popupContainer.css("min-width", buttonWidth);
+            this.$popupContainer.css("max-width", buttonWidth);
         },
 
         /**
@@ -1543,6 +1567,10 @@
             else if (this.options.dropUp) {
                 this.$container.addClass('dropup');
             }
+
+            if(this.options.synchronizeWidth) {
+                this.synchronizeButtonAndPopupWidth();
+            }
         },
 
         /**
@@ -1730,6 +1758,7 @@
 
             // Now update the title attribute of the button.
             $('.multiselect', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
+            this.$button.trigger('change');
         },
 
         /**
