@@ -8,12 +8,12 @@
 
 interface Templates {
     button?: string;
-    ul?: string;
+    popupContainer?: string;
     filter?: string;
-    filterClearBtn?: string;
-    li?: string;
+    option?: string;
     divider?: string;
-    liGroup?: string;
+    optionGroup?: string;
+    resetButton?: string;
 }
 
 interface MultiSelectOptionElement {
@@ -48,6 +48,11 @@ interface MultiSelectOptions {
      * If set to true, optgroup's will be collapsible.
      */
     enableCollapsibleOptGroups?: boolean;
+
+    /**
+     * This option will collapse all optgroups by default
+     */
+    collapseOptGroupsByDefault?: boolean;
 
     /**
      * If set to true, the multiselect will be disabled if no options are given.
@@ -224,6 +229,11 @@ interface MultiSelectOptions {
     optionClass?: (element: HTMLElement) => string;
 
     /**
+     * This option controls if options insade a optgroup are indented.
+     */
+    indentGroupOptions?: boolean;
+
+    /**
      * The class(es) applied on selected options.
      */
     selectedClass?: string;
@@ -289,6 +299,11 @@ interface MultiSelectOptions {
     enableFiltering?: boolean;
 
     /**
+     * If it is not desired to have a clear button for the search it can also be disabled.
+     */
+    includeFilterClearBtn?: boolean;
+
+    /**
      * The filter as configured above will use case sensitive filtering, 
      * by setting enableCaseInsensitiveFiltering to true this behavior can be changed to use case insensitive filtering.
      */
@@ -313,6 +328,20 @@ interface MultiSelectOptions {
      */
     filterPlaceholder?: string;
 
+    /**
+     * Add reset button to dropdown.
+     */
+    includeResetOption?: boolean;
+
+    /**
+     * Add a divider between reset button and options.
+     */
+    includeResetDivider?: boolean;
+
+    /**
+     * Defines the text of the reset button.
+     */
+    resetText?: string;
     /**
      * The generated HTML markup can be controlled using templates. Basically, templates are simple configuration options. 
      */
