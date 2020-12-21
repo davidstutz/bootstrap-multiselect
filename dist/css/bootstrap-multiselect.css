@@ -131,3 +131,25 @@ span.multiselect-native-select select {
 .form-inline .multiselect-container span.form-check {
   padding: 3px 20px 3px 40px;
 }
+.input-group.input-group-sm > .multiselect-native-select .multiselect {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  padding-right: 1.75rem;
+  height: calc(1.5em + 0.5rem + 2px);
+}
+.input-group > .multiselect-native-select {
+  flex: 1 1 auto;
+  width: 1%;
+}
+.input-group > .multiselect-native-select > div.btn-group {
+  width: 100%;
+}
+.input-group > .multiselect-native-select:not(:first-child) .multiselect {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.input-group > .multiselect-native-select:not(:last-child) .multiselect {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
