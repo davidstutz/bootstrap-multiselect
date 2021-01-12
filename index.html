@@ -3493,7 +3493,7 @@ $(document).ready(function() {
                                 </td>
                                 <td>
                                     <p>
-                                        Add reset button to dropdown.
+                                        Defines the text of the reset button.
                                     </p>
 
                                     <div class="example">
@@ -6355,6 +6355,7 @@ $(document).ready(function() {
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
         $('#example-input-group').multiselect();
+        $('#example-input-group-sm').multiselect();
     });
 &lt;/script&gt;
 
@@ -6379,7 +6380,7 @@ $(document).ready(function() {
     &lt;div class=&quot;input-group-prepend&quot;&gt;
         &lt;span class&quot;input-group-text&quot;&gt;Prepend&lt;/span&gt;
     &lt;/div&gt;
-    &lt;select id=&quot;example-input-group&quot; multiple=&quot;multiple&quot;&gt;
+    &lt;select id=&quot;example-input-group-sm&quot; multiple=&quot;multiple&quot;&gt;
         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
         &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
@@ -6392,6 +6393,53 @@ $(document).ready(function() {
     &lt;/div&gt;
 &lt;/div&gt;
 </pre>
+                    </div>
+
+                    <p>
+                       The select can also be used inside of <code>form-group</code>s. The <code>buttonContainer</code> just needs to be extended with the class <code>w-100</code>:
+                    </p>
+
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-form-group').multiselect({
+                                    buttonContainer: '<div class="btn-group w-100" />'
+                                });
+                            });
+                        </script>
+                        <div class="form-group">
+                            <label for="example-form-group">Select</label>
+                            <select id="example-form-group" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-form-group').multiselect({
+            buttonContainer: '&lt;div class=&quot;btn-group w-100&quot; /&gt;'
+        });
+    });
+&lt;/script&gt;
+
+&lt;div class=&quot;form-group&quot;&gt;
+    &lt;label for&quot;example-form-group&quot;&gt;Select&lt;/label&gt;
+    &lt;select id=&quot;example-form-group&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
 
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
@@ -6414,14 +6462,14 @@ $(document).ready(function() {
                             $(document).ready(function() {
                                 $('#example-post').multiselect({
                                     includeSelectAllOption: true,
-                                    enableFiltering: true
+                                    enableFiltering: true,
+                                    buttonContainer: '<div class="btn-group w-100" />'
                                 });
                             });
                         </script>
                         <form class="form-horizontal" method="POST" action="post.php">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Multiselect</label>
-                                <div class="col-sm-10">
+                                <label for="example-post">Multiselect</label>
                                     <select id="example-post" name="multiselect[]" multiple="multiple" required>
                                         <option value="1">Option 1</option>
                                         <option value="2">Option 2</option>
@@ -6431,41 +6479,27 @@ $(document).ready(function() {
                                         <option value="6">Option 6</option>
                                     </select>
                                 </div>
-                            </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Text Input</label>
-                                <div class="col-sm-10">
+                                <label>Text Input</label>
                                     <input type="text" name="text" class="form-control" placeholder="Text Input" />
                                 </div>
-                            </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="checkbox"> Checkbox
-                                        </label>
-                                    </div>
+                                <div class="form-check">
+                                    <input id="checkbox" type="checkbox" name="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="checkbox">Checkbox</label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="radio"> Radio 1
-                                        </label>
+                                <div class="form-check">
+                                    <input id="radio1" type="radio" name="radio" class="form-check-input">
+                                    <label class="form-check-label" for="radio1">Radio 1</label>
                                     </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="radio"> Radio 2
-                                        </label>
+                                <div class="form-check">
+                                    <input id="radio2" type="radio" name="radio" class="form-check-input">
+                                    <label class="form-check-label" for="radio2">Radio 2</label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-outline-secondary">Submit</button>
-                                </div>
-                            </div>
                         </form>
                     </div>
                     <div class="highlight">
@@ -6474,14 +6508,14 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#example-post').multiselect({
             includeSelectAllOption: true,
-            enableFiltering: true
+            enableFiltering: true,
+            buttonContainer: '&lt;div class=&quot;btn-group w-100&quot; /&gt;'
         });
     });
 &lt;/script&gt;
 &lt;form class=&quot;form-horizontal&quot; method=&quot;POST&quot; action=&quot;post.php&quot;&gt;
     &lt;div class=&quot;form-group&quot;&gt;
-        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;Multiselect&lt;/label&gt;
-        &lt;div class=&quot;col-sm-10&quot;&gt;
+        &lt;label for=&quot;example-post&quot;&gt;Multiselect&lt;/label&gt;
             &lt;select id=&quot;example-post&quot; name=&quot;multiselect[]&quot; multiple=&quot;multiple&quot;&gt;
                 &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
                 &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
@@ -6491,41 +6525,27 @@ $(document).ready(function() {
                 &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
             &lt;/select&gt;
         &lt;/div&gt;
-    &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
-        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;Text Input&lt;/label&gt;
-        &lt;div class=&quot;col-sm-10&quot;&gt;
+        &lt;label&gt;Text Input&lt;/label&gt;
             &lt;input type=&quot;text&quot; name=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Text Input&quot; /&gt;
         &lt;/div&gt;
-    &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
-        &lt;div class=&quot;col-sm-offset-2 col-sm-10&quot;&gt;
-            &lt;div class=&quot;checkbox&quot;&gt;
-                &lt;label&gt;
-                    &lt;input type=&quot;checkbox&quot; name=&quot;checkbox&quot;&gt; Checkbox
-                &lt;/label&gt;
-            &lt;/div&gt;
+        &lt;div class=&quot;form-check&quot;&gt;
+            &lt;input id=&quot;checkbox&quot; type=&quot;checkbox&quot; name=&quot;checkbox&quot; class=&quot;form-check-input&quot;&gt;
+            &lt;label class=&quot;form-check-label&quot; for=&quot;checkbox&quot;&gt;Checkbox&lt;/label&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
-        &lt;div class=&quot;col-sm-offset-2 col-sm-10&quot;&gt;
-            &lt;div class=&quot;radio&quot;&gt;
-                &lt;label&gt;
-                    &lt;input type=&quot;radio&quot; name=&quot;radio&quot;&gt; Radio 1
-                &lt;/label&gt;
+        &lt;div class=&quot;form-check&quot;&gt;
+            &lt;input id=&quot;radio1&quot; type=&quot;radio&quot; name=&quot;radio&quot; class=&quot;form-check-input&quot;&gt;
+            &lt;label class=&quot;form-check-label&quot; for=&quot;radio1&quot;&gt;Radio 1&lt;/label&gt;
             &lt;/div&gt;
-            &lt;div class=&quot;radio&quot;&gt;
-                &lt;label&gt;
-                    &lt;input type=&quot;radio&quot; name=&quot;radio&quot;&gt; Radio 2
-                &lt;/label&gt;
+        &lt;div class=&quot;form-check&quot;&gt;
+            &lt;input id=&quot;radio2&quot; type=&quot;radio&quot; name=&quot;radio&quot; class=&quot;form-check-input&quot;&gt;
+            &lt;label class=&quot;form-check-label&quot; for=&quot;radio2&quot;&gt;Radio 2&lt;/label&gt;
             &lt;/div&gt;
         &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;form-group&quot;&gt;
-        &lt;div class=&quot;col-sm-offset-2 col-sm-10&quot;&gt;
             &lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot;&gt;Submit&lt;/button&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
 &lt;/form&gt;
 </pre>
                     </div>
