@@ -578,10 +578,10 @@
                     var $option = $target.closest('.multiselect-option');
 
                     if (checked) {
-                        this.setSelected($option);
+                        setSelected($option);
                     }
                     else {
-                        this.setDeselected($option);
+                        setDeselected($option);
                     }
                 }
 
@@ -613,7 +613,7 @@
                             // Unselect all other options and corresponding checkboxes.
                             if (this.options.selectedClass) {
                                 var $dropdownItem = $($checkboxesNotThis).closest('.dropdown-item');
-                                this.setDeselected($dropdownItem);
+                                setDeselected($dropdownItem);
                             }
 
                             $($checkboxesNotThis).prop('checked', false);
@@ -800,10 +800,10 @@
 
                     if (this.options.selectedClass) {
                         if (checked) {
-                            this.setSelected($item);
+                            setSelected($item);
                         }
                         else {
-                            this.setDeselected($item);
+                            setDeselected($item);
                         }
                     }
 
@@ -814,12 +814,12 @@
 
                         if (checked) {
                             $input.prop('checked', true);
-                            this.setSelected($item);
+                            setSelected($item);
                             $option.prop('selected', true);
                         }
                         else {
                             $input.prop('checked', false);
-                            this.setDeselected($item);
+                            setDeselected($item);
                             $option.prop('selected', false);
                         }
 
@@ -951,7 +951,7 @@
             $checkbox.prop('checked', selected);
 
             if (selected && this.options.selectedClass) {
-                this.setSelected($checkbox.closest('.dropdown-item'));
+                setSelected($checkbox.closest('.dropdown-item'));
             }
         },
 
@@ -1258,11 +1258,11 @@
 
                 if ($elem.is(':selected')) {
                     $input.prop('checked', true);
-                    this.setSelected($option);
+                    setSelected($option);
                 }
                 else {
                     $input.prop('checked', false);
-                    this.setDeselected($option);
+                    setDeselected($option);
                 }
 
                 if ($elem.is(":disabled")) {
@@ -1318,7 +1318,7 @@
                     this.deselectAll(false);
                 }
 
-                this.setSelected($checkbox.closest('.dropdown-item'));
+                setSelected($checkbox.closest('.dropdown-item'));
 
                 $checkbox.prop('checked', true);
                 $option.prop('selected', true);
@@ -1378,7 +1378,7 @@
                 }
 
                 if (this.options.selectedClass) {
-                    this.setDeselected($checkbox.closest('.dropdown-item'));
+                    setDeselected($checkbox.closest('.dropdown-item'));
                 }
 
                 $checkbox.prop('checked', false);
@@ -1413,7 +1413,7 @@
 
             if (onlyVisible) {
                 $('input:enabled', visibleOptions).prop('checked', true);
-                this.setSelected(visibleOptions);
+                setSelected(visibleOptions);
 
                 $('input:enabled', visibleOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
@@ -1423,7 +1423,7 @@
             }
             else {
                 $('input:enabled', allOptions).prop('checked', true);
-                this.setSelected(allOptions);
+                setSelected(allOptions);
 
                 $('input:enabled', allOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
@@ -1461,7 +1461,7 @@
 
             if (onlyVisible) {
                 $('input[type="checkbox"]:enabled', visibleOptions).prop('checked', false);
-                this.setDeselected(visibleOptions);
+                setDeselected(visibleOptions);
 
                 $('input[type="checkbox"]:enabled', visibleOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
@@ -1471,7 +1471,7 @@
             }
             else {
                 $('input[type="checkbox"]:enabled', allOptions).prop('checked', false);
-                this.setDeselected(allOptions);
+                setDeselected(allOptions);
 
                 $('input[type="checkbox"]:enabled', allOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
@@ -1691,11 +1691,11 @@
 
                 if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
                     selectAllInput.prop("checked", true);
-                    this.setSelected(selectAllItem);
+                    setSelected(selectAllItem);
                 }
                 else {
                     selectAllInput.prop("checked", false);
-                    this.setDeselected(selectAllItem);
+                    setDeselected(selectAllItem);
                 }
             }
         },
@@ -1796,7 +1796,9 @@
         },
 
         setSelected: function (item) {
-            item.addClass(this.options.selectedClass);
+            if (this.options.selectedClass) {
+                item.addClass(this.options.selectedClass);
+            }
             item.attr("aria-selected", true);
         },
 
