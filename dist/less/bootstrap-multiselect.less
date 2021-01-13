@@ -1,8 +1,9 @@
+// out: ../css/bootstrap-multiselect.css, compress: false, sourceMap: false
 /**
  * Bootstrap Multiselect (http://davidstutz.de/bootstrap-multiselect/)
  *
  * Apache License, Version 2.0:
- * Copyright (c) 2012 - 2018 David Stutz
+ * Copyright (c) 2012 - 2020 David Stutz
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a
@@ -15,7 +16,7 @@
  * under the License.
  *
  * BSD 3-Clause License:
- * Copyright (c) 2012 - 2018 David Stutz
+ * Copyright (c) 2012 - 2020 David Stutz
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,15 +59,15 @@ span.multiselect-native-select select{
   top: 30px;
 }
 
+.multiselect.dropdown-toggle:after {
+  display: none;
+}
+
 .multiselect-container {
   position: absolute;
   list-style-type: none;
   margin: 0;
   padding: 0;
-
-  .input-group {
-    margin: 5px;
-  }
 
   .multiselect-reset {
     .input-group {
@@ -74,62 +75,96 @@ span.multiselect-native-select select{
     }
   }
 
-  > li {
-    padding: 0;
-
-    > a.multiselect-all label {
-      font-weight: bold;
+  .multiselect-filter {
+    > .fa-search {
+      z-index: 1;
+      padding-left: 0.75rem;
     }
 
-    &.multiselect-group label {
-      margin: 0;
-      padding: 3px 20px 3px 20px;
-      height: 100%;
-      font-weight: bold;
+    > input.multiselect-search {
+      border: none;
+      border-bottom: 1px solid lightgrey;
+      padding-left: 2rem;
+      margin-left: -1.625rem;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius:  0;
+
+      &:focus {
+        border-bottom-right-radius: 0.25rem;
+        border-bottom-left-radius:  0.25rem;;
+      }
     }
 
-    &.multiselect-group-clickable label {
+    > .multiselect-moz-clear-filter {
+      margin-left: -1.5rem;
+      display: none;
+    }
+  }
+
+  .multiselect-option.multiselect-group-option-indented {
+    padding-left: 1.75rem;
+  }
+
+  .multiselect-option, .multiselect-group, .multiselect-all {
+    padding: 0.25rem 0.25rem 0.25rem 0.75rem;
+
+    &.dropdown-item,
+    &.dropdown-toggle {
       cursor: pointer;
     }
 
-    > a {
-      padding: 0;
+    .form-check-label {
+      cursor: pointer;
+    }
+  }
 
-      > label {
-        margin: 0;
-        height: 100%;
-        cursor: pointer;
-        font-weight: normal;
-        padding: 3px 20px 3px 40px;
+  .multiselect-option, .multiselect-group, .multiselect-all {
+    &.active:not(.multiselect-active-item-fallback), &:not(.multiselect-active-item-fallback):active {
+      background-color: lightgrey;
+      color: black;
+    }
 
-        &.radio, &.checkbox {
-          margin: 0;
-        }
+    .form-check {
+      padding: 0 5px 0 20px;
+    }
 
-        > input[type="checkbox"] {
-          margin-bottom:5px;
-        }
-      }
+    &:focus {
+      outline: none;
     }
   }
 }
 
-.btn-group > .btn-group:nth-child(2) > .multiselect.btn {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-
-.form-inline .multiselect-container{
-
-  label.checkbox, label.radio{
+.form-inline .multiselect-container {
+  span.form-check {
     padding: 3px 20px 3px 40px;
   }
+}
 
-  li a label{
+.input-group  { 
+  &.input-group-sm > .multiselect-native-select .multiselect {
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    padding-right: 1.75rem;
+    height: calc(1.5em + .5rem + 2px);
+  }
 
-    &.checkbox input[type="checkbox"], &.radio input[type="radio"]{
-      margin-left: -20px;
-      margin-right: 0;
+  > .multiselect-native-select {
+    flex: 1 1 auto;
+    width: 1%;
+
+    > div.btn-group {
+      width: 100%;
+    }
+
+    &:not(:first-child) .multiselect {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &:not(:last-child) .multiselect {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
 }

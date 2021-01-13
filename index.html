@@ -5,12 +5,13 @@
         <meta name="robots" content="noindex, nofollow" />
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
-        <link rel="stylesheet" href="docs/css/bootstrap-3.3.2.min.css" type="text/css">
+        <link rel="stylesheet" href="docs/css/bootstrap-4.5.2.min.css" type="text/css">
         <link rel="stylesheet" href="docs/css/bootstrap-example.min.css" type="text/css">
         <link rel="stylesheet" href="docs/css/prettify.min.css" type="text/css">
+        <link rel="stylesheet" href="docs/css/fontawesome-5.15.1-web/all.css" type="text/css">
 
         <script type="text/javascript" src="docs/js/jquery-2.1.3.min.js"></script>
-        <script type="text/javascript" src="docs/js/bootstrap-3.3.2.min.js"></script>
+        <script type="text/javascript" src="docs/js/bootstrap.bundle-4.5.2.min.js"></script>
         <script type="text/javascript" src="docs/js/prettify.min.js"></script>
 
         <link rel="stylesheet" href="dist/css/bootstrap-multiselect.css" type="text/css">
@@ -21,31 +22,46 @@
                 window.prettyPrint() && prettyPrint();
             });
         </script>
+
+        <style>
+            .nav-link.active {
+                font-weight: bold;
+            }
+
+            .badge {
+                font-size: 85%;
+            }
+        </style>
     </head>
-    <body data-spy="scroll" data-target="#affix">
-	<a href="https://github.com/davidstutz/bootstrap-multiselect"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    <body data-spy="scroll" data-target="#affix" style="font-size:14px;">
+    <a href="https://github.com/davidstutz/bootstrap-multiselect">
+        <img style="position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
+    </a>
 
         <div class="container">
             <div class="row">
-                <div class="col-md-3" id="affix">
-                    <ul class="nav nav-pills nav-stacked sidebar" data-spy="affix" style="margin-top: 40px;">
-                        <li class="active"><a href="#getting-started">Getting Started</a></li>
-                        <li><a href="#configuration-options">Configuration Options</a></li>
-                        <li><a href="#templates">Templates</a></li>
-                        <li><a href="#styling">Styling</a></li>
-                        <li><a href="#methods">Methods</a></li>
-                        <li><a href="#further-examples">Further Examples</a></li>
-                        <li><a href="#post">Server-Side Processing</a></li>
-                        <li><a href="#keyboard-support">Keyboard Support</a>
-                        <li><a href="require.html">Require JS</a>
-                        <li><a href="#faq">Frequently Asked Questions</a></li>
-                        <li><a href="#known-issues">Known Issues</a></li>
-                        <li><a href="tests/SpecRunner.html">Tests</a></li>
-                        <li><a href="#license">License</a></li>
-                    </ul>
+                <div class="col-md-3 pt-4" id="affix">
+                    <nav class="bg-light navbar navbar-light position-fixed">
+                        <div class="navbar-nav">
+                            <a class="nav-link" href="#getting-started">Getting Started</a>
+                            <a class="nav-link" href="#configuration-options">Configuration Options</a>
+                            <a class="nav-link" href="#templates">Templates</a>
+                            <a class="nav-link" href="#styling">Styling</a>
+                            <a class="nav-link" href="#methods">Methods</a>
+                            <a class="nav-link" href="#further-examples">Further Examples</a>
+                            <a class="nav-link" href="#post">Server-Side Processing</a>
+                            <a class="nav-link" href="#keyboard-support">Keyboard Support</a>
+                            <a class="nav-link" href="require.html">Require JS</a>
+                            <a class="nav-link" href="#faq">Frequently Asked Questions</a>
+                            <a class="nav-link" href="#known-issues">Known Issues</a>
+                            <a class="nav-link" href="tests/SpecRunner.html">Tests</a>
+                            <a class="nav-link" href="#migration">Migrating to Bootstrap v4</a>
+                            <a class="nav-link" href="#license">License</a>
+                        </div>
+                    </nav>
                 </div>
-                <div class="col-md-9"> 
-                    <div class="page-header"> 
+                <div class="col-md-9 pt-4"> 
+                    <div class="pb-2 mb-2 border-bottom"> 
                         <h1>Bootstrap Multiselect</h1>
                     </div>
 
@@ -57,7 +73,7 @@
                         Please consult the <a href="#faq">FAQ</a>, the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> or <a href="http://stackoverflow.com/questions/tagged/bootstrap-multiselect">StackOverflow</a> before creating a new issue; when creating an issue or a pull request, read <a href="#how-to-contribute">how to contribute</a> first.
                     </p>
 
-                    <div class="well well-sm">
+                    <div class="alert alert-secondary">
                         <p><b>Consider making a donation to support the development of this plugin:</b></p>
                         <div class="text-center">
                             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
@@ -67,7 +83,7 @@
                                 <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
                             </form>
                         </div>
-                        <a href="http://davidstutz.de/donate/" class="small pull-right">Why Donate?</a>
+                        <a href="http://davidstutz.de/donate/" class="small float-right">Why Donate?</a>
                         <div class="clearfix"></div>
                     </div>
 
@@ -135,7 +151,9 @@
                             <div class="example">
                                 <script type="text/javascript">
                                     $(document).ready(function() {
-                                        $('#example-getting-started').multiselect();
+                                        $('#example-getting-started').multiselect({
+                                            enableHTML: true
+                                        });
                                     });
                                 </script>
                                 <select id="example-getting-started" multiple="multiple">
@@ -174,82 +192,86 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><a href="#configuration-options-multiple"><code>multiple</code></a></td>
-                                <td><a href="#configuration-options-enableHTML"><code>enableHTML</code></a></td>
-                                <td><a href="#configuration-options-enableClickableOptGroups"><code>enableClickableOptGroups</code></a></td>
+                                <td><a href="#configuration-options-multiple"><code class="badge badge-secondary">multiple</code></a></td>
+                                <td><a href="#configuration-options-enableHTML"><code class="badge badge-secondary">enableHTML</code></a></td>
+                                <td><a href="#configuration-options-enableClickableOptGroups"><code class="badge badge-secondary">enableClickableOptGroups</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-enableCollapsibleOptGroups"><code>enableCollapsibleOptGroups</code></a></td>
-                                <td><a href="#configuration-options-collapseOptGroupsByDefault"><code>collapseOptGroupsByDefault</code></a></td>
-                                <td><a href="#configuration-options-disableIfEmpty"><code>disableIfEmpty</code></a></td>
+                                <td><a href="#configuration-options-enableCollapsibleOptGroups"><code class="badge badge-secondary">enableCollapsibleOptGroups</code></a></td>
+                                <td><a href="#configuration-options-collapseOptGroupsByDefault"><code class="badge badge-secondary">collapseOptGroupsByDefault</code></a></td>
+                                <td><a href="#configuration-options-disableIfEmpty"><code class="badge badge-secondary">disableIfEmpty</code></a></td>
                             </tr>
-                                <td><a href="#configuration-options-dropRight"><code>dropRight</code></a></td>
-                                <td><a href="#configuration-options-dropUp"><code>dropUp</code></a></td>
-                                <td><a href="#configuration-options-maxHeight"><code>maxHeight</code></a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#configuration-options-disableIfEmpty"><code>disableIfEmpty</code></a></td>
-                                <td><a href="#configuration-options-disabledText"><code>disabledText</code></a>
-                                <td><a href="#configuration-options-onChange"><code>onChange</code></a></td>
+                                <td><a href="#configuration-options-disabledText"><code class="badge badge-secondary">disabledText</code></a></td>
+                                <td><a href="#configuration-options-dropRight"><code class="badge badge-secondary">dropRight</code></a></td>
+                                <td><a href="#configuration-options-dropUp"><code class="badge badge-secondary">dropUp</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-onInitialized"><code>onInitialized</code></a></td>
-                                <td><a href="#configuration-options-onDropdownShow"><code>onDropdownShow</code></a></td>
-                                <td><a href="#configuration-options-onDropdownHide"><code>onDropdownHide</code></a></td>
+                                <td><a href="#configuration-options-maxHeight"><code class="badge badge-secondary">maxHeight</code></a></td>
+                                <td><a href="#configuration-options-checkboxName"><code class="badge badge-secondary">checkboxName</code></a></td>
+                                <td><a href="#configuration-options-onChange"><code class="badge badge-secondary">onChange</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-onDropdownShown"><code>onDropdownShown</code></a></td>
-                                <td><a href="#configuration-options-onDropdownHidden"><code>onDropdownHidden</code></a></td>
-                                <td><a href="#configuration-options-buttonClass"><code>buttonClass</code></a></td>
+                                <td><a href="#configuration-options-onInitialized"><code class="badge badge-secondary">onInitialized</code></a></td>
+                                <td><a href="#configuration-options-onDropdownShow"><code class="badge badge-secondary">onDropdownShow</code></a></td>
+                                <td><a href="#configuration-options-onDropdownHide"><code class="badge badge-secondary">onDropdownHide</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-inheritClass"><code>inheritClass</code></a></td>
-                                <td><a href="#configuration-options-buttonContainer"><code>buttonContainer</code></a></td>
-                                <td><a href="#configuration-options-buttonWidth"><code>buttonWidth</code></a></td>
+                                <td><a href="#configuration-options-onDropdownShown"><code class="badge badge-secondary">onDropdownShown</code></a></td>
+                                <td><a href="#configuration-options-onDropdownHidden"><code class="badge badge-secondary">onDropdownHidden</code></a></td>
+                                <td><a href="#configuration-options-buttonClass"><code class="badge badge-secondary">buttonClass</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-buttonText"><code>buttonText</code></a></td>
-                                <td><a href="#configuration-options-buttonTitle"><code>buttonTitle</code></a></td>
-                                <td><a href="#configuration-options-nonSelectedText"><code>nonSelectedText</code></a></td>
+                                <td><a href="#configuration-options-inheritClass"><code class="badge badge-secondary">inheritClass</code></a></td>
+                                <td><a href="#configuration-options-buttonContainer"><code class="badge badge-secondary">buttonContainer</code></a></td>
+                                <td><a href="#configuration-options-buttonWidth"><code class="badge badge-secondary">buttonWidth</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-nSelectedText"><code>nSelectedText</code></a></td>
-                                <td><a href="#configuration-options-allSelectedText"><code>allSelectedText</code></a></td>
-                                <td><a href="#configuration-options-numberDisplayed"><code>numberDisplayed</code></a></td>
+                                <td><a href="#configuration-options-buttonText"><code class="badge badge-secondary">buttonText</code></a></td>
+                                <td><a href="#configuration-options-buttonTitle"><code class="badge badge-secondary">buttonTitle</code></a></td>
+                                <td><a href="#configuration-options-nonSelectedText"><code class="badge badge-secondary">nonSelectedText</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-delimiterText"><code>delimiterText</code></a></td>
-                                <td><a href="#configuration-options-optionLabel"><code>optionLabel</code></a></td>
-                                <td><a href="#configuration-options-optionClass"><code>optionClass</code></a></td>
+                                <td><a href="#configuration-options-nSelectedText"><code class="badge badge-secondary">nSelectedText</code></a></td>
+                                <td><a href="#configuration-options-allSelectedText"><code class="badge badge-secondary">allSelectedText</code></a></td>
+                                <td><a href="#configuration-options-numberDisplayed"><code class="badge badge-secondary">numberDisplayed</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-selectedClass"><code>selectedClass</code></a></td>
-                                <td><a href="#configuration-options-includeSelectAllOption"><code>includeSelectAllOption</code></a></td>
-                                <td><a href="#configuration-options-selectAllJustVisible"><code>selectAllJustVisible</code></a></td>
+                                <td><a href="#configuration-options-delimiterText"><code class="badge badge-secondary">delimiterText</code></a></td>
+                                <td><a href="#configuration-options-optionLabel"><code class="badge badge-secondary">optionLabel</code></a></td>
+                                <td><a href="#configuration-options-optionClass"><code class="badge badge-secondary">optionClass</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-selectAllText"><code>selectAllText</code></a></td>
-                                <td><a href="#configuration-options-selectAllValue"><code>selectAllValue</code></a></td>
-                                <td><a href="#configuration-options-selectAllName"><code>selectAllName</code></a></td>
+                                <td><a href="#configuration-options-indentGroupOptions"><code class="badge badge-secondary">indentGroupOptions</code></a></td>
+                                <td><a href="#configuration-options-selectedClass"><code class="badge badge-secondary">selectedClass</code></a></td>
+                                <td><a href="#configuration-options-includeSelectAllOption"><code class="badge badge-secondary">includeSelectAllOption</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-selectAllNumber"><code>selectAllNumber</code></a></td>
-                                <td><a href="#configuration-options-onSelectAll"><code>onSelectAll</code></a></td>
-                                <td><a href="#configuration-options-onDeselectAll"><code>onDeselectAll</code></a></td>
+                                <td><a href="#configuration-options-selectAllJustVisible"><code class="badge badge-secondary">selectAllJustVisible</code></a></td>
+                                <td><a href="#configuration-options-selectAllText"><code class="badge badge-secondary">selectAllText</code></a></td>
+                                <td><a href="#configuration-options-selectAllValue"><code class="badge badge-secondary">selectAllValue</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-enableFiltering"><code>enableFiltering</code></a></td>
-                                <td><a href="#configuration-options-enableCaseInsensitiveFiltering"><code>enableCaseInsensitiveFiltering</code></a></td>
-                                <td><a href="#configuration-options-enableFullValueFiltering"><code>enableFullValueFiltering</code></a></td>
+                                <td><a href="#configuration-options-selectAllName"><code class="badge badge-secondary">selectAllName</code></a></td>
+                                <td><a href="#configuration-options-selectAllNumber"><code class="badge badge-secondary">selectAllNumber</code></a></td>
+                                <td><a href="#configuration-options-onSelectAll"><code class="badge badge-secondary">onSelectAll</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-filterBehavior"><code>filterBehavior</code></a></td>
-                                <td><a href="#configuration-options-filterPlaceholder"><code>filterPlaceholder</code></a></td>
-                                <td><a href="#configuration-options-includeResetOption"><code>includeResetOption</code></a></td>
+                                <td><a href="#configuration-options-onDeselectAll"><code class="badge badge-secondary">onDeselectAll</code></a></td>
+                                <td><a href="#configuration-options-enableFiltering"><code class="badge badge-secondary">enableFiltering</code></a></td>
+                                <td><a href="#configuration-options-includeFilterClearBtn"><code class="badge badge-secondary">includeFilterClearBtn</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-includeResetDivider"><code>includeResetDivider</code></a></td>
-                                <td><a href="#configuration-options-resetText"><code>resetText</code></a></td>
+                                <td><a href="#configuration-options-enableCaseInsensitiveFiltering"><code class="badge badge-secondary">enableCaseInsensitiveFiltering</code></a></td>
+                                <td><a href="#configuration-options-enableFullValueFiltering"><code class="badge badge-secondary">enableFullValueFiltering</code></a></td>
+                                <td><a href="#configuration-options-filterBehavior"><code class="badge badge-secondary">filterBehavior</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-filterPlaceholder"><code class="badge badge-secondary">filterPlaceholder</code></a></td>
+                                <td><a href="#configuration-options-includeResetOption"><code class="badge badge-secondary">includeResetOption</code></a></td>
+                                <td><a href="#configuration-options-includeResetDivider"><code class="badge badge-secondary">includeResetDivider</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-resetText"><code class="badge badge-secondary">resetText</code></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -575,8 +597,7 @@
                                         <script type="text/javascript">
                                             $(document).ready(function() {
                                                 $('#example-enableClickableOptGroups-disabled').multiselect({
-                                                    enableClickableOptGroups: true,
-                                                    includeSelectAllOption: true
+                                                    enableClickableOptGroups: true
                                                 });
                                             });
                                         </script>
@@ -697,8 +718,7 @@
                                         <script type="text/javascript">
                                             $(document).ready(function() {
                                                 $('#example-enableCollapsibleOptGroups').multiselect({
-                                                    enableCollapsibleOptGroups: true,
-                                                    buttonContainer: '<div id="example-enableCollapisbleOptGroups-container" />'
+                                                    enableCollapsibleOptGroups: true
                                                 });
                                             });
                                         </script>
@@ -779,7 +799,7 @@
                                             $(document).ready(function() {
                                                 $('#example-enableCollapsibleOptGroups-collapsed').multiselect({
                                                     enableCollapsibleOptGroups: true,
-                                                    buttonContainer: '<div id="example-enableCollapsibleOptGroups-collapsed-container" />'
+                                                    buttonContainer: '<div id="example-enableCollapsibleOptGroups-collapsed-container" class="btn-group" />'
                                                 });
                                                 $('#example-enableCollapsibleOptGroups-collapsed-container .caret-container').click();
                                             });
@@ -803,7 +823,7 @@
 $(document).ready(function() {
     $('#example-enableCollapsibleOptGroups-collapsed').multiselect({
         enableCollapsibleOptGroups: true,
-        buttonContainer: '&lt;div id=&quot;example-enableCollapsibleOptGroups-collapsed-container&quot; /&gt;'
+        buttonContainer: '&lt;div id=&quot;example-enableCollapsibleOptGroups-collapsed-container&quot; class=&quot;btn-group&quot; /&gt;'
     });
     $('#example-enableCollapsibleOptGroups-collapsed-container .caret-container').click();
 });
@@ -1604,7 +1624,7 @@ $(document).ready(function() {
                                                 });
                                             });
                                         </script>
-                                        <select id="example-inheritButton" class="btn-primary" multiple="multiple">
+                                        <select id="example-inheritButton" class="bg-warning" multiple="multiple">
                                             <option value="1">Option 1</option>
                                             <option value="2">Option 2</option>
                                             <option value="3">Option 3</option>
@@ -1622,6 +1642,15 @@ $(document).ready(function() {
         });
     });
 &lt;/script&gt;
+
+&lt;select id=&quot;example-inheritButton&quot; class=&quot;bg-warning&quot; multiple=&quot;multiple&quot;&gt;
+    &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+    &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+    &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+    &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+    &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+    &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+&lt;/select&gt;
 </pre>
                                     </div>
                                 </td>
@@ -1957,10 +1986,10 @@ $(document).ready(function() {
                                             });
                                         </script>
                                         <select id="example-nSelectedText" multiple="multiple">
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="3">Option 3</option>
-                                            <option value="4">Option 4</option>
+                                            <option value="1" selected>Option 1</option>
+                                            <option value="2" selected>Option 2</option>
+                                            <option value="3" selected>Option 3</option>
+                                            <option value="4" selected>Option 4</option>
                                             <option value="5">Option 5</option>
                                             <option value="6">Option 6</option>
                                         </select>
@@ -1994,12 +2023,12 @@ $(document).ready(function() {
                                             });
                                         </script>
                                         <select id="example-allSelectedText" multiple="multiple">
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                            <option value="3">Option 3</option>
-                                            <option value="4">Option 4</option>
-                                            <option value="5">Option 5</option>
-                                            <option value="6">Option 6</option>
+                                            <option value="1" selected>Option 1</option>
+                                            <option value="2" selected>Option 2</option>
+                                            <option value="3" selected>Option 3</option>
+                                            <option value="4" selected>Option 4</option>
+                                            <option value="5" selected>Option 5</option>
+                                            <option value="6" selected>Option 6</option>
                                         </select>
                                     </div>
                                     <div class="highlight">
@@ -2230,7 +2259,7 @@ $(document).ready(function() {
                                             });
                                         </script>
                                         <style type="text/css">
-                                            #example-optionClass-container .multiselect-container li.odd {
+                                            #example-optionClass-container .multiselect-container .odd:not(.active) {
                                                 background: #eeeeee;
                                             }
                                         </style>
@@ -2264,12 +2293,64 @@ $(document).ready(function() {
     });
 &lt;/script&gt;
 &lt;style type=&quot;text/css&quot;&gt;
-    #example-optionClass-container .multiselect-container li.odd {
+    #example-optionClass-container .multiselect-container .odd:not(.active) {
         background: #eeeeee;
     }
 &lt;/style&gt;
 &lt;div id=&quot;example-optionClass-container&quot;&gt;
     &lt;select id=&quot;example-optionClass&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code id="configuration-options-indentGroupOptions">indentGroupOptions</code></td>
+                                <td>
+                                    <p>
+                                        This option controls if options inside a <code>optgroup</code> are indented.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-indentGroupOptions').multiselect({
+                                                    indentGroupOptions: false,
+                                                    enableCollapsibleOptGroups: true
+                                                });
+                                            });
+                                        </script>
+                                        <div>
+                                            <select id="example-indentGroupOptions" multiple="multiple">
+                                                <optgroup label="Group 1"></optgroup>
+                                                <option value="1">Option 1</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                                <option value="4">Option 4</option>
+                                                <option value="5">Option 5</option>
+                                                <option value="6">Option 6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-indentGroupOptions').multiselect({
+            indentGroupOptions: false,
+            enableCollapsibleOptGroups: true
+        });
+    });
+&lt;/script&gt;
+&lt;div&quot;&gt;
+    &lt;select id=&quot;example-indentGroupOptions&quot; multiple=&quot;multiple&quot;&gt;
         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
         &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
@@ -2291,7 +2372,7 @@ $(document).ready(function() {
 
                                     <div class="example">
                                         <style type="text/css">
-                                            #example-selectedClass-container li.multiselect-selected a label {
+                                            #example-selectedClass-container .multiselect-selected .form-check-label {
                                                 color: red;
                                             }
                                         </style>
@@ -2315,7 +2396,7 @@ $(document).ready(function() {
                                     <div class="highlight">
 <pre class="prettyprint linenums">
 &lt;style type="text/css"&gt;
-    #example-selectedClass-container li.multiselect-selected a label {
+    #example-selectedClass-container .multiselect-selected .form-check-label {
         color: red;
     }
 &lt;/style&gt;
@@ -2323,7 +2404,7 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#example-selectedClass').multiselect({
             buttonContainer: '&lt;div class=&quot;btn-group&quot; id=&quot;example-selectedClass-container&quot;&gt;&lt;/div&gt;',
-            selectedClass: 'multiselect-selected'
+            selectedClass: 'active multiselect-selected'
         });
     });
 &lt;/script&gt;
@@ -2463,7 +2544,7 @@ $(document).ready(function() {
                                         </script>
                                         <select id="example-includeSelectAllOption-disbled" multiple="multiple">
                                             <option value="1" disabled="disabled">Option 1</option>
-                                            <option value="2">Option 2</option>
+                                            <option value="2" disabled="disabled" selected>Option 2</option>
                                             <option value="3">Option 3</option>
                                             <option value="4">Option 4</option>
                                             <option value="5">Option 5</option>
@@ -2796,6 +2877,7 @@ $(document).ready(function() {
                                             $(document).ready(function() {
                                                 $('#example-onDeselectAll').multiselect({
                                                     includeSelectAllOption: true,
+                                                    enableFiltering: true,
                                                     onDeselectAll: function() {
                                                         alert('onDeselectAll triggered!');
                                                     }
@@ -3046,6 +3128,49 @@ $(document).ready(function() {
                                     </div>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-includeFilterClearBtn">includeFilterClearBtn</code>
+                                </td>
+                                <td>
+
+                                    <p>
+                                        If it is not desired to have a clear button for the search it can also be disabled.
+                                    </p>
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-includeFilterClearBtn').multiselect({
+                                                    enableFiltering: true,
+                                                    includeFilterClearBtn: false
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-includeFilterClearBtn" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2" selected="selected">Option 2</option>
+                                            <option value="3" selected="selected">Option 3</option>
+                                            <option value="4" selected="selected">Option 4</option>
+                                            <option value="5" selected="selected">Option 5</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-includeFilterClearBtn').multiselect({
+            enableFiltering: true,
+            includeFilterClearBtn: false
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+
+                                </td>
+                            </tr>
+
                             <tr>
                                 <td>
                                     <code id="configuration-options-enableCaseInsensitiveFiltering">enableCaseInsensitiveFiltering</code>
@@ -3260,22 +3385,6 @@ $(document).ready(function() {
         });
     });
 &lt;/script&gt;
-&lt;select id="example-filter-placeholder" multiple="multiple"&gt;
-    &lt;option value=&quot;a"&gt;Option 1&lt;/option&gt;
-    &lt;option value="b"&gt;Option 2&lt;/option&gt;
-    &lt;option value="c"&gt;Option 3&lt;/option&gt;
-    &lt;option value="d"&gt;Option 4&lt;/option&gt;
-    &lt;option value="e"&gt;Option 5&lt;/option&gt;
-    &lt;option value="f"&gt;Option 6&lt;/option&gt;
-    &lt;option value="g"&gt;Option 7&lt;/option&gt;
-    &lt;option value="h"&gt;Option 8&lt;/option&gt;
-    &lt;option value="i"&gt;Option 9&lt;/option&gt;
-    &lt;option value="j"&gt;Option 10&lt;/option&gt;
-    &lt;option value="k"&gt;Option 11&lt;/option&gt;
-    &lt;option value="l"&gt;Option 12&lt;/option&gt;
-    &lt;option value="m"&gt;Option 13&lt;/option&gt;
-    &lt;option value="n"&gt;Option 14&lt;/option&gt;
-&lt;/select&gt;
 </pre>
                                     </div>
                                 </td>
@@ -3324,22 +3433,6 @@ $(document).ready(function() {
         });
     });
 &lt;/script&gt;
-&lt;select id="example-include-reset-option" multiple="multiple"&gt;
-    &lt;option value=&quot;a"&gt;Option 1&lt;/option&gt;
-    &lt;option value="b"&gt;Option 2&lt;/option&gt;
-    &lt;option value="c"&gt;Option 3&lt;/option&gt;
-    &lt;option value="d"&gt;Option 4&lt;/option&gt;
-    &lt;option value="e"&gt;Option 5&lt;/option&gt;
-    &lt;option value="f"&gt;Option 6&lt;/option&gt;
-    &lt;option value="g"&gt;Option 7&lt;/option&gt;
-    &lt;option value="h"&gt;Option 8&lt;/option&gt;
-    &lt;option value="i"&gt;Option 9&lt;/option&gt;
-    &lt;option value="j"&gt;Option 10&lt;/option&gt;
-    &lt;option value="k"&gt;Option 11&lt;/option&gt;
-    &lt;option value="l"&gt;Option 12&lt;/option&gt;
-    &lt;option value="m"&gt;Option 13&lt;/option&gt;
-    &lt;option value="n"&gt;Option 14&lt;/option&gt;
-&lt;/select&gt;
 </pre>
                                     </div>
                                 </td>
@@ -3390,22 +3483,6 @@ $(document).ready(function() {
         });
     });
 &lt;/script&gt;
-&lt;select id="example-include-reset-divider" multiple="multiple"&gt;
-    &lt;option value=&quot;a"&gt;Option 1&lt;/option&gt;
-    &lt;option value="b"&gt;Option 2&lt;/option&gt;
-    &lt;option value="c"&gt;Option 3&lt;/option&gt;
-    &lt;option value="d"&gt;Option 4&lt;/option&gt;
-    &lt;option value="e"&gt;Option 5&lt;/option&gt;
-    &lt;option value="f"&gt;Option 6&lt;/option&gt;
-    &lt;option value="g"&gt;Option 7&lt;/option&gt;
-    &lt;option value="h"&gt;Option 8&lt;/option&gt;
-    &lt;option value="i"&gt;Option 9&lt;/option&gt;
-    &lt;option value="j"&gt;Option 10&lt;/option&gt;
-    &lt;option value="k"&gt;Option 11&lt;/option&gt;
-    &lt;option value="l"&gt;Option 12&lt;/option&gt;
-    &lt;option value="m"&gt;Option 13&lt;/option&gt;
-    &lt;option value="n"&gt;Option 14&lt;/option&gt;
-&lt;/select&gt;
 </pre>
                                     </div>
                                 </td>
@@ -3456,22 +3533,6 @@ $(document).ready(function() {
         });
     });
 &lt;/script&gt;
-&lt;select id="example-reset-text" multiple="multiple"&gt;
-    &lt;option value=&quot;a"&gt;Option 1&lt;/option&gt;
-    &lt;option value="b"&gt;Option 2&lt;/option&gt;
-    &lt;option value="c"&gt;Option 3&lt;/option&gt;
-    &lt;option value="d"&gt;Option 4&lt;/option&gt;
-    &lt;option value="e"&gt;Option 5&lt;/option&gt;
-    &lt;option value="f"&gt;Option 6&lt;/option&gt;
-    &lt;option value="g"&gt;Option 7&lt;/option&gt;
-    &lt;option value="h"&gt;Option 8&lt;/option&gt;
-    &lt;option value="i"&gt;Option 9&lt;/option&gt;
-    &lt;option value="j"&gt;Option 10&lt;/option&gt;
-    &lt;option value="k"&gt;Option 11&lt;/option&gt;
-    &lt;option value="l"&gt;Option 12&lt;/option&gt;
-    &lt;option value="m"&gt;Option 13&lt;/option&gt;
-    &lt;option value="n"&gt;Option 14&lt;/option&gt;
-&lt;/select&gt;
 </pre>
                                     </div>
                                 </td>
@@ -3501,13 +3562,13 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#example').multiselect({
             templates: {
-                button: '&lt;button type=&quot;button&quot; class=&quot;multiselect dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;/button&gt;',
-                ul: '&lt;ul class=&quot;multiselect-container dropdown-menu&quot;&gt;&lt;/ul&gt;',
-                filter: '&lt;li class=&quot;multiselect-item filter&quot;&gt;&lt;div class=&quot;input-group&quot;&gt;&lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-search&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;input class=&quot;form-control multiselect-search&quot; type=&quot;text&quot;&gt;&lt;/div&gt;&lt;/li&gt;',
-                filterClearBtn: '&lt;span class=&quot;input-group-btn&quot;&gt;&lt;button class=&quot;btn btn-default multiselect-clear-filter&quot; type=&quot;button&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-remove-circle&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/span&gt;',
-                li: '&lt;li&gt;&lt;a href=&quot;javascript:void(0);&quot;&gt;&lt;label&gt;&lt;/label&gt;&lt;/a&gt;&lt;/li&gt;',
-                divider: '&lt;li class=&quot;multiselect-item divider&quot;&gt;&lt;/li&gt;',
-                liGroup: '&lt;li class=&quot;multiselect-item group&quot;&gt;&lt;label class=&quot;multiselect-group&quot;&gt;&lt;/label&gt;&lt;/li&gt;'
+                button: '&lt;button type=&quot;button&quot; class=&quot;multiselect dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;span class=&quot;multiselect-selected-text&quot;&gt;&lt;/span>&lt;/button&gt;',
+                popupContainer: '&lt;div class=&quot;multiselect-container dropdown-menu&quot;&gt;&lt;/div&gt;',
+                filter: '&lt;div class="multiselect-filter d-flex align-items-center"&gt;&lt;i class="fas fa-sm fa-search text-muted"&gt;&lt;/i&gt;&lt;input type="search" class="multiselect-search form-control" /&gt;&lt;/div&gt;',
+                option: '&lt;a class=&quot;multiselect-option dropdown-item&quot;&gt;&lt;/a&gt;',
+                divider: '&lt;div class=&quot;multiselect-item dropdown-divider&quot;&gt;&lt;/div&gt;',
+                optionGroup: '&lt;a class=&quot;multiselect-item multiselect-group&quot;&gt;&lt;/a&gt;',
+                resetButton: '&lt;div class=&quot;multiselect-reset text-center p-2&quot;&gt;&lt;a class=&quot;btn btn-sm btn-block btn-outline-secondary&quot;&gt;&lt;/a&gt;&lt;/div&gt;'
             }
         });
     });
@@ -3579,7 +3640,7 @@ $(document).ready(function() {
                             $(document).ready(function() {
                                 $('#example-templates-input').multiselect({
                                     templates: {
-                                        li: '<li><a><label style="display:inline;"></label><input type="text" /></a></li>'
+                                        li: '<a class="multiselect-option dropdown-item"><input type="text" /></a>'
                                     }
                                 });
                             });
@@ -3606,7 +3667,7 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#example-templates-input').multiselect({
             templates: {
-                li: '&lt;li&gt;&lt;a&gt;&lt;label style=&quot;display:inline;&quot;&gt;&lt;/label&gt;&lt;input type=&quot;text&quot; /&gt;&lt;/a&gt;&lt;/li&gt;'
+                li: '&lt;a class&quot;multiselect-option dropdown-item&quot;&gt;&lt;a&gt;&lt;label style=&quot;display:inline;&quot;&gt;&lt;/label&gt;&lt;input type=&quot;text&quot; /&gt;&lt;/a&gt;&lt;/a&gt;'
             }
         });
     });
@@ -3617,56 +3678,71 @@ $(document).ready(function() {
                         <h2 id="styling">Styling</h2>
                     </div>
 
-                    <p>The style of the plugin is fully adaptable through CSS; a completely rendered example is shown below - including select all option, filter and option gorups_</p>
+                    <p>The style of the plugin is fully adaptable through CSS; a completely rendered example is shown below - including select all option, filter and option groups.</p>
 
 <pre class="prettyprint linenums">
-&lt;ul class=&quot;multiselect-container dropdown-menu&quot;&gt;
-    &lt;!-- Filter --&gt;
-    &lt;li class=&quot;multiselect-item multiselect-filter&quot; value=&quot;0&quot;&gt;
-        &lt;div class=&quot;input-group&quot;&gt;
-            &lt;span class=&quot;input-group-addon&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-search&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+&lt;div class=&quot;multiselect-container dropdown-menu show&quot;&gt;
+    &lt;div class=&quot;multiselect-item multiselect-filter&quot;&gt;
+        &lt;div class=&quot;input-group input-group-sm p-1&quot;&gt;
+            &lt;div class=&quot;input-group-prepend&quot;&gt;
+                &lt;i class=&quot;input-group-text fas fa-search&quot;&gt;&lt;/i&gt;
+            &lt;/div&gt;
             &lt;input class=&quot;form-control multiselect-search&quot; type=&quot;text&quot; placeholder=&quot;Search&quot;&gt;
-            &lt;span class=&quot;input-group-btn&quot;&gt;
-                &lt;button class=&quot;btn btn-default multiselect-clear-filter&quot; type=&quot;button&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-remove-circle&quot;&gt;&lt;/i&gt;&lt;/button&gt;
-            &lt;/span&gt;
+            &lt;div class=&quot;input-group-append&quot;&gt;
+                &lt;button class=&quot;multiselect-clear-filter input-group-text&quot; type=&quot;button&quot;&gt;
+                    &lt;i class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;
+                &lt;/button&gt;
+            &lt;/div&gt;
         &lt;/div&gt;
-    &lt;/li&gt;
-    &lt;!-- Select all --&gt;
-    &lt;li class=&quot;multiselect-item multiselect-all&quot; style=&quot;border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(234, 234, 234); background: rgb(243, 243, 243);&quot;&gt;
-        &lt;a tabindex=&quot;0&quot; class=&quot;multiselect-all&quot;&gt;&lt;label class=&quot;checkbox&quot; style=&quot;padding: 3px 20px 3px 35px;&quot;&gt;&lt;input type=&quot;checkbox&quot; value=&quot;multiselect-all&quot;&gt;  Select all&lt;/label&gt;&lt;/a&gt;
-    &lt;/li&gt;
-    &lt;!-- Collapsible and clickable opt group --&gt;
-    &lt;li class=&quot;multiselect-item multiselect-group&quot;&gt;
-        &lt;a href=&quot;javascript:void(0);&quot;&gt;
-            &lt;label&gt;&lt;input type=&quot;checkbox&quot; value=&quot;undefined&quot;&gt;&lt;b&gt; Group 1&lt;/b&gt;&lt;/label&gt;
-            &lt;span class=&quot;caret-container&quot;&gt;&lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;&lt;/span&gt;
-        &lt;/a&gt;
-    &lt;/li&gt;
-    &lt;!-- Disabled and hidden option (hidden because of collapsible opt groups) --&gt;
-    &lt;li class=&quot;disabled hidden&quot;&gt;
-        &lt;a tabindex=&quot;-1&quot;&gt;&lt;label class=&quot;checkbox&quot;&gt;&lt;input type=&quot;checkbox&quot; value=&quot;1-1&quot; disabled=&quot;&quot;&gt; Option 1.1&lt;/label&gt;&lt;/a&gt;
-    &lt;/li&gt;
-    &lt;!-- Hidden but select option --&gt;
-    &lt;li class=&quot;active hidden&quot;&gt;
-        &lt;a tabindex=&quot;0&quot;&gt;&lt;label class=&quot;checkbox&quot;&gt;&lt;input type=&quot;checkbox&quot; value=&quot;1-2&quot;&gt; Option 1.2&lt;/label&gt;&lt;/a&gt;
-    &lt;/li&gt;
-    &lt;!-- ... --&gt;
-    &lt;!-- Another opt group --&gt;
-    &lt;li class=&quot;multiselect-item multiselect-group&quot;&gt;
-        &lt;a href=&quot;javascript:void(0);&quot;&gt;
-            &lt;label&gt;&lt;input type=&quot;checkbox&quot; value=&quot;undefined&quot;&gt;&lt;b&gt; Group 2&lt;/b&gt;&lt;/label&gt;
-            &lt;span class=&quot;caret-container&quot;&gt;&lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;&lt;/span&gt;
-        &lt;/a&gt;
-    &lt;/li&gt;
-    &lt;!-- Visible but not selected option --&gt;
-    &lt;li&gt;
-        &lt;a tabindex=&quot;0&quot;&gt;&lt;label class=&quot;checkbox&quot;&gt;&lt;input type=&quot;checkbox&quot; value=&quot;2-1&quot;&gt; Option 2.1&lt;/label&gt;&lt;/a&gt;
-    &lt;/li&gt;
-&lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;a class=&quot;multiselect-option dropdown-item multiselect-item multiselect-all&quot;&gt;
+        &lt;span class=&quot;form-check d-inline-flex&quot; title=&quot;Select all&quot;&gt;
+            &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;multiselect-all&quot;&gt;
+            &lt;label class=&quot;form-check-label font-weight-bold&quot;&gt;Select all&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/a&gt;
+    &lt;div class=&quot;multiselect-reset text-center p-2&quot;&gt;
+        &lt;a class=&quot;btn btn-sm btn-block btn-outline-secondary&quot;&gt;Reset&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;multiselect-item dropdown-divider mt-0&quot;&gt;&lt;/div&gt;
+    &lt;a class=&quot;multiselect-item multiselect-group dropdown-item&quot;&gt;
+        &lt;input type=&quot;checkbox&quot; value=&quot;undefined&quot;&gt;
+        Fruits
+        &lt;span class=&quot;caret-container dropdown-toggle pl-1&quot;&gt;&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a class=&quot;multiselect-option dropdown-item&quot;&gt;
+        &lt;span class=&quot;form-check d-inline-flex&quot; title=&quot;Apple&quot;&gt;
+            &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;Apple&quot;&gt;
+            &lt;label class=&quot;form-check-label&quot;&gt;Apple&lt;/label&gt;
+        &lt;/span&gt;&lt;/a&gt;
+    &lt;a class=&quot;multiselect-option dropdown-item&quot;&gt;
+        &lt;span class=&quot;form-check d-inline-flex&quot; title=&quot;Banana&quot;&gt;
+            &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;Banana&quot;&gt;
+            &lt;label class=&quot;form-check-label&quot;&gt;Banana&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a class=&quot;multiselect-item multiselect-group dropdown-item&quot;&gt;
+        &lt;input type=&quot;checkbox&quot; value=&quot;undefined&quot;&gt; 
+        Vegetables
+        &lt;span class=&quot;caret-container dropdown-toggle pl-1&quot;&gt;&lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a class=&quot;multiselect-option dropdown-item&quot;&gt;
+        &lt;span class=&quot;form-check d-inline-flex&quot; title=&quot;Potato&quot;&gt;
+            &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;Potato&quot;&gt;
+            &lt;label class=&quot;form-check-label&quot;&gt;Potato&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a class=&quot;multiselect-option dropdown-item&quot;&gt;
+        &lt;span class=&quot;form-check d-inline-flex&quot; title=&quot;Parsnip&quot;&gt;
+            &lt;input class=&quot;form-check-input&quot; type=&quot;checkbox&quot; value=&quot;Parsnip&quot;&gt;
+            &lt;label class=&quot;form-check-label&quot;&gt;Parsnip&lt;/label&gt;
+        &lt;/span&gt;
+    &lt;/a&gt;
+&lt;/div&gt;
 </pre>
 
                     <p>
-                        The most important classes are: <code>multiselect-container</code>, <code>multiselect-filter</code>, <code>multiselect-all</code>, <code>multiselect-item</code>, <code>multiselect-group</code> as well as <code>disabled</code> and <code>active</code>. Both for collapsing and filtering options, the classes <code>multiselect-filter-hidden</code> and <code>multiselect-collapsible-hidden</code> are used.
+                        The most important classes are: <code>multiselect-container</code>, <code>multiselect-filter</code>, <code>multiselect-all</code>, <code>multiselect-item</code>, <code>multiselect-group</code>, <code>multiselect-option</code> as well as <code>disabled</code> and <code>active</code>. Both for collapsing and filtering options, the classes <code>multiselect-filter-hidden</code> and <code>multiselect-collapsible-hidden</code> are used.
                     </p>
 
                     <div class="page-header">
@@ -3731,7 +3807,7 @@ $(document).ready(function() {
                                     </p>
 
                                     <div class="example">
-                                        <div class="btn-group">
+                                        <div>
                                             <script type="text/javascript">
                                                 $(document).ready(function() {
                                                     $('#example-refresh').multiselect();
@@ -3755,17 +3831,17 @@ $(document).ready(function() {
                                                     });
                                                 });
                                             </script>
-                                            <div class="btn-group">
-                                                <select id="example-refresh" multiple="multiple">
-                                                    <option value="1">Option 1</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                    <option value="4">Option 4</option>
-                                                    <option value="5">Option 5</option>
-                                                    <option value="6">Option 6</option>
-                                                </select>
-                                                <button id="example-refresh-select" class="btn btn-default">Select some options!</button>
-                                                <button id="example-refresh-deselect" class="btn btn-default">Deselect some options...</button>
+                                            <select id="example-refresh" multiple="multiple">
+                                                <option value="1">Option 1</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                                <option value="4">Option 4</option>
+                                                <option value="5">Option 5</option>
+                                                <option value="6">Option 6</option>
+                                            </select>
+                                            <div class="btn-group mt-2">
+                                                <button id="example-refresh-select" class="btn btn-outline-secondary">Select some options!</button>
+                                                <button id="example-refresh-deselect" class="btn btn-outline-secondary">Deselect some options...</button>
                                                 <button id="example-refresh-button" class="btn btn-primary">Refresh</button>
                                             </div>
                                         </div>
@@ -3809,7 +3885,7 @@ $(document).ready(function() {
                                     </p>
 
                                     <div class="example">
-                                        <div class="btn-group">
+                                        <div>
                                             <script type="text/javascript">
                                                 $(document).ready(function() {
                                                     $('#example-rebuild').multiselect();
@@ -3829,17 +3905,17 @@ $(document).ready(function() {
                                                     });
                                                 });
                                             </script>
-                                            <div class="btn-group">
-                                                <select id="example-rebuild" multiple="multiple">
-                                                    <option value="1">Option 1</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                    <option value="4">Option 4</option>
-                                                    <option value="5">Option 5</option>
-                                                    <option value="6">Option 6</option>
-                                                </select>
-                                                <button id="example-rebuild-add" class="btn btn-default">Add some options!</button>
-                                                <button id="example-rebuild-delete" class="btn btn-default">Remove some options...</button>
+                                            <select id="example-rebuild" multiple="multiple">
+                                                <option value="1">Option 1</option>
+                                                <option value="2">Option 2</option>
+                                                <option value="3">Option 3</option>
+                                                <option value="4">Option 4</option>
+                                                <option value="5">Option 5</option>
+                                                <option value="6">Option 6</option>
+                                            </select>
+                                            <div class="btn-group mt-2">
+                                                <button id="example-rebuild-add" class="btn btn-outline-secondary">Add some options!</button>
+                                                <button id="example-rebuild-delete" class="btn btn-outline-secondary">Remove some options...</button>
                                                 <button id="example-rebuild-button" class="btn btn-primary">Rebuild</button>
                                             </div>
                                         </div>
@@ -3880,30 +3956,26 @@ $(document).ready(function() {
                                     </p>
 
                                     <div class="example">
-                                        <div class="btn-group">
-                                            <script type="text/javascript">
-                                                $(document).ready(function() {
-                                                    $('#example-select').multiselect();
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-select').multiselect();
 
-                                                    $('#example-select-button').on('click', function() {
-                                                        $('#example-select').multiselect('select', ['1', '2', '4']);
+                                                $('#example-select-button').on('click', function() {
+                                                    $('#example-select').multiselect('select', ['1', '2', '4']);
 
-                                                        alert('Selected 1, 2 and 4.');
-                                                    });
+                                                    alert('Selected 1, 2 and 4.');
                                                 });
-                                            </script>
-                                            <div class="btn-group">
-                                                <select id="example-select" multiple="multiple">
-                                                    <option value="1">Option 1</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                    <option value="4">Option 4</option>
-                                                    <option value="5">Option 5</option>
-                                                    <option value="6">Option 6</option>
-                                                </select>
-                                                <button id="example-select-button" class="btn btn-default">Select some options...</button>
-                                            </div>
-                                        </div>
+                                            });
+                                        </script>
+                                        <select id="example-select" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                        <button id="example-select-button" class="btn btn-outline-secondary ml-1">Select some options...</button>
                                     </div>
                                     <div class="highlight">
 <pre class="prettyprint linenums">
@@ -3926,32 +3998,28 @@ $(document).ready(function() {
                                     </p>
 
                                     <div class="example">
-                                        <div class="btn-group">
-                                            <script type="text/javascript">
-                                                $(document).ready(function() {
-                                                    $('#example-select-onChange').multiselect({
-                                                        onChange: function(option, checked, select) {
-                                                            alert('onChange triggered ...');
-                                                        }
-                                                    });
-
-                                                    $('#example-select-onChange-button').on('click', function() {
-                                                        $('#example-select-onChange').multiselect('select', '1', true);
-                                                    });
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-select-onChange').multiselect({
+                                                    onChange: function(option, checked, select) {
+                                                        alert('onChange triggered ...');
+                                                    }
                                                 });
-                                            </script>
-                                            <div class="btn-group">
-                                                <select id="example-select-onChange" multiple="multiple">
-                                                    <option value="1">Option 1</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                    <option value="4">Option 4</option>
-                                                    <option value="5">Option 5</option>
-                                                    <option value="6">Option 6</option>
-                                                </select>
-                                                <button id="example-select-onChange-button" class="btn btn-default">Select one option</button>
-                                            </div>
-                                        </div>
+
+                                                $('#example-select-onChange-button').on('click', function() {
+                                                    $('#example-select-onChange').multiselect('select', '1', true);
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-select-onChange" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                        <button id="example-select-onChange-button" class="btn btn-outline-secondary ml-1">Select one option</button>
                                     </div>
                                     <div class="highlight">
 <pre class="prettyprint linenums">
@@ -3976,32 +4044,28 @@ $(document).ready(function() {
                                     </p>
 
                                     <div class="example">
-                                        <div class="btn-group">
-                                            <script type="text/javascript">
-                                                $(document).ready(function() {
-                                                    $('#example-select-onChange-array').multiselect({
-                                                        onChange: function(option, checked, select) {
-                                                            alert('onChange triggered ...');
-                                                        }
-                                                    });
-
-                                                    $('#example-select-onChange-array-button').on('click', function() {
-                                                        $('#example-select-onChange-array').multiselect('select', ['1', '3'], true);
-                                                    });
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-select-onChange-array').multiselect({
+                                                    onChange: function(option, checked, select) {
+                                                        alert('onChange triggered ...');
+                                                    }
                                                 });
-                                            </script>
-                                            <div class="btn-group">
-                                                <select id="example-select-onChange-array" multiple="multiple">
-                                                    <option value="1">Option 1</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                    <option value="4">Option 4</option>
-                                                    <option value="5">Option 5</option>
-                                                    <option value="6">Option 6</option>
-                                                </select>
-                                                <button id="example-select-onChange-array-button" class="btn btn-default">Select two options</button>
-                                            </div>
-                                        </div>
+
+                                                $('#example-select-onChange-array-button').on('click', function() {
+                                                    $('#example-select-onChange-array').multiselect('select', ['1', '3'], true);
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-select-onChange-array" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                        <button id="example-select-onChange-array-button" class="btn btn-outline-secondary ml-1">Select two options</button>
                                     </div>
                                     <div class="highlight">
 <pre class="prettyprint linenums">
@@ -4032,30 +4096,26 @@ $(document).ready(function() {
                                     </p>
 
                                     <div class="example">
-                                        <div class="btn-group">
-                                            <script type="text/javascript">
-                                                $(document).ready(function() {
-                                                    $('#example-deselect').multiselect();
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-deselect').multiselect();
 
-                                                    $('#example-deselect-button').on('click', function() {
-                                                        $('#example-deselect').multiselect('deselect', ['1', '2', '4']);
+                                                $('#example-deselect-button').on('click', function() {
+                                                    $('#example-deselect').multiselect('deselect', ['1', '2', '4']);
 
-                                                        alert('Deselected 1, 2 and 4.');
-                                                    });
+                                                    alert('Deselected 1, 2 and 4.');
                                                 });
-                                            </script>
-                                            <div class="btn-group">
-                                                <select id="example-deselect" multiple="multiple">
-                                                    <option value="1">Option 1</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                    <option value="4">Option 4</option>
-                                                    <option value="5">Option 5</option>
-                                                    <option value="6">Option 6</option>
-                                                </select>
-                                                <button id="example-deselect-button" class="btn btn-default">Deselect some options...</button>
-                                            </div>
-                                        </div>
+                                            });
+                                        </script>
+                                        <select id="example-deselect" multiple="multiple">
+                                            <option value="1" selected>Option 1</option>
+                                            <option value="2" selected>Option 2</option>
+                                            <option value="3" selected>Option 3</option>
+                                            <option value="4" selected>Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                        <button id="example-deselect-button" class="btn btn-outline-secondary">Deselect some options...</button>
                                     </div>
                                     <div class="highlight">
 <pre class="prettyprint linenums">
@@ -4078,32 +4138,28 @@ $(document).ready(function() {
                                     </p>
 
                                     <div class="example">
-                                        <div class="btn-group">
-                                            <script type="text/javascript">
-                                                $(document).ready(function() {
-                                                    $('#example-deselect-onChange').multiselect({
-                                                        onChange: function(option, checked, select) {
-                                                            alert('onChange triggered ...');
-                                                        }
-                                                    });
-
-                                                    $('#example-deselect-onChange-button').on('click', function() {
-                                                        $('#example-deselect-onChange').multiselect('deselect', '1', true);
-                                                    });
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-deselect-onChange').multiselect({
+                                                    onChange: function(option, checked, select) {
+                                                        alert('onChange triggered ...');
+                                                    }
                                                 });
-                                            </script>
-                                            <div class="btn-group">
-                                                <select id="example-deselect-onChange" multiple="multiple">
-                                                    <option value="1">Option 1</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                    <option value="4">Option 4</option>
-                                                    <option value="5">Option 5</option>
-                                                    <option value="6">Option 6</option>
-                                                </select>
-                                                <button id="example-deselect-onChange-button" class="btn btn-default">Deselect one option</button>
-                                            </div>
-                                        </div>
+
+                                                $('#example-deselect-onChange-button').on('click', function() {
+                                                    $('#example-deselect-onChange').multiselect('deselect', '1', true);
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-deselect-onChange" multiple="multiple">
+                                            <option value="1" selected>Option 1</option>
+                                            <option value="2" selected>Option 2</option>
+                                            <option value="3" selected>Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                        <button id="example-deselect-onChange-button" class="btn btn-outline-secondary ml-1">Deselect one option</button>
                                     </div>
                                     <div class="highlight">
 <pre class="prettyprint linenums">
@@ -4128,32 +4184,28 @@ $(document).ready(function() {
                                     </p>
 
                                     <div class="example">
-                                        <div class="btn-group">
-                                            <script type="text/javascript">
-                                                $(document).ready(function() {
-                                                    $('#example-deselect-onChange-array').multiselect({
-                                                        onChange: function(option, checked, select) {
-                                                            alert('onChange triggered ...');
-                                                        }
-                                                    });
-
-                                                    $('#example-deselect-onChange-array-button').on('click', function() {
-                                                        $('#example-deselect-onChange-array').multiselect('deselect', ['1', '3'], true);
-                                                    });
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-deselect-onChange-array').multiselect({
+                                                    onChange: function(option, checked, select) {
+                                                        alert('onChange triggered ...');
+                                                    }
                                                 });
-                                            </script>
-                                            <div class="btn-group">
-                                                <select id="example-deselect-onChange-array" multiple="multiple">
-                                                    <option value="1" selected>Option 1</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3" selected>Option 3</option>
-                                                    <option value="4">Option 4</option>
-                                                    <option value="5">Option 5</option>
-                                                    <option value="6">Option 6</option>
-                                                </select>
-                                                <button id="example-deselect-onChange-array-button" class="btn btn-default">Deselect two options</button>
-                                            </div>
-                                        </div>
+
+                                                $('#example-deselect-onChange-array-button').on('click', function() {
+                                                    $('#example-deselect-onChange-array').multiselect('deselect', ['1', '3'], true);
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-deselect-onChange-array" multiple="multiple">
+                                            <option value="1" selected>Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3" selected>Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                        <button id="example-deselect-onChange-array-button" class="btn btn-outline-secondary">Deselect two options</button>
                                     </div>
                                     <div class="highlight">
 <pre class="prettyprint linenums">
@@ -4166,7 +4218,7 @@ $(document).ready(function() {
         });
 
         $('#example-deselect-onChange-array-button').on('click', function() {
-            $('#example-deselect-onChange-array').multiselect('deselect', '1', true);
+            $('#example-deselect-onChange-array').multiselect('deselect', ['1', '3'], true);
         });
     });
 &lt;/script&gt;
@@ -4192,48 +4244,46 @@ $(document).ready(function() {
                                     </p>
 
                                     <div class="example">
-                                        <div class="btn-group">
-                                            <script type="text/javascript">
-                                                $(document).ready(function() {
-                                                    $('#example-selectAll').multiselect();
-
-                                                    $('#example-selectAll-visible').on('click', function() {
-                                                        $('#example-selectAll').multiselect('selectAll', true);
-                                                        $('#example-selectAll').multiselect('updateButtonText');
-                                                    });
-                                                    $('#example-selectAll-all').on('click', function() {
-                                                        $('#example-selectAll').multiselect('selectAll', false);
-                                                        $('#example-selectAll').multiselect('updateButtonText');
-                                                    });
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-selectAll').multiselect({
+                                                    includeSelectAllOption: true
                                                 });
-                                            </script>
-                                            <div class="btn-group">
-                                                <select id="example-selectAll" multiple="multiple">
-                                                    <option value="1">Option 1</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                    <option value="4">Option 4</option>
-                                                    <option value="5">Option 5</option>
-                                                    <option value="6">Option 6</option>
-                                                </select>
-                                                <button id="example-selectAll-visible" class="btn btn-default">Select all visible options</button>
-                                                <button id="example-selectAll-all" class="btn btn-default">Select all options</button>
-                                            </div>
+
+                                                $('#example-selectAll-visible').on('click', function() {
+                                                    $('#example-selectAll').multiselect('selectAll', true);
+                                                });
+                                                $('#example-selectAll-all').on('click', function() {
+                                                    $('#example-selectAll').multiselect('selectAll', false);
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-selectAll" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                        <div class="btn-group ml-1">
+                                            <button id="example-selectAll-visible" class="btn btn-outline-secondary">Select all visible options</button>
+                                            <button id="example-selectAll-all" class="btn btn-outline-secondary">Select all options</button>
                                         </div>
                                     </div>
                                     <div class="highlight">
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-selectAll').multiselect();
+        $('#example-selectAll').multiselect({
+            includeSelectAllOption: true
+        });
 
         $('#example-selectAll-visible').on('click', function() {
             $('#example-selectAll').multiselect('selectAll', true);
-            $('#example-selectAll').multiselect('updateButtonText');
         });
         $('#example-selectAll-all').on('click', function() {
             $('#example-selectAll').multiselect('selectAll', false);
-            $('#example-selectAll').multiselect('updateButtonText');
         });
     });
 &lt;/script&gt;
@@ -4259,48 +4309,46 @@ $(document).ready(function() {
                                     </p>
 
                                     <div class="example">
-                                        <div class="btn-group">
-                                            <script type="text/javascript">
-                                                $(document).ready(function() {
-                                                    $('#example-deselectAll').multiselect();
-
-                                                    $('#example-deselectAll-visible').on('click', function() {
-                                                        $('#example-deselectAll').multiselect('deselectAll', true);
-                                                        $('#example-deselectAll').multiselect('updateButtonText');
-                                                    });
-                                                    $('#example-deselectAll-all').on('click', function() {
-                                                        $('#example-deselectAll').multiselect('deselectAll', false);
-                                                        $('#example-deselectAll').multiselect('updateButtonText');
-                                                    });
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-deselectAll').multiselect({
+                                                    includeSelectAllOption: true
                                                 });
-                                            </script>
-                                            <div class="btn-group">
-                                                <select id="example-deselectAll" multiple="multiple">
-                                                    <option value="1">Option 1</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                    <option value="4">Option 4</option>
-                                                    <option value="5">Option 5</option>
-                                                    <option value="6">Option 6</option>
-                                                </select>
-                                                <button id="example-deselectAll-visible" class="btn btn-default">Deselect all visible options</button>
-                                                <button id="example-deselectAll-all" class="btn btn-default">Deselect all options</button>
-                                            </div>
+
+                                                $('#example-deselectAll-visible').on('click', function() {
+                                                    $('#example-deselectAll').multiselect('deselectAll', true);
+                                                });
+                                                $('#example-deselectAll-all').on('click', function() {
+                                                    $('#example-deselectAll').multiselect('deselectAll', false);
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-deselectAll" multiple="multiple">
+                                            <option value="1" selected>Option 1</option>
+                                            <option value="2" selected>Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4" selected>Option 4</option>
+                                            <option value="5" selected>Option 5</option>
+                                            <option value="6" selected>Option 6</option>
+                                        </select>
+                                        <div class="btn-group ml-2">
+                                            <button id="example-deselectAll-visible" class="btn btn-outline-secondary">Deselect all visible options</button>
+                                            <button id="example-deselectAll-all" class="btn btn-outline-secondary">Deselect all options</button>
                                         </div>
                                     </div>
                                     <div class="highlight">
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-deselectAll').multiselect();
+        $('#example-deselectAll').multiselect({
+            includeSelectAllOption: true
+        });
 
         $('#example-deselectAll-visible').on('click', function() {
             $('#example-deselectAll').multiselect('deselectAll', true);
-            $('#example-deselectAll').multiselect('updateButtonText');
         });
         $('#example-deselectAll-all').on('click', function() {
             $('#example-deselectAll').multiselect('deselectAll', false);
-            $('#example-deselectAll').multiselect('updateButtonText');
         });
     });
 &lt;/script&gt;
@@ -4322,51 +4370,60 @@ $(document).ready(function() {
                                     </p>
 
                                     <div class="example">
-                                        <div class="btn-group">
-                                            <script type="text/javascript">
-                                                $(document).ready(function() {
-                                                    $('#example-updateButtonText').multiselect({
-                                                        buttonContainer: '<div class="btn-group" id="example-updateButtonText-container"></div>'
-                                                    });
-
-                                                    $('#example-updateButtonText-select').on('click', function() {
-                                                        $('option[value="1"]', $('#example-updateButtonText')).prop('selected', true);
-                                                        $('option[value="3"]', $('#example-updateButtonText')).prop('selected', true);
-
-                                                        $('input[value="1"]', $('#example-updateButtonText-container')).prop('checked', true);
-                                                        $('input[value="3"]', $('#example-updateButtonText-container')).prop('checked', true);
-
-                                                        $('input[value="1"]', $('#example-updateButtonText-container')).closest('li').addClass('active');
-                                                        $('input[value="3"]', $('#example-updateButtonText-container')).closest('li').addClass('active');
-                                                    });
-                                                    $('#example-updateButtonText-update').on('click', function() {
-                                                        $('#example-updateButtonText').multiselect('updateButtonText');
-                                                    });
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-updateButtonText').multiselect({
+                                                    buttonContainer: '<div class="btn-group" id="example-updateButtonText-container"></div>'
                                                 });
-                                            </script>
-                                            <div class="btn-group">
-                                                <select id="example-updateButtonText" multiple="multiple">
-                                                    <option value="1">Option 1</option>
-                                                    <option value="2">Option 2</option>
-                                                    <option value="3">Option 3</option>
-                                                    <option value="4">Option 4</option>
-                                                    <option value="5">Option 5</option>
-                                                    <option value="6">Option 6</option>
-                                                </select>
-                                                <button id="example-updateButtonText-select" class="btn btn-default">Select some options ...</button>
-                                                <button id="example-updateButtonText-update" class="btn btn-default">Update</button>
-                                            </div>
+
+                                                $('#example-updateButtonText-select').on('click', function() {
+                                                    $('option[value="1"]', $('#example-updateButtonText')).prop('selected', true);
+                                                    $('option[value="3"]', $('#example-updateButtonText')).prop('selected', true);
+
+                                                    $('input[value="1"]', $('#example-updateButtonText-container')).prop('checked', true);
+                                                    $('input[value="3"]', $('#example-updateButtonText-container')).prop('checked', true);
+
+                                                    $('input[value="1"]', $('#example-updateButtonText-container')).closest('.multiselect-option').addClass('active');
+                                                    $('input[value="3"]', $('#example-updateButtonText-container')).closest('.multiselect-option').addClass('active');
+                                                });
+                                                $('#example-updateButtonText-update').on('click', function() {
+                                                    $('#example-updateButtonText').multiselect('updateButtonText');
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-updateButtonText" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                        <div class="btn-group ml-2">
+                                            <button id="example-updateButtonText-select" class="btn btn-outline-secondary">Select some options ...</button>
+                                            <button id="example-updateButtonText-update" class="btn btn-outline-secondary">Update</button>
                                         </div>
                                     </div>
                                     <div class="highlight">
 <pre class="prettyprint linenums">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
-        $('#example-deselectAll').multiselect();
+        $('#example-updateButtonText').multiselect({
+            buttonContainer: '<div class="btn-group" id="example-updateButtonText-container"></div>'
+        });
 
-        $('#example-deselectAll-visible').on('click', function() {
+        $('#example-updateButtonText-select').on('click', function() {
+            $('option[value="1"]', $('#example-updateButtonText')).prop('selected', true);
+            $('option[value="3"]', $('#example-updateButtonText')).prop('selected', true);
 
-            $('#example-deselectAll').multiselect('updateButtonText', true);
+            $('input[value="1"]', $('#example-updateButtonText-container')).prop('checked', true);
+            $('input[value="3"]', $('#example-updateButtonText-container')).prop('checked', true);
+
+            $('input[value="1"]', $('#example-updateButtonText-container')).closest('.multiselect-option').addClass('active');
+            $('input[value="3"]', $('#example-updateButtonText-container')).closest('.multiselect-option').addClass('active');
+        });
+        $('#example-updateButtonText-update').on('click', function() {
+            $('#example-updateButtonText').multiselect('updateButtonText');
         });
     });
 &lt;/script&gt;
@@ -4559,7 +4616,7 @@ $(document).ready(function() {
                                                     <option value="5">Option 5</option>
                                                     <option value="6">Option 6</option>
                                                 </select>
-                                                <button id="example-enable-button" class="btn btn-default">Enable!</button>
+                                                <button id="example-enable-button" class="btn btn-primary">Enable!</button>
                                             </div>
                                         </div>
                                     </div>
@@ -4782,11 +4839,15 @@ $(document).ready(function() {
 
                                             <select id="example-set-all-selected-text" multiple="multiple">
                                                 <option value="1" selected>Option 1</option>
+                                                <option value="2" selected>Option 2</option>
                                             </select>
 
-                                            <input id="new-all-selected-text-box" type="text" class="form-control" placeholder="Enter new text"/>
-                                            <input id="new-all-selected-text-btn" type="button" class="btn btn-default" value="Change All Selected Text"/>
-                                        </div>
+                                            <div class="input-group ml-1">
+                                                <input id="new-all-selected-text-box" type="text" class="form-control" placeholder="Enter new text"/>
+                                                <div class="input-group-append">
+                                                    <button id="new-all-selected-text-btn" type="button" class="btn btn-primary">Change All Selected Text</button>                                                                                
+                                                </div>
+                                            </div>
                                     </div>
                                     <div class="highlight">
 <pre class="prettyprint linenums">
@@ -4833,10 +4894,10 @@ $(document).ready(function() {
                             });
                         </script>
                         <select id="example-confirmation" multiple="multiple">
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                            <option value="4">Option 4</option>
+                            <option value="1" selected>Option 1</option>
+                            <option value="2" selected>Option 2</option>
+                            <option value="3" selected>Option 3</option>
+                            <option value="4" selected>Option 4</option>
                             <option value="5">Option 5</option>
                             <option value="6">Option 6</option>
                         </select>
@@ -4891,8 +4952,8 @@ $(document).ready(function() {
                             <option value="2">Option 2</option>
                             <option value="3">Option 3</option>
                             <option value="4">Option 4</option>
-                            <option value="5">Option 5</option>
-                            <option value="6">Option 6</option>
+                            <option value="5" disabled>Option 5</option>
+                            <option value="6" disabled>Option 6</option>
                         </select>
                     </div>
                     <div class="highlight">
@@ -4937,7 +4998,7 @@ $(document).ready(function() {
                                             nonSelectedOptions.each(function() {
                                                 var input = $('input[value="' + $(this).val() + '"]');
                                                 input.prop('disabled', true);
-                                                input.parent('li').addClass('disabled');
+                                                input.closest('.multiselect-option').addClass('disabled');
                                             });
                                         }
                                         else {
@@ -4945,7 +5006,7 @@ $(document).ready(function() {
                                             $('#example-limit option').each(function() {
                                                 var input = $('input[value="' + $(this).val() + '"]');
                                                 input.prop('disabled', false);
-                                                input.parent('li').addClass('disabled');
+                                                input.closest('.multiselect-option').removeClass('disabled');
                                             });
                                         }
                                     }
@@ -4979,7 +5040,7 @@ $(document).ready(function() {
                     nonSelectedOptions.each(function() {
                         var input = $('input[value="' + $(this).val() + '"]');
                         input.prop('disabled', true);
-                        input.parent('li').addClass('disabled');
+                        input.parent('.multiselect-option').addClass('disabled');
                     });
                 }
                 else {
@@ -4987,7 +5048,7 @@ $(document).ready(function() {
                     $('#example-limit option').each(function() {
                         var input = $('input[value="' + $(this).val() + '"]');
                         input.prop('disabled', false);
-                        input.parent('li').addClass('disabled');
+                        input.parent('.multiselect-option').addClass('disabled');
                     });
                 }
             }
@@ -5209,18 +5270,16 @@ $(document).ready(function() {
                                 });
                             });
                         </script>
-                        <form class="btn-group" id="example-reset-form">
-                            <div class="btn-group">
-                                <select id="example-reset" multiple="multiple">
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
-                                    <option value="4">Option 4</option>
-                                    <option value="5">Option 5</option>
-                                    <option value="6">Option 6</option>
-                                </select>
-                                <button type="reset" id="example-reset-button" class="btn btn-default">Reset</button>
-                            </div>
+                        <form id="example-reset-form">
+                            <select id="example-reset" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+                            <button type="reset" id="example-reset-button" class="btn btn-outline-secondary ml-1">Reset</button>
                         </form>
                     </div>
                     <div class="highlight">
@@ -5263,13 +5322,15 @@ $(document).ready(function() {
                                 $('#example-modal').multiselect();
                             });
                         </script>
-                        <button class="btn btn-default" data-toggle="modal" data-target="#example-modal-modal">Launch modal</button>
+                        <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#example-modal-modal">Launch modal</button>
                         <div class="modal fade" id="example-modal-modal">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                        <h4 class="modal-title">Bootstrap Multiselect</h4>
+                                        <h5 class="modal-title">Bootstrap Multiselect</h5>
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                        </button>
                                     </div>
                                     <div class="modal-body">
                                         <select id="example-modal" multiple="multiple">
@@ -5292,13 +5353,13 @@ $(document).ready(function() {
         $('#example-modal').multiselect();
     });
 &lt;/script&gt;
-&lt;button class=&quot;btn btn-default&quot; data-toggle=&quot;modal&quot; data-target=&quot;#example-modal-modal&quot;&gt;Launch modal&lt;/button&gt;
+&lt;button class=&quot;btn btn-outline-secondary&quot; data-toggle=&quot;modal&quot; data-target=&quot;#example-modal-modal&quot;&gt;Launch modal&lt;/button&gt;
 &lt;div class=&quot;modal fade&quot; id=&quot;example-modal-modal&quot;&gt;
     &lt;div class=&quot;modal-dialog&quot;&gt;
         &lt;div class=&quot;modal-content&quot;&gt;
             &lt;div class=&quot;modal-header&quot;&gt;
+                &lt;h5 class=&quot;modal-title&quot;&gt;Bootstrap Multiselect&lt;/h5&gt;
                 &lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&times;&lt;/span&gt;&lt;span class=&quot;sr-only&quot;&gt;Close&lt;/span&gt;&lt;/button&gt;
-                &lt;h4 class=&quot;modal-title&quot;&gt;Bootstrap Multiselect&lt;/h4&gt;
             &lt;/div&gt;
             &lt;div class=&quot;modal-body&quot;&gt;
                 &lt;select id=&quot;example-modal&quot; multiple=&quot;multiple&quot;&gt;
@@ -5321,7 +5382,7 @@ $(document).ready(function() {
                     </p>
 
                     <p class="alert alert-info">
-                        Note that the overflow of the <code>.panel</code> needs to be visible: <code>style="overflow:visible;"</code>. See the example below.
+                        Note that the overflow of the <code>.card</code> needs to be visible: <code>style="overflow:visible;"</code>. See the example below.
                     </p>
 
                     <div class="example">
@@ -5330,17 +5391,17 @@ $(document).ready(function() {
                                 $('#example-collapse').multiselect();
                             });
                         </script>
-                        <div class="panel-group" id="example-collapse-accordion">
-                            <div class="panel panel-default" style="overflow:visible;">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#example-collapse-accordion" href="#example-collapse-accordion-one">
+                        <div class="accordion" id="example-collapse-accordion">
+                            <div class="card" style="overflow: visible;">
+                                <div class="card-header">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left" data-toggle="collapse" data-target="#example-collapse-accordion-one">
                                             Bootstrap Multiselect
-                                        </a>
-                                    </h4>
+                                        </button>
+                                    </h2>
                                 </div>
-                                <div id="example-collapse-accordion-one" class="panel-collapse collapse in">
-                                    <div class="panel-body">
+                                <div id="example-collapse-accordion-one" class="collapse show">
+                                    <div class="card-body">
                                         <select id="example-collapse" multiple="multiple">
                                             <option value="1">Option 1</option>
                                             <option value="2">Option 2</option>
@@ -5361,17 +5422,17 @@ $(document).ready(function() {
         $('#example-collapse').multiselect();
     });
 &lt;/script&gt;
-&lt;div class=&quot;panel-group&quot; id=&quot;example-collapse-accordion&quot;&gt;
-    &lt;div class=&quot;panel panel-default&quot; style=&quot;overflow:visible;&quot;&gt;
-        &lt;div class=&quot;panel-heading&quot;&gt;
-            &lt;h4 class=&quot;panel-title&quot;&gt;
-                &lt;a data-toggle=&quot;collapse&quot; data-parent=&quot;#example-collapse-accordion&quot; href=&quot;#example-collapse-accordion-one&quot;&gt;
+&lt;div class=&quot;accordion&quot; id=&quot;example-collapse-accordion&quot;&gt;
+    &lt;div class=&quot;card&quot; style=&quot;overflow:visible;&quot;&gt;
+        &lt;div class=&quot;card-header&quot;&gt;
+            &lt;h2 class=&quot;mb-0&quot;&gt;
+                &lt;button class=&quot;btn btn-link btn-block text-left&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#example-collapse-accordion-one&quot;&gt;
                     Bootstrap Multiselect
-                &lt;/a&gt;
-            &lt;/h4&gt;
+                &lt;/button&gt;
+            &lt;/h2&gt;
         &lt;/div&gt;
-        &lt;div id=&quot;example-collapse-accordion-one&quot; class=&quot;panel-collapse collapse in&quot;&gt;
-            &lt;div class=&quot;panel-body&quot;&gt;
+        &lt;div id=&quot;example-collapse-accordion-one&quot; class=&quot;collapse show&quot;&gt;
+            &lt;div class=&quot;card-body&quot;&gt;
                 &lt;select id=&quot;example-collapse&quot; multiple=&quot;multiple&quot;&gt;
                     &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
                     &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
@@ -5492,16 +5553,14 @@ $(document).ready(function() {
                             </div>
                         </div>
                         <form id="example-large-reset-form" style="margin-bottom:12px;">
-                            <div class="btn-group">
-                                <select id="example-large-reset" multiple="multiple">
-                                    <option value="1">Option 1</option>
-                                </select>
-                                <button type="reset" class="btn btn-default">Reset</button>
-                            </div>
+                            <select id="example-large-reset" multiple="multiple">
+                                <option value="1">Option 1</option>
+                            </select>
+                            <button type="reset" class="btn btn-outline-secondary ml-1">Reset</button>
                         </form>
                     </div>
                     <div class="highlight">
-<pre class="prettyprint linenums">
+<pre class="prettyprint linenums" style="max-height: 500px;">
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
         $('#example-large-enable').on('click', function() {
@@ -5584,12 +5643,10 @@ $(document).ready(function() {
     &lt;/div&gt;
 &lt;/div&gt;
 &lt;form id=&quot;example-large-reset-form&quot; style=&quot;margin-bottom:12px;&quot;&gt;
-    &lt;div class=&quot;btn-group&quot;&gt;
-        &lt;select id=&quot;example-large-reset&quot; multiple=&quot;multiple&quot;&gt;
-            &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
-        &lt;/select&gt;
-        &lt;button type=&quot;reset&quot; class=&quot;btn btn-default&quot;&gt;Reset&lt;/button&gt;
-    &lt;/div&gt;
+    &lt;select id=&quot;example-large-reset&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;button type=&quot;reset&quot; class=&quot;btn btn-default&quot;&gt;Reset&lt;/button&gt;
 &lt;/form&gt;
 </pre>
                     </div>
@@ -5671,7 +5728,7 @@ $(document).ready(function() {
                                     input.prop('disabled', true);
                                     option.prop('disabled', true);
 
-                                    input.parent('label').parent('a').parent('li').addClass('disabled');
+                                    input.closest('.multiselect-option').addClass('disabled');
                                 });
 
                                 $('#example-disable-javascript-check').on('click', function() {
@@ -5684,17 +5741,17 @@ $(document).ready(function() {
                                 });
                             });
                         </script>
-                        <div class="btn-group" id="example-disable-javascript-container">
-                            <select id="example-disable-javascript" multiple="multiple">
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                                <option value="4">Option 4</option>
-                                <option value="5">Option 5</option>
-                                <option value="6">Option 6</option>
-                            </select>
-                            <button id="example-disable-javascript-disable" class="btn btn-primary">Disable an option!</button>
-                            <button id="example-disable-javascript-check" class="btn btn-primary">Check</button>
+                        <select id="example-disable-javascript" multiple="multiple">
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                            <option value="6">Option 6</option>
+                        </select>
+                        <div class="btn-group ml-1" id="example-disable-javascript-container">
+                            <button id="example-disable-javascript-disable" class="btn btn-outline-secondary">Disable an option!</button>
+                            <button id="example-disable-javascript-check" class="btn btn-outline-secondary">Check</button>
                         </div>
                     </div>
                     <div class="highlight">
@@ -5745,11 +5802,10 @@ $(document).ready(function() {
                                 });
                             });
                         </script>
-                        <div class="btn-group">
-                            <select id="example-large-refresh" multiple="multiple">
-
-                            </select>
-                            <button id="example-large-refresh-select" class="btn btn-default">Select every second option ...</button>
+                        <select id="example-large-refresh" multiple="multiple">
+                        </select>
+                        <div class="btn-group ml-1">
+                            <button id="example-large-refresh-select" class="btn btn-outline-secondary">Select every second option ...</button>
                             <button id="example-large-refresh-refresh" class="btn btn-primary">Refresh!</button>
                         </div>
                     </div>
@@ -6003,7 +6059,7 @@ $(document).ready(function() {
 </pre>
                     </div>
 
-                    <p>The following example demonstrates how to set the class of <code>li.active</code>'s parent elements:</p>
+                    <p>The following example demonstrates how to set the class <code>active</code> of <code>input</code>'s parent element:</p>
 
                     <div class="example">
                         <script type="text/javascript">
@@ -6017,17 +6073,17 @@ $(document).ready(function() {
 
                                         // Adapt label class:
                                         if (selected) {
-                                            $input.closest('label').addClass('active');
+                                            $input.closest('span').addClass('active');
                                         }
                                         else {
-                                            $input.closest('label').removeClass('active');
+                                            $input.closest('span').removeClass('active');
                                         }
                                     }
                                 });
                             });
                         </script>
                         <style type="text/css">
-                            #example-selected-parents-container label.active {
+                            #example-selected-parents-container span.active {
                                 font-weight: bold;
                             }
                         </style>
@@ -6053,19 +6109,19 @@ $(document).ready(function() {
                 var value = $(options).val();
                 var $input = $('#example-selected-parents-container input[value=&quot;' + value + '&quot;]');
 
-                // Adapt label class:
+                // span label class:
                 if (selected) {
-                    $input.closest('label').addClass('active');
+                    $input.closest('span').addClass('active');
                 }
                 else {
-                    $input.closest('label').removeClass('active');
+                    $input.closest('span').removeClass('active');
                 }
             }
         });
     });
 &lt;/script&gt;
 &lt;style type=&quot;text/css&quot;&gt;
-    #example-selected-parents-container label.active {
+    #example-selected-parents-container span.active {
         font-weight: bold;
     }
 &lt;/style&gt;
@@ -6094,10 +6150,10 @@ $(document).ready(function() {
                                     enableFiltering: true,
                                     onChange: function($option) {
                                         // Check if the filter was used.
-                                        var query = $('#example-clear-after-filter-selection-container li.multiselect-filter input').val();
+                                        var query = $('#example-clear-after-filter-selection-container .multiselect-filter input').val();
 
                                         if (query) {
-                                            $('#example-clear-after-filter-selection-container li.multiselect-filter input').val('').trigger('keydown');
+                                            $('#example-clear-after-filter-selection-container .multiselect-filter input').val('').trigger('keydown');
                                         }
                                     }
                                 });
@@ -6123,67 +6179,10 @@ $(document).ready(function() {
             enableFiltering: true,
             onChange: function($option) {
                 // Check if the filter was used.
-                var query = $('#example-clear-after-filter-selection-container li.multiselect-filter input').val();
+                var query = $('#example-clear-after-filter-selection-container .multiselect-filter input').val();
 
                 if (query) {
-                    $('#example-clear-after-filter-selection-container li.multiselect-filter input').val('').trigger('keydown');
-                }
-            }
-        });
-    });
-&lt;/script&gt;
-</pre>
-                    </div>
-
-                    <p>
-                        To automatically add the <code>.dropUp</code> class if the element is at the lower edge of the window, use the following snippet:
-                    </p>
-
-                    <div class="example">
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $('#example-automatic-dropup').multiselect({
-                                    buttonContainer: '<div id="example-automatic-dropup-container"></div>',
-                                    maxHeight: 200,
-                                });
-
-                                $(window).scroll(function() {
-                                    var top = $('#example-automatic-dropup-container')[0].getBoundingClientRect().top
-                                    var bottom = $(window).height() - top - $('#example-automatic-dropup-container').height();
-                                    
-                                    if (bottom < 250) {
-                                        $('#example-automatic-dropup-container').addClass('dropup');
-                                    }
-                                    if (bottom > 250) {
-                                        $('#example-automatic-dropup-container').removeClass('dropup');
-                                    }
-                                });
-                            });
-                        </script>
-                        <div class="btn-group">
-                            <select id="example-automatic-dropup" multiple="multiple">
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                                <option value="4">Option 4</option>
-                                <option value="5">Option 5</option>
-                                <option value="6">Option 6</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="highlight">
-<pre class="prettyprint linenums">
-&lt;script type=&quot;text/javascript&quot;&gt;
-    $(document).ready(function() {
-        $('#example-clear-after-filter-selection').multiselect({
-            buttonContainer: '<div id="example-clear-after-filter-selection-container"></div>',
-            enableFiltering: true,
-            onChange: function($option) {
-                // Check if the filter was used.
-                var query = $('#example-clear-after-filter-selection-container li.multiselect-filter input').val();
-
-                if (query) {
-                    $('#example-clear-after-filter-selection-container li.multiselect-filter input').val('').trigger('keydown');
+                    $('#example-clear-after-filter-selection-container .multiselect-filter input').val('').trigger('keydown');
                 }
             }
         });
@@ -6202,60 +6201,34 @@ $(document).ready(function() {
                                     buttonClass: '',
                                     templates: {
                                         button: '',
-                                        ul: '<ul class="multiselect-container checkbox-list"></ul>',
+                                        popupContainer: '<div class="multiselect-container checkbox-list"></div>',
+                                        option: '<a class="multiselect-option text-dark text-decoration-none"></a>'
                                     }
                                 });
                             });
                         </script>
                         <style type="text/css">
-                            #example-checkbox-list-container .checkbox-list > li > a {
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option {
                                 display: block;
                                 padding: 3px 0;
-                                clear: both;
-                                font-weight: normal;
-                                line-height: 1.42857143;
-                                color: #333;
-                                white-space: nowrap;
                             }
-                            #example-checkbox-list-container .checkbox-list > li > a:hover,
-                            #example-checkbox-list-container .checkbox-list > li > a:focus {
-                                color: #333;
-                                text-decoration: none;
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.active ,
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.active :hover,
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.active :focus {
                                 background-color: transparent;
                             }
-                            #example-checkbox-list-container .checkbox-list > .active > a,
-                            #example-checkbox-list-container .checkbox-list > .active > a:hover,
-                            #example-checkbox-list-container .checkbox-list > .active > a:focus {
-                                color: #333;
-                                text-decoration: none;
-                                background-color: transparent;
-                                outline: 0;
-                            }
-                            #example-checkbox-list-container .checkbox-list > .disabled > a,
-                            #example-checkbox-list-container .checkbox-list > .disabled > a:hover,
-                            #example-checkbox-list-container .checkbox-list > .disabled > a:focus {
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.disabled,
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.disabled:hover,
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.disabled:focus {
                                 color: #777;
                             }
-                            #example-checkbox-list-container .checkbox-list > .disabled > a:hover,
-                            #example-checkbox-list-container .checkbox-list > .disabled > a:focus {
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.disabled:hover,
+                            #example-checkbox-list-container .checkbox-list > .multiselect-option.disabled:focus {
                                 text-decoration: none;
                                 cursor: unset;
                                 background-color: transparent;
                                 background-image: none;
                                 filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-                            }
-                            #example-checkbox-list-container .checkbox-list > li > a > label {
-                                padding: 3px 0 3px 20px;
-                            }
-                            @media (min-width: 768px) {
-                                #example-checkbox-list-container .checkbox-list > li {
-                                    float: left;
-                                    width: 33%;
-                                }
-                                #example-checkbox-list-container .checkbox-list-vertical > li {
-                                    float: none;
-                                    width: 100%;
-                                }
                             }
                             #example-checkbox-list-container .multiselect-container.checkbox-list {
                                 position: static;
@@ -6265,8 +6238,8 @@ $(document).ready(function() {
                             <select id="example-checkbox-list" multiple="multiple">
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                                <option value="4">Option 4</option>
+                                <option value="3" disabled>Option 3</option>
+                                <option value="4" selected>Option 4</option>
                                 <option value="5">Option 5</option>
                                 <option value="6">Option 6</option>
                             </select>
@@ -6281,7 +6254,8 @@ $(document).ready(function() {
             buttonClass: '',
             templates: {
                 button: '',
-                ul: '&lt;ul class=&quot;multiselect-container checkbox-list&quot;&gt;&lt;/ul&gt;',
+                ul: '&lt;div class=&quot;multiselect-container checkbox-list&quot;&gt;&lt;/div&gt;',
+                li: '&lt;a class=&quot;multiselect-option text-dark text-decoration-none&quot;&gt;&lt;/a&gt;'
             }
         });
     });
@@ -6291,57 +6265,27 @@ $(document).ready(function() {
     #example-checkbox-list-container .checkbox-list &gt; li &gt; a {
         display: block;
         padding: 3px 0;
-        clear: both;
-        font-weight: normal;
-        line-height: 1.42857143;
-        color: #333;
-        white-space: nowrap;
     }
 
-    #example-checkbox-list-container .checkbox-list &gt; li &gt; a:hover,
-    #example-checkbox-list-container .checkbox-list &gt; li &gt; a:focus {
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.active,
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.active:hover,
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.active:focus {
         color: #333;
-        text-decoration: none;
-        background-color: transparent;
     }
 
-    #example-checkbox-list-container .checkbox-list &gt; .active &gt; a,
-    #example-checkbox-list-container .checkbox-list &gt; .active &gt; a:hover,
-    #example-checkbox-list-container .checkbox-list &gt; .active &gt; a:focus {
-        color: #333;
-        text-decoration: none;
-        background-color: transparent;
-        outline: 0;
-    }
-
-    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a,
-    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:hover,
-    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:focus {
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.disabled,
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.disabled:hover,
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.disabled:focus {
         color: #777;
     }
 
-    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:hover,
-    #example-checkbox-list-container .checkbox-list &gt; .disabled &gt; a:focus {
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.disabled:hover,
+    #example-checkbox-list-container .checkbox-list &gt; .multiselect-option.disabled:focus {
         text-decoration: none;
         cursor: unset;
         background-color: transparent;
         background-image: none;
         filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-    }
-
-    #example-checkbox-list-container .checkbox-list &gt; li &gt; a &gt; label {
-        padding: 3px 0 3px 20px;
-    }
-
-    @media (min-width: 768px) {
-        #example-checkbox-list-container .checkbox-list &gt; li {
-            float: left;
-            width: 33%;
-        }
-        #example-checkbox-list-container .checkbox-list-vertical &gt; li {
-            float: none;
-            width: 100%;
-        }
     }
 
     #example-checkbox-list-container .multiselect-container.checkbox-list {
@@ -6353,14 +6297,101 @@ $(document).ready(function() {
     &lt;select id=&quot;example-checkbox-list&quot; multiple=&quot;multiple&quot;&gt;
         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
-        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
-        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;3&quot; disabled &gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot; selected &gt;Option 4&lt;/option&gt;
         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
         &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
     &lt;/select&gt;
 &lt;/div&gt;
 </pre>
                     </div>
+
+                    <p>
+                        The select can also be embedded into an <code>input-group</code> and <code>input-group-sm</code>:
+                    </p>
+
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-input-group').multiselect();
+                                $('#example-input-group-sm').multiselect();
+                            });
+                        </script>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Prepend</span>
+                            </div>
+                            <select id="example-input-group" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Append</span>
+                            </div>
+                        </div>
+                        <div class="input-group input-group-sm mt-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Prepend</span>
+                            </div>
+                            <select id="example-input-group-sm" multiple="multipe">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Append</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-input-group').multiselect();
+    });
+&lt;/script&gt;
+
+&lt;div class=&quot;input-group&quot;&gt;
+    &lt;div class=&quot;input-group-prepend&quot;&gt;
+        &lt;span class&quot;input-group-text&quot;&gt;Prepend&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;select id=&quot;example-input-group&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;div class=&quot;input-group-append&quot;&gt;
+        &lt;span class&quot;input-group-text&quot;&gt;Append&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;input-group input-group-sm mt-2&quot;&gt;
+    &lt;div class=&quot;input-group-prepend&quot;&gt;
+        &lt;span class&quot;input-group-text&quot;&gt;Prepend&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;select id=&quot;example-input-group&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;div class=&quot;input-group-append&quot;&gt;
+        &lt;span class&quot;input-group-text&quot;&gt;Append&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
 
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
@@ -6432,7 +6463,7 @@ $(document).ready(function() {
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Submit</button>
+                                    <button type="submit" class="btn btn-outline-secondary">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -6543,7 +6574,7 @@ $(document).ready(function() {
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Submit</button>
+                                    <button type="submit" class="btn btn-outline-secondary">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -6874,6 +6905,107 @@ $("#example").multiselect();
                     </p>
 
                     <div class="page-header">
+                        <h2 id="migration">Migrating to Bootstrap v4</h2>
+                    </div>
+
+                    <p>
+                        For migrating your project to Bootstrap v4 follow the instructions from <a href="https://getbootstrap.com/docs/4.5/migration/">Bootstrap</a>.
+                        Breaking changes for the bootstrap-multiselect are described in the following section:
+                    </p>
+                    <h3>Templates</h3>
+                    <p>
+                        In Bootstrap v4 Dropdown menus are no longer created with <code>ul</code>s and <code>li</code>s but with <code>div</code>s and <code>a</code>s.
+                        The Dropdown of the multiselect was changed to work in the same way like it is recommended by Bootstrap.
+                        To make template names indepedent of the concrete HTML structure they were also adapted:
+                        <ul>
+                            <li>The template <code>ul</code> was renamed to <code>popupContainer</code></li>
+                            <li>The template <code>li</code> was renamed to <code>option</code></li>
+                            <li>The template <code>liGroup</code> was renamed to <code>optionGroup</code></li>
+                        </ul>
+
+                        Besides the refactoring of upgrading the multiselect to Bootstrap v4 also the filter controls were redesigned.
+                        To keep the old design the following template can be used for <code>filter</code>:
+
+                        <div class="example">
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#example-legacyFiltering').multiselect({
+                                        enableFiltering: true,
+                                        templates: {
+                                            filter: '<div class="multiselect-filter"><div class="input-group input-group-sm p-1"><div class="input-group-prepend"><i class="input-group-text fas fa-search"></i></div><input class="form-control multiselect-search" type="text" /><div class="input-group-append"><button class="multiselect-clear-filter input-group-text" type="button"><i class="fas fa-times"></i></button></div></div></div>'
+                                        }
+                                    });
+                                });
+                            </script>
+                            <select id="example-legacyFiltering" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                            </select>
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+   $('#example-legacyFiltering').multiselect({
+      enableFiltering: true,
+      templates: {
+         filter: '&lt;div class="multiselect-filter"&gt;&lt;div class="input-group input-group-sm p-1"&gt;&lt;div class="input-group-prepend"&gt;&lt;i class="input-group-text fas fa-search"&gt;&lt;/i&gt;&lt;/div&gt;&lt;input class="form-control multiselect-search" type="text" /&gt;&lt;div class="input-group-append"&gt;&lt;button class="multiselect-clear-filter input-group-text" type="button"&gt;&lt;i class="fas fa-times"&gt;&lt;/i&gt;&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;'
+      }
+   });
+});
+&lt;/script&gt;
+</pre>
+                        </div>
+                        
+                    </p>
+
+                    <h3>Colors</h3>
+                    <p>
+                        In Chrome checked checkboxes are highlighted in blue and also in Bootstrap v4 active dropdown items have a blue color. This led to the situation that checked checkboxes were almost not visible anymore. 
+                        Therefore the active color for dropdown items was changed a light grey.
+                        If you would like to use the Bootstrap default color you can use the <code>selectedClass</code> option with the value <code>multiselect-active-item-fallback</code>:
+
+                        <div class="example">
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#example-multiselect-fallback').multiselect({
+                                        selectedClass: "active multiselect-active-item-fallback"
+                                    });
+                                });
+                            </script>
+                            <select id="example-multiselect-fallback" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                            </select>
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+$(document).ready(function() {
+   $('#example-multiselect-fallback').multiselect({
+      selectedClass: "active multiselect-active-item-fallback"
+   });
+});
+&lt;/script&gt;
+</pre>
+                        </div>
+                        
+                    </p>
+
+                    <h3>Fonts</h3>
+                    <p>
+                        Bootstrap dropped the Glyphicons icon font therefore the icons in the multiselect where changed to <a href="https://fontawesome.com/">Font Awesome</a>.
+                        To get the icons working you need to <a href="https://fontawesome.com/how-to-use/on-the-web/setup/hosting-font-awesome-yourself">download Font Awesome</a> and include the all.css or all.min.css into your project.
+                        If you change the location of the font files you may need to also adapt the paths at the end of all.css and all.min.css.
+                    </p>
+
+                    <div class="page-header">
                         <h2 id="license">License</h2>
                     </div>
 
@@ -6909,7 +7041,7 @@ $("#example").multiselect();
 
                     <hr>
                     <p>
-                        &copy; 2012 - 2018
+                        &copy; 2012 - 2020
                         <a href="http://davidstutz.de">David Stutz</a>, <a href="https://davidstutz.de/impressum/">Impressum</a>, <a href="https://davidstutz.de/datenschutz/">Datenschutz</a> - dual licensed: <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>, <a href="http://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a>
                     </p>
                 </div>
