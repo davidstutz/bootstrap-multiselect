@@ -99,7 +99,7 @@ interface MultiSelectOptions {
     /**
      * A function which is triggered when the multiselect is finished initializing.
      */
-    onInitialized?: (select: HTMLSelectElement, container: HTMLElement) => void;
+    onInitialized?: (select: JQuery, container: JQuery) => void;
 
     /**
      * A callback called when the dropdown is shown.
@@ -342,6 +342,17 @@ interface MultiSelectOptions {
      * Defines the text of the reset button.
      */
     resetText?: string;
+
+    /**
+     * Synchronizes the width of the select button and the popup. The default value is 'never'.
+     */
+    widthSynchronizationMode?: 'never' | 'always' | 'ifPopupIsSmaller' | 'ifPopupIsWider';
+
+    /**
+     * Defines the text alignment in the button. Possible values are left, center and right. The default value is center.
+     */
+    buttonTextAlignment?: 'left' | 'center' | 'right';
+
     /**
      * The generated HTML markup can be controlled using templates. Basically, templates are simple configuration options. 
      */

@@ -59,6 +59,10 @@ span.multiselect-native-select select {
 .multiselect.dropdown-toggle:after {
   display: none;
 }
+.multiselect {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .multiselect-container {
   position: absolute;
   list-style-type: none;
