@@ -272,6 +272,8 @@
                             </tr>
                             <tr>
                                 <td><a href="#configuration-options-resetText"><code class="badge badge-secondary">resetText</code></a></td>
+                                <td><a href="#configuration-options-widthSynchronizationMode"><code class="badge badge-secondary">widthSynchronizationMode</code></a></td>
+                                <td><a href="#configuration-options-buttonTextAlignment"><code class="badge badge-secondary">buttonTextAlignment</code></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -3530,6 +3532,317 @@ $(document).ready(function() {
         $('#example-reset-text').multiselect({
             includeResetOption: true,
             resetText: "Reset all"
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-widthSynchronizationMode">widthSynchronizationMode</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Synchronizes the width of the select button and the popup depending on the selected mode. Possible values are <code>never</code>, <code>always</code>, <code>ifPopupIsSmaller</code> and <code>ifPopupIsWider</code>.
+                                        The default value is <code>never</code>.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-widthSynchronizationModeNever1').multiselect({
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeNever2').multiselect({
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeAlways1').multiselect({
+                                                    widthSynchronizationMode: 'always',
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeAlways2').multiselect({
+                                                    widthSynchronizationMode: 'always',
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeIfSmaller1').multiselect({
+                                                    widthSynchronizationMode: 'ifPopupIsSmaller',
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeIfSmaller2').multiselect({
+                                                    widthSynchronizationMode: 'ifPopupIsSmaller',
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeIfWider1').multiselect({
+                                                    widthSynchronizationMode: 'ifPopupIsWider',
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeIfWider2').multiselect({
+                                                    widthSynchronizationMode: 'ifPopupIsWider',
+                                                    buttonWidth: '200px'
+                                                });
+                                            });
+                                        </script>
+
+                                        <div class="form-group mb-2">
+                                            <label><code>never</code></label>
+                                            <div>
+                                                <select id="example-widthSynchronizationModeNever1" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Long Long Long Long Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                                <select id="example-widthSynchronizationModeNever2" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-2">
+                                            <label><code>always</code></label>
+                                            <div>
+                                                <select id="example-widthSynchronizationModeAlways1" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Long Long Long Long Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                                <select id="example-widthSynchronizationModeAlways2" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-2">
+                                            <label><code>ifPopupIsSmaller</code></label>
+                                            <div>
+                                                <select id="example-widthSynchronizationModeIfSmaller1" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Long Long Long Long Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                                <select id="example-widthSynchronizationModeIfSmaller2" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-2">
+                                            <label><code>ifPopupIsWider</code></label>
+                                            <div>
+                                                <select id="example-widthSynchronizationModeIfWider1" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Long Long Long Long Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                                <select id="example-widthSynchronizationModeIfWider2" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-widthSynchronizationModeNever1').multiselect({
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeNever2').multiselect({
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeAlways1').multiselect({
+            widthSynchronizationMode: 'always',
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeAlways2').multiselect({
+            widthSynchronizationMode: 'always',
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeIfSmaller1').multiselect({
+            widthSynchronizationMode: 'ifPopupIsSmaller',
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeIfSmaller2').multiselect({
+            widthSynchronizationMode: 'ifPopupIsSmaller',
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeIfWider1').multiselect({
+            widthSynchronizationMode: 'ifPopupIsWider',
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeIfWider2').multiselect({
+            widthSynchronizationMode: 'ifPopupIsWider',
+            buttonWidth: '200px'
+        });
+    });
+&lt;/script&gt;
+&lt;div class="mb-2"&gt;
+    &lt;label&gt;never&lt;/label&gt;
+    &lt;div&gt;
+        &lt;select id="example-widthSynchronizationModeNever1" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Long Long Long Long Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;select id="example-widthSynchronizationModeNever2" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="mb-2"&gt;
+    &lt;label&gt;always&lt;/label&gt;
+    &lt;div&gt;
+        &lt;select id="example-widthSynchronizationModeAlways1" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Long Long Long Long Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;select id="example-widthSynchronizationModeAlways2" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="mb-2"&gt;    
+    &lt;label&gt;ifPopupIsSmaller&lt;/label&gt;
+    &lt;div&gt;
+        &lt;select id="example-widthSynchronizationModeIfSmaller1" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Long Long Long Long Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;select id="example-widthSynchronizationModeIfSmaller2" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="mb-2"&gt;
+    &lt;label&gt;ifPopupIsWider&lt;/label&gt;
+    &lt;div&gt;
+        &lt;select id="example-widthSynchronizationModeIfWider1" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Long Long Long Long Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;select id="example-widthSynchronizationModeIfWider2" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-buttonTextAlignment">buttonTextAlignment</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Defines the text alignment in the button. Possible values are <code>left</code>, <code>center</code> and <code>right</code>.
+                                        The default value is <code>center</code>.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-buttonTextAlignment-left').multiselect({
+                                                    buttonTextAlignment: 'left'
+                                                });
+                                                $('#example-buttonTextAlignment-center').multiselect();
+                                                $('#example-buttonTextAlignment-right').multiselect({
+                                                    buttonTextAlignment: 'right'
+                                                });
+                                            });
+                                        </script>
+
+                                        <div class="input-group mb-2">
+                                            <select id="example-buttonTextAlignment-left" multiple="multiple">
+                                                <option>Option 1</option>
+                                                <option>Option 2</option>
+                                                <option>Option 3</option>
+                                                <option>Option 4</option>
+                                                <option>Option 5</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <select id="example-buttonTextAlignment-center" multiple="multiple">
+                                                <option>Option 1</option>
+                                                <option>Option 2</option>
+                                                <option>Option 3</option>
+                                                <option>Option 4</option>
+                                                <option>Option 5</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <select id="example-buttonTextAlignment-right" multiple="multiple">
+                                                <option>Option 1</option>
+                                                <option>Option 2</option>
+                                                <option>Option 3</option>
+                                                <option>Option 4</option>
+                                                <option>Option 5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-buttonTextAlignment-left').multiselect({
+            buttonTextAlignment: 'left'
+        });
+        $('#example-buttonTextAlignment-center').multiselect();
+        $('#example-buttonTextAlignment-right').multiselect({
+            buttonTextAlignment: 'right'
         });
     });
 &lt;/script&gt;
