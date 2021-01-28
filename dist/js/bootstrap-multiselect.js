@@ -234,7 +234,7 @@
 
         this.$select.wrap('<span class="multiselect-native-select" />').after(this.$container);
 
-        if(this.options.widthSynchronizationMode !== 'never') {
+        if (this.options.widthSynchronizationMode !== 'never') {
             this.synchronizeButtonAndPopupWidth();
         }
 
@@ -515,7 +515,7 @@
                 this.$button.attr('tabindex', tabindex);
             }
 
-            if(this.options.widthSynchronizationMode !== 'never') {
+            if (this.options.widthSynchronizationMode !== 'never') {
                 this.$button.on("change", $.proxy(this.synchronizeButtonAndPopupWidth, this));
             }
 
@@ -547,7 +547,7 @@
                 });
             }
 
-            if(this.options.widthSynchronizationMode !== 'never') {
+            if (this.options.widthSynchronizationMode !== 'never') {
                 this.$popupContainer.css('overflow-x', 'hidden');
             }
 
@@ -558,21 +558,23 @@
             this.$container.append(this.$popupContainer);
         },
 
-        synchronizeButtonAndPopupWidth: function() {
-            if(!this.$popupContainer || this.options.widthSynchronizationMode === 'never') {
+        synchronizeButtonAndPopupWidth: function () {
+            if (!this.$popupContainer || this.options.widthSynchronizationMode === 'never') {
                 return;
             }
 
             var buttonWidth = this.$button.outerWidth();
-            if(this.options.widthSynchronizationMode === 'always') {
-                this.$popupContainer.css('min-width', buttonWidth);
-                this.$popupContainer.css('max-width', buttonWidth);
-            }
-            else if(this.options.widthSynchronizationMode === 'ifPopupIsSmaller') {
-                this.$popupContainer.css('min-width', buttonWidth);                
-            }
-            else if(this.options.widthSynchronizationMode === 'ifPopupIsWider') {
-                this.$popupContainer.css('max-width', buttonWidth);                
+            switch (this.options.widthSynchronizationMode) {
+                case 'always':
+                    this.$popupContainer.css('min-width', buttonWidth);
+                    this.$popupContainer.css('max-width', buttonWidth);
+                    break;
+                case 'ifPopupIsSmaller':
+                    this.$popupContainer.css('min-width', buttonWidth);
+                    break;
+                case 'ifPopupIsWider':
+                    this.$popupContainer.css('max-width', buttonWidth);
+                    break;
             }
         },
 
@@ -1590,7 +1592,7 @@
                 this.$container.addClass('dropup');
             }
 
-            if(this.options.widthSynchronizationMode !== 'never') {
+            if (this.options.widthSynchronizationMode !== 'never') {
                 this.synchronizeButtonAndPopupWidth();
             }
         },
