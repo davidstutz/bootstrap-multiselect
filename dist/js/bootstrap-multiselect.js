@@ -233,6 +233,11 @@
         }
 
         this.$select.wrap('<span class="multiselect-native-select" />').after(this.$container);
+
+        if (this.options.widthSynchronizationMode !== 'never') {
+            this.synchronizeButtonAndPopupWidth();
+        }
+
         this.options.onInitialized(this.$select, this.$container);
     }
 
@@ -437,6 +442,9 @@
             includeResetDivider: false,
             resetText: 'Reset',
             indentGroupOptions: true,
+            // possible options: 'never', 'always', 'ifPopupIsSmaller', 'ifPopupIsWider'
+            widthSynchronizationMode: 'never',
+            buttonTextAlignment: 'center',
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 popupContainer: '<div class="multiselect-container dropdown-menu"></div>',
@@ -480,19 +488,35 @@
             // Manually add button width if set.
             if (this.options.buttonWidth && this.options.buttonWidth !== 'auto') {
                 this.$button.css({
-                    'width': '100%', //this.options.buttonWidth,
-                    'overflow': 'hidden',
-                    'text-overflow': 'ellipsis'
+                    'width': '100%' //this.options.buttonWidth,
                 });
                 this.$container.css({
                     'width': this.options.buttonWidth
                 });
             }
 
+            if (this.options.buttonTextAlignment) {
+                switch (this.options.buttonTextAlignment) {
+                    case 'left':
+                        this.$button.addClass('text-left');
+                        break;
+                    case 'center':
+                        this.$button.addClass('text-center');
+                        break;
+                    case 'right':
+                        this.$button.addClass('text-right');
+                        break;
+                }
+            }
+
             // Keep the tab index from the select.
             var tabindex = this.$select.attr('tabindex');
             if (tabindex) {
                 this.$button.attr('tabindex', tabindex);
+            }
+
+            if (this.options.widthSynchronizationMode !== 'never') {
+                this.$button.on("change", $.proxy(this.synchronizeButtonAndPopupWidth, this));
             }
 
             this.$container.prepend(this.$button);
@@ -523,11 +547,35 @@
                 });
             }
 
+            if (this.options.widthSynchronizationMode !== 'never') {
+                this.$popupContainer.css('overflow-x', 'hidden');
+            }
+
             this.$popupContainer.on("touchstart click", function (e) {
                 e.stopPropagation();
             });
 
             this.$container.append(this.$popupContainer);
+        },
+
+        synchronizeButtonAndPopupWidth: function () {
+            if (!this.$popupContainer || this.options.widthSynchronizationMode === 'never') {
+                return;
+            }
+
+            var buttonWidth = this.$button.outerWidth();
+            switch (this.options.widthSynchronizationMode) {
+                case 'always':
+                    this.$popupContainer.css('min-width', buttonWidth);
+                    this.$popupContainer.css('max-width', buttonWidth);
+                    break;
+                case 'ifPopupIsSmaller':
+                    this.$popupContainer.css('min-width', buttonWidth);
+                    break;
+                case 'ifPopupIsWider':
+                    this.$popupContainer.css('max-width', buttonWidth);
+                    break;
+            }
         },
 
         /**
@@ -1543,6 +1591,10 @@
             else if (this.options.dropUp) {
                 this.$container.addClass('dropup');
             }
+
+            if (this.options.widthSynchronizationMode !== 'never') {
+                this.synchronizeButtonAndPopupWidth();
+            }
         },
 
         /**
@@ -1615,7 +1667,7 @@
             this.$select.prop('disabled', false);
             this.$button.prop('disabled', false)
                 .removeClass('disabled');
-            
+
             this.updateButtonText();
         },
 
@@ -1626,7 +1678,7 @@
             this.$select.prop('disabled', true);
             this.$button.prop('disabled', true)
                 .addClass('disabled');
-            
+
             this.updateButtonText();
         },
 
@@ -1730,6 +1782,7 @@
 
             // Now update the title attribute of the button.
             $('.multiselect', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
+            this.$button.trigger('change');
         },
 
         /**
