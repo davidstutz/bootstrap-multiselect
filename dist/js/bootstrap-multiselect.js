@@ -467,7 +467,7 @@
                 this.$container.on('show.bs.dropdown', $.proxy(function () {
                     // the width needs to be synchronized again in case the width of the button changed in between
                     this.synchronizeButtonAndPopupWidth();
-                    this.options.onDropdownShow;
+                    this.options.onDropdownShow();
                 }, this));
             }
             else {
