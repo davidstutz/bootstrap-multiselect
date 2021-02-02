@@ -463,7 +463,16 @@
          */
         buildContainer: function () {
             this.$container = $(this.options.buttonContainer);
-            this.$container.on('show.bs.dropdown', this.options.onDropdownShow);
+            if (this.options.widthSynchronizationMode !== 'never') {
+                this.$container.on('show.bs.dropdown', $.proxy(function () {
+                    // the width needs to be synchronized again in case the width of the button changed in between
+                    this.synchronizeButtonAndPopupWidth();
+                    this.options.onDropdownShow;
+                }, this));
+            }
+            else {
+                this.$container.on('show.bs.dropdown', this.options.onDropdownShow);
+            }
             this.$container.on('hide.bs.dropdown', this.options.onDropdownHide);
             this.$container.on('shown.bs.dropdown', this.options.onDropdownShown);
             this.$container.on('hidden.bs.dropdown', this.options.onDropdownHidden);
@@ -513,10 +522,6 @@
             var tabindex = this.$select.attr('tabindex');
             if (tabindex) {
                 this.$button.attr('tabindex', tabindex);
-            }
-
-            if (this.options.widthSynchronizationMode !== 'never') {
-                this.$button.on("change", $.proxy(this.synchronizeButtonAndPopupWidth, this));
             }
 
             this.$container.prepend(this.$button);
