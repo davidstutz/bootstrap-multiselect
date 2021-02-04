@@ -16,15 +16,17 @@ module.exports = function(config) {
 
       // list of files / patterns to load in the browser
       files: [
-        '../docs/js/jquery-2.1.3.min.js', // dirty hack for including jQuery
-        'http://knockoutjs.com/downloads/knockout-3.4.0.debug.js',
+        // CSS files aren't strictly necessary, but can be helpful to view the tests running in the browser as a user would see them
+        '../docs/css/bootstrap-4.5.2.min.css', 
+        '../dist/css/bootstrap-multiselect.css',
+        '../docs/js/jquery-2.2.4.min.js', // dirty hack for including jQuery
+        '../docs/js/knockout-3.4.0.debug.js',
         '../dist/js/bootstrap-multiselect.js',
         'spec/*.js'
       ],
 
       // list of files to exclude
-      exclude: [
-      ],
+      exclude: [],
 
       // preprocess matching files before serving them to the browser
       // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
@@ -51,7 +53,7 @@ module.exports = function(config) {
 
       // start these browsers
       // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-      browsers: ['Chrome', 'ChromeCanary', 'Firefox', 'Opera', 'IE'],
+      browsers: ['Chrome'],
 
       // e.g see https://swizec.com/blog/how-to-run-javascript-tests-in-chrome-on-travis/swizec/6647
       customLaunchers: {
