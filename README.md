@@ -18,7 +18,7 @@ Also check out [Bootstrap Strength Meter](https://github.com/davidstutz/bootstra
 
 **Apache License, Version 2.0**
 
-Copyright (c) 2012 - 2020 [David Stutz](http://davidstutz.de/)
+Copyright (c) 2012 - 2021 [David Stutz](http://davidstutz.de/)
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
 
@@ -26,7 +26,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 **BSD 3-Clause License**
 
-Copyright (c) 2012 - 2020 [David Stutz](http://davidstutz.de/)
+Copyright (c) 2012 - 2021 [David Stutz](http://davidstutz.de/)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
