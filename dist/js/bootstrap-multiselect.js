@@ -233,6 +233,7 @@
         }
 
         this.$select.wrap('<span class="multiselect-native-select" />').after(this.$container);
+        this.$select.prop('tabindex', '-1');
 
         if (this.options.widthSynchronizationMode !== 'never') {
             this.synchronizeButtonAndPopupWidth();
@@ -763,8 +764,10 @@
                 else if (!$target.is('input')) {
                     var $checkbox = $target.closest('.multiselect-option, .multiselect-all').find('.form-check-input');
                     if ($checkbox.length > 0) {
+                        if (this.options.multiple || !$checkbox.prop('checked')) {
                         $checkbox.prop('checked', !$checkbox.prop('checked'));
                         $checkbox.change();
+                    }
                     }
                     else if (this.options.enableClickableOptGroups && this.options.multiple && !$target.hasClass("caret-container")) {
                         var groupItem = $target;
