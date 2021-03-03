@@ -1,7 +1,7 @@
-describe('Bootstrap Multiselect "Core".', function() {
+describe('Bootstrap Multiselect "Core".', function () {
     var onInitialized = false;
 
-    beforeEach(function() {
+    beforeEach(function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
 
         for (var i = 1; i < 100; i++) {
@@ -18,47 +18,47 @@ describe('Bootstrap Multiselect "Core".', function() {
 
         $select.multiselect({
             buttonContainer: '<div id="multiselect-container"></div>',
-            onInitialized: function($select) {
+            onInitialized: function ($select) {
                 onInitialized = true;
             },
-            checkboxName: function($option) {
+            checkboxName: function ($option) {
                 return 'value-' + $($option).attr('value');
             },
             disabledText: "Disabled"
         });
     });
 
-    it('Should add the container after the select.', function() {
+    it('Should add the container after the select.', function () {
         expect($('#multiselect-container').length).toBe(1);
     });
 
-    it('Should add the multiselect button.', function() {
+    it('Should add the multiselect button.', function () {
         expect($('#multiselect-container .multiselect').length).toBe(1);
     });
 
-    it('Should add the dropdown menu.', function() {
+    it('Should add the dropdown menu.', function () {
         expect($('#multiselect-container .dropdown-menu').length).toBe(1);
     });
 
-    it('Should add an li element with checkbox and label for each option.', function() {
+    it('Should add an li element with checkbox and label for each option.', function () {
         expect($('#multiselect-container .multiselect-option').length).toBe(99);
         expect($('#multiselect-container .form-check-label').length).toBe(99);
         expect($('#multiselect-container input[type="checkbox"]').length).toBe(99);
     });
 
-    it('Should preserve selected options.', function() {
+    it('Should preserve selected options.', function () {
         expect($('#multiselect-container input[type="checkbox"]:checked').length).toBe(9);
         expect($('#multiselect option:selected').length).toBe(9);
     });
 
-    it('Should be able to select options by value.', function() {
+    it('Should be able to select options by value.', function () {
         $('#multiselect').multiselect('select', '10');
 
         expect($('#multiselect option[value="10"]').prop('selected')).toBe(true);
         expect($('#multiselect-container input[value="10"]').prop('checked')).toBe(true);
     });
 
-    it('Select method should handle "null" and "undefined" correctly.', function() {
+    it('Select method should handle "null" and "undefined" correctly.', function () {
         expect($('#multiselect option:selected').length).toBe(9);
 
         $('#multiselect').multiselect('select', null);
@@ -68,7 +68,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         expect($('#multiselect option:selected').length).toBe(9);
     });
 
-    it('Should be able to deselect options by value.', function() {
+    it('Should be able to deselect options by value.', function () {
         $('#multiselect').multiselect('select', '10');
         $('#multiselect').multiselect('deselect', '10');
 
@@ -76,7 +76,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         expect($('#multiselect-container input[value="10"]').prop('checked')).toBe(false);
     });
 
-    it('Deselect method should handle "null" and "undefined" correctly.', function() {
+    it('Deselect method should handle "null" and "undefined" correctly.', function () {
         expect($('#multiselect option:selected').length).toBe(9);
 
         $('#multiselect').multiselect('deselect', null);
@@ -86,7 +86,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         expect($('#multiselect option:selected').length).toBe(9);
     });
 
-    it('Should be able to select options using an array of values.', function() {
+    it('Should be able to select options using an array of values.', function () {
         $('#multiselect').multiselect('select', ['10', '11']);
 
         expect($('#multiselect option[value="10"]').prop('selected')).toBe(true);
@@ -96,7 +96,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         expect($('#multiselect-container input[value="11"]').prop('checked')).toBe(true);
     });
 
-    it('Should be able to deselect options using an array of values.', function() {
+    it('Should be able to deselect options using an array of values.', function () {
         $('#multiselect').multiselect('select', ['10', '11']);
         $('#multiselect').multiselect('deselect', ['10', '11']);
 
@@ -107,21 +107,21 @@ describe('Bootstrap Multiselect "Core".', function() {
         expect($('#multiselect-container input[value="11"]').prop('checked')).toBe(false);
     });
 
-    it('Should be able to disable the multiselect', function() {
+    it('Should be able to disable the multiselect', function () {
         $('#multiselect').multiselect('disable');
 
         expect($('#multiselect').prop('disabled')).toBe(true);
         expect($('#multiselect-container button .multiselect-selected-text').text()).toBe('Disabled');
     });
 
-    it('Should be able to enable the multiselect', function() {
+    it('Should be able to enable the multiselect', function () {
         $('#multiselect').multiselect('disable');
         $('#multiselect').multiselect('enable');
 
         expect($('#multiselect').prop('disabled')).toBe(false);
     });
 
-    it('Should be able to select all options.', function() {
+    it('Should be able to select all options.', function () {
         $('#multiselect').multiselect('selectAll');
 
         for (var i = 1; i < 100; i++) {
@@ -130,7 +130,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         }
     });
 
-    it('Should be able to deselect all options.', function() {
+    it('Should be able to deselect all options.', function () {
         $('#multiselect').multiselect('selectAll');
 
         for (var i = 1; i < 100; i++) {
@@ -146,7 +146,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         }
     });
 
-    it('Should update the checkboxes according to the selected options after using refresh.', function() {
+    it('Should update the checkboxes according to the selected options after using refresh.', function () {
         for (var i = 10; i < 20; i++) {
             $('#multiselect option[value="' + i + '"]').prop('selected', true);
         }
@@ -163,7 +163,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         }
     });
 
-    it('Should remove container, button and ul after destroy.', function() {
+    it('Should remove container, button and ul after destroy.', function () {
         $('#multiselect').multiselect('destroy');
 
         // Destroy should remove container, button and ul.
@@ -172,7 +172,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         expect($('#multiselect-container .dropdown-menu').length).toBe(0);
     });
 
-    it('Should select an option when checkbox is changed (change event).', function() {
+    it('Should select an option when checkbox is changed (change event).', function () {
         $('#multiselect-container .multiselect-option input[value="10"]').prop('checked', true);
         $('#multiselect-container .multiselect-option input[value="10"]').trigger('change');
 
@@ -180,7 +180,7 @@ describe('Bootstrap Multiselect "Core".', function() {
         expect($('#multiselect option[value="10"]').prop('selected')).toBe(true);
     });
 
-    it('Should deselect an option when checkbox is changed (change event).', function() {
+    it('Should deselect an option when checkbox is changed (change event).', function () {
         $('#multiselect-container .multiselect-option input[value="10"]').prop('checked', true);
         $('#multiselect-container .multiselect-option input[value="10"]').trigger('change');
 
@@ -193,14 +193,14 @@ describe('Bootstrap Multiselect "Core".', function() {
         expect($('#multiselect option[value="10"]').prop('selected')).toBe(false);
     });
 
-    it('Should select an option when checkbox is clicked.', function() {
+    it('Should select an option when checkbox is clicked.', function () {
         $('#multiselect-container .multiselect-option input[value="10"]').trigger('click');
 
         expect($('#multiselect-container input[value="10"]').prop('checked')).toBe(true);
         expect($('#multiselect option[value="10"]').prop('selected')).toBe(true);
     });
 
-    it('Should deselect an option when checkbox is clicked.', function() {
+    it('Should deselect an option when checkbox is clicked.', function () {
         $('#multiselect-container .multiselect-option input[value="10"]').trigger('click');
         $('#multiselect-container .multiselect-option input[value="10"]').trigger('click');
 
@@ -208,30 +208,30 @@ describe('Bootstrap Multiselect "Core".', function() {
         expect($('#multiselect option[value="10"]').prop('selected')).toBe(false);
     });
 
-    it('Should trigger onInitialized.', function() {
+    it('Should trigger onInitialized.', function () {
         expect(onInitialized).toBe(true);
     });
 
-    it('Should correctly apply checkboxName.', function() {
-        $('#multiselect-container input').each(function() {
+    it('Should correctly apply checkboxName.', function () {
+        $('#multiselect-container input').each(function () {
             expect($(this).attr('name')).toBe('value-' + $(this).attr('value'));
         });
     });
 
-    afterEach(function() {
+    afterEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
 });
 
-describe('Bootstrap Multiselect "Multiple Multiselects".', function() {
+describe('Bootstrap Multiselect "Multiple Multiselects".', function () {
 
     var multiselects = ['one', 'two', 'three'];
     var onSelectAllTriggered = 0;
     var onDeselectAllTriggered = 0;
     var onChangeFired = 0;
 
-    beforeEach(function() {
+    beforeEach(function () {
 
         onSelectAllTriggered = 0;
         onDeselectAllTriggered = 0;
@@ -250,20 +250,20 @@ describe('Bootstrap Multiselect "Multiple Multiselects".', function() {
                 buttonContainer: '<div id="multiselect-container-' + multiselects[m] + '"></div>',
                 includeSelectAllOption: true,
                 selectAllValue: 'multiselect-all',
-                onSelectAll: function() {
+                onSelectAll: function () {
                     onSelectAllTriggered++;
                 },
-                onDeselectAll: function() {
+                onDeselectAll: function () {
                     onDeselectAllTriggered++;
                 },
-                onChange: function(option, checked) {
+                onChange: function (option, checked) {
                     onChangeFired++;
                 }
             });
         }
     });
 
-    it('Should initialize all multiselects.', function() {
+    it('Should initialize all multiselects.', function () {
         expect($('.multiselect').length).toBe(3);
 
         for (var m = 0; m < 3; m++) {
@@ -271,14 +271,14 @@ describe('Bootstrap Multiselect "Multiple Multiselects".', function() {
             expect($('#multiselect-container-' + multiselects[m]).length).toBe(1);
             expect($('#multiselect-container-' + multiselects[m] + ' .multiselect').length).toBe(1);
             expect($('#multiselect-container-' + multiselects[m] + ' .dropdown-menu').length).toBe(1);
-            expect($('#multiselect-container-' + multiselects[m] + ' .multiselect-option').length).toBe(9); 
-            expect($('#multiselect-container-' + multiselects[m] + ' .multiselect-all').length).toBe(1); 
+            expect($('#multiselect-container-' + multiselects[m] + ' .multiselect-option').length).toBe(9);
+            expect($('#multiselect-container-' + multiselects[m] + ' .multiselect-all').length).toBe(1);
             expect($('#multiselect-container-' + multiselects[m] + ' .form-check-label').length).toBe(10); // including select all
             expect($('#multiselect-container-' + multiselects[m] + ' input[type="checkbox"]').length).toBe(10); // including select all
         }
     });
 
-    it('Should not select/deselect options in other multiselects.', function() {
+    it('Should not select/deselect options in other multiselects.', function () {
         for (var m = 0; m < 3; m++) {
             for (var i = 1; i < 10; i++) {
                 $('#multiselect-container-' + multiselects[m] + ' input[value="' + i + '"]').trigger('click');
@@ -304,7 +304,7 @@ describe('Bootstrap Multiselect "Multiple Multiselects".', function() {
         }
     });
 
-    it('Should not trigger onChange in other multiselects.', function() {
+    it('Should not trigger onChange in other multiselects.', function () {
         for (var m = 0; m < 3; m++) {
             for (var i = 1; i < 10; i++) {
                 $('#multiselect-container-' + multiselects[m] + ' input[value="' + i + '"]').trigger('click');
@@ -314,7 +314,7 @@ describe('Bootstrap Multiselect "Multiple Multiselects".', function() {
         }
     });
 
-    it('Should not select all/deselect all options in other multiselects.', function() {
+    it('Should not select all/deselect all options in other multiselects.', function () {
         for (var m = 0; m < 3; m++) {
             $('#multiselect-container-' + multiselects[m] + ' input[value="multiselect-all"]').trigger('click');
             expect($('#multiselect-container-' + multiselects[m] + ' input[value!="multiselect-all"]:checked').length).toBe(9);
@@ -331,7 +331,7 @@ describe('Bootstrap Multiselect "Multiple Multiselects".', function() {
         }
     });
 
-    it('Should not trigger onSelectAll in other multiselects.', function() {
+    it('Should not trigger onSelectAll in other multiselects.', function () {
         for (var m = 0; m < 3; m++) {
             $('#multiselect-container-' + multiselects[m] + ' input[value="multiselect-all"]').trigger('click');
             expect(onSelectAllTriggered).toBe(1);
@@ -342,7 +342,7 @@ describe('Bootstrap Multiselect "Multiple Multiselects".', function() {
         }
     });
 
-    it('Should not trigger onDeselectAll in other multiselects', function() {
+    it('Should not trigger onDeselectAll in other multiselects', function () {
         for (var m = 0; m < 3; m++) {
             $('#multiselect-container-' + multiselects[m] + ' input[value="multiselect-all"]').trigger('click');
             $('#multiselect-container-' + multiselects[m] + ' input[value="multiselect-all"]').trigger('click');
@@ -354,7 +354,7 @@ describe('Bootstrap Multiselect "Multiple Multiselects".', function() {
         }
     });
 
-    afterEach(function() {
+    afterEach(function () {
         for (var m = 0; m < 3; m++) {
             $('#multiselect-' + multiselects[m]).multiselect('destroy');
             $('#multiselect-' + multiselects[m]).remove();
@@ -362,8 +362,8 @@ describe('Bootstrap Multiselect "Multiple Multiselects".', function() {
     });
 });
 
-describe('Bootstrap Multiselect "Single Selection".', function() {
-    beforeEach(function() {
+describe('Bootstrap Multiselect "Single Selection".', function () {
+    beforeEach(function () {
         var $select = $('<select id="multiselect"></select>');
 
         for (var i = 1; i < 100; i++) {
@@ -377,7 +377,7 @@ describe('Bootstrap Multiselect "Single Selection".', function() {
         });
     });
 
-    it('Should create radio buttons instead of checkboxes.', function() {
+    it('Should create radio buttons instead of checkboxes.', function () {
         expect($('#multiselect-container input[type="radio"]').length).toBe(99);
         expect($('#multiselect-container input[type="checkbox"]').length).toBe(0);
 
@@ -385,11 +385,11 @@ describe('Bootstrap Multiselect "Single Selection".', function() {
         expect($('#multiselect option:selected').length).toBe(1);
     });
 
-    it('Only one option at a time can be selected.', function() {
+    it('Only one option at a time can be selected.', function () {
         expect($('#multiselect option:selected').length).toBe(1);
 
         var i = 0;
-        $('#multiselect-container input').each(function() {
+        $('#multiselect-container input').each(function () {
             if (i === 0) {
                 expect($(this).prop('checked')).toBe(true);
                 i++;
@@ -405,22 +405,31 @@ describe('Bootstrap Multiselect "Single Selection".', function() {
         });
     });
 
-    it('Deselect all should work.', function() {
+    it('Deselect all should work.', function () {
         expect($('#multiselect option:selected').length).toBe(1);
     });
 
-    afterEach(function() {
+    it('Should not unselect option on second click', function () {
+        var selectedOption = $("#multiselect").closest(".multiselect-native-select")
+            .find(".multiselect-container :radio:checked").closest(".multiselect-option");
+        expect(selectedOption.length).toBe(1);
+        
+        selectedOption.click();
+        expect(selectedOption.find(":radio").prop('checked')).toBe(true);
+    });
+
+    afterEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
 });
 
-describe('Bootstrap Multiselect "Individual Configuration Options".', function() {
+describe('Bootstrap Multiselect "Individual Configuration Options".', function () {
 
-    describe('disableIfEmpty without options.', function() {
+    describe('disableIfEmpty without options.', function () {
 
         var $select = null;
-        beforeEach(function() {
+        beforeEach(function () {
             $select = $('<select id="multiselect"></select>');
 
             $('body').append($select);
@@ -432,23 +441,23 @@ describe('Bootstrap Multiselect "Individual Configuration Options".', function()
             });
         });
 
-        it('Should disable button if empty.', function() {
+        it('Should disable button if empty.', function () {
             expect($('#multiselect-container button').prop('disabled')).toBe(true);
             expect($('#multiselect-container button .multiselect-selected-text').text()).toBe('Disabled');
         });
 
-        it('Should still be disabled after invoking rebuild.', function() {
+        it('Should still be disabled after invoking rebuild.', function () {
             $select.multiselect('rebuild');
             expect($('#multiselect-container button').prop('disabled')).toBe(true);
         });
 
-        it('Should not be disabled after invoking rebuild after adding options.', function() {
+        it('Should not be disabled after invoking rebuild after adding options.', function () {
             $select.append('<option value="value-1">Option 1</option>');
             $select.multiselect('rebuild');
             expect($('#multiselect-container button').prop('disabled')).toBe(false);
         });
 
-        it('Should not be disabled after rebuilding with more options after invoking destroy.', function() {
+        it('Should not be disabled after rebuilding with more options after invoking destroy.', function () {
             $select.append('<option value="value-1">Option 1</option>');
 
             $select.multiselect('destroy');
@@ -460,16 +469,16 @@ describe('Bootstrap Multiselect "Individual Configuration Options".', function()
             expect($('#multiselect-container button').prop('disabled')).toBe(false);
         });
 
-        afterEach(function() {
+        afterEach(function () {
             $('#multiselect').multiselect('destroy');
             $('#multiselect').remove();
         });
     });
 
-    describe('disableIfEmpty with options.', function() {
+    describe('disableIfEmpty with options.', function () {
 
         var $select = null;
-        beforeEach(function() {
+        beforeEach(function () {
             $select = $('<select id="multiselect" multiple="multiple"></select>');
             $select.append('<option value="value-1">Option 1</option>');
             $select.append('<option value="value-2">Option 2</option>');
@@ -484,21 +493,21 @@ describe('Bootstrap Multiselect "Individual Configuration Options".', function()
             });
         });
 
-        it('Should enable button.', function() {
+        it('Should enable button.', function () {
             expect($('#multiselect-container button').prop('disabled')).toBe(false);
             expect($('#multiselect-container button .multiselect-selected-text').text()).toBe('Enabled');
         });
 
-        afterEach(function() {
+        afterEach(function () {
             $('#multiselect').multiselect('destroy');
             $('#multiselect').remove();
         });
     });
 });
 
-describe('Bootstrap Multiselect "individual Methods".', function() {
-    describe('Method "clearSelection" should clear selection in multiple mode.', function() {
-        beforeEach(function() {
+describe('Bootstrap Multiselect "individual Methods".', function () {
+    describe('Method "clearSelection" should clear selection in multiple mode.', function () {
+        beforeEach(function () {
             var $select = $('<select id="multiselect" multiple="multiple"></select>');
             $select.append('<option value="value-1">Option 1</option>');
             $select.append('<option value="value-2">Option 2</option>');
@@ -511,7 +520,7 @@ describe('Bootstrap Multiselect "individual Methods".', function() {
             });
         });
 
-        it('Method "clearSelection" should clear selection.', function() {
+        it('Method "clearSelection" should clear selection.', function () {
             $('#multiselect-container input[value="value-1"]').trigger('click');
             $('#multiselect-container input[value="value-2"]').trigger('click');
             expect($('#multiselect-container input:checked').length).toBe(2);
@@ -522,14 +531,14 @@ describe('Bootstrap Multiselect "individual Methods".', function() {
             expect($('#multiselect option:selected').length).toBe(0);
         });
 
-        afterEach(function() {
+        afterEach(function () {
             $('#multiselect').multiselect('destroy');
             $('#multiselect').remove();
         });
     });
 
-    describe('Method "clearSelection" should correctly update select all.', function() {
-        beforeEach(function() {
+    describe('Method "clearSelection" should correctly update select all.', function () {
+        beforeEach(function () {
             var $select = $('<select id="multiselect" multiple="multiple"></select>');
             $select.append('<option value="value-1">Option 1</option>');
             $select.append('<option value="value-2">Option 2</option>');
@@ -544,7 +553,7 @@ describe('Bootstrap Multiselect "individual Methods".', function() {
             });
         });
 
-        it('Method "clearSelection" should clear selection.', function() {
+        it('Method "clearSelection" should clear selection.', function () {
             $('#multiselect-container input[value="multiselect-all"]').trigger('click');
             expect($('#multiselect-container input:checked').length).toBe(4);
             expect($('#multiselect option:selected').length).toBe(3);
@@ -554,14 +563,14 @@ describe('Bootstrap Multiselect "individual Methods".', function() {
             expect($('#multiselect option:selected').length).toBe(0);
         });
 
-        afterEach(function() {
+        afterEach(function () {
             $('#multiselect').multiselect('destroy');
             $('#multiselect').remove();
         });
     });
 
-    describe('Method "clearSelection" should clear selection in single mode.', function() {
-        beforeEach(function() {
+    describe('Method "clearSelection" should clear selection in single mode.', function () {
+        beforeEach(function () {
             var $select = $('<select id="multiselect"></select>');
             $select.append('<option value="value-1">Option 1</option>');
             $select.append('<option value="value-2">Option 2</option>');
@@ -574,7 +583,7 @@ describe('Bootstrap Multiselect "individual Methods".', function() {
             });
         });
 
-        it('Method "clearSelection" is NOT able to clear selection.', function() {
+        it('Method "clearSelection" is NOT able to clear selection.', function () {
             $('#multiselect-container input[value="value-2"]').trigger('click');
             expect($('#multiselect-container input:checked').length).toBe(1);
             expect($('#multiselect option:selected').length).toBe(1);
@@ -584,19 +593,19 @@ describe('Bootstrap Multiselect "individual Methods".', function() {
             expect($('#multiselect option:selected').length).toBe(1);
         });
 
-        afterEach(function() {
+        afterEach(function () {
             $('#multiselect').multiselect('destroy');
             $('#multiselect').remove();
         });
     });
 });
 
-describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
+describe('Bootstrap Multiselect "Clickable Optgroups"', function () {
 
     // Count the number of onChanges fired.
     var fired = 0;
 
-    beforeEach(function() {
+    beforeEach(function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
 
         for (var i = 1; i < 11; i++) {
@@ -621,27 +630,27 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
             buttonContainer: '<div id="multiselect-container"></div>',
             enableClickableOptGroups: true,
             numberDisplayed: 10,
-            onChange: function(option, checked) {
+            onChange: function (option, checked) {
                 fired++;
             }
         });
     });
 
-    it('Should correctly create inputs for optgroups.', function() {
+    it('Should correctly create inputs for optgroups.', function () {
         expect($('#multiselect-container .multiselect-group').length).toBe(10);
         expect($('#multiselect-container .multiselect-group input').length).toBe(10);
 
-        $('#multiselect-container .multiselect-group').each(function() {            
+        $('#multiselect-container .multiselect-group').each(function () {
             expect($('input', $(this).nextUntil('.multiselect-group')).length).toBe(10);
         });
     });
 
-    it('Groups should be clickable and correctly initialized.', function() {
+    it('Groups should be clickable and correctly initialized.', function () {
         expect($('#multiselect option:selected').length).toBe(10);
         expect(fired).toBe(0);
 
         var i = 0;
-        $('#multiselect-container .multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function () {
             if (i == 0) {
                 $('.form-check-label', $(this)).trigger('click');
 
@@ -666,13 +675,13 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         });
     });
 
-    it('Clickable groups should fire onChange only once.', function() {
+    it('Clickable groups should fire onChange only once.', function () {
         expect($('#multiselect option:selected').length).toBe(10);
 
         expect(fired).toBe(0);
 
         var i = 0;
-        $('#multiselect-container .multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function () {
             $('.form-check-label', $(this)).trigger('click');
 
             // Selected
@@ -689,15 +698,15 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         });
     });
 
-    it('Clickable groups should fire change only once', function() {
+    it('Clickable groups should fire change only once', function () {
         expect($('#multiselect option:selected').length).toBe(10);
 
         var changed = 0;
-        $('#multiselect').on('change', function() {
+        $('#multiselect').on('change', function () {
             changed++;
         });
 
-        $('#multiselect-container .multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function () {
             $('.form-check-label', $(this)).trigger('click');
 
             // Selected
@@ -714,16 +723,16 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         fired = 0;
     });
 
-    it('Should update button text.', function() {
+    it('Should update button text.', function () {
         expect($('#multiselect option:selected').length).toBe(10);
         expect(fired).toBe(0);
 
         var i = 0;
-        $('#multiselect-container .multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function () {
             if (i == 0) {
 
                 var text = ''
-                $('option:selected', $('#multiselect optgroup')[i]).each(function() {
+                $('option:selected', $('#multiselect optgroup')[i]).each(function () {
                     text += $(this).text() + ', '
                 });
 
@@ -736,7 +745,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
                 $('.form-check-label', $(this)).trigger('click');
 
                 var text = ''
-                $('option:selected', $('#multiselect optgroup')[i]).each(function() {
+                $('option:selected', $('#multiselect optgroup')[i]).each(function () {
                     text += $(this).text() + ', '
                 });
 
@@ -750,7 +759,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         });
     });
 
-    it('Should be updated by clicking corresponding options.', function() {
+    it('Should be updated by clicking corresponding options.', function () {
 
         for (var i = 1; i < 10; i++) {
             expect($('option:selected', $('#multiselect optgroup')[0]).length).toBe(10);
@@ -759,7 +768,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
             var $group = $($('#multiselect-container .multiselect-group')[i]);
             var $optGroup = $($('#multiselect optgroup')[i]);
 
-            $group.nextUntil('.multiselect-group').each(function() {
+            $group.nextUntil('.multiselect-group').each(function () {
                 var $input = $('input', this);
                 $input.trigger('click');
 
@@ -771,7 +780,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
             expect($('input', $group).prop('checked')).toBe(true);
 
             // Undo changes
-            $group.nextUntil('.multiselect-group').each(function() {
+            $group.nextUntil('.multiselect-group').each(function () {
                 var $input = $('input', this);
                 $input.trigger('click');
 
@@ -783,7 +792,7 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         }
     });
 
-    it('Should be updated through select/deselect.', function() {
+    it('Should be updated through select/deselect.', function () {
 
         var values = [];
         for (var i = 1; i < 11; i++) {
@@ -799,18 +808,18 @@ describe('Bootstrap Multiselect "Clickable Optgroups"', function() {
         expect($('input', $group).prop('checked')).toBe(true);
     });
 
-    afterEach(function() {
+    afterEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
 });
 
-describe('Bootstrap Multiselect "Collapsible Optgroups"', function() {
+describe('Bootstrap Multiselect "Collapsible Optgroups"', function () {
 
     // Count the number of onChanges fired.
     var fired = 0;
 
-    beforeEach(function() {
+    beforeEach(function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
 
         for (var i = 1; i < 11; i++) {
@@ -828,29 +837,29 @@ describe('Bootstrap Multiselect "Collapsible Optgroups"', function() {
         $select.multiselect({
             buttonContainer: '<div id="multiselect-container"></div>',
             enableCollapsibleOptGroups: true,
-            onChange: function(option, checked) {
+            onChange: function (option, checked) {
                 fired++;
             }
         });
     });
 
-    it('Should correctly create headers for optgroups.', function() {
+    it('Should correctly create headers for optgroups.', function () {
         expect($('#multiselect-container .multiselect-group').length).toBe(10);
 
-        $('#multiselect-container .multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function () {
             expect($('input', $(this).nextUntil('.multiselect-group')).length).toBe(10);
         });
     });
 
-    if ('Should not create inputs.', function() {
+    if ('Should not create inputs.', function () {
         expect($('#multiselect-container .multiselect-group input').length).toBe(0);
     });
 
-    it('Groups should not be clickable.', function() {
+    it('Groups should not be clickable.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
 
         var i = 0;
-        $('#multiselect-container .multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function () {
             $('.form-check-label', $(this)).trigger('click');
             expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(0);
             expect($('#multiselect option:selected').length).toBe(0);
@@ -860,37 +869,37 @@ describe('Bootstrap Multiselect "Collapsible Optgroups"', function() {
         });
     });
 
-    // it('Should be collapsible.', function() {
-    //     var $group = $('#multiselect-container .multiselect-group:first');
-    //     $('.caret-container', $group).trigger('click');
+    it('Should be collapsible.', function () {
+        var $group = $('#multiselect-container .multiselect-group:first');
+        $('.caret-container', $group).click();
 
-    //     var $options = $group.nextUntil('.multiselect-group');
-    //     $options.each(function() {
-    //         expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
-    //         expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
-    //     });
+        var $options = $group.nextUntil('.multiselect-group');
+        $options.each(function () {
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
+        });
 
-    //     $('.caret-container', $group).trigger('click');
+        $('.caret-container', $group).click();
 
-    //     var $options = $group.nextUntil('li.multiselect-group');
-    //     $options.each(function() {
-    //         expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
-    //         expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
-    //     });
-    // });
+        var $options = $group.nextUntil('li.multiselect-group');
+        $options.each(function () {
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
+        });
+    });
 
-    afterEach(function() {
+    afterEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
 });
 
-describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
+describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function () {
 
     // Count the number of onChanges fired.
     var fired = 0;
 
-    beforeEach(function() {
+    beforeEach(function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
 
         for (var i = 1; i < 11; i++) {
@@ -909,26 +918,26 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
             buttonContainer: '<div id="multiselect-container"></div>',
             enableClickableOptGroups: true,
             enableCollapsibleOptGroups: true,
-            onChange: function(option, checked) {
+            onChange: function (option, checked) {
                 fired++;
             }
         });
     });
 
-    it('Should correctly create inputs for optgroups.', function() {
+    it('Should correctly create inputs for optgroups.', function () {
         expect($('#multiselect-container .multiselect-group').length).toBe(10);
         expect($('#multiselect-container .multiselect-group input').length).toBe(10);
 
-        $('#multiselect-container .multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function () {
             expect($('input', $(this).nextUntil('.multiselect-group')).length).toBe(10);
         });
     });
 
-    it('Groups should be clickable.', function() {
+    it('Groups should be clickable.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
 
         var i = 0;
-        $('#multiselect-container .multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function () {
             $('.form-check-label', $(this)).trigger('click');
             expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
             expect($('#multiselect option:selected').length).toBe(10);
@@ -938,14 +947,14 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
         });
     });
 
-    it('Clickable groups should fire onChange only once.', function() {
+    it('Clickable groups should fire onChange only once.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
 
         fired = 0;
         expect(fired).toBe(0);
 
         var i = 0;
-        $('#multiselect-container .multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function () {
             $('.form-check-label', $(this)).trigger('click');
 
             // Selected
@@ -962,37 +971,37 @@ describe('Bootstrap Multiselect "Clickable+Collapsible Optgroups"', function() {
         });
     });
 
-    // it('Should be collapsible.', function() {
-    //     var $group = $('#multiselect-container .multiselect-group:first');
-    //     $('.caret-container', $group).trigger('click');
+    it('Should be collapsible.', function () {
+        var $group = $('#multiselect-container .multiselect-group:first');
+        $('.caret-container', $group).click();
 
-    //     var $lis = $group.nextUntil('.multiselect-group');
-    //     $lis.each(function() {
-    //         expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
-    //         expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
-    //     });
+        var $lis = $group.nextUntil('.multiselect-group');
+        $lis.each(function () {
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(true);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
+        });
 
-    //     $('.caret-container', $group).trigger('click');
+        $('.caret-container', $group).click();
 
-    //     var $lis = $group.nextUntil('.multiselect-group');
-    //     $lis.each(function() {
-    //         expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
-    //         expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
-    //     });
-    // });
+        var $lis = $group.nextUntil('.multiselect-group');
+        $lis.each(function () {
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe(false);
+            expect($(this).hasClass('multiselect-collapsible-hidden')).toBe($(this).is(':hidden'));
+        });
+    });
 
-    afterEach(function() {
+    afterEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
 });
 
-describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', function() {
+describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', function () {
 
     // Count the number of onChanges fired.
     var fired = 0;
 
-    beforeEach(function() {
+    beforeEach(function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
 
         for (var i = 1; i < 11; i++) {
@@ -1016,37 +1025,37 @@ describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', fu
         });
     });
 
-    it('Should NOT handle option groups differently, i.e. not set class to active.', function() {
+    it('Should NOT handle option groups differently, i.e. not set class to active.', function () {
         // Otherwise they are hidden.
         $('#multiselect-container input[value="multiselect-all"]').trigger('click');
 
         var $groups = $('#multiselect-container .multiselect-group');
-        $groups.each(function() {
+        $groups.each(function () {
             expect($(this).hasClass('active')).toBe(true);
         });
 
         var $lis = $('#multiselect-container .multiselect-option:not(.multiselect-group)');
-        $lis.each(function() {
+        $lis.each(function () {
             expect($(this).hasClass('active')).toBe(true);
         });
     });
 
-    it('Should select all options (including option groups).', function() {
+    it('Should select all options (including option groups).', function () {
         //$('#multiselect-container li.multiselect-group .caret-container').trigger('click');
         $('#multiselect-container input[value="multiselect-all"]').trigger('click');
 
         var $options = $('#multiselect-container .multiselect-option');
-        $options.each(function() {
+        $options.each(function () {
             expect($('input', this).prop('checked')).toBe(true);
         });
     });
 
-    it('Should automatically update select all.', function() {
+    it('Should automatically update select all.', function () {
         var i = 0;
-        $('#multiselect-container .multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function () {
             $('.form-check-label', $(this)).trigger('click');
             expect($('option:selected', $('#multiselect optgroup')[i]).length).toBe(10);
-            expect($('#multiselect option:selected').length).toBe((i + 1)*10);
+            expect($('#multiselect option:selected').length).toBe((i + 1) * 10);
 
             i++;
         });
@@ -1054,14 +1063,14 @@ describe('Bootstrap Multiselect "Clickable+Collapsible+SelectAll Optgroups"', fu
         expect($('#multiselect-container .multiselect-all input[value="multiselect-all"]').prop('checked')).toBe(true);
     });
 
-    afterEach(function() {
+    afterEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
 });
 
-describe('Bootstrap Multiselect "Dataprovider"', function() {
-    beforeEach(function() {
+describe('Bootstrap Multiselect "Dataprovider"', function () {
+    beforeEach(function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
 
         $('body').append($select);
@@ -1072,19 +1081,19 @@ describe('Bootstrap Multiselect "Dataprovider"', function() {
     });
 
     var options = [
-        {label: 'Option 1', value: '1', selected: true, title: 'Option 1 Title'},
-        {label: 'Option 2', value: '2', title: 'Option 2 Title'},
-        {label: 'Option 3', value: '3', selected: true, title: 'Option 3 Title'},
-        {label: 'Option 4', value: '4', title: 'Option 4 Title'},
-        {label: 'Option 5', value: '5', title: 'Option 5 Title'},
-        {label: 'Option 6', value: '6', title: 'Option 6 Title'}
+        { label: 'Option 1', value: '1', selected: true, title: 'Option 1 Title' },
+        { label: 'Option 2', value: '2', title: 'Option 2 Title' },
+        { label: 'Option 3', value: '3', selected: true, title: 'Option 3 Title' },
+        { label: 'Option 4', value: '4', title: 'Option 4 Title' },
+        { label: 'Option 5', value: '5', title: 'Option 5 Title' },
+        { label: 'Option 6', value: '6', title: 'Option 6 Title' }
     ];
 
     var options_attributes = [
-        {label: 'Option 1', value: '1', attributes: {'some-attribute': 'test'}}
+        { label: 'Option 1', value: '1', attributes: { 'some-attribute': 'test' } }
     ];
 
-    it("Should be able to add options.", function() {
+    it("Should be able to add options.", function () {
         $('#multiselect').multiselect('dataprovider', options);
         expect($('#multiselect option').length).toBe(6);
         expect($('#multiselect-container input').length).toBe(6);
@@ -1114,7 +1123,7 @@ describe('Bootstrap Multiselect "Dataprovider"', function() {
         expect($('#multiselect-container input[value="6"]').prop('checked')).toBe(false);
     });
 
-    it("Should be able to define title.", function() {
+    it("Should be able to define title.", function () {
         $('#multiselect').multiselect('dataprovider', options);
 
         expect($('#multiselect option[value="1"]').attr('title')).toBe('Option 1 Title');
@@ -1132,7 +1141,7 @@ describe('Bootstrap Multiselect "Dataprovider"', function() {
         expect($('#multiselect-container input[value="6"]').closest('.multiselect-option').attr('title')).toBe('Option 6 Title');
     });
 
-    it("Should be able to define data attributes.", function() {
+    it("Should be able to define data attributes.", function () {
         $('#multiselect').multiselect('dataprovider', options_attributes)
         expect($('#multiselect option[value="1"]').attr('value')).toBe('1');
         expect($('#multiselect option[value="1"]').attr('data-some-attribute')).toBe('test');
@@ -1141,21 +1150,21 @@ describe('Bootstrap Multiselect "Dataprovider"', function() {
     var optgroups = [
         {
             label: 'Group 1', children: [
-                {label: 'Option 1.1', value: '1-1'},
-                {label: 'Option 1.2', value: '1-2'},
-                {label: 'Option 1.3', value: '1-3'}
+                { label: 'Option 1.1', value: '1-1' },
+                { label: 'Option 1.2', value: '1-2' },
+                { label: 'Option 1.3', value: '1-3' }
             ]
         },
         {
             label: 'Group 2', children: [
-                {label: 'Option 2.1', value: '1'},
-                {label: 'Option 2.2', value: '2'},
-                {label: 'Option 2.3', value: '3'}
+                { label: 'Option 2.1', value: '1' },
+                { label: 'Option 2.2', value: '2' },
+                { label: 'Option 2.3', value: '3' }
             ]
         }
     ];
 
-    it('Should be able to handle optgroups.', function() {
+    it('Should be able to handle optgroups.', function () {
         $('#multiselect').multiselect('dataprovider', optgroups);
 
         expect($('#multiselect optgroup').length).toBe(2);
@@ -1166,19 +1175,19 @@ describe('Bootstrap Multiselect "Dataprovider"', function() {
         expect($('#multiselect optgroup[label="Group 2"] option').length).toBe(3);
     });
 
-    afterEach(function() {
+    afterEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
 });
 
-describe('Bootstrap Multiselect "Select All".', function() {
+describe('Bootstrap Multiselect "Select All".', function () {
 
     var onSelectAllTriggered = false;
     var onDeselectAllTriggered = false;
     var fired = 0;
 
-    beforeEach(function() {
+    beforeEach(function () {
         onSelectAllTriggered = false;
         onDeselectAllTriggered = false;
         fired = 0;
@@ -1195,26 +1204,26 @@ describe('Bootstrap Multiselect "Select All".', function() {
             buttonContainer: '<div id="multiselect-container"></div>',
             includeSelectAllOption: true,
             selectAllValue: 'multiselect-all',
-            onSelectAll: function() {
+            onSelectAll: function () {
                 onSelectAllTriggered = true;
             },
-            onDeselectAll: function() {
+            onDeselectAll: function () {
                 onDeselectAllTriggered = true;
             },
-            onChange: function(option, checked) {
+            onChange: function (option, checked) {
                 fired++;
             }
         });
     });
 
-    it('Should not add an additional option to the select.', function() {
+    it('Should not add an additional option to the select.', function () {
         expect($('#multiselect option[value="multiselect-all"]').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').length).toBe(1);
         expect($('#multiselect option').length).toBe(99);
         expect($('#multiselect-container input').length).toBe(100);
     });
 
-    it('Should update the select all when all options are selected by the "select" method.', function() {
+    it('Should update the select all when all options are selected by the "select" method.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
 
@@ -1228,7 +1237,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
     });
 
-    it('Should update the select all when all options are deselected by the "deselect" method (first all options are selected as before).', function() {
+    it('Should update the select all when all options are deselected by the "deselect" method (first all options are selected as before).', function () {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
 
@@ -1248,7 +1257,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
     });
 
-    it('Should update the select all option when all options are selected by the change event.', function() {
+    it('Should update the select all option when all options are selected by the change event.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
 
@@ -1263,7 +1272,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
     });
 
-    it('Should update the select all option when all options are deselected by the change event.', function() {
+    it('Should update the select all option when all options are deselected by the change event.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
 
@@ -1283,7 +1292,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
     });
 
-    it('Should update the select all option when all options are selected by the click event.', function() {
+    it('Should update the select all option when all options are selected by the click event.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
 
@@ -1293,7 +1302,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
     });
 
-    it('Should update the select all option when all options are deselected by the click event.', function() {
+    it('Should update the select all option when all options are deselected by the click event.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
 
@@ -1308,7 +1317,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
     });
 
-    it('Should trigger onSelectAll/onDeselectAll when changing the select all option.', function() {
+    it('Should trigger onSelectAll/onDeselectAll when changing the select all option.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
 
@@ -1329,7 +1338,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect(onDeselectAllTriggered).toBe(true);
     });
 
-    it('Should trigger the onSelectAll/onDeselectAll when clicking the select all option.', function() {
+    it('Should trigger the onSelectAll/onDeselectAll when clicking the select all option.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
 
@@ -1348,7 +1357,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect(onDeselectAllTriggered).toBe(true);
     });
 
-    it('Should NOT trigger onSelectAll/onDeselectAll based on the change event.', function() {
+    it('Should NOT trigger onSelectAll/onDeselectAll based on the change event.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
 
@@ -1371,7 +1380,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect(onDeselectAllTriggered).toBe(false);
     });
 
-    it('Should NOT trigger onSelectAll/onDeselectAll based on the click event.', function() {
+    it('Should NOT trigger onSelectAll/onDeselectAll based on the click event.', function () {
         expect($('#multiselect option:selected').length).toBe(0);
         expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
 
@@ -1390,7 +1399,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect(onDeselectAllTriggered).toBe(false);
     });
 
-    it('Should trigger onSelectAll/onDeselectAll on function call.', function() {
+    it('Should trigger onSelectAll/onDeselectAll on function call.', function () {
         $('#multiselect').multiselect('selectAll', true, true);
         expect(onSelectAllTriggered).toBe(true);
 
@@ -1398,7 +1407,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         expect(onDeselectAllTriggered).toBe(true);
     });
 
-    it('Should NOT trigger onSelectAll on initialization but initialize the select all option correctly.', function() {
+    it('Should NOT trigger onSelectAll on initialization but initialize the select all option correctly.', function () {
         var $select = $('<select id="multiselect-onSelectAll" multiple="multiple"></select>');
 
         for (var i = 1; i < 10; i++) {
@@ -1412,7 +1421,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
             buttonContainer: '<div id="multiselect-onSelectAll-container"></div>',
             includeSelectAllOption: true,
             selectAllValue: 'multiselect-all',
-            onSelectAll: function() {
+            onSelectAll: function () {
                 onSelectAllTriggered = true;
             },
         });
@@ -1424,7 +1433,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
         $('#multiselect-onSelectAll').remove();
     });
 
-    it('Should NOT trigger onDeselectAll on initialization but initialize the select all option correctly.', function() {
+    it('Should NOT trigger onDeselectAll on initialization but initialize the select all option correctly.', function () {
         var $select = $('<select id="multiselect-onDeselectAll" multiple="multiple"></select>');
 
         for (var i = 1; i < 10; i++) {
@@ -1438,7 +1447,7 @@ describe('Bootstrap Multiselect "Select All".', function() {
             buttonContainer: '<div id="multiselect-onDeselectAll-container"></div>',
             includeSelectAllOption: true,
             selectAllValue: 'multiselect-all',
-            onDeselectAll: function() {
+            onDeselectAll: function () {
                 onDeselectAllTriggered = true;
             },
         });
@@ -1450,16 +1459,16 @@ describe('Bootstrap Multiselect "Select All".', function() {
         $('#multiselect-onDeselectAll').remove();
     });
 
-    afterEach(function() {
+    afterEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
 });
 
-describe('Bootstrap Multiselect "Filter".', function() {
+describe('Bootstrap Multiselect "Filter".', function () {
 
     var $select = null;
-    beforeEach(function() {
+    beforeEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
 
@@ -1472,8 +1481,8 @@ describe('Bootstrap Multiselect "Filter".', function() {
         $('body').append($select);
     });
 
-    describe('Should create filter.', function() {
-        beforeEach(function() {
+    describe('Should create filter.', function () {
+        beforeEach(function () {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
@@ -1481,14 +1490,14 @@ describe('Bootstrap Multiselect "Filter".', function() {
             });
         });
 
-        it('Should create filter.', function() {
+        it('Should create filter.', function () {
             expect($('#multiselect-container .multiselect-filter').length).toBe(1);
             expect($('#multiselect-container .multiselect-filter input').length).toBe(1);
         });
     });
 
-    describe('Should create legacy filter.', function() {
-        beforeEach(function() {
+    describe('Should create legacy filter.', function () {
+        beforeEach(function () {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
@@ -1499,20 +1508,20 @@ describe('Bootstrap Multiselect "Filter".', function() {
             });
         });
 
-        it('Should create filter.', function() {
+        it('Should create filter.', function () {
             expect($('#multiselect-container .multiselect-filter').length).toBe(1);
             expect($('#multiselect-container .multiselect-filter input').length).toBe(1);
             expect($('#multiselect-container .multiselect-filter .multiselect-clear-filter').length).toBe(1);
         });
     });
 
-    describe('Should filter elements by value.', function() {
-        beforeEach(function(done) {
+    describe('Should filter elements by value.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
                 filterBehavior: 'value',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1520,7 +1529,7 @@ describe('Bootstrap Multiselect "Filter".', function() {
             $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
-        it('Should filter elements.', function() {
+        it('Should filter elements.', function () {
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
                     expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
@@ -1532,13 +1541,13 @@ describe('Bootstrap Multiselect "Filter".', function() {
         });
     });
 
-    describe('Should filter elements by value only.', function() {
-        beforeEach(function(done) {
+    describe('Should filter elements by value only.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
                 filterBehavior: 'value',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1546,20 +1555,20 @@ describe('Bootstrap Multiselect "Filter".', function() {
             $('#multiselect-container .multiselect-filter input').val('Option').trigger('keydown');
         });
 
-        it('Should filter elements.', function() {
+        it('Should filter elements.', function () {
             for (var i = 1; i < 10; i++) {
                 expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
             }
         });
     });
 
-    describe('Should filter elements by text.', function() {
-        beforeEach(function(done) {
+    describe('Should filter elements by text.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
                 filterBehavior: 'text',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1567,7 +1576,7 @@ describe('Bootstrap Multiselect "Filter".', function() {
             $('#multiselect-container .multiselect-filter input').val('Option 9').trigger('keydown');
         });
 
-        it('Should filter elements.', function() {
+        it('Should filter elements.', function () {
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
                     expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
@@ -1579,13 +1588,13 @@ describe('Bootstrap Multiselect "Filter".', function() {
         });
     });
 
-    describe('Should filter elements by text only.', function() {
-        beforeEach(function(done) {
+    describe('Should filter elements by text only.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
                 filterBehavior: 'text',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1593,20 +1602,20 @@ describe('Bootstrap Multiselect "Filter".', function() {
             $('#multiselect-container .multiselect-filter input').val('value').trigger('keydown');
         });
 
-        it('Should filter elements.', function() {
+        it('Should filter elements.', function () {
             for (var i = 1; i < 10; i++) {
                 expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
             }
         });
     });
 
-    describe('Should filter elements by text and value - text.', function() {
-        beforeEach(function(done) {
+    describe('Should filter elements by text and value - text.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
                 filterBehavior: 'both',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1614,7 +1623,7 @@ describe('Bootstrap Multiselect "Filter".', function() {
             $('#multiselect-container .multiselect-filter input').val('Option 9').trigger('keydown');
         });
 
-        it('Should filter elements.', function() {
+        it('Should filter elements.', function () {
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
                     expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
@@ -1626,13 +1635,13 @@ describe('Bootstrap Multiselect "Filter".', function() {
         });
     });
 
-    describe('Should filter elements by text and value - value.', function() {
-        beforeEach(function(done) {
+    describe('Should filter elements by text and value - value.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
                 filterBehavior: 'both',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1640,7 +1649,7 @@ describe('Bootstrap Multiselect "Filter".', function() {
             $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
-        it('Should filter elements.', function() {
+        it('Should filter elements.', function () {
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
                     expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
@@ -1652,8 +1661,8 @@ describe('Bootstrap Multiselect "Filter".', function() {
         });
     });
 
-    describe('Should remove filter on clicking the legacy clear button.', function() {
-        beforeEach(function(done) {
+    describe('Should remove filter on clicking the legacy clear button.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
@@ -1661,7 +1670,7 @@ describe('Bootstrap Multiselect "Filter".', function() {
                     filter: '<div class="multiselect-filter"><div class="input-group input-group-sm p-1"><div class="input-group-prepend"><i class="input-group-text fas fa-search"></i></div><input class="form-control multiselect-search" type="text" /><div class="input-group-append"><button class="multiselect-clear-filter input-group-text" type="button"><i class="fas fa-times"></i></button></div></div></div>'
                 },
                 filterBehavior: 'value',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1669,7 +1678,7 @@ describe('Bootstrap Multiselect "Filter".', function() {
             $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
-        it('Should remove filter.', function() {
+        it('Should remove filter.', function () {
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
                     expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').closest('.multiselect-option').hasClass('multiselect-filter-hidden')).toBe(true, i);
@@ -1687,13 +1696,13 @@ describe('Bootstrap Multiselect "Filter".', function() {
         });
     });
 
-    describe('Filtering and removing the filter should not alter selection.', function() {
-        beforeEach(function(done) {
+    describe('Filtering and removing the filter should not alter selection.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
                 filterBehavior: 'value',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1713,7 +1722,7 @@ describe('Bootstrap Multiselect "Filter".', function() {
             $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
-        it('Should not alter selection.', function() {
+        it('Should not alter selection.', function () {
             for (var i = 1; i < 10; i++) {
                 if (i != 9 && i != 1) {
                     expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
@@ -1736,13 +1745,13 @@ describe('Bootstrap Multiselect "Filter".', function() {
         });
     });
 
-    describe('Select method should select both hidden and visible options.', function() {
-        beforeEach(function(done) {
+    describe('Select method should select both hidden and visible options.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
                 filterBehavior: 'value',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1754,7 +1763,7 @@ describe('Bootstrap Multiselect "Filter".', function() {
             $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
-        it('Should not alter selection.', function() {
+        it('Should not alter selection.', function () {
             $('#multiselect').multiselect('select', 'value-1');
             expect($('#multiselect-container .multiselect-option input[value="value-1"]').prop('checked')).toBe(true);
             expect($('#multiselect option[value="value-1"]').prop('selected')).toBe(true);
@@ -1765,13 +1774,13 @@ describe('Bootstrap Multiselect "Filter".', function() {
         });
     });
 
-    describe('Deselect method should select both hidden and visible options.', function() {
-        beforeEach(function(done) {
+    describe('Deselect method should select both hidden and visible options.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
                 filterBehavior: 'value',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1791,7 +1800,7 @@ describe('Bootstrap Multiselect "Filter".', function() {
             $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
-        it('Should not alter selection.', function() {
+        it('Should not alter selection.', function () {
             $('#multiselect').multiselect('deselect', 'value-1');
             expect($('#multiselect-container .multiselect-option input[value="value-1"]').prop('checked')).toBe(false);
             expect($('#multiselect option[value="value-1"]').prop('selected')).toBe(false);
@@ -1802,15 +1811,15 @@ describe('Bootstrap Multiselect "Filter".', function() {
         });
     });
 
-    afterEach(function() {
+    afterEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
 });
 
-describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', function() {
+describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', function () {
     var $select = null;
-    beforeEach(function() {
+    beforeEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
 
@@ -1823,8 +1832,8 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
         $('body').append($select);
     });
 
-    describe('Should select only visible options if selectAllJustVisible is true.', function() {
-        beforeEach(function(done) {
+    describe('Should select only visible options if selectAllJustVisible is true.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
@@ -1832,7 +1841,7 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
                 includeSelectAllOption: true,
                 selectAllJustVisible: true,
                 selectAllValue: 'multiselect-all',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1844,7 +1853,7 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
             $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
-        it('Should select one option.', function() {
+        it('Should select one option.', function () {
             $('#multiselect-container .multiselect-all input[value="multiselect-all"]').trigger('click');
             for (var i = 1; i < 10; i++) {
                 if (i != 9) {
@@ -1857,8 +1866,8 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
         });
     });
 
-    describe('Should deselect only visible options if selectAllJustVisible is true.', function() {
-        beforeEach(function(done) {
+    describe('Should deselect only visible options if selectAllJustVisible is true.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
@@ -1866,7 +1875,7 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
                 includeSelectAllOption: true,
                 selectAllJustVisible: true,
                 selectAllValue: 'multiselect-all',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1886,7 +1895,7 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
             $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
-        it('Should deselect one option.', function() {
+        it('Should deselect one option.', function () {
             $('#multiselect-container .multiselect-all input').trigger('click');
             for (var i = 1; i < 10; i++) {
                 if (i != 1) {
@@ -1899,8 +1908,8 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
         });
     });
 
-    describe('Should select all options if selectAllJustVisible is false.', function() {
-        beforeEach(function(done) {
+    describe('Should select all options if selectAllJustVisible is false.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
@@ -1908,7 +1917,7 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
                 includeSelectAllOption: true,
                 selectAllJustVisible: false,
                 selectAllValue: 'multiselect-all',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1920,7 +1929,7 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
             $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
-        it('Should select all options.', function() {
+        it('Should select all options.', function () {
             $('#multiselect-container .multiselect-all input[value="multiselect-all"]').trigger('click');
 
             for (var i = 1; i < 10; i++) {
@@ -1929,8 +1938,8 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
         });
     });
 
-    describe('Should deselect all options if selectAllJustVisible is false.', function() {
-        beforeEach(function(done) {
+    describe('Should deselect all options if selectAllJustVisible is false.', function () {
+        beforeEach(function (done) {
             $select.multiselect({
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
@@ -1938,7 +1947,7 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
                 includeSelectAllOption: true,
                 selectAllJustVisible: false,
                 selectAllValue: 'multiselect-all',
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -1951,7 +1960,7 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
             $('#multiselect-container .multiselect-filter input').val('value-9').trigger('keydown');
         });
 
-        it('Should select all options.', function() {
+        it('Should select all options.', function () {
             $('#multiselect-container .multiselect-all input[value="multiselect-all"]').trigger('click');
             for (var i = 1; i < 10; i++) {
                 expect($('#multiselect-container .multiselect-option input[value="value-' + i + '"]').prop('checked')).toBe(false, i);
@@ -1959,15 +1968,15 @@ describe('Bootstrap Multiselect "Select All+Filter+selectAllJustVisible".', func
         });
     });
 
-    afterEach(function() {
+    afterEach(function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
 });
 
-describe('Bootstrap Multiselect "Specific Issues".', function() {
+describe('Bootstrap Multiselect "Specific Issues".', function () {
 
-    it('#393.', function() {
+    it('#393.', function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
 
         for (var i = 1; i < 100; i++) {
@@ -2009,7 +2018,7 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         $('#multiselect').remove();
     });
 
-    it('#405.', function() {
+    it('#405.', function () {
         var selection = document.getSelection();
         var range = document.createRange();
         var $selection = $('<span>Some text to select</span>');
@@ -2040,7 +2049,7 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         $selection.remove();
     });
 
-    it('#679.', function() {
+    it('#679.', function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
 
         for (var i = 1; i < 11; i++) {
@@ -2060,7 +2069,7 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
             buttonContainer: '<div id="multiselect-container"></div>',
             enableClickableOptGroups: true,
             enableCollapsibleOptGroups: true,
-            onChange: function(option, checked) {
+            onChange: function (option, checked) {
                 fired++;
             }
         });
@@ -2069,7 +2078,7 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         expect(fired).toBe(0);
 
         var i = 0;
-        $('#multiselect-container .multiselect-group').each(function() {
+        $('#multiselect-container .multiselect-group').each(function () {
             $('.form-check-label', $(this)).trigger('click');
 
             // Selected
@@ -2089,7 +2098,7 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         $('#multiselect').remove();
     });
 
-    it('#655/1 when clicking the options.', function() {
+    it('#655/1 when clicking the options.', function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
         $select.append('<optgroup label="Group 1"><option value="1-1">Option 1.1</option><option value="1-2">Option 1.2</option><option value="1-3">Option 1.3</option></optgroup>');
         $select.append('<optgroup label="Group 2"><option value="2-1">Option 2.1</option><option value="2-2">Option 2.2</option><option value="2-3">Option 2.3</option></optgroup>');
@@ -2119,7 +2128,7 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         $('#multiselect').remove();
     });
 
-    it('#655/1 when clicking the optgroup.', function() {
+    it('#655/1 when clicking the optgroup.', function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
         $select.append('<optgroup label="Group 1"><option value="1-1">Option 1.1</option><option value="1-2">Option 1.2</option><option value="1-3">Option 1.3</option></optgroup>');
         $select.append('<optgroup label="Group 2"><option value="2-1">Option 2.1</option><option value="2-2">Option 2.2</option><option value="2-3">Option 2.3</option></optgroup>');
@@ -2147,7 +2156,7 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         $('#multiselect').remove();
     });
 
-    it('#655/2 when clicking the options.', function() {
+    it('#655/2 when clicking the options.', function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
         $select.append('<optgroup label="Group 1"><option value="1-1">Option 1.1</option><option value="1-2">Option 1.2</option><option value="1-3">Option 1.3</option></optgroup>');
         $select.append('<optgroup label="Group 2"><option value="2-1">Option 2.1</option><option value="2-2">Option 2.2</option><option value="2-3">Option 2.3</option></optgroup>');
@@ -2178,7 +2187,7 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         $('#multiselect').remove();
     });
 
-    it('#655/2 when clicking the optgroup.', function() {
+    it('#655/2 when clicking the optgroup.', function () {
         var $select = $('<select id="multiselect" multiple="multiple"></select>');
         $select.append('<optgroup label="Group 1"><option value="1-1">Option 1.1</option><option value="1-2">Option 1.2</option><option value="1-3">Option 1.3</option></optgroup>');
         $select.append('<optgroup label="Group 2"><option value="2-1">Option 2.1</option><option value="2-2">Option 2.2</option><option value="2-3">Option 2.3</option></optgroup>');
@@ -2207,12 +2216,12 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
         $('#multiselect').remove();
     });
 
-    describe('#732.', function() {
+    describe('#732.', function () {
 
         var triggeredOnSelectAll = false;
         var triggeredOnDeselectAll = false;
 
-        beforeEach(function(done) {
+        beforeEach(function (done) {
             triggeredOnSelectAll = false;
             triggeredOnDeselectAll = false;
 
@@ -2225,13 +2234,13 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
                 buttonContainer: '<div id="multiselect-container"></div>',
                 enableFiltering: true,
                 includeSelectAllOption: true,
-                onSelectAll: function() {
+                onSelectAll: function () {
                     triggeredOnSelectAll = true;
                 },
-                onDeselectAll: function() {
+                onDeselectAll: function () {
                     triggeredOnDeselectAll = true;
                 },
-                onFiltering: function() {
+                onFiltering: function () {
                     done();
                 }
             });
@@ -2239,7 +2248,7 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
             $('#multiselect-container .multiselect-filter input').val('2').trigger('keydown');
         });
 
-        it('Should not fire onSelectAll or onDeselectAll when filtering or clearing filter.', function() {
+        it('Should not fire onSelectAll or onDeselectAll when filtering or clearing filter.', function () {
             expect(triggeredOnSelectAll).toBe(false);
             expect(triggeredOnDeselectAll).toBe(false);
 
@@ -2249,13 +2258,13 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
             expect(triggeredOnDeselectAll).toBe(false);
         });
 
-        afterEach(function() {
+        afterEach(function () {
             $('#multiselect').multiselect('destroy');
             $('#multiselect').remove();
         });
     });
 
-    it('#759.', function() {
+    it('#759.', function () {
         var $select = $('<select data-placeholder="Test" id="multiselect" multiple="multiple"></select>');
         $select.append('<option value="value-1">Option 1</option><option value="value-2">Option 2</option><option value="value-3">Option 3</option>');
 
@@ -2272,15 +2281,15 @@ describe('Bootstrap Multiselect "Specific Issues".', function() {
     });
 });
 
-describe('Knockout Binding.', function() {
+describe('Knockout Binding.', function () {
     var $testArea;
-    afterEach(function() {
+    afterEach(function () {
         if ($testArea) {
             $testArea.multiselect('destroy').remove();
         }
     });
 
-    it('Should update values and options with an observable array.', function() {
+    it('Should update values and options with an observable array.', function () {
         jasmine.clock().install();
 
         $testArea = $('<select multiple="multiple" data-bind="selectedOptions: myValues, options: myOptions, multiselect: {numberDisplayed: 1}"></select>').appendTo(document.body);
@@ -2328,7 +2337,7 @@ describe('Knockout Binding.', function() {
         jasmine.clock().tick(1000);
 
         expect($testArea.find('option:checked').length).toEqual(2);
-        expect($testArea.find('option:checked').map(function() { return $(this).text().trim() }).toArray()).toEqual(['option1', 'option2']);
+        expect($testArea.find('option:checked').map(function () { return $(this).text().trim() }).toArray()).toEqual(['option1', 'option2']);
         expect($testArea.next().find('button.multiselect').text().trim()).toEqual('All selected (2)');
 
         // add another option
@@ -2336,17 +2345,17 @@ describe('Knockout Binding.', function() {
         jasmine.clock().tick(1000);
 
         expect($testArea.find('option:checked').length).toEqual(2);
-        expect($testArea.find('option:checked').map(function() { return $(this).text().trim() }).toArray()).toEqual(['option1', 'option2']);
-        expect($testArea.find('option').map(function() { return $(this).text().trim() }).toArray()).toEqual(['option1', 'option2', 'wacky option']);
+        expect($testArea.find('option:checked').map(function () { return $(this).text().trim() }).toArray()).toEqual(['option1', 'option2']);
+        expect($testArea.find('option').map(function () { return $(this).text().trim() }).toArray()).toEqual(['option1', 'option2', 'wacky option']);
         expect($testArea.next().find('button.multiselect').text().trim()).toEqual('2 selected');
     });
 });
 
-describe('Bootstrap Multiselect "Reset".', function() {
+describe('Bootstrap Multiselect "Reset".', function () {
 
     var $select;
 
-    beforeEach(function() {
+    beforeEach(function () {
         $select = $('<select id="multiselect" multiple="multiple"></select>');
 
         for (var i = 1; i < 100; i++) {
@@ -2361,22 +2370,22 @@ describe('Bootstrap Multiselect "Reset".', function() {
         });
     });
 
-    it('Should not add an additional option to the select.', function() {
+    it('Should not add an additional option to the select.', function () {
         expect($select.find('option').length).toBe(99);
     });
 
-    it('Should add reset button.', function() {
+    it('Should add reset button.', function () {
         expect($('#multiselect-container').find('.multiselect-reset button').text()).toBe('Reset');
     });
 
-    it('Should reset if button clicked.', function() {
+    it('Should reset if button clicked.', function () {
         $select.multiselect('selectAll', true, false);
         expect($select.find('option:selected').length).toBe(99);
         $('#multiselect-container').find('.multiselect-reset button').trigger('click');
         expect($select.find('option:selected').length).toBe(0);
     });
 
-    afterEach(function() {
+    afterEach(function () {
         $select.multiselect('destroy');
         $select.remove();
     });
