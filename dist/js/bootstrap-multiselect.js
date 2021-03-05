@@ -2,7 +2,7 @@
  * Bootstrap Multiselect (http://davidstutz.de/bootstrap-multiselect/)
  *
  * Apache License, Version 2.0:
- * Copyright (c) 2012 - 2018 David Stutz
+ * Copyright (c) 2012 - 2021 David Stutz
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a
@@ -15,7 +15,7 @@
  * under the License.
  *
  * BSD 3-Clause License:
- * Copyright (c) 2012 - 2018 David Stutz
+ * Copyright (c) 2012 - 2021 David Stutz
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -233,6 +233,12 @@
         }
 
         this.$select.wrap('<span class="multiselect-native-select" />').after(this.$container);
+        this.$select.prop('tabindex', '-1');
+
+        if (this.options.widthSynchronizationMode !== 'never') {
+            this.synchronizeButtonAndPopupWidth();
+        }
+
         this.options.onInitialized(this.$select, this.$container);
     }
 
@@ -437,6 +443,9 @@
             includeResetDivider: false,
             resetText: 'Reset',
             indentGroupOptions: true,
+            // possible options: 'never', 'always', 'ifPopupIsSmaller', 'ifPopupIsWider'
+            widthSynchronizationMode: 'never',
+            buttonTextAlignment: 'center',
             templates: {
                 button: '<button role="combobox" type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 popupContainer: '<div class="multiselect-container dropdown-menu"></div>',
@@ -455,7 +464,16 @@
          */
         buildContainer: function () {
             this.$container = $(this.options.buttonContainer);
-            this.$container.on('show.bs.dropdown', this.options.onDropdownShow);
+            if (this.options.widthSynchronizationMode !== 'never') {
+                this.$container.on('show.bs.dropdown', $.proxy(function () {
+                    // the width needs to be synchronized again in case the width of the button changed in between
+                    this.synchronizeButtonAndPopupWidth();
+                    this.options.onDropdownShow();
+                }, this));
+            }
+            else {
+                this.$container.on('show.bs.dropdown', this.options.onDropdownShow);
+            }
             this.$container.on('hide.bs.dropdown', this.options.onDropdownHide);
             this.$container.on('shown.bs.dropdown', this.options.onDropdownShown);
             this.$container.on('hidden.bs.dropdown', this.options.onDropdownHidden);
@@ -480,13 +498,25 @@
             // Manually add button width if set.
             if (this.options.buttonWidth && this.options.buttonWidth !== 'auto') {
                 this.$button.css({
-                    'width': '100%', //this.options.buttonWidth,
-                    'overflow': 'hidden',
-                    'text-overflow': 'ellipsis'
+                    'width': '100%' //this.options.buttonWidth,
                 });
                 this.$container.css({
                     'width': this.options.buttonWidth
                 });
+            }
+
+            if (this.options.buttonTextAlignment) {
+                switch (this.options.buttonTextAlignment) {
+                    case 'left':
+                        this.$button.addClass('text-left');
+                        break;
+                    case 'center':
+                        this.$button.addClass('text-center');
+                        break;
+                    case 'right':
+                        this.$button.addClass('text-right');
+                        break;
+                }
             }
 
             // Keep the tab index from the select.
@@ -523,11 +553,35 @@
                 });
             }
 
+            if (this.options.widthSynchronizationMode !== 'never') {
+                this.$popupContainer.css('overflow-x', 'hidden');
+            }
+
             this.$popupContainer.on("touchstart click", function (e) {
                 e.stopPropagation();
             });
 
             this.$container.append(this.$popupContainer);
+        },
+
+        synchronizeButtonAndPopupWidth: function () {
+            if (!this.$popupContainer || this.options.widthSynchronizationMode === 'never') {
+                return;
+            }
+
+            var buttonWidth = this.$button.outerWidth();
+            switch (this.options.widthSynchronizationMode) {
+                case 'always':
+                    this.$popupContainer.css('min-width', buttonWidth);
+                    this.$popupContainer.css('max-width', buttonWidth);
+                    break;
+                case 'ifPopupIsSmaller':
+                    this.$popupContainer.css('min-width', buttonWidth);
+                    break;
+                case 'ifPopupIsWider':
+                    this.$popupContainer.css('max-width', buttonWidth);
+                    break;
+            }
         },
 
         /**
@@ -711,8 +765,10 @@
                 else if (!$target.is('input')) {
                     var $checkbox = $target.closest('.multiselect-option, .multiselect-all').find('.form-check-input');
                     if ($checkbox.length > 0) {
+                        if (this.options.multiple || !$checkbox.prop('checked')) {
                         $checkbox.prop('checked', !$checkbox.prop('checked'));
                         $checkbox.change();
+                    }
                     }
                     else if (this.options.enableClickableOptGroups && this.options.multiple && !$target.hasClass("caret-container")) {
                         var groupItem = $target;
@@ -1408,10 +1464,9 @@
         selectAll: function (justVisible, triggerOnSelectAll) {
 
             var onlyVisible = typeof justVisible === 'undefined' ? true : justVisible;
-            var allOptions = $(".multiselect-option:not(.disabled)", this.$popupContainer);
-            var visibleOptions = $(".multiselect-option:not(.disabled):not(.multiselect-filter-hidden):not(.multiselect-collapisble-hidden)", this.$popupContainer).filter(':visible');
 
             if (onlyVisible) {
+                var visibleOptions = $(".multiselect-option:not(.disabled):not(.multiselect-filter-hidden)", this.$popupContainer);
                 $('input:enabled', visibleOptions).prop('checked', true);
                 setSelected(visibleOptions);
 
@@ -1422,6 +1477,7 @@
                 }, this));
             }
             else {
+                var allOptions = $(".multiselect-option:not(.disabled)", this.$popupContainer);
                 $('input:enabled', allOptions).prop('checked', true);
                 setSelected(allOptions);
 
@@ -1456,10 +1512,9 @@
         deselectAll: function (justVisible, triggerOnDeselectAll) {
 
             var onlyVisible = typeof justVisible === 'undefined' ? true : justVisible;
-            var allOptions = $(".multiselect-option:not(.disabled):not(.multiselect-group)", this.$popupContainer);
-            var visibleOptions = $(".multiselect-option:not(.disabled):not(.multiselect-filter-hidden):not(.multiselect-collapisble-hidden)", this.$popupContainer).filter(':visible');
 
             if (onlyVisible) {
+                var visibleOptions = $(".multiselect-option:not(.disabled):not(.multiselect-filter-hidden)", this.$popupContainer);
                 $('input[type="checkbox"]:enabled', visibleOptions).prop('checked', false);
                 setDeselected(visibleOptions);
 
@@ -1470,6 +1525,7 @@
                 }, this));
             }
             else {
+                var allOptions = $(".multiselect-option:not(.disabled):not(.multiselect-group)", this.$popupContainer);
                 $('input[type="checkbox"]:enabled', allOptions).prop('checked', false);
                 setDeselected(allOptions);
 
@@ -1528,6 +1584,10 @@
             }
             else if (this.options.dropUp) {
                 this.$container.addClass('dropup');
+            }
+
+            if (this.options.widthSynchronizationMode !== 'never') {
+                this.synchronizeButtonAndPopupWidth();
             }
         },
 
@@ -1601,7 +1661,7 @@
             this.$select.prop('disabled', false);
             this.$button.prop('disabled', false)
                 .removeClass('disabled');
-            
+
             this.updateButtonText();
         },
 
@@ -1612,7 +1672,7 @@
             this.$select.prop('disabled', true);
             this.$button.prop('disabled', true)
                 .addClass('disabled');
-            
+
             this.updateButtonText();
         },
 
@@ -1716,6 +1776,7 @@
 
             // Now update the title attribute of the button.
             $('.multiselect', this.$container).attr('title', this.options.buttonTitle(options, this.$select));
+            this.$button.trigger('change');
         },
 
         /**

@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="docs/css/prettify.min.css" type="text/css">
         <link rel="stylesheet" href="docs/css/fontawesome-5.15.1-web/all.css" type="text/css">
 
-        <script type="text/javascript" src="docs/js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="docs/js/jquery-2.2.4.min.js"></script>
         <script type="text/javascript" src="docs/js/bootstrap.bundle-4.5.2.min.js"></script>
         <script type="text/javascript" src="docs/js/prettify.min.js"></script>
 
@@ -34,9 +34,9 @@
         </style>
     </head>
     <body data-spy="scroll" data-target="#affix" style="font-size:14px;">
-    <a href="https://github.com/davidstutz/bootstrap-multiselect">
-        <img style="position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
-    </a>
+        <a href="https://github.com/davidstutz/bootstrap-multiselect">
+            <img style="position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
+        </a>
 
         <div class="container">
             <div class="row">
@@ -70,7 +70,9 @@
                     </p>
 
                     <p class="alert alert-info">
-                        Please consult the <a href="#faq">FAQ</a>, the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> or <a href="http://stackoverflow.com/questions/tagged/bootstrap-multiselect">StackOverflow</a> before creating a new issue; when creating an issue or a pull request, read <a href="#how-to-contribute">how to contribute</a> first.
+                        Please consult the <a href="#faq">FAQ</a>, the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> 
+                        or <a href="http://stackoverflow.com/questions/tagged/bootstrap-multiselect">Stack Overflow</a> before creating a new issue; when 
+                        creating an issue or a pull request, read <a href="#how-to-contribute">how to contribute</a> first.
                     </p>
 
                     <div class="alert alert-secondary">
@@ -96,7 +98,7 @@
                             <h3>Link the Required Files</h3>
 
                             <p>
-                                First, the <a href="http://jquery.com/" target="_blank">jQuery</a> library needs to be included. Then <a href="http://getbootstrap.com" target="_blank">Twitter Bootstrap</a> - both the Javascript library and the CSS stylesheet - needs to be included.
+                                First, the <a href="https://jquery.com/" target="_blank">jQuery</a> library needs to be included. Then <a href="https://getbootstrap.com" target="_blank">Twitter Bootstrap</a> - both the Javascript library and the CSS stylesheet - needs to be included.
                             </p>
 
 <pre class="prettyprint linenums">
@@ -272,6 +274,8 @@
                             </tr>
                             <tr>
                                 <td><a href="#configuration-options-resetText"><code class="badge badge-secondary">resetText</code></a></td>
+                                <td><a href="#configuration-options-widthSynchronizationMode"><code class="badge badge-secondary">widthSynchronizationMode</code></a></td>
+                                <td><a href="#configuration-options-buttonTextAlignment"><code class="badge badge-secondary">buttonTextAlignment</code></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -3493,7 +3497,7 @@ $(document).ready(function() {
                                 </td>
                                 <td>
                                     <p>
-                                        Add reset button to dropdown.
+                                        Defines the text of the reset button.
                                     </p>
 
                                     <div class="example">
@@ -3530,6 +3534,317 @@ $(document).ready(function() {
         $('#example-reset-text').multiselect({
             includeResetOption: true,
             resetText: "Reset all"
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-widthSynchronizationMode">widthSynchronizationMode</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Synchronizes the width of the select button and the popup depending on the selected mode. Possible values are <code>never</code>, <code>always</code>, <code>ifPopupIsSmaller</code> and <code>ifPopupIsWider</code>.
+                                        The default value is <code>never</code>.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-widthSynchronizationModeNever1').multiselect({
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeNever2').multiselect({
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeAlways1').multiselect({
+                                                    widthSynchronizationMode: 'always',
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeAlways2').multiselect({
+                                                    widthSynchronizationMode: 'always',
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeIfSmaller1').multiselect({
+                                                    widthSynchronizationMode: 'ifPopupIsSmaller',
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeIfSmaller2').multiselect({
+                                                    widthSynchronizationMode: 'ifPopupIsSmaller',
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeIfWider1').multiselect({
+                                                    widthSynchronizationMode: 'ifPopupIsWider',
+                                                    buttonWidth: '200px'
+                                                });
+                                                $('#example-widthSynchronizationModeIfWider2').multiselect({
+                                                    widthSynchronizationMode: 'ifPopupIsWider',
+                                                    buttonWidth: '200px'
+                                                });
+                                            });
+                                        </script>
+
+                                        <div class="form-group mb-2">
+                                            <label><code>never</code></label>
+                                            <div>
+                                                <select id="example-widthSynchronizationModeNever1" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Long Long Long Long Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                                <select id="example-widthSynchronizationModeNever2" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-2">
+                                            <label><code>always</code></label>
+                                            <div>
+                                                <select id="example-widthSynchronizationModeAlways1" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Long Long Long Long Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                                <select id="example-widthSynchronizationModeAlways2" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-2">
+                                            <label><code>ifPopupIsSmaller</code></label>
+                                            <div>
+                                                <select id="example-widthSynchronizationModeIfSmaller1" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Long Long Long Long Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                                <select id="example-widthSynchronizationModeIfSmaller2" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-2">
+                                            <label><code>ifPopupIsWider</code></label>
+                                            <div>
+                                                <select id="example-widthSynchronizationModeIfWider1" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Long Long Long Long Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                                <select id="example-widthSynchronizationModeIfWider2" multiple="multiple">
+                                                    <option>Option 1</option>
+                                                    <option>Option 2</option>
+                                                    <option>Option 3</option>
+                                                    <option>Option 4</option>
+                                                    <option>Option 5</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-widthSynchronizationModeNever1').multiselect({
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeNever2').multiselect({
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeAlways1').multiselect({
+            widthSynchronizationMode: 'always',
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeAlways2').multiselect({
+            widthSynchronizationMode: 'always',
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeIfSmaller1').multiselect({
+            widthSynchronizationMode: 'ifPopupIsSmaller',
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeIfSmaller2').multiselect({
+            widthSynchronizationMode: 'ifPopupIsSmaller',
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeIfWider1').multiselect({
+            widthSynchronizationMode: 'ifPopupIsWider',
+            buttonWidth: '200px'
+        });
+        $('#example-widthSynchronizationModeIfWider2').multiselect({
+            widthSynchronizationMode: 'ifPopupIsWider',
+            buttonWidth: '200px'
+        });
+    });
+&lt;/script&gt;
+&lt;div class="mb-2"&gt;
+    &lt;label&gt;never&lt;/label&gt;
+    &lt;div&gt;
+        &lt;select id="example-widthSynchronizationModeNever1" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Long Long Long Long Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;select id="example-widthSynchronizationModeNever2" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="mb-2"&gt;
+    &lt;label&gt;always&lt;/label&gt;
+    &lt;div&gt;
+        &lt;select id="example-widthSynchronizationModeAlways1" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Long Long Long Long Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;select id="example-widthSynchronizationModeAlways2" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="mb-2"&gt;    
+    &lt;label&gt;ifPopupIsSmaller&lt;/label&gt;
+    &lt;div&gt;
+        &lt;select id="example-widthSynchronizationModeIfSmaller1" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Long Long Long Long Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;select id="example-widthSynchronizationModeIfSmaller2" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="mb-2"&gt;
+    &lt;label&gt;ifPopupIsWider&lt;/label&gt;
+    &lt;div&gt;
+        &lt;select id="example-widthSynchronizationModeIfWider1" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Long Long Long Long Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;select id="example-widthSynchronizationModeIfWider2" multiple="multiple"&gt;
+            &lt;option&gt;Option 1&lt;/option&gt;
+            &lt;option&gt;Option 2&lt;/option&gt;
+            &lt;option&gt;Option 3&lt;/option&gt;
+            &lt;option&gt;Option 4&lt;/option&gt;
+            &lt;option&gt;Option 5&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-buttonTextAlignment">buttonTextAlignment</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Defines the text alignment in the button. Possible values are <code>left</code>, <code>center</code> and <code>right</code>.
+                                        The default value is <code>center</code>.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-buttonTextAlignment-left').multiselect({
+                                                    buttonTextAlignment: 'left'
+                                                });
+                                                $('#example-buttonTextAlignment-center').multiselect();
+                                                $('#example-buttonTextAlignment-right').multiselect({
+                                                    buttonTextAlignment: 'right'
+                                                });
+                                            });
+                                        </script>
+
+                                        <div class="input-group mb-2">
+                                            <select id="example-buttonTextAlignment-left" multiple="multiple">
+                                                <option>Option 1</option>
+                                                <option>Option 2</option>
+                                                <option>Option 3</option>
+                                                <option>Option 4</option>
+                                                <option>Option 5</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <select id="example-buttonTextAlignment-center" multiple="multiple">
+                                                <option>Option 1</option>
+                                                <option>Option 2</option>
+                                                <option>Option 3</option>
+                                                <option>Option 4</option>
+                                                <option>Option 5</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <select id="example-buttonTextAlignment-right" multiple="multiple">
+                                                <option>Option 1</option>
+                                                <option>Option 2</option>
+                                                <option>Option 3</option>
+                                                <option>Option 4</option>
+                                                <option>Option 5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-buttonTextAlignment-left').multiselect({
+            buttonTextAlignment: 'left'
+        });
+        $('#example-buttonTextAlignment-center').multiselect();
+        $('#example-buttonTextAlignment-right').multiselect({
+            buttonTextAlignment: 'right'
         });
     });
 &lt;/script&gt;
@@ -6355,6 +6670,7 @@ $(document).ready(function() {
 &lt;script type=&quot;text/javascript&quot;&gt;
     $(document).ready(function() {
         $('#example-input-group').multiselect();
+        $('#example-input-group-sm').multiselect();
     });
 &lt;/script&gt;
 
@@ -6379,7 +6695,7 @@ $(document).ready(function() {
     &lt;div class=&quot;input-group-prepend&quot;&gt;
         &lt;span class&quot;input-group-text&quot;&gt;Prepend&lt;/span&gt;
     &lt;/div&gt;
-    &lt;select id=&quot;example-input-group&quot; multiple=&quot;multiple&quot;&gt;
+    &lt;select id=&quot;example-input-group-sm&quot; multiple=&quot;multiple&quot;&gt;
         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
         &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
@@ -6392,6 +6708,53 @@ $(document).ready(function() {
     &lt;/div&gt;
 &lt;/div&gt;
 </pre>
+                    </div>
+
+                    <p>
+                       The select can also be used inside of <code>form-group</code>s. The <code>buttonContainer</code> just needs to be extended with the class <code>w-100</code>:
+                    </p>
+
+                    <div class="example">
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#example-form-group').multiselect({
+                                    buttonContainer: '<div class="btn-group w-100" />'
+                                });
+                            });
+                        </script>
+                        <div class="form-group">
+                            <label for="example-form-group">Select</label>
+                            <select id="example-form-group" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-form-group').multiselect({
+            buttonContainer: '&lt;div class=&quot;btn-group w-100&quot; /&gt;'
+        });
+    });
+&lt;/script&gt;
+
+&lt;div class=&quot;form-group&quot;&gt;
+    &lt;label for&quot;example-form-group&quot;&gt;Select&lt;/label&gt;
+    &lt;select id=&quot;example-form-group&quot; multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+    &lt;/select&gt;
+&lt;/div&gt;
+</pre>
+                    </div>
 
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
@@ -6414,14 +6777,14 @@ $(document).ready(function() {
                             $(document).ready(function() {
                                 $('#example-post').multiselect({
                                     includeSelectAllOption: true,
-                                    enableFiltering: true
+                                    enableFiltering: true,
+                                    buttonContainer: '<div class="btn-group w-100" />'
                                 });
                             });
                         </script>
                         <form class="form-horizontal" method="POST" action="post.php">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Multiselect</label>
-                                <div class="col-sm-10">
+                                <label for="example-post">Multiselect</label>
                                     <select id="example-post" name="multiselect[]" multiple="multiple" required>
                                         <option value="1">Option 1</option>
                                         <option value="2">Option 2</option>
@@ -6431,41 +6794,27 @@ $(document).ready(function() {
                                         <option value="6">Option 6</option>
                                     </select>
                                 </div>
-                            </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">Text Input</label>
-                                <div class="col-sm-10">
+                                <label>Text Input</label>
                                     <input type="text" name="text" class="form-control" placeholder="Text Input" />
                                 </div>
-                            </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="checkbox"> Checkbox
-                                        </label>
-                                    </div>
+                                <div class="form-check">
+                                    <input id="checkbox" type="checkbox" name="checkbox" class="form-check-input">
+                                    <label class="form-check-label" for="checkbox">Checkbox</label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="radio"> Radio 1
-                                        </label>
+                                <div class="form-check">
+                                    <input id="radio1" type="radio" name="radio" class="form-check-input">
+                                    <label class="form-check-label" for="radio1">Radio 1</label>
                                     </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="radio"> Radio 2
-                                        </label>
+                                <div class="form-check">
+                                    <input id="radio2" type="radio" name="radio" class="form-check-input">
+                                    <label class="form-check-label" for="radio2">Radio 2</label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-outline-secondary">Submit</button>
-                                </div>
-                            </div>
                         </form>
                     </div>
                     <div class="highlight">
@@ -6474,14 +6823,14 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#example-post').multiselect({
             includeSelectAllOption: true,
-            enableFiltering: true
+            enableFiltering: true,
+            buttonContainer: '&lt;div class=&quot;btn-group w-100&quot; /&gt;'
         });
     });
 &lt;/script&gt;
 &lt;form class=&quot;form-horizontal&quot; method=&quot;POST&quot; action=&quot;post.php&quot;&gt;
     &lt;div class=&quot;form-group&quot;&gt;
-        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;Multiselect&lt;/label&gt;
-        &lt;div class=&quot;col-sm-10&quot;&gt;
+        &lt;label for=&quot;example-post&quot;&gt;Multiselect&lt;/label&gt;
             &lt;select id=&quot;example-post&quot; name=&quot;multiselect[]&quot; multiple=&quot;multiple&quot;&gt;
                 &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
                 &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
@@ -6491,41 +6840,27 @@ $(document).ready(function() {
                 &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
             &lt;/select&gt;
         &lt;/div&gt;
-    &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
-        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;Text Input&lt;/label&gt;
-        &lt;div class=&quot;col-sm-10&quot;&gt;
+        &lt;label&gt;Text Input&lt;/label&gt;
             &lt;input type=&quot;text&quot; name=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Text Input&quot; /&gt;
         &lt;/div&gt;
-    &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
-        &lt;div class=&quot;col-sm-offset-2 col-sm-10&quot;&gt;
-            &lt;div class=&quot;checkbox&quot;&gt;
-                &lt;label&gt;
-                    &lt;input type=&quot;checkbox&quot; name=&quot;checkbox&quot;&gt; Checkbox
-                &lt;/label&gt;
-            &lt;/div&gt;
+        &lt;div class=&quot;form-check&quot;&gt;
+            &lt;input id=&quot;checkbox&quot; type=&quot;checkbox&quot; name=&quot;checkbox&quot; class=&quot;form-check-input&quot;&gt;
+            &lt;label class=&quot;form-check-label&quot; for=&quot;checkbox&quot;&gt;Checkbox&lt;/label&gt;
         &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;form-group&quot;&gt;
-        &lt;div class=&quot;col-sm-offset-2 col-sm-10&quot;&gt;
-            &lt;div class=&quot;radio&quot;&gt;
-                &lt;label&gt;
-                    &lt;input type=&quot;radio&quot; name=&quot;radio&quot;&gt; Radio 1
-                &lt;/label&gt;
+        &lt;div class=&quot;form-check&quot;&gt;
+            &lt;input id=&quot;radio1&quot; type=&quot;radio&quot; name=&quot;radio&quot; class=&quot;form-check-input&quot;&gt;
+            &lt;label class=&quot;form-check-label&quot; for=&quot;radio1&quot;&gt;Radio 1&lt;/label&gt;
             &lt;/div&gt;
-            &lt;div class=&quot;radio&quot;&gt;
-                &lt;label&gt;
-                    &lt;input type=&quot;radio&quot; name=&quot;radio&quot;&gt; Radio 2
-                &lt;/label&gt;
+        &lt;div class=&quot;form-check&quot;&gt;
+            &lt;input id=&quot;radio2&quot; type=&quot;radio&quot; name=&quot;radio&quot; class=&quot;form-check-input&quot;&gt;
+            &lt;label class=&quot;form-check-label&quot; for=&quot;radio2&quot;&gt;Radio 2&lt;/label&gt;
             &lt;/div&gt;
         &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;form-group&quot;&gt;
-        &lt;div class=&quot;col-sm-offset-2 col-sm-10&quot;&gt;
             &lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot;&gt;Submit&lt;/button&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
 &lt;/form&gt;
 </pre>
                     </div>
@@ -7012,7 +7347,7 @@ $(document).ready(function() {
                     <dl>
                         <dt>Apache License, Version 2.0</dt>
                         <dd>
-                            <p>Copyright 2012 - 2020 <a href="http://davidstutz.de/">David Stutz</a></p>
+                            <p>Copyright 2012 - 2021 <a href="http://davidstutz.de/">David Stutz</a></p>
                             <p>
                                 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">http://www.apache.org/licenses/LICENSE-2.0</a>.
                             </p>
@@ -7023,7 +7358,7 @@ $(document).ready(function() {
 
                         <dt>BSD 3-Clause License</dt>
                         <dd>
-                            <p>Copyright (c) 2012 - 2020 <a href="http://davidstutz.de/">David Stutz</a></p>
+                            <p>Copyright (c) 2012 - 2021 <a href="http://davidstutz.de/">David Stutz</a></p>
                             <p>All rights reserved.</p>
                             <p>
                                 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
