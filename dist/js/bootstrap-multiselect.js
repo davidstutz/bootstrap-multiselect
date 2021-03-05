@@ -747,7 +747,7 @@
 
                         if (this.options.selectedClass) {
                             range.closest('.multiselect-option').toggleClass(this.options.selectedClass, checked);
-                            range.closest('.multiselect-option').attr("aria-selected", checked);
+                            range.closest('.multiselect-option').attr('aria-selected', checked);
                         }
 
                         for (var i = 0, j = range.length; i < j; i++) {
@@ -1127,7 +1127,7 @@
                 this.$popupContainer.prepend($option);
 
                 $checkbox.prop('checked', false);
-                $option.attr("aria-selected", false);
+                $option.attr('aria-selected', false);
             }
         },
 
@@ -1321,7 +1321,7 @@
                     setDeselected($option);
                 }
 
-                if ($elem.is(":disabled")) {
+                if ($elem.is(':disabled')) {
                     $input.attr('disabled', 'disabled')
                         .prop('disabled', true)
                         .closest('.multiselect-option')
@@ -1466,7 +1466,7 @@
             var onlyVisible = typeof justVisible === 'undefined' ? true : justVisible;
 
             if (onlyVisible) {
-                var visibleOptions = $(".multiselect-option:not(.disabled):not(.multiselect-filter-hidden)", this.$popupContainer);
+                var visibleOptions = $('.multiselect-option:not(.disabled):not(.multiselect-filter-hidden)', this.$popupContainer);
                 $('input:enabled', visibleOptions).prop('checked', true);
                 setSelected(visibleOptions);
 
@@ -1477,7 +1477,7 @@
                 }, this));
             }
             else {
-                var allOptions = $(".multiselect-option:not(.disabled)", this.$popupContainer);
+                var allOptions = $('.multiselect-option:not(.disabled)', this.$popupContainer);
                 $('input:enabled', allOptions).prop('checked', true);
                 setSelected(allOptions);
 
@@ -1514,7 +1514,7 @@
             var onlyVisible = typeof justVisible === 'undefined' ? true : justVisible;
 
             if (onlyVisible) {
-                var visibleOptions = $(".multiselect-option:not(.disabled):not(.multiselect-filter-hidden)", this.$popupContainer);
+                var visibleOptions = $('.multiselect-option:not(.disabled):not(.multiselect-filter-hidden)', this.$popupContainer);
                 $('input[type="checkbox"]:enabled', visibleOptions).prop('checked', false);
                 setDeselected(visibleOptions);
 
@@ -1525,7 +1525,7 @@
                 }, this));
             }
             else {
-                var allOptions = $(".multiselect-option:not(.disabled):not(.multiselect-group)", this.$popupContainer);
+                var allOptions = $('.multiselect-option:not(.disabled):not(.multiselect-group)', this.$popupContainer);
                 $('input[type="checkbox"]:enabled', allOptions).prop('checked', false);
                 setDeselected(allOptions);
 
@@ -1750,11 +1750,11 @@
                 var selectAllInput = selectAllItem.find("input");
 
                 if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
-                    selectAllInput.prop("checked", true);
+                    selectAllInput.prop('checked', true);
                     setSelected(selectAllItem);
                 }
                 else {
-                    selectAllInput.prop("checked", false);
+                    selectAllInput.prop('checked', false);
                     setDeselected(selectAllItem);
                 }
             }
@@ -1860,14 +1860,14 @@
             if (this.options.selectedClass) {
                 item.addClass(this.options.selectedClass);
             }
-            item.attr("aria-selected", true);
+            item.attr('aria-selected', true);
         },
 
-        setDeselected: function (item){
+        setDeselected: function (item) {
             if (this.options.selectedClass) {
                 item.removeClass(this.options.selectedClass);
             }
-            item.attr("aria-selected", false);
+            item.attr('aria-selected', false);
         }
     };
 
