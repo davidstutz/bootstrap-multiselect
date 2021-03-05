@@ -864,7 +864,8 @@
                     }
 
                     $.each($inputs, $.proxy(function (index, input) {
-                        var value = $(input).val();
+                        var $input = $(input);
+                        var value = $input.val();
                         var $option = this.getOptionByValue(value);
                         var $item = $input.closest('.dropdown-item');
 
@@ -1321,7 +1322,7 @@
                     setDeselected($option);
                 }
 
-                if ($elem.is(':disabled')) {
+                if ($elem.is(":disabled")) {
                     $input.attr('disabled', 'disabled')
                         .prop('disabled', true)
                         .closest('.multiselect-option')
@@ -1466,7 +1467,7 @@
             var onlyVisible = typeof justVisible === 'undefined' ? true : justVisible;
 
             if (onlyVisible) {
-                var visibleOptions = $('.multiselect-option:not(.disabled):not(.multiselect-filter-hidden)', this.$popupContainer);
+                var visibleOptions = $(".multiselect-option:not(.disabled):not(.multiselect-filter-hidden)", this.$popupContainer);
                 $('input:enabled', visibleOptions).prop('checked', true);
                 setSelected(visibleOptions);
 
@@ -1477,7 +1478,7 @@
                 }, this));
             }
             else {
-                var allOptions = $('.multiselect-option:not(.disabled)', this.$popupContainer);
+                var allOptions = $(".multiselect-option:not(.disabled)", this.$popupContainer);
                 $('input:enabled', allOptions).prop('checked', true);
                 setSelected(allOptions);
 
@@ -1514,7 +1515,7 @@
             var onlyVisible = typeof justVisible === 'undefined' ? true : justVisible;
 
             if (onlyVisible) {
-                var visibleOptions = $('.multiselect-option:not(.disabled):not(.multiselect-filter-hidden)', this.$popupContainer);
+                var visibleOptions = $(".multiselect-option:not(.disabled):not(.multiselect-filter-hidden)", this.$popupContainer);
                 $('input[type="checkbox"]:enabled', visibleOptions).prop('checked', false);
                 setDeselected(visibleOptions);
 
@@ -1525,7 +1526,7 @@
                 }, this));
             }
             else {
-                var allOptions = $('.multiselect-option:not(.disabled):not(.multiselect-group)', this.$popupContainer);
+                var allOptions = $(".multiselect-option:not(.disabled):not(.multiselect-group)", this.$popupContainer);
                 $('input[type="checkbox"]:enabled', allOptions).prop('checked', false);
                 setDeselected(allOptions);
 
@@ -1750,7 +1751,7 @@
                 var selectAllInput = selectAllItem.find("input");
 
                 if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
-                    selectAllInput.prop('checked', true);
+                    selectAllInput.prop("checked", true);
                     setSelected(selectAllItem);
                 }
                 else {
