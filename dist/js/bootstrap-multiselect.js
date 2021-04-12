@@ -933,7 +933,9 @@
             $wrapper.addClass("form-check");
 
             if (this.options.enableHTML && $(label).length > 0) {
-                $wrapper.append($(label));
+                var $checkboxLabel = $('<label class="form-check-label" />'); 
+                $checkboxLabel.html(label);
+                $wrapper.append($checkboxLabel);
             }
             else {
                 var $checkboxLabel = $('<label class="form-check-label" />');
