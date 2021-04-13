@@ -392,7 +392,6 @@ describe('Bootstrap Multiselect "Single Selection".', function () {
         $('#multiselect-container input').each(function () {
             if (i === 0) {
                 expect($(this).prop('checked')).toBe(true);
-                i++;
             }
             else {
                 expect($(this).prop('checked')).toBe(false);
@@ -400,12 +399,47 @@ describe('Bootstrap Multiselect "Single Selection".', function () {
 
                 expect($('#multiselect option:selected').length).toBe(1);
                 expect($(this).prop('checked')).toBe(true);
-                i++;
             }
+            i++;
         });
     });
 
-    it('Deselect all should work.', function () {
+    it('Only one option at a time can be selected through the "select" method.', function () {
+        expect($('#multiselect option:selected').length).toBe(1);
+
+        var i = 0;
+        $('#multiselect-container input').each(function () {
+            if (i === 0) {
+                expect($(this).prop('checked')).toBe(true);
+            }
+            else {
+                expect($(this).prop('checked')).toBe(false);    
+                $('#multiselect').multiselect('select', this.value);
+
+                expect($('#multiselect option:selected').length).toBe(1);
+                expect($(this).prop('checked')).toBe(true);
+            }
+            i++;
+        });
+    });
+
+    it('Method "selectAll" should not work.', function () {
+        expect($('#multiselect option:selected').length).toBe(1);        
+        $('#multiselect').multiselect('selectAll', false);
+        expect($('#multiselect option:selected').length).toBe(1);
+    });
+
+    it('Method "deselectAll" should not work.', function () {
+        expect($('#multiselect option:selected').length).toBe(1);        
+        $('#multiselect').multiselect('deselectAll', false);
+        expect($('#multiselect option:selected').length).toBe(1);
+    });
+
+    it('Method "deselect" should not work.', function () {
+        var selectedOptions = $('#multiselect option:selected');
+        expect(selectedOptions.length).toBe(1);        
+        debugger;
+        $('#multiselect').multiselect('deselect', selectedOptions.val());
         expect($('#multiselect option:selected').length).toBe(1);
     });
 

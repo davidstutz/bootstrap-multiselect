@@ -765,9 +765,9 @@
                     var $checkbox = $target.closest('.multiselect-option, .multiselect-all').find('.form-check-input');
                     if ($checkbox.length > 0) {
                         if (this.options.multiple || !$checkbox.prop('checked')) {
-                        $checkbox.prop('checked', !$checkbox.prop('checked'));
-                        $checkbox.change();
-                    }
+                            $checkbox.prop('checked', !$checkbox.prop('checked'));
+                            $checkbox.change();
+                        }
                     }
                     else if (this.options.enableClickableOptGroups && this.options.multiple && !$target.hasClass("caret-container")) {
                         var groupItem = $target;
@@ -928,18 +928,18 @@
          * @param {String} inputType 
          * @returns {JQuery}
          */
-        createCheckbox: function ($item, label, name, value, title, inputType) {
+        createCheckbox: function ($item, labelContent, name, value, title, inputType) {
             var $wrapper = $('<span />');
             $wrapper.addClass("form-check");
 
-            if (this.options.enableHTML && $(label).length > 0) {
-                var $checkboxLabel = $('<label class="form-check-label" />'); 
-                $checkboxLabel.html(label);
+            if (this.options.enableHTML && $(labelContent).length > 0) {
+                var $checkboxLabel = $('<label class="form-check-label" />');
+                $checkboxLabel.html(labelContent);
                 $wrapper.append($checkboxLabel);
             }
             else {
                 var $checkboxLabel = $('<label class="form-check-label" />');
-                $checkboxLabel.text(label);
+                $checkboxLabel.text(labelContent);
                 $wrapper.append($checkboxLabel);
             }
 
@@ -952,7 +952,7 @@
             }
 
             $item.prepend($wrapper);
-            $item.attr("title", title || label);
+            $item.attr("title", title || labelContent);
 
             return $checkbox;
         },
@@ -1382,10 +1382,6 @@
                     continue;
                 }
 
-                if (!this.options.multiple) {
-                    this.deselectAll(false);
-                }
-
                 if (this.options.selectedClass) {
                     $checkbox.closest('.dropdown-item')
                         .addClass(this.options.selectedClass);
@@ -1393,6 +1389,15 @@
 
                 $checkbox.prop('checked', true);
                 $option.prop('selected', true);
+
+                if (!this.options.multiple) {
+                    var $checkboxesNotThis = $('input', this.$container).not($checkbox);                    
+                    $($checkboxesNotThis).prop('checked', false);
+                    $($checkboxesNotThis).closest('.multiselect-option').removeClass("active")
+
+                    var $optionsNotThis = $('option', this.$select).not($option);
+                    $optionsNotThis.prop('selected', false);
+                }
 
                 if (triggerOnChange) {
                     this.options.onChange($option, true);
@@ -1430,6 +1435,11 @@
          * @param {Boolean} triggerOnChange
          */
         deselect: function (deselectValues, triggerOnChange) {
+            if(!this.options.multiple) {
+                // In single selection mode at least on option needs to be selected
+                return;
+            }
+
             if (!$.isArray(deselectValues)) {
                 deselectValues = [deselectValues];
             }
@@ -1478,6 +1488,10 @@
          * @param {Boolean} triggerOnSelectAll
          */
         selectAll: function (justVisible, triggerOnSelectAll) {
+            if(!this.options.multiple) {
+                // In single selection mode only one option can be selected at a time
+                return;
+            }
 
             var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
 
@@ -1526,6 +1540,10 @@
          * @param {Boolean} justVisible
          */
         deselectAll: function (justVisible, triggerOnDeselectAll) {
+            if(!this.options.multiple) {
+                // In single selection mode at least on option needs to be selected
+                return;
+            }
 
             var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
 
