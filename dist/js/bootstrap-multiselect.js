@@ -1295,6 +1295,7 @@
          */
         destroy: function () {
             this.$container.remove();
+            this.$select.unwrap();
             this.$select.show();
 
             // reset original state
