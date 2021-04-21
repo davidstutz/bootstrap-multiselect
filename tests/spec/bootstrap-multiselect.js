@@ -438,7 +438,6 @@ describe('Bootstrap Multiselect "Single Selection".', function () {
     it('Method "deselect" should not work.', function () {
         var selectedOptions = $('#multiselect option:selected');
         expect(selectedOptions.length).toBe(1);        
-        debugger;
         $('#multiselect').multiselect('deselect', selectedOptions.val());
         expect($('#multiselect option:selected').length).toBe(1);
     });
@@ -491,6 +490,21 @@ describe('Bootstrap Multiselect "Individual Configuration Options".', function (
             expect($('#multiselect-container button').prop('disabled')).toBe(false);
         });
 
+        it('Should still be disabled after invoking rebuild after adding options on initially disabled select.', function () {
+            $select.multiselect('disable');
+            $select.append('<option value="value-1">Option 1</option>');
+            $select.multiselect('rebuild');
+            expect($('#multiselect-container button').prop('disabled')).toBe(true);
+        });
+
+        it('Should still be disabled after invoking rebuild before and after adding options on initially disabled select.', function () {
+            $select.multiselect('disable');
+            $select.multiselect('rebuild');
+            $select.append('<option value="value-1">Option 1</option>');
+            $select.multiselect('rebuild');
+            expect($('#multiselect-container button').prop('disabled')).toBe(true);
+        });
+
         it('Should not be disabled after rebuilding with more options after invoking destroy.', function () {
             $select.append('<option value="value-1">Option 1</option>');
 
@@ -530,6 +544,14 @@ describe('Bootstrap Multiselect "Individual Configuration Options".', function (
         it('Should enable button.', function () {
             expect($('#multiselect-container button').prop('disabled')).toBe(false);
             expect($('#multiselect-container button .multiselect-selected-text').text()).toBe('Enabled');
+        });
+
+        it('Should disable button after removing all options and rebuild.', function () {
+            $("#multiselect option").remove();
+            $("#multiselect").multiselect('rebuild');
+
+            expect($('#multiselect-container button').prop('disabled')).toBe(true);
+            expect($('#multiselect-container button').hasClass('disabled')).toBe(true);
         });
 
         afterEach(function () {
@@ -625,6 +647,42 @@ describe('Bootstrap Multiselect "individual Methods".', function () {
             $('#multiselect').multiselect('clearSelection');
             expect($('#multiselect-container input:checked').length).toBe(1);
             expect($('#multiselect option:selected').length).toBe(1);
+        });
+
+        afterEach(function () {
+            $('#multiselect').multiselect('destroy');
+            $('#multiselect').remove();
+        });
+    });
+
+    describe('Method "rebuild"', function() {
+        beforeEach(function () {
+            var $select = $('<select id="multiselect"></select>');
+            $select.append('<option value="value-1">Option 1</option>');
+            $select.append('<option value="value-2">Option 2</option>');
+            $select.append('<option value="value-3">Option 3</option>');
+
+            $('body').append($select);
+
+            $select.multiselect({
+                buttonContainer: '<div id="multiselect-container"></div>',
+                disableIfEmpty: true
+            });
+        });
+
+        it('should create an enabled select if the select element is enabled', function() {
+            $('#multiselect').multiselect('rebuild');
+            expect($('button.multiselect').prop('disabled')).toBe(false);
+            expect($('button.multiselect').hasClass('disabled')).toBe(false);
+            expect($('#multiselect').prop('disabled')).toBe(false);
+        });
+
+        it('should create an disabled select if the select element is disabled', function() {
+            $('#multiselect').multiselect('disable');
+            $('#multiselect').multiselect('rebuild');
+            expect($('button.multiselect').prop('disabled')).toBe(true);
+            expect($('button.multiselect').hasClass('disabled')).toBe(true);
+            expect($('#multiselect').prop('disabled')).toBe(true);
         });
 
         afterEach(function () {

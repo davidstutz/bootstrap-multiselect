@@ -228,8 +228,8 @@
         }
 
         this.options.wasDisabled = this.$select.prop('disabled');
-        if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
-            this.disable();
+        if (this.options.disableIfEmpty && $('option', this.$select).length <= 0 && !this.options.wasDisabled) {
+            this.disable(true);
         }
 
         this.$select.wrap('<span class="multiselect-native-select" />').after(this.$container);
@@ -1392,7 +1392,7 @@
                 $option.prop('selected', true);
 
                 if (!this.options.multiple) {
-                    var $checkboxesNotThis = $('input', this.$container).not($checkbox);                    
+                    var $checkboxesNotThis = $('input', this.$container).not($checkbox);
                     $($checkboxesNotThis).prop('checked', false);
                     $($checkboxesNotThis).closest('.multiselect-option').removeClass("active")
 
@@ -1436,7 +1436,7 @@
          * @param {Boolean} triggerOnChange
          */
         deselect: function (deselectValues, triggerOnChange) {
-            if(!this.options.multiple) {
+            if (!this.options.multiple) {
                 // In single selection mode at least on option needs to be selected
                 return;
             }
@@ -1489,7 +1489,7 @@
          * @param {Boolean} triggerOnSelectAll
          */
         selectAll: function (justVisible, triggerOnSelectAll) {
-            if(!this.options.multiple) {
+            if (!this.options.multiple) {
                 // In single selection mode only one option can be selected at a time
                 return;
             }
@@ -1541,7 +1541,7 @@
          * @param {Boolean} justVisible
          */
         deselectAll: function (justVisible, triggerOnDeselectAll) {
-            if(!this.options.multiple) {
+            if (!this.options.multiple) {
                 // In single selection mode at least on option needs to be selected
                 return;
             }
@@ -1607,11 +1607,15 @@
                 this.updateOptGroups();
             }
 
-            if (this.options.disableIfEmpty && $('option', this.$select).length <= 0) {
-                this.disable();
-            }
-            else {
-                this.enable();
+            if (this.options.disableIfEmpty) {
+                if ($('option', this.$select).length <= 0) {
+                    if (!this.$select.prop('disabled')) {
+                        this.disable(true);
+                    }
+                }
+                else if (this.$select.data("disabled-by-option")) {
+                    this.enable();
+                }
             }
 
             if (this.options.dropRight) {
@@ -1703,10 +1707,17 @@
         /**
          * Disable the multiselect.
          */
-        disable: function () {
+        disable: function (disableByOption) {
             this.$select.prop('disabled', true);
             this.$button.prop('disabled', true)
                 .addClass('disabled');
+
+            if (disableByOption) {
+                this.$select.data("disabled-by-option", true);
+            }
+            else {
+                this.$select.data("disabled-by-option", null);
+            }
 
             this.updateButtonText();
         },
