@@ -1282,11 +1282,35 @@
                                 this.updateOptGroups();
                             }
 
+                            this.updatePopupPosition();
+
                             this.options.onFiltering(event.target);
 
                         }, this), 300, this);
                     }, this));
                 }
+            }
+        },
+
+        updatePopupPosition: function() {
+            // prevent gaps between popup and select when filter is used (#1199)
+
+            var transformMatrix = this.$popupContainer.css("transform");
+            var matrixType = transformMatrix.substring(0, transformMatrix.indexOf('('));
+            var values = transformMatrix.substring(transformMatrix.indexOf('(') + 1, transformMatrix.length - 1);
+            var valuesArray = values.split(',');
+
+            var valueIndex = 5;
+            if(matrixType === "matrix3d") {
+                valueIndex = 13;
+            }
+
+            var yTransformation = valuesArray[valueIndex].trim();
+            if (yTransformation < 0) {
+                yTransformation = this.$popupContainer.css("height").replace('px', '') * -1;
+                valuesArray[valueIndex] = yTransformation;
+                transformMatrix = matrixType + '(' + valuesArray.join(',') + ')';
+                this.$popupContainer.css("transform", transformMatrix);
             }
         },
 
