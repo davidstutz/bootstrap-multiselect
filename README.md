@@ -6,7 +6,7 @@ Documentation, Examples, FAQ and License: [https://davidstutz.github.io/bootstra
 
 **If you are interested in actively maintaining this project, please contact me (see GitHub profile for contact information).**
 
-Bootstrap Multiselect is featured in an article on [tutorialzine](https://tutorialzine.com/): [50 must-Have Plugins for Extending Twitter Bootstrap](https://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap/); on [Bootsnipp](https://bootsnipp.com/)'s [list of Twitter Bootstrap recourses](https://bootsnipp.com/resources); on [Design Your Way](https://www.designyourway.net/blog/resources/jquery-bootstrap-plugins/); and available on [NuGet](https://www.nuget.org/packages/Bootstrap.Multiselect/0.9.9).
+Bootstrap Multiselect is featured in an article on [tutorialzine](https://tutorialzine.com/): [50 must-Have Plugins for Extending Twitter Bootstrap](https://tutorialzine.com/2013/07/50-must-have-plugins-for-extending-twitter-bootstrap/); on [Bootsnipp](https://bootsnipp.com/)'s [list of Twitter Bootstrap resources](https://bootsnipp.com/resources); on [Design Your Way](https://www.designyourway.net/blog/resources/jquery-bootstrap-plugins/); and available on [NuGet](https://www.nuget.org/packages/Bootstrap.Multiselect/0.9.9).
 
 **If you use this plugin commercially, consider supporting the development by [making a donation](https://davidstutz.de/donate/).**
 
