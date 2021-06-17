@@ -1506,6 +1506,9 @@
 
             $('.multiselect-option input[value="' + this.options.selectAllValue + '"]', this.$popupContainer).prop('checked', true);
 
+            this.updateButtonText();
+            this.updateSelectAll(true);
+
             if (this.options.enableClickableOptGroups && this.options.multiple) {
                 this.updateOptGroups();
             }
@@ -1553,6 +1556,9 @@
             }
 
             $('.multiselect-all input[value="' + this.options.selectAllValue + '"]', this.$popupContainer).prop('checked', false);
+
+            this.updateButtonText();
+            this.updateSelectAll(true);
 
             if (this.options.enableClickableOptGroups && this.options.multiple) {
                 this.updateOptGroups();
