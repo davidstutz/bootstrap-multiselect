@@ -428,6 +428,7 @@
             enableCollapsibleOptGroups: false,
             collapseOptGroupsByDefault: false,
             filterPlaceholder: 'Search',
+            enableRegexFiltering: false,
             // possible options: 'text', 'value', 'both'
             filterBehavior: 'text',
             includeFilterClearBtn: true,
@@ -1241,6 +1242,14 @@
                                         }
                                         else if (filterCandidate.indexOf(this.query) > -1) {
                                             showElement = true;
+                                        }
+
+                                        //regex support
+                                        if(this.options.enableRegexFiltering){
+                                          var reg = new RegExp(this.query);
+                                          if(reg.test(filterCandidate.trim())){
+                                            showElement = true;
+                                          }
                                         }
 
                                         // Toggle current element (group or group item) according to showElement boolean.
