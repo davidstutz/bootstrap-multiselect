@@ -1632,6 +1632,7 @@
                             value: subOption.value,
                             label: subOption.label || subOption.value,
                             title: subOption.title,
+                            class: subOption.class,
                             selected: !!subOption.selected,
                             disabled: !!subOption.disabled
                         };
