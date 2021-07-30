@@ -4399,6 +4399,60 @@ $(document).ready(function() {
 &lt;/script&gt;
 </pre>
                                     </div>
+
+                                    <p>
+                                        It is also possible to select values in single selection mode.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-select-single').multiselect({
+                                                    onChange: function(option, checked, select) {
+                                                        alert('onChange triggered ...');
+                                                    }
+                                                });
+
+                                                $('#example-select-single-button').on('click', function() {
+                                                    $('#example-select-single').multiselect('select', ['3'], true);
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-select-single">
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4">Option 4</option>
+                                            <option value="5">Option 5</option>
+                                            <option value="6">Option 6</option>
+                                        </select>
+                                        <button id="example-select-single-button" class="btn btn-outline-secondary ml-1">Select third option</button>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+    &lt;select id="example-select-single"&gt;
+        &lt;option value="1"&gt;Option 1&lt;/option&gt;
+        &lt;option value="2"&gt;Option 2&lt;/option&gt;
+        &lt;option value="3"&gt;Option 3&lt;/option&gt;
+        &lt;option value="4"&gt;Option 4&lt;/option&gt;
+        &lt;option value="5"&gt;Option 5&lt;/option&gt;
+        &lt;option value="6"&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-select-single').multiselect({
+            onChange: function(option, checked, select) {
+                alert('onChange triggered ...');
+            }
+        });
+
+        $('#example-select-single-button').on('click', function() {
+            $('#example-select-single').multiselect('select', ['3'], true);
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -4555,7 +4609,7 @@ $(document).ready(function() {
                                     </p>
 
                                     <p class="alert alert-info">
-                                        Currently, it is required to call <code>.multiselect('updateButtonText')</code> manually after calling <code>.multiselect('selectAll', justVisible)</code>.
+                                        <code>.multiselec('selectAll', justVisible)</code> is not supported in single selection mode.
                                     </p>
 
                                     <div class="example">
@@ -4616,11 +4670,11 @@ $(document).ready(function() {
                                     </p>
 
                                     <p class="alert alert-info">
-                                        Note that setting <code>justVisible</code> to <code>true</code>, or providing no parameter will select all visible options, that is the dropdown needs to be opened.
+                                        Note that setting <code>justVisible</code> to <code>true</code>, or providing no parameter will deselect all visible options, that is the dropdown needs to be opened.
                                     </p>
 
                                     <p class="alert alert-info">
-                                        Currently, it is required to call <code>.multiselect('updateButtonText')</code> manually after calling <code>.multiselect('selectAll', justVisible)</code>.
+                                        <code>.multiselec('deselectAll', justVisible)</code> is not supported in single selection mode.
                                     </p>
 
                                     <div class="example">
