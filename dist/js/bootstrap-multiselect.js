@@ -895,7 +895,7 @@
                 }, this));
             }
 
-            if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
+            if (this.options.enableCollapsibleOptGroups) {
                 $(".multiselect-group .caret-container", this.$popupContainer).off("click");
                 $(".multiselect-group .caret-container", this.$popupContainer).on("click", $.proxy(function (event) {
                     var $group = $(event.target).closest('.multiselect-group');
@@ -1056,7 +1056,7 @@
             var classes = this.options.optionClass(group);
             $groupOption.addClass(classes);
 
-            if (this.options.enableCollapsibleOptGroups && this.options.multiple) {
+            if (this.options.enableCollapsibleOptGroups) {
                 $groupOption.find('.form-check').addClass('d-inline-block');
                 $groupOption.append('<span class="caret-container dropdown-toggle pl-1"></span>');
             }
@@ -1303,6 +1303,10 @@
             var valueIndex = 5;
             if(matrixType === "matrix3d") {
                 valueIndex = 13;
+            }
+
+            if(valuesArray.length < valueIndex) {
+                return;
             }
 
             var yTransformation = valuesArray[valueIndex].trim();
