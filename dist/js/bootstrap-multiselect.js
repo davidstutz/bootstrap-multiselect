@@ -798,40 +798,42 @@
 
             //Keyboard support.
             this.$container.off('keydown.multiselect').on('keydown.multiselect', $.proxy(function (event) {
-                if ($('input.multiselect-search', this.$container).is(':focus')) {
-                    return;
-                }
+                var $items = $(this.$container).find(".multiselect-option:not(.disabled), .multiselect-group:not(.disabled), .multiselect-all").filter(":visible");
+                var index = $items.index($items.filter(':focus'));
+                var $search = $('.multiselect-search', this.$container);
 
                 // keyCode 9 == Tab
                 if (event.keyCode === 9 && this.$container.hasClass('show')) {
                     this.$button.click();
                 }
-                else {
-                    var $items = $(this.$container).find(".multiselect-option:not(.disabled), .multiselect-group:not(.disabled), .multiselect-all").filter(":visible");
-
-                    if (!$items.length) {
-                        return;
-                    }
-
-                    var index = $items.index($items.filter(':focus'));
-
+                // keyCode 13 = Enter
+                else if (event.keyCode == 13) {
                     var $current = $items.eq(index);
-
-                    // keyCode 32 = Space
-                    if (event.keyCode === 32) {
-                        var $checkbox = $current.find('input');
-
-                        $checkbox.prop("checked", !$checkbox.prop("checked"));
-                        $checkbox.change();
-
-                        event.preventDefault();
-                    }
-
-                    // keyCode 13 = Enter
-                    if (event.keyCode === 13) {
+                    setTimeout(function () {
+                        $current.focus();
+                    }, 1);
+                }
+                // keyCode 38 = Arrow Up
+                else if (event.keyCode == 38) {
+                    if (index == 0 && !$search.is(':focus')) {
                         setTimeout(function () {
-                            $current.focus();
-                        }, 0);
+                            $search.focus();
+                        }, 1);
+                    }
+                }
+                // keyCode 40 = Arrow Down
+                else if (event.keyCode == 40) {
+                    if ($search.is(':focus')) {
+                        var $first = $items.eq(0);
+                        setTimeout(function () {
+                            $search.blur();
+                            $first.focus();
+                        }, 1);
+                    }
+                    else if (index == -1) {
+                        setTimeout(function () {
+                            $search.focus();
+                        }, 1);
                     }
                 }
             }, this));
