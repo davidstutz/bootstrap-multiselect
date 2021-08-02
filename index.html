@@ -6816,6 +6816,90 @@ $(document).ready(function() {
 </pre>
                     </div>
 
+                    <p>
+                        This examples shows how to make the filter/search input stick to the top:
+                    </p>
+ 
+                     <div class="example">
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#example-fix-filter').multiselect({
+                                        enableFiltering: true,
+                                        maxHeight: 200,
+                                    });
+                                    $('.multiselect-container .multiselect-filter', $('#example-fix-filter').parent()).css({
+                                        'position': 'sticky', 'top': '0px', 'z-index': 1,
+                                    })
+                                });
+                            </script>
+                            <style type="text/css">
+                                .multiselect-container .multiselect-filter { position: sticky; top: 0px; z-index: 1; }
+                            </style>
+                            <select id="example-fix-filter" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                            </select>
+                     </div>
+                     <div class="highlight">
+ <pre class="prettyprint linenums">
+ &lt;script type=&quot;text/javascript&quot;&gt;
+     $(document).ready(function() {
+         $('#example-form-group').multiselect({
+            enableFiltering: true,
+            maxHeight: 200,
+        });
+        $('.multiselect-container .multiselect-filter', $('#example-fix-filter').parent()).css({
+            'position': 'sticky', 'top': '0px', 'z-index': 1,
+        })
+     });
+ &lt;/script&gt;
+ 
+ &lt;div class=&quot;form-group&quot;&gt;
+     &lt;label for&quot;example-form-group&quot;&gt;Select&lt;/label&gt;
+     &lt;select id=&quot;example-form-group&quot; multiple=&quot;multiple&quot;&gt;
+         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+         &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+         &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+         &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+         &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+         &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+         &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+         &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+         &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+     &lt;/select&gt;
+ &lt;/div&gt;
+ </pre>
+                     </div>
+
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
                     </div>
