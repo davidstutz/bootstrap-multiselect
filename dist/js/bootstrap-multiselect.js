@@ -1296,7 +1296,6 @@
 
         updatePopupPosition: function() {
             // prevent gaps between popup and select when filter is used (#1199)
-
             var transformMatrix = this.$popupContainer.css("transform");
             var matrixType = transformMatrix.substring(0, transformMatrix.indexOf('('));
             var values = transformMatrix.substring(transformMatrix.indexOf('(') + 1, transformMatrix.length - 1);
@@ -1307,7 +1306,9 @@
                 valueIndex = 13;
             }
 
-            var yTransformation = valuesArray[valueIndex].trim();
+            var yTransformation = valuesArray[valueIndex];
+            // Need to check to avoid errors when testing and in some other situations.
+            yTransformation = typeof yTransformation === 'undefined' ? 0 : yTransformation.trim();
             if (yTransformation < 0) {
                 yTransformation = this.$popupContainer.css("height").replace('px', '') * -1;
                 valuesArray[valueIndex] = yTransformation;
