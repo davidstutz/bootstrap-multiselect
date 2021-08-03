@@ -1521,6 +1521,8 @@
                 return;
             }
 
+            // Record all changes, i.e., options selected that were not selected before.
+            var selected = [];
             var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
 
             if (justVisible) {
@@ -1531,6 +1533,9 @@
                 $('input:enabled', visibleOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
                     var option = this.getOptionByValue(value);
+                    if (!$(option).prop('selected')) {
+                        selected.push(option);
+                    }
                     $(option).prop('selected', true);
                 }, this));
             }
@@ -1542,6 +1547,9 @@
                 $('input:enabled', allOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
                     var option = this.getOptionByValue(value);
+                    if (!$(option).prop('selected')) {
+                        selected.push(option);
+                    }
                     $(option).prop('selected', true);
                 }, this));
             }
@@ -1556,7 +1564,7 @@
             this.updateSelectAll();
 
             if (triggerOnSelectAll) {
-                this.options.onSelectAll();
+                this.options.onSelectAll(selected);
             }
         },
 
@@ -1573,6 +1581,8 @@
                 return;
             }
 
+            // Record changes, i.e., those options that are deselected but were not deselected before.
+            var deselected = [];
             var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
 
             if (justVisible) {
@@ -1583,6 +1593,9 @@
                 $('input[type="checkbox"]:enabled', visibleOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
                     var option = this.getOptionByValue(value);
+                    if ($(option).prop('selected')) {
+                        deselected.push(option);
+                    }
                     $(option).prop('selected', false);
                 }, this));
             }
@@ -1594,6 +1607,9 @@
                 $('input[type="checkbox"]:enabled', allOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
                     var option = this.getOptionByValue(value);
+                    if ($(option).prop('selected')) {
+                        deselected.push(option);
+                    }
                     $(option).prop('selected', false);
                 }, this));
             }
@@ -1608,7 +1624,7 @@
             this.updateSelectAll();
 
             if (triggerOnDeselectAll) {
-                this.options.onDeselectAll();
+                this.options.onDeselectAll(deselected);
             }
         },
 

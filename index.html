@@ -2823,6 +2823,10 @@ $(document).ready(function() {
                                         This function is triggered when the select all option is used to select all options. Note that this can also be triggered manually using the <code>.multiselect('selectAll')</code> method.
                                     </p>
 
+                                    <p class="alert alert-info">
+                                        The options passed to the <code>onSelectAll</code> handler are exactly those options that are selected but were not selected before.
+                                    </p>
+
                                     <p class="alert alert-warning">
                                         Note that the <code>onChange</code> option is not triggered when (de)selecting all options using the select all option.
                                     </p>
@@ -2836,8 +2840,8 @@ $(document).ready(function() {
                                             $(document).ready(function() {
                                                 $('#example-onSelectAll').multiselect({
                                                     includeSelectAllOption: true,
-                                                    onSelectAll: function() {
-                                                        alert('onSelectAll triggered!');
+                                                    onSelectAll: function(options) {
+                                                        alert('onSelectAll triggered, ' + options.length + ' options selected!');
                                                     }
                                                 });
                                             });
@@ -2849,6 +2853,7 @@ $(document).ready(function() {
                                             <option value="4">Option 4</option>
                                             <option value="5">Option 5</option>
                                             <option value="6">Option 6</option>
+                                            <option disabled value="7">Disabled Option</option>
                                         </select>
                                     </div>
                                     <div class="highlight">
@@ -2856,8 +2861,8 @@ $(document).ready(function() {
 &lt;script type=&quot;text/javascript&quot;&gt;
     $('#example-onSelectAll').multiselect({
         includeSelectAllOption: true,
-        onSelectAll: function() {
-            alert('onSelectAll triggered!');
+        onSelectAll: function(options) {
+            alert('onSelectAll triggered, ' + options.length + ' options selected!');
         }
     });
 &lt;/script&gt;
@@ -2874,6 +2879,10 @@ $(document).ready(function() {
                                         This function is triggered when the select all option is used to <b>de</b>select all options. Note that this can also be triggered manually using the <code>.multiselect('deselectAll')</code> method.
                                     </p>
 
+                                    <p class="alert alert-info">
+                                        The options passed to the <code>onDeselectAll</code> handler are exactly those options that are selected but were not selected before.
+                                    </p>
+
                                     <p class="alert alert-warning">
                                         Note that the <code>onChange</code> option is not triggered when (de)selecting all options using the select all option.
                                     </p>
@@ -2888,8 +2897,8 @@ $(document).ready(function() {
                                                 $('#example-onDeselectAll').multiselect({
                                                     includeSelectAllOption: true,
                                                     enableFiltering: true,
-                                                    onDeselectAll: function() {
-                                                        alert('onDeselectAll triggered!');
+                                                    onDeselectAll: function(options) {
+                                                        alert('onDeselectAll triggered, ' + options.length + ' options deselected!');
                                                     }
                                                 });
                                             });
@@ -2901,6 +2910,7 @@ $(document).ready(function() {
                                             <option value="4">Option 4</option>
                                             <option value="5">Option 5</option>
                                             <option value="6">Option 6</option>
+                                            <option disabled value="7">Disabled Option</option>
                                         </select>
                                     </div>
                                     <div class="highlight">
@@ -2909,8 +2919,8 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#example-onDeselectAll').multiselect({
             includeSelectAllOption: true,
-            onDeselectAll: function() {
-                alert('onDeselectAll triggered!');
+            onDeselectAll: function(options) {
+                alert('onDeselectAll triggered, ' + options.length + ' options deselected!');
             }
         });
     });
