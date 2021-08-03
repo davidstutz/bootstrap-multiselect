@@ -50,6 +50,7 @@
                             <a class="nav-link" href="#methods">Methods</a>
                             <a class="nav-link" href="#further-examples">Further Examples</a>
                             <a class="nav-link" href="#post">Server-Side Processing</a>
+                            <a class="nav-link" href="#validation">Validation</a>
                             <a class="nav-link" href="#keyboard-support">Keyboard Support</a>
                             <a class="nav-link" href="require.html">Require JS</a>
                             <a class="nav-link" href="#faq">Frequently Asked Questions</a>
@@ -7108,6 +7109,53 @@ $(document).ready(function() {
             &lt;button type=&quot;submit&quot; class=&quot;btn btn-default&quot;&gt;Submit&lt;/button&gt;
         &lt;/div&gt;
     &lt;/div&gt;
+&lt;/form&gt;
+</pre>
+                    </div>
+
+                    <div class="page-header">
+                        <h2 id="validation">Validation</h2>
+                    </div>
+                    
+                    <p>The <code>required</code> attribute is supported:</p>
+
+                    <div class="example">
+                        <form action="index.html?#validation" method="post">
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#example-required').multiselect();
+                                });
+                            </script>
+                            <select id="example-required" required multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+    
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </form>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;form&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        $(document).ready(function() {
+            $('#example-required').multiselect();
+        });
+    &lt;/script&gt;
+    &lt;select id=&quot;example-required&quot; required multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
 &lt;/form&gt;
 </pre>
                     </div>
