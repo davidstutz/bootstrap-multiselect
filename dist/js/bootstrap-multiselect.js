@@ -219,6 +219,7 @@
         this.buildSelectAll();
         this.buildDropdownOptions();
         this.buildFilter();
+        this.buildButtons();
 
         this.updateButtonText();
         this.updateSelectAll(true);
@@ -435,6 +436,7 @@
             nonSelectedText: 'None selected',
             nSelectedText: 'selected',
             allSelectedText: 'All selected',
+            resetButtonText: 'Reset',
             numberDisplayed: 3,
             disableIfEmpty: false,
             disabledText: '',
@@ -446,10 +448,13 @@
             // possible options: 'never', 'always', 'ifPopupIsSmaller', 'ifPopupIsWider'
             widthSynchronizationMode: 'never',
             buttonTextAlignment: 'center',
+            enableResetButton: false,
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 popupContainer: '<div class="multiselect-container dropdown-menu"></div>',
                 filter: '<div class="multiselect-filter d-flex align-items-center"><i class="fas fa-sm fa-search text-muted"></i><input type="search" class="multiselect-search form-control" /></div>',
+                buttonGroup: '<div class="multiselect-buttons btn-group" style="display:flex;"></div>',
+                buttonGroupReset: '<button type="button" class="multiselect-reset btn btn-secondary btn-block"></button>',
                 option: '<button type="button" class="multiselect-option dropdown-item"></button>',
                 divider: '<div class="dropdown-divider"></div>',
                 optionGroup: '<button type="button" class="multiselect-group dropdown-item"></button>',
@@ -1294,6 +1299,38 @@
             }
         },
 
+        /**
+         * Builds the filter.
+         */
+        buildButtons: function () {
+            if (this.options.enableResetButton) {
+                var $buttonGroup = $(this.options.templates.buttonGroup);
+                this.$buttonGroupReset = $(this.options.templates.buttonGroupReset).text(this.options.resetButtonText);
+                $buttonGroup.append(this.$buttonGroupReset);
+                this.$popupContainer.prepend($buttonGroup);
+                
+                // We save all options that were previously selected.
+                this.defaultSelection = {};
+                $('option', this.$select).each($.proxy(function(index, element) {
+                    var $option = $(element);
+                    this.defaultSelection[$option.val()] = $option.prop('selected');
+                }, this));
+
+                this.$buttonGroupReset.on('click', $.proxy(function(event) {
+                    $('option', this.$select).each($.proxy(function(index, element) {
+                        var $option = $(element);
+                        $option.prop('selected', this.defaultSelection[$option.val()]);
+                    }, this));
+                    this.refresh();
+
+                    if (this.options.enableFiltering) {
+                        this.$filter.trigger('keydown');
+                        $('input', this.$filter).val('');
+                    }
+                }, this));
+            }
+        },
+
         updatePopupPosition: function() {
             // prevent gaps between popup and select when filter is used (#1199)
             var transformMatrix = this.$popupContainer.css("transform");
@@ -1642,6 +1679,7 @@
             this.buildSelectAll();
             this.buildDropdownOptions();
             this.buildFilter();
+            this.buildButtons();
 
             this.updateButtonText();
             this.updateSelectAll(true);
