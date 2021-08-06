@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "jquery": ">= 2.2.4",
-    "bootstrap": ">= ~4.5.x"
+    "bootstrap": "~4.5.x"
   },
   "ignore": [
     "docs/.*",
