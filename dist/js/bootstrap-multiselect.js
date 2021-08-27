@@ -378,13 +378,13 @@
             /**
              * Triggered on select all.
              */
-            onSelectAll: function () {
+            onSelectAll: function (selectedOptions) {
 
             },
             /**
              * Triggered on deselect all.
              */
-            onDeselectAll: function () {
+            onDeselectAll: function (deselectedOptions) {
 
             },
             /**
@@ -414,7 +414,7 @@
             selectedClass: 'active',
             // Maximum height of the dropdown menu.
             // If maximum height is exceeded a scrollbar will be displayed.
-            maxHeight: false,
+            maxHeight: null,
             includeSelectAllOption: false,
             includeSelectAllIfMoreThan: 0,
             selectAllText: ' Select all',
@@ -447,6 +447,7 @@
             indentGroupOptions: true,
             // possible options: 'never', 'always', 'ifPopupIsSmaller', 'ifPopupIsWider'
             widthSynchronizationMode: 'never',
+            // possible options: 'left', 'center', 'right'
             buttonTextAlignment: 'center',
             enableResetButton: false,
             templates: {
