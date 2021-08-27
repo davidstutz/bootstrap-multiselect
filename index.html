@@ -50,6 +50,7 @@
                             <a class="nav-link" href="#methods">Methods</a>
                             <a class="nav-link" href="#further-examples">Further Examples</a>
                             <a class="nav-link" href="#post">Server-Side Processing</a>
+                            <a class="nav-link" href="#validation">Validation</a>
                             <a class="nav-link" href="#keyboard-support">Keyboard Support</a>
                             <a class="nav-link" href="require.html">Require JS</a>
                             <a class="nav-link" href="#faq">Frequently Asked Questions</a>
@@ -277,8 +278,18 @@
                                 <td><a href="#configuration-options-widthSynchronizationMode"><code class="badge badge-secondary">widthSynchronizationMode</code></a></td>
                                 <td><a href="#configuration-options-buttonTextAlignment"><code class="badge badge-secondary">buttonTextAlignment</code></a></td>
                             </tr>
+                            <tr>
+                                <td><a href="#configuration-options-enableResetButton"><code class="badge badge-secondary">enableResetButton</code></a></td>
+                                <td><a href="#configuration-options-resetButtonText"><code class="badge badge-secondary">enableResetButton</code></a></td>
+                            </tr>
                         </tbody>
                     </table>
+
+                    <p><b>Unofficial pluguins:</b></p>
+
+                    <ul>
+                        <li><a href="https://github.com/jorgelf/bootstrap-multiselect-showselected" target="_blank">jorgelf/bootstrap-multiselect-showselected</a>: move selected options to the top of the list</li>
+                    </ul>
 
                     <p class="alert alert-info">
                         Use Firebug, Chrome Developer Tools to get the best out of the below examples.
@@ -2817,6 +2828,10 @@ $(document).ready(function() {
                                         This function is triggered when the select all option is used to select all options. Note that this can also be triggered manually using the <code>.multiselect('selectAll')</code> method.
                                     </p>
 
+                                    <p class="alert alert-info">
+                                        The options passed to the <code>onSelectAll</code> handler are exactly those options that are selected but were not selected before.
+                                    </p>
+
                                     <p class="alert alert-warning">
                                         Note that the <code>onChange</code> option is not triggered when (de)selecting all options using the select all option.
                                     </p>
@@ -2830,8 +2845,8 @@ $(document).ready(function() {
                                             $(document).ready(function() {
                                                 $('#example-onSelectAll').multiselect({
                                                     includeSelectAllOption: true,
-                                                    onSelectAll: function() {
-                                                        alert('onSelectAll triggered!');
+                                                    onSelectAll: function(options) {
+                                                        alert('onSelectAll triggered, ' + options.length + ' options selected!');
                                                     }
                                                 });
                                             });
@@ -2843,6 +2858,7 @@ $(document).ready(function() {
                                             <option value="4">Option 4</option>
                                             <option value="5">Option 5</option>
                                             <option value="6">Option 6</option>
+                                            <option disabled value="7">Disabled Option</option>
                                         </select>
                                     </div>
                                     <div class="highlight">
@@ -2850,8 +2866,8 @@ $(document).ready(function() {
 &lt;script type=&quot;text/javascript&quot;&gt;
     $('#example-onSelectAll').multiselect({
         includeSelectAllOption: true,
-        onSelectAll: function() {
-            alert('onSelectAll triggered!');
+        onSelectAll: function(options) {
+            alert('onSelectAll triggered, ' + options.length + ' options selected!');
         }
     });
 &lt;/script&gt;
@@ -2868,6 +2884,10 @@ $(document).ready(function() {
                                         This function is triggered when the select all option is used to <b>de</b>select all options. Note that this can also be triggered manually using the <code>.multiselect('deselectAll')</code> method.
                                     </p>
 
+                                    <p class="alert alert-info">
+                                        The options passed to the <code>onDeselectAll</code> handler are exactly those options that are selected but were not selected before.
+                                    </p>
+
                                     <p class="alert alert-warning">
                                         Note that the <code>onChange</code> option is not triggered when (de)selecting all options using the select all option.
                                     </p>
@@ -2882,8 +2902,8 @@ $(document).ready(function() {
                                                 $('#example-onDeselectAll').multiselect({
                                                     includeSelectAllOption: true,
                                                     enableFiltering: true,
-                                                    onDeselectAll: function() {
-                                                        alert('onDeselectAll triggered!');
+                                                    onDeselectAll: function(options) {
+                                                        alert('onDeselectAll triggered, ' + options.length + ' options deselected!');
                                                     }
                                                 });
                                             });
@@ -2895,6 +2915,7 @@ $(document).ready(function() {
                                             <option value="4">Option 4</option>
                                             <option value="5">Option 5</option>
                                             <option value="6">Option 6</option>
+                                            <option disabled value="7">Disabled Option</option>
                                         </select>
                                     </div>
                                     <div class="highlight">
@@ -2903,8 +2924,8 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#example-onDeselectAll').multiselect({
             includeSelectAllOption: true,
-            onDeselectAll: function() {
-                alert('onDeselectAll triggered!');
+            onDeselectAll: function(options) {
+                alert('onDeselectAll triggered, ' + options.length + ' options deselected!');
             }
         });
     });
@@ -3852,13 +3873,110 @@ $(document).ready(function() {
                                     </div>
                                 </td>
                             </tr>
+
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-enableResetButton">enableResetButton</code>
+                                </td>
+                                <td>
+                                    <p>
+                                        Includes a reset button at the top of the multiselect which resets the selection to the original selection.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-enableResetButton').multiselect({
+                                                    enableResetButton: true,
+                                                    enableFiltering: true,
+                                                    includeSelectAllOption: true,
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-enableResetButton" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2" selected>Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4" selected>Option 4</option>
+                                            <option value="5">Option 5</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-enableResetButton').multiselect({
+            enableResetButton: true,
+            enableFiltering: true,
+            includeSelectAllOption: true,
+        });
+    });
+&lt;/script&gt;
+&lt;select id=&quot;example-enableResetButton&quot; multiple=&quot;multiple&quot;&gt;
+    &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+    &lt;option value=&quot;2&quot; selected&gt;Option 2&lt;/option&gt;
+    &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+    &lt;option value=&quot;4&quot; selected&gt;Option 4&lt;/option&gt;
+    &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <code id="configuration-options-resetButtonText">enableResetButton</code>
+                                </td>
+                                <td>
+                                    <p>
+                                       Changes the text of the reset button.
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-resetButtonText').multiselect({
+                                                    enableResetButton: true,
+                                                    resetButtonText: 'Undo',
+                                                });
+                                            });
+                                        </script>
+                                        <select id="example-resetButtonText" multiple="multiple">
+                                            <option value="1">Option 1</option>
+                                            <option value="2" selected>Option 2</option>
+                                            <option value="3">Option 3</option>
+                                            <option value="4" selected>Option 4</option>
+                                            <option value="5">Option 5</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-resetButtonText').multiselect({
+            enableResetButton: true,
+            resetButtonText: 'Undo',
+        });
+    });
+&lt;/script&gt;
+&lt;select id=&quot;example-resetButtonText&quot; multiple=&quot;multiple&quot;&gt;
+    &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+    &lt;option value=&quot;2&quot; selected&gt;Option 2&lt;/option&gt;
+    &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+    &lt;option value=&quot;4&quot; selected&gt;Option 4&lt;/option&gt;
+    &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
                     <div class="page-header">
                         <h2 id="templates">Templates</h2>
                     </div>
-
 
                     <p>
                         The generated HTML markup can be controlled using templates. Basically, templates are simple configuration options. The default templates are shown below:
@@ -3877,13 +3995,15 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#example').multiselect({
             templates: {
-                button: '&lt;button type=&quot;button&quot; class=&quot;multiselect dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;span class=&quot;multiselect-selected-text&quot;&gt;&lt;/span>&lt;/button&gt;',
+                button: '&lt;button type=&quot;button&quot; class=&quot;multiselect dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;span class=&quot;multiselect-selected-text&quot;&gt;&lt;/span&gt;&lt;/button&gt;',
                 popupContainer: '&lt;div class=&quot;multiselect-container dropdown-menu&quot;&gt;&lt;/div&gt;',
-                filter: '&lt;div class="multiselect-filter d-flex align-items-center"&gt;&lt;i class="fas fa-sm fa-search text-muted"&gt;&lt;/i&gt;&lt;input type="search" class="multiselect-search form-control" /&gt;&lt;/div&gt;',
-                option: '&lt;a class=&quot;multiselect-option dropdown-item&quot;&gt;&lt;/a&gt;',
-                divider: '&lt;div class=&quot;multiselect-item dropdown-divider&quot;&gt;&lt;/div&gt;',
-                optionGroup: '&lt;a class=&quot;multiselect-item multiselect-group&quot;&gt;&lt;/a&gt;',
-                resetButton: '&lt;div class=&quot;multiselect-reset text-center p-2&quot;&gt;&lt;a class=&quot;btn btn-sm btn-block btn-outline-secondary&quot;&gt;&lt;/a&gt;&lt;/div&gt;'
+                filter: '&lt;div class=&quot;multiselect-filter d-flex align-items-center&quot;&gt;&lt;i class=&quot;fas fa-sm fa-search text-muted&quot;&gt;&lt;/i&gt;&lt;input type=&quot;search&quot; class=&quot;multiselect-search form-control&quot; /&gt;&lt;/div&gt;',
+                buttonGroup: '&lt;div class=&quot;multiselect-buttons btn-group&quot; style=&quot;display:flex;&quot;&gt;&lt;/div&gt;',
+                buttonGroupReset: '&lt;button type=&quot;button&quot; class=&quot;multiselect-reset btn btn-secondary btn-block&quot;&gt;&lt;/button&gt;',
+                option: '&lt;button type=&quot;button&quot; class=&quot;multiselect-option dropdown-item&quot;&gt;&lt;/button&gt;',
+                divider: '&lt;div class=&quot;dropdown-divider&quot;&gt;&lt;/div&gt;',
+                optionGroup: '&lt;button type=&quot;button&quot; class=&quot;multiselect-group dropdown-item&quot;&gt;&lt;/button&gt;',
+                resetButton: '&lt;div class=&quot;multiselect-reset text-center p-2&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-sm btn-block btn-outline-secondary&quot;&gt;&lt;/button&gt;&lt;/div&gt;'
             }
         });
     });
@@ -6810,6 +6930,90 @@ $(document).ready(function() {
 </pre>
                     </div>
 
+                    <p>
+                        This examples shows how to make the filter/search input stick to the top:
+                    </p>
+ 
+                     <div class="example">
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#example-fix-filter').multiselect({
+                                        enableFiltering: true,
+                                        maxHeight: 200,
+                                    });
+                                    $('.multiselect-container .multiselect-filter', $('#example-fix-filter').parent()).css({
+                                        'position': 'sticky', 'top': '0px', 'z-index': 1,
+                                    })
+                                });
+                            </script>
+                            <style type="text/css">
+                                .multiselect-container .multiselect-filter { position: sticky; top: 0px; z-index: 1; }
+                            </style>
+                            <select id="example-fix-filter" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                            </select>
+                     </div>
+                     <div class="highlight">
+ <pre class="prettyprint linenums">
+ &lt;script type=&quot;text/javascript&quot;&gt;
+     $(document).ready(function() {
+         $('#example-form-group').multiselect({
+            enableFiltering: true,
+            maxHeight: 200,
+        });
+        $('.multiselect-container .multiselect-filter', $('#example-fix-filter').parent()).css({
+            'position': 'sticky', 'top': '0px', 'z-index': 1,
+        })
+     });
+ &lt;/script&gt;
+ 
+ &lt;div class=&quot;form-group&quot;&gt;
+     &lt;label for&quot;example-form-group&quot;&gt;Select&lt;/label&gt;
+     &lt;select id=&quot;example-form-group&quot; multiple=&quot;multiple&quot;&gt;
+         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+         &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+         &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+         &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+         &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+         &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+         &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+         &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+         &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+     &lt;/select&gt;
+ &lt;/div&gt;
+ </pre>
+                     </div>
+
                     <div class="page-header">
                         <h2 id="post">Server-Side Processing</h2>
                     </div>
@@ -7013,6 +7217,53 @@ $(document).ready(function() {
                     </div>
 
                     <div class="page-header">
+                        <h2 id="validation">Validation</h2>
+                    </div>
+                    
+                    <p>The <code>required</code> attribute is supported:</p>
+
+                    <div class="example">
+                        <form action="index.html?#validation" method="post">
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    $('#example-required').multiselect();
+                                });
+                            </script>
+                            <select id="example-required" required multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
+    
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </form>
+                    </div>
+                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;form&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        $(document).ready(function() {
+            $('#example-required').multiselect();
+        });
+    &lt;/script&gt;
+    &lt;select id=&quot;example-required&quot; required multiple=&quot;multiple&quot;&gt;
+        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
+        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
+        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
+        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
+        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
+        &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;button class=&quot;btn btn-primary&quot; type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+                    </div>
+
+                    <div class="page-header">
                         <h2 id="keyboard-support">Keyboard Support</h2>
                     </div>
 
@@ -7024,11 +7275,11 @@ $(document).ready(function() {
                             </tr>
                             <tr>
                                 <td><code>Enter</code></td>
-                                <td><code>Enter</code> is used to open the dropdown and select options (for selecting options, <code>Space</code> can be used, as well). After a multiselect is in focus, pressing <code>Enter</code> will open the dropdown. Then, the options can be traversed using arrow up and down.</td>
+                                <td><code>Enter</code> is used to open the dropdown and select options (for selecting options, <code>Space</code> can also be used, but will cause the multiselect to lose focus). After a multiselect is in focus, pressing <code>Enter</code> will open the dropdown. Then, the options can be traversed using arrow up and down.</td>
                             </tr>
                             <tr>
                                 <td><code>Arrow Up/Arrow Down</code></td>
-                                <td>Used to traverse the options after opening the dropdown. An option can be selected using <code>Space</code> or <code>Enter</code>.</td>
+                                <td>Used to traverse the options after opening the dropdown. An option can be selected using <code>Enter</code>. When <code>enableFiltering</code> is enabled, the search box is treated as the first option, meaning it can be selected by moving up "beyond" the first checkbox.</code></td>
                             </tr>
                         </tbody>
                     </table>
@@ -7282,6 +7533,11 @@ $("#example").multiselect();
                         <dt>Can I use <a href="https://fontawesome.com/">Font Awesome</a> instead of Bootstrap's glyphicons?</dt>
                         <dd>
                             Yes, see here: <a href="https://github.com/davidstutz/bootstrap-multiselect/pull/887">#887</a>.
+                        </dd>
+
+                        <dt>How to move selected options to the top of the list?</dt>
+                        <dd>
+                            Follow the discussion in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/436">#436</a> and the unofficial plugin <a href="https://github.com/jorgelf/bootstrap-multiselect-showselected">here</a>. 
                         </dd>
                     </dl>
 

@@ -2,7 +2,7 @@
  * Bootstrap Multiselect (http://davidstutz.de/bootstrap-multiselect/)
  *
  * Apache License, Version 2.0:
- * Copyright (c) 2012 - 2020 David Stutz
+ * Copyright (c) 2012 - 2021 David Stutz
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a
@@ -15,7 +15,7 @@
  * under the License.
  *
  * BSD 3-Clause License:
- * Copyright (c) 2012 - 2020 David Stutz
+ * Copyright (c) 2012 - 2021 David Stutz
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -122,6 +122,14 @@ span.multiselect-native-select select {
   background-color: lightgrey;
   color: black;
 }
+.multiselect-container .multiselect-option:hover,
+.multiselect-container .multiselect-group:hover,
+.multiselect-container .multiselect-all:hover,
+.multiselect-container .multiselect-option:focus,
+.multiselect-container .multiselect-group:focus,
+.multiselect-container .multiselect-all:focus {
+  background-color: darkgray !important;
+}
 .multiselect-container .multiselect-option .form-check,
 .multiselect-container .multiselect-group .form-check,
 .multiselect-container .multiselect-all .form-check {
@@ -136,11 +144,11 @@ span.multiselect-native-select select {
   padding: 3px 20px 3px 40px;
 }
 .input-group.input-group-sm > .multiselect-native-select .multiselect {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
+  padding: .25rem .5rem;
+  font-size: .875rem;
   line-height: 1.5;
   padding-right: 1.75rem;
-  height: calc(1.5em + 0.5rem + 2px);
+  height: calc(4em);
 }
 .input-group > .multiselect-native-select {
   flex: 1 1 auto;

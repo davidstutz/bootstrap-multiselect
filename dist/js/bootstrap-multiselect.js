@@ -219,6 +219,7 @@
         this.buildSelectAll();
         this.buildDropdownOptions();
         this.buildFilter();
+        this.buildButtons();
 
         this.updateButtonText();
         this.updateSelectAll(true);
@@ -435,6 +436,7 @@
             nonSelectedText: 'None selected',
             nSelectedText: 'selected',
             allSelectedText: 'All selected',
+            resetButtonText: 'Reset',
             numberDisplayed: 3,
             disableIfEmpty: false,
             disabledText: '',
@@ -446,10 +448,13 @@
             // possible options: 'never', 'always', 'ifPopupIsSmaller', 'ifPopupIsWider'
             widthSynchronizationMode: 'never',
             buttonTextAlignment: 'center',
+            enableResetButton: false,
             templates: {
                 button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 popupContainer: '<div class="multiselect-container dropdown-menu"></div>',
                 filter: '<div class="multiselect-filter d-flex align-items-center"><i class="fas fa-sm fa-search text-muted"></i><input type="search" class="multiselect-search form-control" /></div>',
+                buttonGroup: '<div class="multiselect-buttons btn-group" style="display:flex;"></div>',
+                buttonGroupReset: '<button type="button" class="multiselect-reset btn btn-secondary btn-block"></button>',
                 option: '<button type="button" class="multiselect-option dropdown-item"></button>',
                 divider: '<div class="dropdown-divider"></div>',
                 optionGroup: '<button type="button" class="multiselect-group dropdown-item"></button>',
@@ -798,40 +803,42 @@
 
             //Keyboard support.
             this.$container.off('keydown.multiselect').on('keydown.multiselect', $.proxy(function (event) {
-                if ($('input.multiselect-search', this.$container).is(':focus')) {
-                    return;
-                }
+                var $items = $(this.$container).find(".multiselect-option:not(.disabled), .multiselect-group:not(.disabled), .multiselect-all").filter(":visible");
+                var index = $items.index($items.filter(':focus'));
+                var $search = $('.multiselect-search', this.$container);
 
                 // keyCode 9 == Tab
                 if (event.keyCode === 9 && this.$container.hasClass('show')) {
                     this.$button.click();
                 }
-                else {
-                    var $items = $(this.$container).find(".multiselect-option:not(.disabled), .multiselect-group:not(.disabled), .multiselect-all").filter(":visible");
-
-                    if (!$items.length) {
-                        return;
-                    }
-
-                    var index = $items.index($items.filter(':focus'));
-
+                // keyCode 13 = Enter
+                else if (event.keyCode == 13) {
                     var $current = $items.eq(index);
-
-                    // keyCode 32 = Space
-                    if (event.keyCode === 32) {
-                        var $checkbox = $current.find('input');
-
-                        $checkbox.prop("checked", !$checkbox.prop("checked"));
-                        $checkbox.change();
-
-                        event.preventDefault();
-                    }
-
-                    // keyCode 13 = Enter
-                    if (event.keyCode === 13) {
+                    setTimeout(function () {
+                        $current.focus();
+                    }, 1);
+                }
+                // keyCode 38 = Arrow Up
+                else if (event.keyCode == 38) {
+                    if (index == 0 && !$search.is(':focus')) {
                         setTimeout(function () {
-                            $current.focus();
-                        }, 0);
+                            $search.focus();
+                        }, 1);
+                    }
+                }
+                // keyCode 40 = Arrow Down
+                else if (event.keyCode == 40) {
+                    if ($search.is(':focus')) {
+                        var $first = $items.eq(0);
+                        setTimeout(function () {
+                            $search.blur();
+                            $first.focus();
+                        }, 1);
+                    }
+                    else if (index == -1) {
+                        setTimeout(function () {
+                            $search.focus();
+                        }, 1);
                     }
                 }
             }, this));
@@ -1292,9 +1299,40 @@
             }
         },
 
+        /**
+         * Builds the filter.
+         */
+        buildButtons: function () {
+            if (this.options.enableResetButton) {
+                var $buttonGroup = $(this.options.templates.buttonGroup);
+                this.$buttonGroupReset = $(this.options.templates.buttonGroupReset).text(this.options.resetButtonText);
+                $buttonGroup.append(this.$buttonGroupReset);
+                this.$popupContainer.prepend($buttonGroup);
+                
+                // We save all options that were previously selected.
+                this.defaultSelection = {};
+                $('option', this.$select).each($.proxy(function(index, element) {
+                    var $option = $(element);
+                    this.defaultSelection[$option.val()] = $option.prop('selected');
+                }, this));
+
+                this.$buttonGroupReset.on('click', $.proxy(function(event) {
+                    $('option', this.$select).each($.proxy(function(index, element) {
+                        var $option = $(element);
+                        $option.prop('selected', this.defaultSelection[$option.val()]);
+                    }, this));
+                    this.refresh();
+
+                    if (this.options.enableFiltering) {
+                        this.$filter.trigger('keydown');
+                        $('input', this.$filter).val('');
+                    }
+                }, this));
+            }
+        },
+
         updatePopupPosition: function() {
             // prevent gaps between popup and select when filter is used (#1199)
-
             var transformMatrix = this.$popupContainer.css("transform");
             var matrixType = transformMatrix.substring(0, transformMatrix.indexOf('('));
             var values = transformMatrix.substring(transformMatrix.indexOf('(') + 1, transformMatrix.length - 1);
@@ -1309,7 +1347,9 @@
                 return;
             }
 
-            var yTransformation = valuesArray[valueIndex].trim();
+            var yTransformation = valuesArray[valueIndex];
+            // Need to check to avoid errors when testing and in some other situations.
+            yTransformation = typeof yTransformation === 'undefined' ? 0 : yTransformation.trim();
             if (yTransformation < 0) {
                 yTransformation = this.$popupContainer.css("height").replace('px', '') * -1;
                 valuesArray[valueIndex] = yTransformation;
@@ -1522,6 +1562,8 @@
                 return;
             }
 
+            // Record all changes, i.e., options selected that were not selected before.
+            var selected = [];
             var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
 
             if (justVisible) {
@@ -1532,6 +1574,9 @@
                 $('input:enabled', visibleOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
                     var option = this.getOptionByValue(value);
+                    if (!$(option).prop('selected')) {
+                        selected.push(option);
+                    }
                     $(option).prop('selected', true);
                 }, this));
             }
@@ -1543,6 +1588,9 @@
                 $('input:enabled', allOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
                     var option = this.getOptionByValue(value);
+                    if (!$(option).prop('selected')) {
+                        selected.push(option);
+                    }
                     $(option).prop('selected', true);
                 }, this));
             }
@@ -1557,7 +1605,7 @@
             this.updateSelectAll();
 
             if (triggerOnSelectAll) {
-                this.options.onSelectAll();
+                this.options.onSelectAll(selected);
             }
         },
 
@@ -1574,6 +1622,8 @@
                 return;
             }
 
+            // Record changes, i.e., those options that are deselected but were not deselected before.
+            var deselected = [];
             var justVisible = typeof justVisible === 'undefined' ? true : justVisible;
 
             if (justVisible) {
@@ -1584,6 +1634,9 @@
                 $('input[type="checkbox"]:enabled', visibleOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
                     var option = this.getOptionByValue(value);
+                    if ($(option).prop('selected')) {
+                        deselected.push(option);
+                    }
                     $(option).prop('selected', false);
                 }, this));
             }
@@ -1595,6 +1648,9 @@
                 $('input[type="checkbox"]:enabled', allOptions).each($.proxy(function (index, element) {
                     var value = $(element).val();
                     var option = this.getOptionByValue(value);
+                    if ($(option).prop('selected')) {
+                        deselected.push(option);
+                    }
                     $(option).prop('selected', false);
                 }, this));
             }
@@ -1609,7 +1665,7 @@
             this.updateSelectAll();
 
             if (triggerOnDeselectAll) {
-                this.options.onDeselectAll();
+                this.options.onDeselectAll(deselected);
             }
         },
 
@@ -1627,6 +1683,7 @@
             this.buildSelectAll();
             this.buildDropdownOptions();
             this.buildFilter();
+            this.buildButtons();
 
             this.updateButtonText();
             this.updateSelectAll(true);
