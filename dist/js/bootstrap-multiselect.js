@@ -240,6 +240,7 @@
             this.synchronizeButtonAndPopupWidth();
         }
 
+        $(this).data('multiselect', data);
         this.options.onInitialized(this.$select, this.$container);
     }
 
@@ -1997,16 +1998,11 @@
             // Initialize the multiselect.
             if (!data) {
                 data = new Multiselect(this, options);
-                $(this).data('multiselect', data);
             }
 
             // Call multiselect method.
             if (typeof option === 'string') {
                 data[option](parameter, extraOptions);
-
-                if (option === 'destroy') {
-                    $(this).data('multiselect', false);
-                }
             }
         });
     };
