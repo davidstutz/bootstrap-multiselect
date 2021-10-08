@@ -1740,7 +1740,7 @@
                     forEach(option.children, function (subOption) { // add children option tags
                         var attributes = {
                             value: subOption.value,
-                            label: subOption.label || subOption.value,
+                            label: subOption.label !== undefined && subOption.label !== null ? subOption.label : subOption.value,
                             title: subOption.title,
                             selected: !!subOption.selected,
                             disabled: !!subOption.disabled
@@ -1755,10 +1755,9 @@
                     });
                 }
                 else {
-
                     var attributes = {
                         'value': option.value,
-                        'label': option.label || option.value,
+                        'label': option.label !== undefined && option.label !== null ? option.label : option.value,
                         'title': option.title,
                         'class': option['class'],
                         'selected': !!option['selected'],
@@ -1771,7 +1770,7 @@
                     //Append original attributes + new data attributes to option
                     $tag = $('<option/>').attr(attributes);
 
-                    $tag.text(option.label || option.value);
+                    $tag.text(option.label !== undefined && option.label !== null ? option.label : option.value);
                 }
 
                 $select.append($tag);
