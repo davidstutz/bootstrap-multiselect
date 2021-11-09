@@ -2531,6 +2531,58 @@ describe('Bootstrap Multiselect "Specific Issues".', function () {
         $('#multiselect').multiselect('destroy');
         $('#multiselect').remove();
     });
+
+    it('#1197: Select all with multiple options with the same value', function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        $select.append('<option value="value-1">Option 1</option><option value="value-2">Option 2</option><option value="value-2">Duplicate</option>');
+
+        $('body').append($select);
+
+        $select.multiselect();
+
+        $select.multiselect('selectAll');
+
+        expect($select.find('option:selected').length).toBe(3);
+    });
+
+    it('#1197: Deselect all with multiple options with the same value', function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        $select.append('<option value="value-1">Option 1</option><option value="value-2" selected="selected">Option 2</option><option value="value-2" selected="selected">Duplicate</option>');
+
+        $('body').append($select);
+
+        $select.multiselect();
+
+        $select.multiselect('deselectAll');
+
+        expect($select.find('option:selected').length).toBe(0);
+    });
+
+    it('#1197: Select by value with multiple options with the same value', function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        $select.append('<option value="value-1">Option 1</option><option value="value-2">Option 2</option><option value="value-2">Duplicate</option>');
+
+        $('body').append($select);
+
+        $select.multiselect();
+
+        $select.multiselect('select', 'value-2');
+
+        expect($select.find('option:selected').length).toBe(2);
+    });
+
+    it('#1197: Deselect by value with multiple options with the same value', function() {
+        var $select = $('<select id="multiselect" multiple="multiple"></select>');
+        $select.append('<option value="value-1">Option 1</option><option value="value-2" selected="selected">Option 2</option><option value="value-2" selected="selected">Duplicate</option>');
+
+        $('body').append($select);
+
+        $select.multiselect();
+
+        $select.multiselect('deselect', 'value-2');
+
+        expect($select.find('option:selected').length).toBe(0);
+    });
 });
 
 describe('Knockout Binding.', function () {
