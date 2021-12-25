@@ -1874,6 +1874,7 @@
 
             $groups.each(function () {
                 var $options = $(this).nextUntil('.multiselect-group')
+                    .filter(".multiselect-group-option-indented")
                     .not('.multiselect-filter-hidden')
                     .not('.disabled');
 
