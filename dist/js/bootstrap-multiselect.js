@@ -859,6 +859,7 @@
 
                     var $item = $(event.target).closest('.dropdown-item');
                     var $group = $item.nextUntil(".multiselect-group")
+                        .filter(".multiselect-group-option-indented")
                         .not('.multiselect-filter-hidden')
                         .not('.disabled');
 
