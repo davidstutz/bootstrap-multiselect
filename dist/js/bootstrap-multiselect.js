@@ -463,7 +463,7 @@
                 buttonGroupReset: '<button type="button" class="multiselect-reset btn btn-secondary btn-block"></button>',
                 option: '<button type="button" class="multiselect-option dropdown-item"></button>',
                 divider: '<div class="dropdown-divider"></div>',
-                optionGroup: '<button type="button" class="multiselect-group dropdown-item"></button>',
+                optionGroup: '<button type="button" class="multiselect-group dropdown-item pl-1"></button>',
                 resetButton: '<div class="multiselect-reset text-center p-2"><button type="button" class="btn btn-sm btn-block btn-outline-secondary"></button></div>'
             }
         },
@@ -909,11 +909,14 @@
             }
 
             if (this.options.enableCollapsibleOptGroups) {
-                $(".multiselect-group .caret-container", this.$popupContainer).off("click");
-                $(".multiselect-group .caret-container", this.$popupContainer).on("click", $.proxy(function (event) {
+                let clickableSelector = this.options.enableClickableOptGroups 
+                    ? ".multiselect-group .caret-container"
+                    : ".multiselect-group";
+
+                $(clickableSelector, this.$popupContainer).off("click");
+                $(clickableSelector, this.$popupContainer).on("click", $.proxy(function (event) {
                     var $group = $(event.target).closest('.multiselect-group');
-                    var $inputs = $group.nextUntil(".multiselect-group")
-                        .not('.multiselect-filter-hidden');
+                    var $inputs = $group.nextUntil(".multiselect-group").not('.multiselect-filter-hidden');
 
                     var visible = true;
                     $inputs.each(function () {
@@ -921,12 +924,11 @@
                     });
 
                     if (visible) {
-                        $inputs.hide()
-                            .addClass('multiselect-collapsible-hidden');
-                    }
-                    else {
-                        $inputs.show()
-                            .removeClass('multiselect-collapsible-hidden');
+                        $inputs.hide().addClass('multiselect-collapsible-hidden');
+                        $group.get(0).classList.add("closed");
+                    } else {
+                        $inputs.show().removeClass('multiselect-collapsible-hidden');
+                        $group.get(0).classList.remove("closed");
                     }
                 }, this));
             }
@@ -1077,7 +1079,7 @@
 
             if (this.options.enableCollapsibleOptGroups) {
                 $groupOption.find('.form-check').addClass('d-inline-block');
-                $groupOption.append('<span class="caret-container dropdown-toggle pl-1"></span>');
+                $groupOption.get(0).insertAdjacentHTML("afterbegin", '<span class="caret-container dropdown-toggle px-2"></span>');
             }
 
             if ($group.is(':disabled')) {

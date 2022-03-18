@@ -45,6 +45,12 @@ span.multiselect-native-select{
   position:relative
 }
 
+.multiselect-group.closed {
+  .dropdown-toggle::after {
+      transform: rotate(-90deg);
+  }
+}
+
 span.multiselect-native-select select{
   border :0 !important;
   clip: rect(0 0 0 0) !important;
@@ -107,6 +113,9 @@ span.multiselect-native-select select{
 
   .multiselect-option.multiselect-group-option-indented {
     padding-left: 1.75rem;
+
+  .multiselect-group {
+    cursor: pointer;
   }
 
   .multiselect-option, .multiselect-group, .multiselect-all {
