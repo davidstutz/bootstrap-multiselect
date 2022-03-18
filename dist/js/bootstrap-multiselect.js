@@ -997,7 +997,12 @@
             $option.addClass(classes);
 
             if (isGroupOption && this.options.indentGroupOptions) {
-                $option.addClass("multiselect-group-option-indented")
+                if (this.options.enableCollapsibleOptGroups) {
+                    $option.addClass("multiselect-group-option-indented-full")
+                } 
+                else {
+                    $option.addClass("multiselect-group-option-indented");
+                }
             }
 
             // Hide all children items when collapseOptGroupsByDefault is true
