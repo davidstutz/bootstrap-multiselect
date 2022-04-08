@@ -44,6 +44,9 @@
 span.multiselect-native-select {
   position: relative;
 }
+.multiselect-group.closed .dropdown-toggle::after {
+  transform: rotate(-90deg);
+}
 span.multiselect-native-select select {
   border: 0 !important;
   clip: rect(0 0 0 0) !important;
@@ -92,8 +95,14 @@ span.multiselect-native-select select {
   margin-left: -1.5rem;
   display: none;
 }
+.multiselect-container .multiselect-option.multiselect-group-option-indented-full {
+  padding-left: 2.6rem;
+}
 .multiselect-container .multiselect-option.multiselect-group-option-indented {
-  padding-left: 1.75rem;
+  padding-left: 1.8rem;
+}
+.multiselect-container .multiselect-group {
+  cursor: pointer;
 }
 .multiselect-container .multiselect-option,
 .multiselect-container .multiselect-group,
@@ -144,11 +153,11 @@ span.multiselect-native-select select {
   padding: 3px 20px 3px 40px;
 }
 .input-group.input-group-sm > .multiselect-native-select .multiselect {
-  padding: .25rem .5rem;
-  font-size: .875rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
   line-height: 1.5;
   padding-right: 1.75rem;
-  height: calc(4em);
+  height: calc(1.5em + 0.5rem + 2px);
 }
 .input-group > .multiselect-native-select {
   flex: 1 1 auto;
