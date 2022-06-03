@@ -463,7 +463,7 @@
                 buttonGroupReset: '<button type="button" class="multiselect-reset btn btn-secondary btn-block"></button>',
                 option: '<button type="button" class="multiselect-option dropdown-item"></button>',
                 divider: '<div class="dropdown-divider"></div>',
-                optionGroup: '<button type="button" class="multiselect-group dropdown-item pl-1"></button>',
+                optionGroup: '<button type="button" class="multiselect-group dropdown-item"></button>',
                 resetButton: '<div class="multiselect-reset text-center p-2"><button type="button" class="btn btn-sm btn-block btn-outline-secondary"></button></div>'
             }
         },
@@ -1084,7 +1084,7 @@
 
             if (this.options.enableCollapsibleOptGroups) {
                 $groupOption.find('.form-check').addClass('d-inline-block');
-                $groupOption.get(0).insertAdjacentHTML("afterbegin", '<span class="caret-container dropdown-toggle px-2"></span>');
+                $groupOption.get(0).insertAdjacentHTML("afterbegin", '<span class="caret-container dropdown-toggle"></span>');
             }
 
             if ($group.is(':disabled')) {
