@@ -230,12 +230,12 @@ interface MultiSelectOptions {
     /**
      * A callback used to define the labels of the options.
      */
-    optionLabel?: (element: HTMLElement) => string;
+    optionLabel?: (element: HTMLOptionElement) => string;
 
     /**
      * A callback used to define the classes for the li elements containing checkboxes and labels.
      */
-    optionClass?: (element: HTMLElement) => string;
+    optionClass?: (element: HTMLOptionElement) => string;
 
     /**
      * This option controls if options insade a optgroup are indented.
