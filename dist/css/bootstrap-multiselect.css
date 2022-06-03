@@ -101,7 +101,7 @@ span.multiselect-native-select select {
 .multiselect-container .multiselect-group {
   cursor: pointer;
 }
-.multiselect-container .multiselect-group.closed.dropdown-toggle::after {
+.multiselect-container .multiselect-group.closed .dropdown-toggle::after {
   transform: rotate(-90deg);
 }
 .multiselect-container .multiselect-group .caret-container ~ .form-check {
