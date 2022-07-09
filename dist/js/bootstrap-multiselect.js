@@ -2,7 +2,7 @@
  * Bootstrap Multiselect (http://davidstutz.de/bootstrap-multiselect/)
  *
  * Apache License, Version 2.0:
- * Copyright (c) 2012 - 2021 David Stutz
+ * Copyright (c) 2012 - 2022 David Stutz
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a
@@ -15,7 +15,7 @@
  * under the License.
  *
  * BSD 3-Clause License:
- * Copyright (c) 2012 - 2021 David Stutz
+ * Copyright (c) 2012 - 2022 David Stutz
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -909,11 +909,14 @@
             }
 
             if (this.options.enableCollapsibleOptGroups) {
-                $(".multiselect-group .caret-container", this.$popupContainer).off("click");
-                $(".multiselect-group .caret-container", this.$popupContainer).on("click", $.proxy(function (event) {
+                let clickableSelector = this.options.enableClickableOptGroups 
+                    ? ".multiselect-group .caret-container"
+                    : ".multiselect-group";
+
+                $(clickableSelector, this.$popupContainer).off("click");
+                $(clickableSelector, this.$popupContainer).on("click", $.proxy(function (event) {
                     var $group = $(event.target).closest('.multiselect-group');
-                    var $inputs = $group.nextUntil(".multiselect-group")
-                        .not('.multiselect-filter-hidden');
+                    var $inputs = $group.nextUntil(".multiselect-group").not('.multiselect-filter-hidden');
 
                     var visible = true;
                     $inputs.each(function () {
@@ -921,12 +924,11 @@
                     });
 
                     if (visible) {
-                        $inputs.hide()
-                            .addClass('multiselect-collapsible-hidden');
-                    }
-                    else {
-                        $inputs.show()
-                            .removeClass('multiselect-collapsible-hidden');
+                        $inputs.hide().addClass('multiselect-collapsible-hidden');
+                        $group.get(0).classList.add("closed");
+                    } else {
+                        $inputs.show().removeClass('multiselect-collapsible-hidden');
+                        $group.get(0).classList.remove("closed");
                     }
                 }, this));
             }
@@ -995,7 +997,12 @@
             $option.addClass(classes);
 
             if (isGroupOption && this.options.indentGroupOptions) {
-                $option.addClass("multiselect-group-option-indented")
+                if (this.options.enableCollapsibleOptGroups) {
+                    $option.addClass("multiselect-group-option-indented-full")
+                } 
+                else {
+                    $option.addClass("multiselect-group-option-indented");
+                }
             }
 
             // Hide all children items when collapseOptGroupsByDefault is true
@@ -1077,7 +1084,7 @@
 
             if (this.options.enableCollapsibleOptGroups) {
                 $groupOption.find('.form-check').addClass('d-inline-block');
-                $groupOption.append('<span class="caret-container dropdown-toggle pl-1"></span>');
+                $groupOption.get(0).insertAdjacentHTML("afterbegin", '<span class="caret-container dropdown-toggle"></span>');
             }
 
             if ($group.is(':disabled')) {
