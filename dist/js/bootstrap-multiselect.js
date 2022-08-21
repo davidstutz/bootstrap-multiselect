@@ -1248,6 +1248,9 @@
                                     else if (this.options.filterBehavior === 'both') {
                                         filterCandidate = text + '\n' + value;
                                     }
+                                    else if ('function' === typeof this.options.filterBehavior) {
+                                        filterCandidate = this.options.filterBehavior({ text: text, value: value });
+                                    }
 
                                     if (value !== this.options.selectAllValue && text) {
 
