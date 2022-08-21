@@ -1882,6 +1882,7 @@
             $groups.each(function () {
                 var $options = $(this).nextUntil('.multiselect-group')
                     .not('.multiselect-filter-hidden')
+                    .not('.multiselect-item.divider')
                     .not('.disabled');
 
                 var checked = true;
