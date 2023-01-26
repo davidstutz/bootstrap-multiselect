@@ -326,6 +326,12 @@ interface MultiSelectOptions {
     enableCaseInsensitiveFiltering?: boolean;
 
     /**
+     * The filter as configured above will use accent sensitive filtering, 
+     * by setting enableAccentInsensitiveFiltering to true this behavior can be changed to use accent insensitive filtering.
+     */
+    enableAccentInsensitiveFiltering?: boolean;
+
+    /**
      * Set to true to enable full value filtering, that is all options are shown where the query is a prefix of. 
      */
     enableFullValueFiltering?: boolean;
