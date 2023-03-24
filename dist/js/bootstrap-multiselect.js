@@ -456,7 +456,7 @@
             buttonTextAlignment: 'center',
             enableResetButton: false,
             templates: {
-                button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                button: '<button type="button" class="form-select multiselect dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 popupContainer: '<div class="multiselect-container dropdown-menu"></div>',
                 filter: '<div class="multiselect-filter d-flex align-items-center"><i class="fas fa-sm fa-search text-muted"></i><input type="search" class="multiselect-search form-control" /></div>',
                 buttonGroup: '<div class="multiselect-buttons btn-group" style="display:flex;"></div>',
