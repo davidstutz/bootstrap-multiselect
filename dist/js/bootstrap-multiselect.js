@@ -562,6 +562,31 @@
                     'overflow-y': 'auto',
                     'overflow-x': 'hidden'
                 });
+                // Set min width to 90% of height if height is specified without width
+                if (!this.options.minWidth){
+                    this.$popupContainer.css({
+                        'min-width': this.options.maxHeight * 0.90 +"px"
+                    })
+                }
+            }
+            // Set min height of dropdown menu if specified
+            if (this.options.minHeight) {
+                this.$popupContainer.css({
+                    'min-height': this.options.minHeight +"px"
+                })
+            }
+            // Set max width of dropdown menu if specified.
+            if (this.options.maxWidth) {
+                this.$popupContainer.css({
+                    'max-width': this.options.maxWidth +"px",
+                    'overflow-x': 'hidden'
+                })
+            }
+            // Set min width of dropdown menu if specified.
+            if (this.options.minWidth) {
+                this.$popupContainer.css({
+                    'min-width': this.options.minWidth +"px"
+                })
             }
 
             if (this.options.widthSynchronizationMode !== 'never') {
