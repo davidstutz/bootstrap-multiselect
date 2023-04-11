@@ -562,7 +562,7 @@
                     'overflow-y': 'auto',
                     'overflow-x': 'hidden'
                 });
-                // Set min width to 90% of height if height is specified without width
+                // Set min width to 90% of height if maxHeight is specified without width
                 if (!this.options.minWidth){
                     this.$popupContainer.css({
                         'min-width': this.options.maxHeight * 0.90 +"px"
@@ -574,6 +574,12 @@
                 this.$popupContainer.css({
                     'min-height': this.options.minHeight +"px"
                 })
+                // Set min width to 90% of height if minHeight is specified without width
+                if (!this.options.minWidth){
+                    this.$popupContainer.css({
+                        'min-width': this.options.maxHeight * 0.90 +"px"
+                    })
+                }
             }
             // Set max width of dropdown menu if specified.
             if (this.options.maxWidth) {
