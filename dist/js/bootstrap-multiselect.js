@@ -52,7 +52,7 @@
         // Browser globals
         factory(root.jQuery, root.ko);
     }
-})(this, function ($, ko) {
+})(globalThis || this, function ($, ko) {
     "use strict";// jshint ;_;
 
     if (typeof ko !== 'undefined' && ko.bindingHandlers && !ko.bindingHandlers.multiselect) {
