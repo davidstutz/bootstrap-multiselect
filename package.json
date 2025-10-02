@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-multiselect",
   "version": "1.1.1",
-  "description": "JQuery multiselect plugin based on Twitter Bootstrap.",
+  "description": "JQuery multiselect plugin based on Bootstrap.",
   "main": "dist/js/bootstrap-multiselect.js",
   "directories": {
     "doc": "docs",
@@ -27,6 +27,6 @@
   "homepage": "http://davidstutz.github.io/bootstrap-multiselect/",
   "dependencies": {
     "jquery": ">= 2.2.4",
-    "bootstrap": "~4.5.x"
+    "bootstrap": "~5.3.x"
   }
 }

@@ -413,7 +413,7 @@ describe('Bootstrap Multiselect "Single Selection".', function () {
                 expect($(this).prop('checked')).toBe(true);
             }
             else {
-                expect($(this).prop('checked')).toBe(false);    
+                expect($(this).prop('checked')).toBe(false);
                 $('#multiselect').multiselect('select', this.value);
 
                 expect($('#multiselect option:selected').length).toBe(1);
@@ -424,20 +424,20 @@ describe('Bootstrap Multiselect "Single Selection".', function () {
     });
 
     it('Method "selectAll" should not work.', function () {
-        expect($('#multiselect option:selected').length).toBe(1);        
+        expect($('#multiselect option:selected').length).toBe(1);
         $('#multiselect').multiselect('selectAll', false);
         expect($('#multiselect option:selected').length).toBe(1);
     });
 
     it('Method "deselectAll" should not work.', function () {
-        expect($('#multiselect option:selected').length).toBe(1);        
+        expect($('#multiselect option:selected').length).toBe(1);
         $('#multiselect').multiselect('deselectAll', false);
         expect($('#multiselect option:selected').length).toBe(1);
     });
 
     it('Method "deselect" should not work.', function () {
         var selectedOptions = $('#multiselect option:selected');
-        expect(selectedOptions.length).toBe(1);        
+        expect(selectedOptions.length).toBe(1);
         $('#multiselect').multiselect('deselect', selectedOptions.val());
         expect($('#multiselect option:selected').length).toBe(1);
     });
@@ -446,7 +446,7 @@ describe('Bootstrap Multiselect "Single Selection".', function () {
         var selectedOption = $("#multiselect").closest(".multiselect-native-select")
             .find(".multiselect-container :radio:checked").closest(".multiselect-option");
         expect(selectedOption.length).toBe(1);
-        
+
         selectedOption.click();
         expect(selectedOption.find(":radio").prop('checked')).toBe(true);
     });
@@ -1980,7 +1980,7 @@ describe('Bootstrap Multiselect "Reset Button+Select All+Filter".', function() {
             $('#multiselect-container input[value="1"]').trigger('click');
             $('#multiselect-container input[value="9"]').trigger('click');
             expect($('#multiselect option:selected').length).toBe(4);
-            
+
             $('#multiselect-container .multiselect-buttons .multiselect-reset').click();
             expect($('#multiselect option:selected').length).toBe(2);
 
@@ -2022,7 +2022,7 @@ describe('Bootstrap Multiselect "Reset Button+Select All+Filter".', function() {
             }
             expect($('#multiselect option:selected').length).toBe(9);
             expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(true);
-            
+
             $('#multiselect-container .multiselect-buttons .multiselect-reset').click();
             expect($('#multiselect option:selected').length).toBe(2);
             expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
@@ -2061,7 +2061,7 @@ describe('Bootstrap Multiselect "Reset Button+Select All+Filter".', function() {
 
             $('#multiselect-container input[value="multiselect-all"]').trigger('click');
             expect($('#multiselect option:selected').length).toBe(3);
-            
+
             $('#multiselect-container .multiselect-buttons .multiselect-reset').click();
             expect($('#multiselect option:selected').length).toBe(2);
             expect($('#multiselect-container input[value="multiselect-all"]').prop('checked')).toBe(false);
@@ -2615,7 +2615,7 @@ describe('Knockout Binding.', function () {
 
         // no options are present since myOptions was empty
         expect($testArea.find('option').length).toEqual(0);
-        expect($testArea.val()).toEqual(null);
+        expect($testArea.val()).toEqual([]);
 
         expect($testArea.next().find('button.multiselect').text().trim()).toEqual('None selected');
         expect($testArea.next().find('.multiselect-option').length).toEqual(0);

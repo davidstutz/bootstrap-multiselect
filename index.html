@@ -7,14 +7,11 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-
-
         <link rel="stylesheet" href="docs/css/bootstrap-example.min.css" type="text/css">
         <link rel="stylesheet" href="docs/css/prettify.min.css" type="text/css">
         <link rel="stylesheet" href="docs/css/fontawesome-5.15.1-web/all.css" type="text/css">
 
-        <script type="text/javascript" src="docs/js/jquery-2.2.4.min.js"></script>
-
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
         <script type="text/javascript" src="docs/js/prettify.min.js"></script>
@@ -38,31 +35,35 @@
             }
         </style>
     </head>
-    <body data-spy="scroll" data-target="#affix" style="font-size:14px;">
-        <a href="https://github.com/davidstutz/bootstrap-multiselect">
-            <img style="position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
-        </a>
+    <body data-bs-spy="scroll" data-bs-target="#affix" style="font-size:14px;">
+        <div class="float-end p-3">
+            <a href="https://github.com/davidstutz/bootstrap-multiselect" class="btn btn-secondary">
+                Fork me on GitHub
+            </a>
+        </div>
 
         <div class="container">
             <div class="row">
                 <div class="col-md-3 pt-4" id="affix">
                     <nav class="bg-light navbar navbar-light position-fixed">
-                        <div class="navbar-nav">
-                            <a class="nav-link" href="#getting-started">Getting Started</a>
-                            <a class="nav-link" href="#configuration-options">Configuration Options</a>
-                            <a class="nav-link" href="#templates">Templates</a>
-                            <a class="nav-link" href="#styling">Styling</a>
-                            <a class="nav-link" href="#methods">Methods</a>
-                            <a class="nav-link" href="#further-examples">Further Examples</a>
-                            <a class="nav-link" href="#post">Server-Side Processing</a>
-                            <a class="nav-link" href="#validation">Validation</a>
-                            <a class="nav-link" href="#keyboard-support">Keyboard Support</a>
-                            <a class="nav-link" href="require.html">Require JS</a>
-                            <a class="nav-link" href="#faq">Frequently Asked Questions</a>
-                            <a class="nav-link" href="#known-issues">Known Issues</a>
-                            <a class="nav-link" href="tests/SpecRunner.html">Tests</a>
-                            <a class="nav-link" href="#migration">Migrating to Bootstrap v4</a>
-                            <a class="nav-link" href="#license">License</a>
+                        <div class="container-fluid">
+                            <div class="navbar-nav">
+                                <a class="nav-link" href="#getting-started">Getting Started</a>
+                                <a class="nav-link" href="#configuration-options">Configuration Options</a>
+                                <a class="nav-link" href="#templates">Templates</a>
+                                <a class="nav-link" href="#styling">Styling</a>
+                                <a class="nav-link" href="#methods">Methods</a>
+                                <a class="nav-link" href="#further-examples">Further Examples</a>
+                                <a class="nav-link" href="#post">Server-Side Processing</a>
+                                <a class="nav-link" href="#validation">Validation</a>
+                                <a class="nav-link" href="#keyboard-support">Keyboard Support</a>
+                                <a class="nav-link" href="require.html">Require JS</a>
+                                <a class="nav-link" href="#faq">Frequently Asked Questions</a>
+                                <a class="nav-link" href="#known-issues">Known Issues</a>
+                                <a class="nav-link" href="tests/SpecRunner.html">Tests</a>
+                                <a class="nav-link" href="#migration">Migrating to Bootstrap v4/v5</a>
+                                <a class="nav-link" href="#license">License</a>
+                            </div>
                         </div>
                     </nav>
                 </div>
@@ -104,11 +105,11 @@
                             <h3>Link the Required Files</h3>
 
                             <p>
-                                First, the <a href="https://jquery.com/" target="_blank">jQuery</a> library needs to be included. Then <a href="https://getbootstrap.com" target="_blank">Twitter Bootstrap</a> - both the Javascript library and the CSS stylesheet - needs to be included.
+                                First, the <a href="https://jquery.com/" target="_blank">jQuery</a> library needs to be included. Then <a href="https://getbootstrap.com" target="_blank">Bootstrap</a> - both the Javascript library and the CSS stylesheet - needs to be included.
                             </p>
 
 <pre class="prettyprint linenums">
-&lt;!-- Include Twitter Bootstrap and jQuery: --&gt;
+&lt;!-- Include Bootstrap and jQuery: --&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;css/bootstrap.min.css&quot; type=&quot;text/css&quot;/&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
 &lt;script type=&quot;text/javascript&quot; src=&quot;js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
@@ -142,7 +143,7 @@
 &lt;select id=&quot;example-getting-started&quot; multiple=&quot;multiple&quot;&gt;
     &lt;option value=&quot;cheese&quot;&gt;Cheese&lt;/option&gt;
     &lt;option value=&quot;tomatoes&quot;&gt;Tomatoes&lt;/option&gt;
-    &lt;option value=&quot;mozarella&quot;&gt;Mozzarella&lt;/option&gt;
+    &lt;option value=&quot;mozzarella&quot;&gt;Mozzarella&lt;/option&gt;
     &lt;option value=&quot;mushrooms&quot;&gt;Mushrooms&lt;/option&gt;
     &lt;option value=&quot;pepperoni&quot;&gt;Pepperoni&lt;/option&gt;
     &lt;option value=&quot;onions&quot;&gt;Onions&lt;/option&gt;
@@ -200,97 +201,97 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><a href="#configuration-options-multiple"><code class="badge badge-secondary">multiple</code></a></td>
-                                <td><a href="#configuration-options-enableHTML"><code class="badge badge-secondary">enableHTML</code></a></td>
-                                <td><a href="#configuration-options-enableClickableOptGroups"><code class="badge badge-secondary">enableClickableOptGroups</code></a></td>
+                                <td><a href="#configuration-options-multiple"><code class="badge bg-secondary">multiple</code></a></td>
+                                <td><a href="#configuration-options-enableHTML"><code class="badge bg-secondary">enableHTML</code></a></td>
+                                <td><a href="#configuration-options-enableClickableOptGroups"><code class="badge bg-secondary">enableClickableOptGroups</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-enableCollapsibleOptGroups"><code class="badge badge-secondary">enableCollapsibleOptGroups</code></a></td>
-                                <td><a href="#configuration-options-collapseOptGroupsByDefault"><code class="badge badge-secondary">collapseOptGroupsByDefault</code></a></td>
-                                <td><a href="#configuration-options-disableIfEmpty"><code class="badge badge-secondary">disableIfEmpty</code></a></td>
+                                <td><a href="#configuration-options-enableCollapsibleOptGroups"><code class="badge bg-secondary">enableCollapsibleOptGroups</code></a></td>
+                                <td><a href="#configuration-options-collapseOptGroupsByDefault"><code class="badge bg-secondary">collapseOptGroupsByDefault</code></a></td>
+                                <td><a href="#configuration-options-disableIfEmpty"><code class="badge bg-secondary">disableIfEmpty</code></a></td>
                             </tr>
-                                <td><a href="#configuration-options-disabledText"><code class="badge badge-secondary">disabledText</code></a></td>
-                                <td><a href="#configuration-options-dropRight"><code class="badge badge-secondary">dropRight</code></a></td>
-                                <td><a href="#configuration-options-dropUp"><code class="badge badge-secondary">dropUp</code></a></td>
-                            </tr>
-                            <tr>
-                                <td><a href="#configuration-options-maxHeight"><code class="badge badge-secondary">maxHeight</code></a></td>
-                                <td><a href="#configuration-options-checkboxName"><code class="badge badge-secondary">checkboxName</code></a></td>
-                                <td><a href="#configuration-options-onChange"><code class="badge badge-secondary">onChange</code></a></td>
+                                <td><a href="#configuration-options-disabledText"><code class="badge bg-secondary">disabledText</code></a></td>
+                                <td><a href="#configuration-options-dropRight"><code class="badge bg-secondary">dropRight</code></a></td>
+                                <td><a href="#configuration-options-dropUp"><code class="badge bg-secondary">dropUp</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-onInitialized"><code class="badge badge-secondary">onInitialized</code></a></td>
-                                <td><a href="#configuration-options-onDropdownShow"><code class="badge badge-secondary">onDropdownShow</code></a></td>
-                                <td><a href="#configuration-options-onDropdownHide"><code class="badge badge-secondary">onDropdownHide</code></a></td>
+                                <td><a href="#configuration-options-maxHeight"><code class="badge bg-secondary">maxHeight</code></a></td>
+                                <td><a href="#configuration-options-checkboxName"><code class="badge bg-secondary">checkboxName</code></a></td>
+                                <td><a href="#configuration-options-onChange"><code class="badge bg-secondary">onChange</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-onDropdownShown"><code class="badge badge-secondary">onDropdownShown</code></a></td>
-                                <td><a href="#configuration-options-onDropdownHidden"><code class="badge badge-secondary">onDropdownHidden</code></a></td>
-                                <td><a href="#configuration-options-buttonClass"><code class="badge badge-secondary">buttonClass</code></a></td>
+                                <td><a href="#configuration-options-onInitialized"><code class="badge bg-secondary">onInitialized</code></a></td>
+                                <td><a href="#configuration-options-onDropdownShow"><code class="badge bg-secondary">onDropdownShow</code></a></td>
+                                <td><a href="#configuration-options-onDropdownHide"><code class="badge bg-secondary">onDropdownHide</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-inheritClass"><code class="badge badge-secondary">inheritClass</code></a></td>
-                                <td><a href="#configuration-options-buttonContainer"><code class="badge badge-secondary">buttonContainer</code></a></td>
-                                <td><a href="#configuration-options-buttonWidth"><code class="badge badge-secondary">buttonWidth</code></a></td>
+                                <td><a href="#configuration-options-onDropdownShown"><code class="badge bg-secondary">onDropdownShown</code></a></td>
+                                <td><a href="#configuration-options-onDropdownHidden"><code class="badge bg-secondary">onDropdownHidden</code></a></td>
+                                <td><a href="#configuration-options-buttonClass"><code class="badge bg-secondary">buttonClass</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-buttonText"><code class="badge badge-secondary">buttonText</code></a></td>
-                                <td><a href="#configuration-options-buttonTitle"><code class="badge badge-secondary">buttonTitle</code></a></td>
-                                <td><a href="#configuration-options-nonSelectedText"><code class="badge badge-secondary">nonSelectedText</code></a></td>
+                                <td><a href="#configuration-options-inheritClass"><code class="badge bg-secondary">inheritClass</code></a></td>
+                                <td><a href="#configuration-options-buttonContainer"><code class="badge bg-secondary">buttonContainer</code></a></td>
+                                <td><a href="#configuration-options-buttonWidth"><code class="badge bg-secondary">buttonWidth</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-nSelectedText"><code class="badge badge-secondary">nSelectedText</code></a></td>
-                                <td><a href="#configuration-options-allSelectedText"><code class="badge badge-secondary">allSelectedText</code></a></td>
-                                <td><a href="#configuration-options-numberDisplayed"><code class="badge badge-secondary">numberDisplayed</code></a></td>
+                                <td><a href="#configuration-options-buttonText"><code class="badge bg-secondary">buttonText</code></a></td>
+                                <td><a href="#configuration-options-buttonTitle"><code class="badge bg-secondary">buttonTitle</code></a></td>
+                                <td><a href="#configuration-options-nonSelectedText"><code class="badge bg-secondary">nonSelectedText</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-delimiterText"><code class="badge badge-secondary">delimiterText</code></a></td>
-                                <td><a href="#configuration-options-optionLabel"><code class="badge badge-secondary">optionLabel</code></a></td>
-                                <td><a href="#configuration-options-optionClass"><code class="badge badge-secondary">optionClass</code></a></td>
+                                <td><a href="#configuration-options-nSelectedText"><code class="badge bg-secondary">nSelectedText</code></a></td>
+                                <td><a href="#configuration-options-allSelectedText"><code class="badge bg-secondary">allSelectedText</code></a></td>
+                                <td><a href="#configuration-options-numberDisplayed"><code class="badge bg-secondary">numberDisplayed</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-indentGroupOptions"><code class="badge badge-secondary">indentGroupOptions</code></a></td>
-                                <td><a href="#configuration-options-selectedClass"><code class="badge badge-secondary">selectedClass</code></a></td>
-                                <td><a href="#configuration-options-includeSelectAllOption"><code class="badge badge-secondary">includeSelectAllOption</code></a></td>
+                                <td><a href="#configuration-options-delimiterText"><code class="badge bg-secondary">delimiterText</code></a></td>
+                                <td><a href="#configuration-options-optionLabel"><code class="badge bg-secondary">optionLabel</code></a></td>
+                                <td><a href="#configuration-options-optionClass"><code class="badge bg-secondary">optionClass</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-selectAllJustVisible"><code class="badge badge-secondary">selectAllJustVisible</code></a></td>
-                                <td><a href="#configuration-options-selectAllText"><code class="badge badge-secondary">selectAllText</code></a></td>
-                                <td><a href="#configuration-options-selectAllValue"><code class="badge badge-secondary">selectAllValue</code></a></td>
+                                <td><a href="#configuration-options-indentGroupOptions"><code class="badge bg-secondary">indentGroupOptions</code></a></td>
+                                <td><a href="#configuration-options-selectedClass"><code class="badge bg-secondary">selectedClass</code></a></td>
+                                <td><a href="#configuration-options-includeSelectAllOption"><code class="badge bg-secondary">includeSelectAllOption</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-selectAllName"><code class="badge badge-secondary">selectAllName</code></a></td>
-                                <td><a href="#configuration-options-selectAllNumber"><code class="badge badge-secondary">selectAllNumber</code></a></td>
-                                <td><a href="#configuration-options-onSelectAll"><code class="badge badge-secondary">onSelectAll</code></a></td>
+                                <td><a href="#configuration-options-selectAllJustVisible"><code class="badge bg-secondary">selectAllJustVisible</code></a></td>
+                                <td><a href="#configuration-options-selectAllText"><code class="badge bg-secondary">selectAllText</code></a></td>
+                                <td><a href="#configuration-options-selectAllValue"><code class="badge bg-secondary">selectAllValue</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-onDeselectAll"><code class="badge badge-secondary">onDeselectAll</code></a></td>
-                                <td><a href="#configuration-options-enableFiltering"><code class="badge badge-secondary">enableFiltering</code></a></td>
-                                <td><a href="#configuration-options-includeFilterClearBtn"><code class="badge badge-secondary">includeFilterClearBtn</code></a></td>
+                                <td><a href="#configuration-options-selectAllName"><code class="badge bg-secondary">selectAllName</code></a></td>
+                                <td><a href="#configuration-options-selectAllNumber"><code class="badge bg-secondary">selectAllNumber</code></a></td>
+                                <td><a href="#configuration-options-onSelectAll"><code class="badge bg-secondary">onSelectAll</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-enableCaseInsensitiveFiltering"><code class="badge badge-secondary">enableCaseInsensitiveFiltering</code></a></td>
-                                <td><a href="#configuration-options-enableFullValueFiltering"><code class="badge badge-secondary">enableFullValueFiltering</code></a></td>
-                                <td><a href="#configuration-options-filterBehavior"><code class="badge badge-secondary">filterBehavior</code></a></td>
+                                <td><a href="#configuration-options-onDeselectAll"><code class="badge bg-secondary">onDeselectAll</code></a></td>
+                                <td><a href="#configuration-options-enableFiltering"><code class="badge bg-secondary">enableFiltering</code></a></td>
+                                <td><a href="#configuration-options-includeFilterClearBtn"><code class="badge bg-secondary">includeFilterClearBtn</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-filterPlaceholder"><code class="badge badge-secondary">filterPlaceholder</code></a></td>
-                                <td><a href="#configuration-options-includeResetOption"><code class="badge badge-secondary">includeResetOption</code></a></td>
-                                <td><a href="#configuration-options-includeResetDivider"><code class="badge badge-secondary">includeResetDivider</code></a></td>
+                                <td><a href="#configuration-options-enableCaseInsensitiveFiltering"><code class="badge bg-secondary">enableCaseInsensitiveFiltering</code></a></td>
+                                <td><a href="#configuration-options-enableFullValueFiltering"><code class="badge bg-secondary">enableFullValueFiltering</code></a></td>
+                                <td><a href="#configuration-options-filterBehavior"><code class="badge bg-secondary">filterBehavior</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-resetText"><code class="badge badge-secondary">resetText</code></a></td>
-                                <td><a href="#configuration-options-widthSynchronizationMode"><code class="badge badge-secondary">widthSynchronizationMode</code></a></td>
-                                <td><a href="#configuration-options-buttonTextAlignment"><code class="badge badge-secondary">buttonTextAlignment</code></a></td>
+                                <td><a href="#configuration-options-filterPlaceholder"><code class="badge bg-secondary">filterPlaceholder</code></a></td>
+                                <td><a href="#configuration-options-includeResetOption"><code class="badge bg-secondary">includeResetOption</code></a></td>
+                                <td><a href="#configuration-options-includeResetDivider"><code class="badge bg-secondary">includeResetDivider</code></a></td>
                             </tr>
                             <tr>
-                                <td><a href="#configuration-options-enableResetButton"><code class="badge badge-secondary">enableResetButton</code></a></td>
-                                <td><a href="#configuration-options-resetButtonText"><code class="badge badge-secondary">resetButtonText</code></a></td>
+                                <td><a href="#configuration-options-resetText"><code class="badge bg-secondary">resetText</code></a></td>
+                                <td><a href="#configuration-options-widthSynchronizationMode"><code class="badge bg-secondary">widthSynchronizationMode</code></a></td>
+                                <td><a href="#configuration-options-buttonTextAlignment"><code class="badge bg-secondary">buttonTextAlignment</code></a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#configuration-options-enableResetButton"><code class="badge bg-secondary">enableResetButton</code></a></td>
+                                <td><a href="#configuration-options-resetButtonText"><code class="badge bg-secondary">resetButtonText</code></a></td>
                             </tr>
                         </tbody>
                     </table>
 
-                    <p><b>Unofficial pluguins:</b></p>
+                    <p><b>Unofficial plugins:</b></p>
 
                     <ul>
                         <li><a href="https://github.com/jorgelf/bootstrap-multiselect-showselected" target="_blank">jorgelf/bootstrap-multiselect-showselected</a>: move selected options to the top of the list</li>
@@ -1419,10 +1420,6 @@ $(document).ready(function() {
                                         A callback called when the dropdown is shown.
                                     </p>
 
-                                    <p class="alert alert-warning">
-                                        The <code>onDropdownShow</code> option is not available when using Twitter Bootstrap 2.3.
-                                    </p>
-
                                     <div class="example">
                                         <script type="text/javascript">
                                             $(document).ready(function() {
@@ -1462,10 +1459,6 @@ $(document).ready(function() {
                                 <td>
                                     <p>
                                         A callback called when the dropdown is closed.
-                                    </p>
-
-                                    <p class="alert alert-warning">
-                                        The <code>onDropdownHide</code> option is not available when using Twitter Bootstrap 2.3.
                                     </p>
 
                                     <div class="example">
@@ -1508,11 +1501,6 @@ $(document).ready(function() {
                                     <p>
                                         A callback called <i>after</i> the dropdown has been shown.
                                     </p>
-
-                                    <p class="alert alert-warning">
-                                        The <code>onDropdownShown</code> option is not available when using Twitter Bootstrap 2.3.
-                                    </p>
-
                                     <div class="example">
                                         <script type="text/javascript">
                                             $(document).ready(function() {
@@ -1552,10 +1540,6 @@ $(document).ready(function() {
                                 <td>
                                     <p>
                                         A callback called <i>after</i> the dropdown has been closed.
-                                    </p>
-
-                                    <p class="alert alert-warning">
-                                        The <code>onDropdownHidden</code> option is not available when using Twitter Bootstrap 2.3.
                                     </p>
 
                                     <div class="example">
@@ -2557,7 +2541,7 @@ $(document).ready(function() {
                                     <div class="example">
                                         <script type="text/javascript">
                                             $(document).ready(function() {
-                                                $('#example-includeSelectAllOption-disbled').multiselect({
+                                                $('#example-includeSelectAllOption-disabled').multiselect({
                                                     includeSelectAllOption: true
                                                 });
                                             });
@@ -2575,7 +2559,7 @@ $(document).ready(function() {
 <pre class="prettyprint linenums">
 &lt;script type="text/javascript"&gt;
     $(document).ready(function() {
-        $('#example-includeSelectAllOption-disbled').multiselect({
+        $('#example-includeSelectAllOption-disabled').multiselect({
             includeSelectAllOption: true
         });
     });
@@ -2789,7 +2773,7 @@ $(document).ready(function() {
                                 </td>
                                 <td>
                                     <p>
-                                        If set to <code>true</code> (default), the number of selected options will be shown in parantheses when all options are seleted. The below example shows the behavior of the selectalloption with <code>selectAllNumber</code> set to <code>false</code>:
+                                        If set to <code>true</code> (default), the number of selected options will be shown in parentheses when all options are selected. The below example shows the behavior of the selectalloption with <code>selectAllNumber</code> set to <code>false</code>:
                                     </p>
 
                                     <div class="example">
@@ -4000,15 +3984,15 @@ $(document).ready(function() {
     $(document).ready(function() {
         $('#example').multiselect({
             templates: {
-                button: '&lt;button type=&quot;button&quot; class=&quot;multiselect dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;span class=&quot;multiselect-selected-text&quot;&gt;&lt;/span&gt;&lt;/button&gt;',
+                button: '&lt;button type=&quot;button&quot; class=&quot;multiselect form-select dropdown-toggle&quot; data-bs-toggle=&quot;dropdown&quot;&gt;&lt;span class=&quot;multiselect-selected-text&quot;&gt;&lt;/span&gt;&lt;/button&gt;',
                 popupContainer: '&lt;div class=&quot;multiselect-container dropdown-menu&quot;&gt;&lt;/div&gt;',
-                filter: '&lt;div class=&quot;multiselect-filter d-flex align-items-center&quot;&gt;&lt;i class=&quot;fas fa-sm fa-search text-muted&quot;&gt;&lt;/i&gt;&lt;input type=&quot;search&quot; class=&quot;multiselect-search form-control&quot; /&gt;&lt;/div&gt;',
+                filter: '&lt;div class=&quot;multiselect-filter d-flex align-items-center&quot;&gt;&lt;i class=&quot;fas fa-sm fa-search text-body-secondary&quot;&gt;&lt;/i&gt;&lt;input type=&quot;search&quot; class=&quot;multiselect-search form-control&quot; /&gt;&lt;/div&gt;',
                 buttonGroup: '&lt;div class=&quot;multiselect-buttons btn-group&quot; style=&quot;display:flex;&quot;&gt;&lt;/div&gt;',
-                buttonGroupReset: '&lt;button type=&quot;button&quot; class=&quot;multiselect-reset btn btn-secondary btn-block&quot;&gt;&lt;/button&gt;',
+                buttonGroupReset: '&lt;button type=&quot;button&quot; class=&quot;multiselect-reset btn btn-secondary w-100&quot;&gt;&lt;/button&gt;',
                 option: '&lt;button type=&quot;button&quot; class=&quot;multiselect-option dropdown-item&quot;&gt;&lt;/button&gt;',
                 divider: '&lt;div class=&quot;dropdown-divider&quot;&gt;&lt;/div&gt;',
                 optionGroup: '&lt;button type=&quot;button&quot; class=&quot;multiselect-group dropdown-item&quot;&gt;&lt;/button&gt;',
-                resetButton: '&lt;div class=&quot;multiselect-reset text-center p-2&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-sm btn-block btn-outline-secondary&quot;&gt;&lt;/button&gt;&lt;/div&gt;'
+                resetButton: '&lt;div class=&quot;multiselect-reset text-center p-2&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-sm w-100 btn-outline-secondary&quot;&gt;&lt;/button&gt;&lt;/div&gt;'
             }
         });
     });
@@ -4026,7 +4010,7 @@ $(document).ready(function() {
                                     buttonContainer: '<div></div>',
                                     buttonClass: '',
                                     templates: {
-                                        button: '<span class="multiselect dropdown-toggle" data-toggle="dropdown">Click me!</span>'
+                                        button: '<span class="multiselect dropdown-toggle" data-bs-toggle="dropdown">Click me!</span>'
                                     }
                                 });
                             });
@@ -4056,7 +4040,7 @@ $(document).ready(function() {
             buttonContainer: '',
             buttonClass: '',
             templates: {
-                button: '&lt;span class=&quot;multiselect dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;Click me!&lt;/span&gt;'
+                button: '&lt;span class=&quot;multiselect dropdown-toggle&quot; data-bs-toggle=&quot;dropdown&quot;&gt;Click me!&lt;/span&gt;'
             }
         });
     });
@@ -4142,7 +4126,7 @@ $(document).ready(function() {
         &lt;/span&gt;
     &lt;/a&gt;
     &lt;div class=&quot;multiselect-reset text-center p-2&quot;&gt;
-        &lt;a class=&quot;btn btn-sm btn-block btn-outline-secondary&quot;&gt;Reset&lt;/a&gt;
+        &lt;a class=&quot;btn btn-sm w-100 btn-outline-secondary&quot;&gt;Reset&lt;/a&gt;
     &lt;/div&gt;
     &lt;div class=&quot;multiselect-item dropdown-divider mt-0&quot;&gt;&lt;/div&gt;
     &lt;a class=&quot;multiselect-item multiselect-group dropdown-item&quot;&gt;
@@ -4480,7 +4464,7 @@ $(document).ready(function() {
                                     </div>
 
                                     <p>
-                                        The above parameter does also work when selecting multipe values. Note that <code>onChange</code> is called for each selected option individually!
+                                        The above parameter does also work when selecting multiple values. Note that <code>onChange</code> is called for each selected option individually!
                                     </p>
 
                                     <div class="example">
@@ -4726,7 +4710,7 @@ $(document).ready(function() {
                                 </td>
                                 <td>
                                     <p>
-                                        Selects all options. If <code>justVisible</code> is set to <code>true</code> or not provided, all visible options are selected (when using the filter), otherweise (<code>justVisible</code> set to <code>false</code>) all options are selected.
+                                        Selects all options. If <code>justVisible</code> is set to <code>true</code> or not provided, all visible options are selected (when using the filter), otherwise (<code>justVisible</code> set to <code>false</code>) all options are selected.
                                     </p>
 
                                     <p class="alert alert-info">
@@ -4734,7 +4718,7 @@ $(document).ready(function() {
                                     </p>
 
                                     <p class="alert alert-info">
-                                        <code>.multiselec('selectAll', justVisible)</code> is not supported in single selection mode.
+                                        <code>.multiselect('selectAll', justVisible)</code> is not supported in single selection mode.
                                     </p>
 
                                     <div class="example">
@@ -4791,7 +4775,7 @@ $(document).ready(function() {
                                 </td>
                                 <td>
                                     <p>
-                                        Deselects all options. If <code>justVisible</code> is set to <code>true</code> or not provided, all visible options are deselected, otherweise (<code>justVisible</code> set to <code>false</code>) all options are deselected.
+                                        Deselects all options. If <code>justVisible</code> is set to <code>true</code> or not provided, all visible options are deselected, otherwise (<code>justVisible</code> set to <code>false</code>) all options are deselected.
                                     </p>
 
                                     <p class="alert alert-info">
@@ -4799,7 +4783,7 @@ $(document).ready(function() {
                                     </p>
 
                                     <p class="alert alert-info">
-                                        <code>.multiselec('deselectAll', justVisible)</code> is not supported in single selection mode.
+                                        <code>.multiselect('deselectAll', justVisible)</code> is not supported in single selection mode.
                                     </p>
 
                                     <div class="example">
@@ -5845,13 +5829,13 @@ $(document).ready(function() {
         $('#example-modal').multiselect();
     });
 &lt;/script&gt;
-&lt;button class=&quot;btn btn-outline-secondary&quot; data-toggle=&quot;modal&quot; data-target=&quot;#example-modal-modal&quot;&gt;Launch modal&lt;/button&gt;
+&lt;button class=&quot;btn btn-outline-secondary&quot; data-bs-toggle=&quot;modal&quot; data-bs-target=&quot;#example-modal-modal&quot;&gt;Launch modal&lt;/button&gt;
 &lt;div class=&quot;modal fade&quot; id=&quot;example-modal-modal&quot;&gt;
     &lt;div class=&quot;modal-dialog&quot;&gt;
         &lt;div class=&quot;modal-content&quot;&gt;
             &lt;div class=&quot;modal-header&quot;&gt;
                 &lt;h5 class=&quot;modal-title&quot;&gt;Bootstrap Multiselect&lt;/h5&gt;
-                &lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&times;&lt;/span&gt;&lt;span class=&quot;sr-only&quot;&gt;Close&lt;/span&gt;&lt;/button&gt;
+                &lt;button type=&quot;button&quot; class=&quot;btn-close&quot; data-bs-dismiss=&quot;modal&quot; aria-label=&quot;close&quot;&gt;&lt;/button&gt;
             &lt;/div&gt;
             &lt;div class=&quot;modal-body&quot;&gt;
                 &lt;select id=&quot;example-modal&quot; multiple=&quot;multiple&quot;&gt;
@@ -5887,7 +5871,7 @@ $(document).ready(function() {
                             <div class="card" style="overflow: visible;">
                                 <div class="card-header">
                                     <h2 class="mb-0">
-                                        <button class="btn btn-link btn-block text-start" data-toggle="collapse" data-target="#example-collapse-accordion-one">
+                                        <button class="btn btn-link w-100 text-start" data-bs-toggle="collapse" data-bs-target="#example-collapse-accordion-one">
                                             Bootstrap Multiselect
                                         </button>
                                     </h2>
@@ -5918,7 +5902,7 @@ $(document).ready(function() {
     &lt;div class=&quot;card&quot; style=&quot;overflow:visible;&quot;&gt;
         &lt;div class=&quot;card-header&quot;&gt;
             &lt;h2 class=&quot;mb-0&quot;&gt;
-                &lt;button class=&quot;btn btn-link btn-block text-left&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#example-collapse-accordion-one&quot;&gt;
+                &lt;button class=&quot;btn btn-link w-100 text-start&quot; data-bs-toggle=&quot;collapse&quot; data-bs-target=&quot;#example-collapse-accordion-one&quot;&gt;
                     Bootstrap Multiselect
                 &lt;/button&gt;
             &lt;/h2&gt;
@@ -6824,7 +6808,7 @@ $(document).ready(function() {
                         </div>
                         <div class="input-group input-group-sm mt-2">
                             <span class="input-group-text">Prepend</span>
-                            <select id="example-input-group-sm" multiple="multipe">
+                            <select id="example-input-group-sm" multiple="multiple">
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
                                 <option value="3">Option 3</option>
@@ -6845,9 +6829,7 @@ $(document).ready(function() {
 &lt;/script&gt;
 
 &lt;div class=&quot;input-group&quot;&gt;
-    &lt;div class=&quot;input-group-prepend&quot;&gt;
-        &lt;span class&quot;input-group-text&quot;&gt;Prepend&lt;/span&gt;
-    &lt;/div&gt;
+    &lt;span class&quot;input-group-text&quot;&gt;Prepend&lt;/span&gt;
     &lt;select id=&quot;example-input-group&quot; multiple=&quot;multiple&quot;&gt;
         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
@@ -6856,15 +6838,11 @@ $(document).ready(function() {
         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
         &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
     &lt;/select&gt;
-    &lt;div class=&quot;input-group-append&quot;&gt;
-        &lt;span class&quot;input-group-text&quot;&gt;Append&lt;/span&gt;
-    &lt;/div&gt;
+    &lt;span class&quot;input-group-text&quot;&gt;Append&lt;/span&gt;
 &lt;/div&gt;
 
 &lt;div class=&quot;input-group input-group-sm mt-2&quot;&gt;
-    &lt;div class=&quot;input-group-prepend&quot;&gt;
-        &lt;span class&quot;input-group-text&quot;&gt;Prepend&lt;/span&gt;
-    &lt;/div&gt;
+    &lt;span class&quot;input-group-text&quot;&gt;Prepend&lt;/span&gt;
     &lt;select id=&quot;example-input-group-sm&quot; multiple=&quot;multiple&quot;&gt;
         &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
         &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
@@ -6873,9 +6851,7 @@ $(document).ready(function() {
         &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
         &lt;option value=&quot;6&quot;&gt;Option 6&lt;/option&gt;
     &lt;/select&gt;
-    &lt;div class=&quot;input-group-append&quot;&gt;
-        &lt;span class&quot;input-group-text&quot;&gt;Append&lt;/span&gt;
-    &lt;/div&gt;
+    &lt;span class&quot;input-group-text&quot;&gt;Append&lt;/span&gt;
 &lt;/div&gt;
 </pre>
                     </div>
@@ -7356,9 +7332,9 @@ validator.settings.ignore = ':hidden:not(".multiselect")';
                             This issue is mainly due to the default behavior of most browsers. A workaround can be found here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/129">#129</a>.
                         </dd>
 
-                        <dt>Which are the minimum required components of Twitter Botostrap to get the plugin working?</dt>
+                        <dt>Which are the minimum required components of Bootstrap to get the plugin working?</dt>
                         <dd>
-                            The plugin needs at least the styles for forms and dropdowns. In addition the JavaScript dropdown plugin from Twitter Bootstrap is required. Details can be found here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/344">#344</a>.
+                            The plugin needs at least the styles for forms and dropdowns. In addition the JavaScript dropdown plugin from Bootstrap is required. Details can be found here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/344">#344</a>.
                         </dd>
 
                         <dt>How to use the <code>.multiselect('dataprovider', data)</code> method?</dt>
@@ -7430,8 +7406,8 @@ optionLabel: function(element){
                             <p>The plugin depends upon the following standard knockout bindings: <code>options</code>, <code>value</code>, <code>selectedOptions</code>, <code>enable</code>, <code>disable</code>. When these options change, they will update the internal <code>select</code> element and <code>.multiselect('refresh')</code> is triggered.
                             <ul>
                                 <li><code>options</code>: when <code>options</code> is an observable and changes, the <code>option</code>'s inside the <code>select</code> are updated by knockout and the plugin refreshes.</li>
-                                <li><code>value</code>: can only be used in single selection mode; Knockout does not support using the value binding handler to update a <code>select</code> with <code>multiple=&quotmultiple&quot;</code>.</li>
-                                <li><code>selectedOptions</code>: this is a standard knockout binding that updates the checked options inside the <code>select</code> element; use with <code>multiple=&quotmultiple&quot;</code>.</li>
+                                <li><code>value</code>: can only be used in single selection mode; Knockout does not support using the value binding handler to update a <code>select</code> with <code>multiple=&quot;multiple&quot;</code>.</li>
+                                <li><code>selectedOptions</code>: this is a standard knockout binding that updates the checked options inside the <code>select</code> element; use with <code>multiple=&quot;multiple&quot;</code>.</li>
                                 <li><code>enable</code>: enable the plugin.</li>
                                 <li><code>disable</code>: disable the plugin.</li>
                             </ul>
@@ -7458,7 +7434,7 @@ optionLabel: function(element){
                             This issue was discussed here: <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/576">#576</a>
                         </dd>
 
-                        <dt>How to focus on search/fiter input on dropdown open?</dt>
+                        <dt>How to focus on search/filter input on dropdown open?</dt>
                         <dd>
                             This issue is discussed in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/615">#615</a> and <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/153">#153</a>.
                         </dd>
@@ -7500,8 +7476,18 @@ $("#example").multiselect();
                     </p>
 
                     <div class="page-header">
-                        <h2 id="migration">Migrating to Bootstrap v4</h2>
+                        <h2 id="migration">Migrating to Bootstrap v4 and v5</h2>
                     </div>
+
+                    <p>For migrating to Bootstrap v5 see the <a href="https://getbootstrap.com/docs/5.3/migration/">Bootstrap migration guide</a>.</p>
+                    <p>Only a few minor changes to templates may be needed, such as:</p>
+                    <ul>
+                        <li>The button template should have <code>form-select</code> added to the button's class.</li>
+                        <li>Bootstrap <code>data-*</code> attributes are now <code>data-bs-*</code></li>
+                        <li><code>text-muted</code> class is now <code>text-body-secondary</code></li>
+                        <li><code>btn-block</code> no longer exists but <code>w-100</code> should work instead</li>
+                        <li><code>text-right</code> and <code>text-left</code> are now <code>text-end</code> and <code>text-start</code>, respectively</li>
+                    </ul>
 
                     <p>
                         For migrating your project to Bootstrap v4 follow the instructions from <a href="https://getbootstrap.com/docs/4.5/migration/">Bootstrap</a>.
@@ -7511,7 +7497,7 @@ $("#example").multiselect();
                     <p>
                         In Bootstrap v4 Dropdown menus are no longer created with <code>ul</code>s and <code>li</code>s but with <code>div</code>s and <code>a</code>s.
                         The Dropdown of the multiselect was changed to work in the same way like it is recommended by Bootstrap.
-                        To make template names indepedent of the concrete HTML structure they were also adapted:
+                        To make template names independent of the concrete HTML structure they were also adapted:
                         <ul>
                             <li>The template <code>ul</code> was renamed to <code>popupContainer</code></li>
                             <li>The template <code>li</code> was renamed to <code>option</code></li>
