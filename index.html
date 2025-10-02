@@ -5,13 +5,18 @@
         <meta name="robots" content="noindex, nofollow" />
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
-        <link rel="stylesheet" href="docs/css/bootstrap-4.5.2.min.css" type="text/css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+
         <link rel="stylesheet" href="docs/css/bootstrap-example.min.css" type="text/css">
         <link rel="stylesheet" href="docs/css/prettify.min.css" type="text/css">
         <link rel="stylesheet" href="docs/css/fontawesome-5.15.1-web/all.css" type="text/css">
 
         <script type="text/javascript" src="docs/js/jquery-2.2.4.min.js"></script>
-        <script type="text/javascript" src="docs/js/bootstrap.bundle-4.5.2.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
         <script type="text/javascript" src="docs/js/prettify.min.js"></script>
 
         <link rel="stylesheet" href="dist/css/bootstrap-multiselect.css" type="text/css">
@@ -61,8 +66,8 @@
                         </div>
                     </nav>
                 </div>
-                <div class="col-md-9 pt-4"> 
-                    <div class="pb-2 mb-2 border-bottom"> 
+                <div class="col-md-9 pt-4">
+                    <div class="pb-2 mb-2 border-bottom">
                         <h1>Bootstrap Multiselect</h1>
                     </div>
 
@@ -71,8 +76,8 @@
                     </p>
 
                     <p class="alert alert-info">
-                        Please consult the <a href="#faq">FAQ</a>, the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a> 
-                        or <a href="http://stackoverflow.com/questions/tagged/bootstrap-multiselect">Stack Overflow</a> before creating a new issue; when 
+                        Please consult the <a href="#faq">FAQ</a>, the <a href="https://github.com/davidstutz/bootstrap-multiselect/issues">Issue Tracker</a>
+                        or <a href="http://stackoverflow.com/questions/tagged/bootstrap-multiselect">Stack Overflow</a> before creating a new issue; when
                         creating an issue or a pull request, read <a href="#how-to-contribute">how to contribute</a> first.
                     </p>
 
@@ -900,7 +905,7 @@ $(document).ready(function() {
                                     <p>This option will collapse all <code>optgroup</code>s by default.</p>
 
                                     <p class="alert alert-info">There is also an example in the <a href="#further-examples">Further Examples</a> section demonstrating an alternative way of collapsing <code>optgroups</code> by default.</a></p>
-                                
+
                                     <div class="example">
                                             <script type="text/javascript">
                                                 $(document).ready(function() {
@@ -3647,7 +3652,7 @@ $(document).ready(function() {
                                                 </select>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="mb-2">
                                             <label><code>ifPopupIsSmaller</code></label>
                                             <div>
@@ -3667,7 +3672,7 @@ $(document).ready(function() {
                                                 </select>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="mb-2">
                                             <label><code>ifPopupIsWider</code></label>
                                             <div>
@@ -3762,7 +3767,7 @@ $(document).ready(function() {
         &lt;/select&gt;
     &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="mb-2"&gt;    
+&lt;div class="mb-2"&gt;
     &lt;label&gt;ifPopupIsSmaller&lt;/label&gt;
     &lt;div&gt;
         &lt;select id="example-widthSynchronizationModeIfSmaller1" multiple="multiple"&gt;
@@ -4157,7 +4162,7 @@ $(document).ready(function() {
         &lt;/span&gt;
     &lt;/a&gt;
     &lt;a class=&quot;multiselect-item multiselect-group dropdown-item&quot;&gt;
-        &lt;input type=&quot;checkbox&quot; value=&quot;undefined&quot;&gt; 
+        &lt;input type=&quot;checkbox&quot; value=&quot;undefined&quot;&gt;
         Vegetables
         &lt;span class=&quot;caret-container dropdown-toggle pl-1&quot;&gt;&lt;/span&gt;
     &lt;/a&gt;
@@ -5334,7 +5339,7 @@ $(document).ready(function() {
                                             <div class="input-group ml-1">
                                                 <input id="new-all-selected-text-box" type="text" class="form-control" placeholder="Enter new text"/>
                                                 <div class="input-group-append">
-                                                    <button id="new-all-selected-text-btn" type="button" class="btn btn-primary">Change All Selected Text</button>                                                                                
+                                                    <button id="new-all-selected-text-btn" type="button" class="btn btn-primary">Change All Selected Text</button>
                                                 </div>
                                             </div>
                                     </div>
@@ -5811,15 +5816,13 @@ $(document).ready(function() {
                                 $('#example-modal').multiselect();
                             });
                         </script>
-                        <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#example-modal-modal">Launch modal</button>
+                        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#example-modal-modal">Launch modal</button>
                         <div class="modal fade" id="example-modal-modal">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Bootstrap Multiselect</h5>
-                                        <button type="button" class="close" data-dismiss="modal">
-                                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                                        </button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <select id="example-modal" multiple="multiple">
@@ -5884,7 +5887,7 @@ $(document).ready(function() {
                             <div class="card" style="overflow: visible;">
                                 <div class="card-header">
                                     <h2 class="mb-0">
-                                        <button class="btn btn-link btn-block text-left" data-toggle="collapse" data-target="#example-collapse-accordion-one">
+                                        <button class="btn btn-link btn-block text-start" data-toggle="collapse" data-target="#example-collapse-accordion-one">
                                             Bootstrap Multiselect
                                         </button>
                                     </h2>
@@ -6200,7 +6203,7 @@ $(document).ready(function() {
 </pre>
 
                     <p>
-                        The following example illsutrates how to disable options using JavaScript.
+                        The following example illustrates how to disable options using JavaScript.
                     </p>
 
                     <div class="example">
@@ -6230,15 +6233,16 @@ $(document).ready(function() {
                                 });
                             });
                         </script>
-                        <select id="example-disable-javascript" multiple="multiple">
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                            <option value="4">Option 4</option>
-                            <option value="5">Option 5</option>
-                            <option value="6">Option 6</option>
-                        </select>
+
                         <div class="btn-group ml-1" id="example-disable-javascript-container">
+                            <select id="example-disable-javascript" multiple="multiple">
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                                <option value="5">Option 5</option>
+                                <option value="6">Option 6</option>
+                            </select>
                             <button id="example-disable-javascript-disable" class="btn btn-outline-secondary">Disable an option!</button>
                             <button id="example-disable-javascript-check" class="btn btn-outline-secondary">Check</button>
                         </div>
@@ -6807,9 +6811,7 @@ $(document).ready(function() {
                             });
                         </script>
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Prepend</span>
-                            </div>
+                            <span class="input-group-text">Prepend</span>
                             <select id="example-input-group" multiple="multiple">
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
@@ -6818,14 +6820,10 @@ $(document).ready(function() {
                                 <option value="5">Option 5</option>
                                 <option value="6">Option 6</option>
                             </select>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Append</span>
-                            </div>
+                            <span class="input-group-text">Append</span>
                         </div>
                         <div class="input-group input-group-sm mt-2">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Prepend</span>
-                            </div>
+                            <span class="input-group-text">Prepend</span>
                             <select id="example-input-group-sm" multiple="multipe">
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
@@ -6834,9 +6832,7 @@ $(document).ready(function() {
                                 <option value="5">Option 5</option>
                                 <option value="6">Option 6</option>
                             </select>
-                            <div class="input-group-append">
-                                <span class="input-group-text">Append</span>
-                            </div>
+                            <span class="input-group-text">Append</span>
                         </div>
                     </div>
                     <div class="highlight">
@@ -6885,55 +6881,9 @@ $(document).ready(function() {
                     </div>
 
                     <p>
-                       The select can also be used inside of <code>form-group</code>s. The <code>buttonContainer</code> just needs to be extended with the class <code>w-100</code>:
-                    </p>
-
-                    <div class="example">
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $('#example-form-group').multiselect({
-                                    buttonContainer: '<div class="btn-group w-100" />'
-                                });
-                            });
-                        </script>
-                        <div class="form-group">
-                            <label for="example-form-group">Select</label>
-                            <select id="example-form-group" multiple="multiple">
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                                <option value="4">Option 4</option>
-                                <option value="5">Option 5</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="highlight">
-<pre class="prettyprint linenums">
-&lt;script type=&quot;text/javascript&quot;&gt;
-    $(document).ready(function() {
-        $('#example-form-group').multiselect({
-            buttonContainer: '&lt;div class=&quot;btn-group w-100&quot; /&gt;'
-        });
-    });
-&lt;/script&gt;
-
-&lt;div class=&quot;form-group&quot;&gt;
-    &lt;label for&quot;example-form-group&quot;&gt;Select&lt;/label&gt;
-    &lt;select id=&quot;example-form-group&quot; multiple=&quot;multiple&quot;&gt;
-        &lt;option value=&quot;1&quot;&gt;Option 1&lt;/option&gt;
-        &lt;option value=&quot;2&quot;&gt;Option 2&lt;/option&gt;
-        &lt;option value=&quot;3&quot;&gt;Option 3&lt;/option&gt;
-        &lt;option value=&quot;4&quot;&gt;Option 4&lt;/option&gt;
-        &lt;option value=&quot;5&quot;&gt;Option 5&lt;/option&gt;
-    &lt;/select&gt;
-&lt;/div&gt;
-</pre>
-                    </div>
-
-                    <p>
                         This examples shows how to make the filter/search input stick to the top:
                     </p>
- 
+
                      <div class="example">
                             <script type="text/javascript">
                                 $(document).ready(function() {
@@ -6985,7 +6935,7 @@ $(document).ready(function() {
         })
      });
  &lt;/script&gt;
- 
+
  &lt;div class=&quot;form-group&quot;&gt;
      &lt;label for&quot;example-form-group&quot;&gt;Select&lt;/label&gt;
      &lt;select id=&quot;example-form-group&quot; multiple=&quot;multiple&quot;&gt;
@@ -7219,7 +7169,7 @@ $(document).ready(function() {
                     <div class="page-header">
                         <h2 id="validation">Validation</h2>
                     </div>
-                    
+
                     <p>The <code>required</code> attribute is supported:</p>
 
                     <div class="example">
@@ -7237,7 +7187,7 @@ $(document).ready(function() {
                                 <option value="5">Option 5</option>
                                 <option value="6">Option 6</option>
                             </select>
-    
+
                             <button class="btn btn-primary" type="submit">Submit</button>
                         </form>
                     </div>
@@ -7537,7 +7487,7 @@ $("#example").multiselect();
 
                         <dt>How to move selected options to the top of the list?</dt>
                         <dd>
-                            Follow the discussion in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/436">#436</a> and the unofficial plugin <a href="https://github.com/jorgelf/bootstrap-multiselect-showselected">here</a>. 
+                            Follow the discussion in <a href="https://github.com/davidstutz/bootstrap-multiselect/issues/436">#436</a> and the unofficial plugin <a href="https://github.com/jorgelf/bootstrap-multiselect-showselected">here</a>.
                         </dd>
                     </dl>
 
@@ -7604,12 +7554,12 @@ $(document).ready(function() {
 &lt;/script&gt;
 </pre>
                         </div>
-                        
+
                     </p>
 
                     <h3>Colors</h3>
                     <p>
-                        In Chrome checked checkboxes are highlighted in blue and also in Bootstrap v4 active dropdown items have a blue color. This led to the situation that checked checkboxes were almost not visible anymore. 
+                        In Chrome checked checkboxes are highlighted in blue and also in Bootstrap v4 active dropdown items have a blue color. This led to the situation that checked checkboxes were almost not visible anymore.
                         Therefore the active color for dropdown items was changed a light grey.
                         If you would like to use the Bootstrap default color you can use the <code>selectedClass</code> option with the value <code>multiselect-active-item-fallback</code>:
 
@@ -7640,7 +7590,7 @@ $(document).ready(function() {
 &lt;/script&gt;
 </pre>
                         </div>
-                        
+
                     </p>
 
                     <h3>Fonts</h3>
