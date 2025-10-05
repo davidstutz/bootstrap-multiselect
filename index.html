@@ -102,6 +102,17 @@
 
                     <ol>
                         <li>
+                            <h3>Select the right version</h3>
+
+                            <p>
+                                Go to the <a href="https://github.com/davidstutz/bootstrap-multiselect/releases" target="_blank">repository's releases</a> and select the appropriate release for you to use:
+                                <ul>
+                                    <li><a href="https://github.com/davidstutz/bootstrap-multiselect/releases/tag/v1.1.2" href="_blank">v1.1.2</a> is the latest <b>Bootstrap 4</b> release.</li>
+                                    <li><a href="https://github.com/davidstutz/bootstrap-multiselect/releases/tag/v2.0.0" href="_blank">v2.0.0</a> is the latest <b>Bootstrap 5</b> release.</li>
+                                </ul>
+                            </p>
+                        </li>
+                        <li>
                             <h3>Link the Required Files</h3>
 
                             <p>
@@ -120,11 +131,14 @@
 </pre>
 
                             <p>
-                                The jQuery library can also be included using a CDN, for example the <a href="https://developers.google.com/speed/libraries/devguide?hl=de&csw=1#jquery">Google CDN</a>:
+                                These can also be included using CDNs (as in this <code>index.html</code>):
                             </p>
 
 <pre class="prettyprint linenums">
-&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"&gt;&lt;/script&gt;
+&lt;link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;  ...&gt;
+
+&lt;script src=&quot;https://code.jquery.com/jquery-3.7.1.min.js&quot; ...&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js&quot; ...&gt;&lt;/script&gt;
 </pre>
 
                             <p class="alert alert-info">
@@ -184,6 +198,13 @@
 &lt;/script&gt;
 </pre>
                             </div>
+                        </li>
+                        <li>
+                            <h3>Configure the Plugin</h3>
+
+                            <p>Check the <a href="#configuration-options">configuration options</a> below to customize your multiselect.</p>
+
+                            <p>If there are customization options you find are missing, check out the <a href="https://github.com/davidstutz/bootstrap-multiselect/pulls" target="_blank">pull requests</a> or <a href="https://github.com/davidstutz/bootstrap-multiselect/issues" target="_blank">issues</a> for more community-built solutions.</p>
                         </li>
                     </ol>
 
@@ -1046,7 +1067,7 @@ $(document).ready(function() {
                                     </div>
 
                                     <p>
-                                        Note that selected options will still be shown:
+                                        Note that selected options will be ignored:
                                     </p>
 
                                     <div class="example">

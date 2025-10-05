@@ -1,4 +1,4 @@
-// Type definitions for bootstrap-multiselect v1.1.1
+// Type definitions for bootstrap-multiselect v2.0.0
 // Project: https://github.com/davidstutz/bootstrap-multiselect
 // Definitions initially by: Makoto Schoppert <https://github.com/mak0t0san>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

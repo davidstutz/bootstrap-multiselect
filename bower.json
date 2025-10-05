@@ -22,7 +22,7 @@
     "./dist/css/bootstrap-multiselect.min.css",
     "./dist/less/bootstrap-multiselect.less",
     "LICENSE.md",
-    "READMEREADME.md"
+    "README.md"
   ],
   "dependencies": {
     "jquery": ">= 2.2.4",
