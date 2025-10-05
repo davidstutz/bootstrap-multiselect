@@ -456,15 +456,15 @@
             buttonTextAlignment: 'center',
             enableResetButton: false,
             templates: {
-                button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
+                button: '<button type="button" class="multiselect form-select dropdown-toggle" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
                 popupContainer: '<div class="multiselect-container dropdown-menu"></div>',
-                filter: '<div class="multiselect-filter d-flex align-items-center"><i class="fas fa-sm fa-search text-muted"></i><input type="search" class="multiselect-search form-control" /></div>',
+                filter: '<div class="multiselect-filter d-flex align-items-center"><i class="fas fa-sm fa-search text-body-secondary"></i><input type="search" class="multiselect-search form-control" /></div>',
                 buttonGroup: '<div class="multiselect-buttons btn-group" style="display:flex;"></div>',
-                buttonGroupReset: '<button type="button" class="multiselect-reset btn btn-secondary btn-block"></button>',
+                buttonGroupReset: '<button type="button" class="multiselect-reset btn btn-secondary w-100"></button>',
                 option: '<button type="button" class="multiselect-option dropdown-item"></button>',
                 divider: '<div class="dropdown-divider"></div>',
                 optionGroup: '<button type="button" class="multiselect-group dropdown-item"></button>',
-                resetButton: '<div class="multiselect-reset text-center p-2"><button type="button" class="btn btn-sm btn-block btn-outline-secondary"></button></div>'
+                resetButton: '<div class="multiselect-reset text-center p-2"><button type="button" class="btn btn-sm w-100 btn-outline-secondary"></button></div>'
             }
         },
 
@@ -519,13 +519,13 @@
             if (this.options.buttonTextAlignment) {
                 switch (this.options.buttonTextAlignment) {
                     case 'left':
-                        this.$button.addClass('text-left');
+                        this.$button.addClass('text-start');
                         break;
                     case 'center':
                         this.$button.addClass('text-center');
                         break;
                     case 'right':
-                        this.$button.addClass('text-right');
+                        this.$button.addClass('text-end');
                         break;
                 }
             }
@@ -548,7 +548,7 @@
             this.$popupContainer = $(this.options.templates.popupContainer);
 
             if (this.options.dropRight) {
-                this.$container.addClass('dropright');
+                this.$container.addClass('dropend');
             }
             else if (this.options.dropUp) {
                 this.$container.addClass("dropup");
@@ -909,7 +909,7 @@
             }
 
             if (this.options.enableCollapsibleOptGroups) {
-                let clickableSelector = this.options.enableClickableOptGroups 
+                let clickableSelector = this.options.enableClickableOptGroups
                     ? ".multiselect-group .caret-container"
                     : ".multiselect-group";
 
@@ -936,11 +936,11 @@
 
         /**
          * Create a checkbox container with input and label based on given values
-         * @param {JQuery} $item 
-         * @param {String} label 
-         * @param {String} name 
-         * @param {String} value 
-         * @param {String} inputType 
+         * @param {JQuery} $item
+         * @param {String} label
+         * @param {String} name
+         * @param {String} value
+         * @param {String} inputType
          * @returns {JQuery}
          */
         createCheckbox: function ($item, labelContent, name, value, title, inputType, internalId) {
@@ -999,7 +999,7 @@
             if (isGroupOption && this.options.indentGroupOptions) {
                 if (this.options.enableCollapsibleOptGroups) {
                     $option.addClass("multiselect-group-option-indented-full")
-                } 
+                }
                 else {
                     $option.addClass("multiselect-group-option-indented");
                 }
@@ -1177,7 +1177,7 @@
                     this.$filter = $(this.options.templates.filter);
                     $('input', this.$filter).attr('placeholder', this.options.filterPlaceholder);
 
-                    // Handles optional filter clear button                        
+                    // Handles optional filter clear button
                     if (!this.options.includeFilterClearBtn) {
                         this.$filter.find(".multiselect-search").attr("type", "text");
 
@@ -1187,7 +1187,7 @@
                     else {
                         // Firefox does not support a clear button in search inputs right now therefore it must be added manually
                         if (this.isFirefox() && this.$filter.find(".multiselect-clear-filter").length === 0) {
-                            this.$filter.append("<i class='fas fa-times text-muted multiselect-clear-filter multiselect-moz-clear-filter'></i>");
+                            this.$filter.append("<i class='fas fa-times text-body-secondary multiselect-clear-filter multiselect-moz-clear-filter'></i>");
                         }
 
                         this.$filter.find(".multiselect-clear-filter").on('click', $.proxy(function (event) {
@@ -1741,7 +1741,7 @@
             }
 
             if (this.options.dropRight) {
-                this.$container.addClass('dropright');
+                this.$container.addClass('dropend');
             }
             else if (this.options.dropUp) {
                 this.$container.addClass('dropup');
@@ -1958,7 +1958,7 @@
 
         /**
          * Gets a select option by its id
-         * @param {String} id 
+         * @param {String} id
          * @returns {JQuery}
          */
         getOptionById: function (id) {
@@ -2022,7 +2022,7 @@
 
         /**
          * Generate a unique identifier inside the multiselect namespace and adds it as an data attribute to the related element
-         * @param {JQuery} $relatedElement 
+         * @param {JQuery} $relatedElement
          * @returns unique id
          */
         createAndApplyUniqueId: function ($relatedElement) {
