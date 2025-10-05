@@ -1149,7 +1149,7 @@
                     this.$popupContainer.prepend($(this.options.templates.divider));
                 }
 
-                var $option = $(this.options.templates.li || this.options.templates.option);
+                var $option = $(this.options.templates.option);
                 var $checkbox = this.createCheckbox($option, this.options.selectAllText, this.options.selectAllName,
                     this.options.selectAllValue, this.options.selectAllText, "checkbox", this.createAndApplyUniqueId(null));
 

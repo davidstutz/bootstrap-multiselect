@@ -57,10 +57,10 @@
                                 <a class="nav-link" href="#post">Server-Side Processing</a>
                                 <a class="nav-link" href="#validation">Validation</a>
                                 <a class="nav-link" href="#keyboard-support">Keyboard Support</a>
-                                <a class="nav-link" href="require.html">Require JS</a>
+                                <a class="nav-link" target="_blank" href="require.html">Require JS</a>
                                 <a class="nav-link" href="#faq">Frequently Asked Questions</a>
                                 <a class="nav-link" href="#known-issues">Known Issues</a>
-                                <a class="nav-link" href="tests/SpecRunner.html">Tests</a>
+                                <a class="nav-link" target="_blank" href="tests/SpecRunner.html">Tests</a>
                                 <a class="nav-link" href="#migration">Migrating to Bootstrap v4/v5</a>
                                 <a class="nav-link" href="#license">License</a>
                             </div>
@@ -2546,7 +2546,7 @@ $(document).ready(function() {
                                                 });
                                             });
                                         </script>
-                                        <select id="example-includeSelectAllOption-disbled" multiple="multiple">
+                                        <select id="example-includeSelectAllOption-disabled" multiple="multiple">
                                             <option value="1" disabled="disabled">Option 1</option>
                                             <option value="2" disabled="disabled" selected>Option 2</option>
                                             <option value="3">Option 3</option>
@@ -3449,6 +3449,42 @@ $(document).ready(function() {
 &lt;/script&gt;
 </pre>
                                     </div>
+
+                                    <p>
+                                        Note that if some options are pre-selected, the reset option also unselects these:
+                                    </p>
+
+                                    <div class="example">
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#example-include-reset-option-pre').multiselect({
+                                                    includeResetOption: true
+                                                });
+                                            });
+                                        </script>
+
+                                        <select id="example-include-reset-option-pre" multiple="multiple">
+                                            <option value="a" selected>Option 1</option>
+                                            <option value="b">Option 2</option>
+                                            <option value="c" selected>Option 3</option>
+                                        </select>
+                                    </div>
+                                    <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;select id=&quot;example-include-reset-option-pre&quot; multiple=&quot;multiple&quot;&gt;
+    &lt;option value=&quot;a&quot; selected&gt;Option 1&lt;/option&gt;
+    &lt;option value=&quot;b&quot;&gt;Option 2&lt;/option&gt;
+    &lt;option value=&quot;c&quot; selected&gt;Option 3&lt;/option&gt;
+&lt;/select>
+&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $('#example-include-reset-option-pre').multiselect({
+            includeResetOption: true
+        });
+    });
+&lt;/script&gt;
+</pre>
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -4054,49 +4090,6 @@ $(document).ready(function() {
 &lt;/style&gt;
 </pre>
                     </div>
-
-                    <p>
-                        The most interesting template is the <code>li</code> template as it allows to customize the displayed options; for example (see <a href="https://github.com/davidstutz/bootstrap-multiselect/pull/738">#738</a> for details) to include input elements in the options:
-                    </p>
-
-                    <div class="example">
-                        <script type="text/javascript">
-                            $(document).ready(function() {
-                                $('#example-templates-input').multiselect({
-                                    templates: {
-                                        li: '<a class="multiselect-option dropdown-item"><input type="text" /></a>'
-                                    }
-                                });
-                            });
-                        </script>
-                        <style type="text/css">
-                            span.multiselect {
-                                padding: 2px 6px;
-                                font-weight: bold;
-                                cursor: pointer;
-                            }
-                        </style>
-                        <select id="example-templates-input" multiple="multiple">
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                            <option value="4">Option 4</option>
-                            <option value="5">Option 5</option>
-                            <option value="6">Option 6</option>
-                        </select>
-                    </div>
-                    <div class="highlight">
-<pre class="prettyprint linenums">
-&lt;script type=&quot;text/javascript&quot;&gt;
-    $(document).ready(function() {
-        $('#example-templates-input').multiselect({
-            templates: {
-                li: '&lt;a class&quot;multiselect-option dropdown-item&quot;&gt;&lt;a&gt;&lt;label style=&quot;display:inline;&quot;&gt;&lt;/label&gt;&lt;input type=&quot;text&quot; /&gt;&lt;/a&gt;&lt;/a&gt;'
-            }
-        });
-    });
-&lt;/script&gt;
-</pre>
 
                     <div class="page-header">
                         <h2 id="styling">Styling</h2>
