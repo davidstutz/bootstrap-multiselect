@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Bootstrap Multiselect – Animated Checkbox Demo</title>
+ <link rel="stylesheet" href="docs/css/fontawesome-5.15.1-web/all.css" type="text/css">
+<!-- Bootstrap 4.6 -->
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+<!-- Plugin CSS -->
+<link rel="stylesheet" href="./dist/css/bootstrap-multiselect.css">
+
+<style>
+/* ===============================
+   DEMO LAYOUT & TYPOGRAPHY
+   =============================== */
+
+body {
+    padding: 32px;
+    background: #f4f6f8;
+    font-size: 14px;
+}
+
+h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.demo-box {
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.demo-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+/* ===============================
+   THEME OVERRIDES
+   =============================== */
+
+.theme-blue .ms-animated-checkbox.ms-checkbox-basic,
+.theme-blue .ms-animated-checkbox.ms-checkbox-stroke {
+    --ms-checkbox-active: #0d6efd;
+}
+
+.theme-green .ms-animated-checkbox.ms-checkbox-basic,
+.theme-green .ms-animated-checkbox.ms-checkbox-stroke {
+    --ms-checkbox-active: #198754;
+}
+
+.theme-teal .ms-animated-checkbox.ms-checkbox-basic,
+.theme-teal .ms-animated-checkbox.ms-checkbox-stroke {
+    --ms-checkbox-active: teal;
+}
+
+.theme-purple .ms-animated-checkbox.ms-checkbox-basic,
+.theme-purple .ms-animated-checkbox.ms-checkbox-stroke {
+    --ms-checkbox-active: #6f42c1;
+}
+
+.theme-dark .ms-animated-checkbox.ms-checkbox-basic,
+.theme-dark .ms-animated-checkbox.ms-checkbox-stroke {
+    --ms-checkbox-active: #212529;
+    --ms-checkbox-border: #495057;
+    color: #212529;
+}
+
+
+.checkbox-size-25 .ms-animated-checkbox.ms-checkbox-basic,
+.checkbox-size-25 .ms-animated-checkbox.ms-checkbox-stroke  {
+    --ms-checkbox-size: 25px;
+}
+
+/* ===============================
+   DRAWER (BOOTSTRAP 4)
+   =============================== */
+
+.drawer-wrapper {
+    position: relative;
+}
+
+.drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: #fff;
+    border-right: 1px solid #dee2e6;
+    z-index: 1050;
+
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.drawer.show {
+    transform: translateX(0);
+}
+
+.drawer-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.drawer-body {
+    padding: 16px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.drawer-content {
+    padding: 16px;
+    color: #6c757d;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Bootstrap Multiselect – Animated Checkbox Demo</h1>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="demo-box theme-teal">
+                    <h5 class="demo-title">Basic  default checkbox – theme (Teal)</h5>
+                    <select multiple>
+                        <option>Apple</option>
+                        <option>Banana</option>
+                        <option>Orange</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="demo-box theme-teal checkbox-size-25">
+                    <h5 class="demo-title">Basic default checkbox – size (25px)</h5>
+                    <select multiple class="default-search">
+                        <option>Apple</option>
+                        <option>Banana</option>
+                        <option>Orange</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="demo-box theme-teal">
+                    <h5 class="demo-title">Basic animated checkbox – theme (Teal)</h5>
+                    <select multiple class="animated-checkbox">
+                        <option>Apple</option>
+                        <option>Banana</option>
+                        <option>Orange</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="demo-box theme-teal checkbox-size-25">
+                    <h5 class="demo-title">Basic animated checkbox – size (25px)</h5>
+                    <select multiple class="animated-checkbox">
+                        <option>Apple</option>
+                        <option>Banana</option>
+                        <option>Orange</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="demo-box">
+                    <h5 class="demo-title">Basic animation</h5>
+                    <select multiple id="ex-basic">
+                        <option>One</option>
+                        <option>Two</option>
+                        <option>Three</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="demo-box">
+                    <h5 class="demo-title">Stroke animation</h5>
+                    <select multiple id="ex-stroke">
+                        <option>Alpha</option>
+                        <option>Beta</option>
+                        <option>Gamma</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="demo-box theme-blue">
+                    <h5 class="demo-title">Stroke animation – Blue</h5>
+                    <select multiple id="ex-theme-blue">
+                        <option>North</option>
+                        <option>South</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="demo-box theme-green">
+                    <h5 class="demo-title">Stroke animation – Green</h5>
+                    <select multiple id="ex-theme-green">
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="demo-box">
+                    <h5 class="demo-title">Long labels</h5>
+                    <select multiple id="ex-long">
+                        <option>Very long option label that should wrap correctly</option>
+                        <option>Another extremely long label to test alignment</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="demo-box">
+                    <h5 class="demo-title">Disabled multiselect</h5>
+                    <select multiple id="ex-disabled" disabled>
+                        <option>A</option>
+                        <option>B</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="demo-box">
+                    <h5 class="demo-title">Filtering enabled</h5>
+                    <select multiple id="ex-filter">
+                        <option>Red</option>
+                        <option>Green</option>
+                        <option>Blue</option>
+                        <option>Yellow</option>
+                        <option>Purple</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="demo-box">
+                    <h5 class="demo-title">Scrollable dropdown (maxHeight)</h5>
+                    <select multiple class="ex-scroll">
+                        <option>Item 1</option><option>Item 2</option><option>Item 3</option>
+                        <option>Item 4</option><option>Item 5</option><option>Item 6</option>
+                        <option>Item 7</option><option>Item 8</option><option>Item 9</option>
+                        <option>Item 10</option><option>Item 11</option><option>Item 12</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-box theme-purple">
+            <h5 class="demo-title">Drawer panel (Basic animation)</h5>
+            <button class="btn btn-outline-primary mb-3"
+                    data-toggle="collapse"
+                    data-target="#filterDrawer">
+                Open Filters
+            </button>
+        </div>
+
+        <div class="drawer-wrapper theme-purple">
+            <aside id="filterDrawer" class="drawer collapse">
+                <div class="drawer-header">
+                    Filters
+                    <button class="close"
+                            data-toggle="collapse"
+                            data-target="#filterDrawer">&times;</button>
+                </div>
+                <div class="drawer-body">
+                    <select id="ms-drawer" multiple>
+                        <option>Open</option>
+                        <option>Closed</option>
+                        <option>Pending</option>
+                    </select>
+                </div>
+            </aside>
+        </div>
+
+
+
+
+        <div class="demo-box theme-dark">
+            <div class="demo-title">Inside modal</div>
+
+            <button class="btn btn-primary mb-3"
+                    data-toggle="modal"
+                    data-target="#msModal">
+                Open modal
+            </button>
+
+            <div class="modal fade" id="msModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal filters</h5>
+                            <button class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body" style="min-height:320px">
+                            <select id="ms-modal" multiple>
+                                <option>Option A</option>
+                                <option>Option B</option>
+                                <option>Option C</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<script src="./dist/js/bootstrap-multiselect.js"></script>
+
+<script>
+$(function () {
+
+    $('select:not([id]):not([class])').multiselect();
+
+    $('.default-search').multiselect({
+        enableFiltering: true,
+    });
+
+    $('.animated-checkbox').multiselect({
+        enableFiltering: true,
+        ui: { animatedCheckboxes: true }
+    });
+
+    $('#ex-basic').multiselect({ ui: { animatedCheckboxes: true } });
+
+    $('#ex-stroke').multiselect({
+        ui: { animatedCheckboxes: true, checkboxAnimation: 'stroke' }
+    });
+
+    $('#ex-long, #ex-disabled').multiselect({
+        ui: { animatedCheckboxes: true }
+    });
+
+    $('#ex-filter').multiselect({
+        enableFiltering: true,
+        ui: { animatedCheckboxes: true }
+    });
+
+    $('.ex-scroll').multiselect({
+        maxHeight: 150,
+        includeSelectAllOption: false,
+        ui: { animatedCheckboxes: true }
+    });
+
+    $('#ex-selectall, #ex-theme-blue').multiselect({
+        includeSelectAllOption: true,
+        ui: { animatedCheckboxes: true }
+    });
+
+    $('#ex-theme-green').multiselect({
+        ui: { animatedCheckboxes: true, checkboxAnimation: 'stroke' }
+    });
+
+    $('#ms-drawer').multiselect({
+        enableFiltering: true,
+        maxHeight: 180,
+        ui: { animatedCheckboxes: true }
+    });
+
+    $('#ms-modal').multiselect({
+        includeSelectAllOption: true,
+        ui: { animatedCheckboxes: true, checkboxAnimation: 'stroke' }
+    });
+});
+</script>
+
+</body>
+</html>

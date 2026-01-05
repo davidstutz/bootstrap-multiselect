@@ -190,6 +190,12 @@
         this.$select = $(select);
         this.options = this.mergeOptions($.extend({}, options, this.$select.data()));
 
+        //  UI Enhancement
+        this.ui = $.extend({
+            animatedCheckboxes: false,
+            checkboxAnimation: 'basic' ,  // 'basic' | 'stroke'
+        }, this.options.ui || {});
+
         // Placeholder via data attributes
         if (this.$select.attr("data-placeholder")) {
             this.options.nonSelectedText = this.$select.data("placeholder");
@@ -454,6 +460,11 @@
             widthSynchronizationMode: 'never',
             // possible options: 'left', 'center', 'right'
             buttonTextAlignment: 'center',
+            // UI Enhancement
+            ui: {
+                animatedCheckboxes: false,
+                checkboxAnimation: 'basic' , // 'basic' | 'stroke'
+            },
             enableResetButton: false,
             templates: {
                 button: '<button type="button" class="multiselect form-select dropdown-toggle" data-bs-toggle="dropdown"><span class="multiselect-selected-text"></span></button>',
@@ -475,6 +486,15 @@
          */
         buildContainer: function () {
             this.$container = $(this.options.buttonContainer);
+            // UI: animated checkbox support
+            if (this.ui && this.ui.animatedCheckboxes) {
+                this.$container.addClass('ms-animated-checkbox');
+                if (this.ui.checkboxAnimation === 'stroke') {
+                    this.$container.addClass('ms-checkbox-stroke');
+                } else {
+                    this.$container.addClass('ms-checkbox-basic');
+                }
+            }
             if (this.options.widthSynchronizationMode !== 'never') {
                 this.$container.on('show.bs.dropdown', $.proxy(function () {
                     // the width needs to be synchronized again in case the width of the button changed in between
@@ -959,6 +979,23 @@
             var $checkbox = $('<input class="form-check-input"/>').attr('type', inputType);
             $checkbox.val(value);
             $wrapper.prepend($checkbox);
+            // UI: animated checkbox (decorative)
+            if (this.ui.animatedCheckboxes) {
+                var $ani = $('<span/>', {
+                    class: 'ani-checkbox',
+                    'aria-hidden': 'true'
+                });
+            if (this.ui.checkboxAnimation !=="basic"){
+                // SVG checkmark (stroke-based)
+                var $svg = $(
+                    '<svg viewBox="0 0 12 9" class="ms-check" aria-hidden="true">' +
+                        '<path d="M1 5 L4.5 8 L11 1"></path>' +
+                    '</svg>'
+                );
+                $ani.append($svg);
+            }
+                $ani.insertAfter($checkbox);
+            }
 
             if (internalId) {
                 $checkbox.attr('id', internalId);
