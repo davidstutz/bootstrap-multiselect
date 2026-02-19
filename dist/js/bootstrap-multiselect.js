@@ -1424,7 +1424,7 @@
          * @param {Boolean} triggerOnChange
          */
         select: function (selectValues, triggerOnChange) {
-            if (!$.isArray(selectValues)) {
+            if (!Array.isArray(selectValues)) {
                 selectValues = [selectValues];
             }
 
@@ -1507,7 +1507,7 @@
                 return;
             }
 
-            if (!$.isArray(deselectValues)) {
+            if (!Array.isArray(deselectValues)) {
                 deselectValues = [deselectValues];
             }
 
@@ -1734,7 +1734,7 @@
             $.each(dataprovider, function (index, option) {
                 var $tag;
 
-                if ($.isArray(option.children)) { // create optiongroup tag
+                if (Array.isArray(option.children)) { // create optiongroup tag
                     groupCounter++;
 
                     $tag = $('<optgroup/>').attr({
