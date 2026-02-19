@@ -177,3 +177,116 @@ span.multiselect-native-select select {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
+/* animated checkbox logic */
+.ms-animated-checkbox.ms-checkbox-basic,
+.ms-animated-checkbox.ms-checkbox-stroke {
+  /* Core sizing */
+  --ms-checkbox-size: 16px;
+  /* Theme */
+  --ms-checkbox-border: currentColor;
+  --ms-checkbox-bg: #fff;
+  --ms-checkbox-active: currentColor;
+  --ms-checkbox-radius: 4px;
+}
+.ms-animated-checkbox.ms-checkbox-stroke {
+  --ms-stroke-length: calc(var(--ms-checkbox-size) * 1.25);
+}
+.ms-animated-checkbox.ms-checkbox-basic .multiselect-option .form-check,
+.ms-animated-checkbox.ms-checkbox-basic .multiselect-all .form-check,
+.ms-animated-checkbox.ms-checkbox-basic .multiselect-group .form-check,
+.ms-animated-checkbox.ms-checkbox-stroke .multiselect-option .form-check,
+.ms-animated-checkbox.ms-checkbox-stroke .multiselect-all .form-check,
+.ms-animated-checkbox.ms-checkbox-stroke .multiselect-group .form-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  padding-left: 0;
+}
+.ms-animated-checkbox.ms-checkbox-basic .form-check-input,
+.ms-animated-checkbox.ms-checkbox-stroke .form-check-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+/* Checkbox box */
+.ms-animated-checkbox.ms-checkbox-basic .ani-checkbox,
+.ms-animated-checkbox.ms-checkbox-stroke .ani-checkbox {
+  position: relative;
+  width: var(--ms-checkbox-size);
+  height: var(--ms-checkbox-size);
+  min-width: var(--ms-checkbox-size);
+  border: 1.5px solid var(--ms-checkbox-border);
+  border-radius: var(--ms-checkbox-radius);
+  background-color: var(--ms-checkbox-bg);
+  box-sizing: border-box;
+}
+.ms-animated-checkbox.ms-checkbox-basic .form-check-input:checked+.ani-checkbox,
+.ms-animated-checkbox.ms-checkbox-stroke .form-check-input:checked+.ani-checkbox {
+  border-color: var(--ms-checkbox-active);
+}
+.ms-animated-checkbox.ms-checkbox-basic .multiselect-option:hover .ani-checkbox,
+.ms-animated-checkbox.ms-checkbox-basic .multiselect-all:hover .ani-checkbox,
+.ms-animated-checkbox.ms-checkbox-basic .multiselect-group:hover .ani-checkbox,
+.ms-animated-checkbox.ms-checkbox-stroke .multiselect-option:hover .ani-checkbox,
+.ms-animated-checkbox.ms-checkbox-stroke .multiselect-all:hover .ani-checkbox,
+.ms-animated-checkbox.ms-checkbox-stroke .multiselect-group:hover .ani-checkbox {
+  box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 18%, transparent);
+}
+.ms-animated-checkbox.ms-checkbox-basic .form-check-input:focus-visible+.ani-checkbox,
+.ms-animated-checkbox.ms-checkbox-stroke .form-check-input:focus-visible+.ani-checkbox {
+  outline: 2px solid color-mix(in srgb, currentColor 40%, transparent);
+  outline-offset: 2px;
+}
+/* .ms-checkbox-basic */
+.ms-animated-checkbox.ms-checkbox-basic {
+  --ms-check-thickness: calc(var(--ms-checkbox-size) * 0.125);
+  --ms-check-width: calc(var(--ms-checkbox-size) * 0.30);
+  --ms-check-height: calc(var(--ms-checkbox-size) * 0.55);
+  --ms-check-left: calc(var(--ms-checkbox-size) * 0.28);
+  --ms-check-top: calc(var(--ms-checkbox-size) * 0.1);
+}
+.ms-animated-checkbox.ms-checkbox-basic .ani-checkbox::after {
+  content: "";
+  position: absolute;
+  top: var(--ms-check-top);
+  left: var(--ms-check-left);
+  width: var(--ms-check-width);
+  height: var(--ms-check-height);
+  border: solid var(--ms-checkbox-active);
+  border-width: 0 var(--ms-check-thickness) var(--ms-check-thickness) 0;
+  transform: rotate(45deg);
+  opacity: 0;
+}
+.ms-animated-checkbox.ms-checkbox-basic .form-check-input:checked+.ani-checkbox::after {
+  opacity: 1;
+}
+/* .ms-checkbox-stroke  */
+.ms-animated-checkbox.ms-checkbox-stroke .ani-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ms-animated-checkbox.ms-checkbox-stroke .ani-checkbox svg {
+  width: 70%;
+  height: 70%;
+}
+.ms-animated-checkbox.ms-checkbox-stroke .ani-checkbox path {
+  fill: none;
+  stroke: var(--ms-checkbox-active);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: var(--ms-stroke-length);
+  stroke-dashoffset: var(--ms-stroke-length);
+  transition: stroke-dashoffset 220ms ease;
+}
+.ms-animated-checkbox.ms-checkbox-stroke .form-check-input:checked+.ani-checkbox path {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ms-animated-checkbox.ms-checkbox-stroke .ani-checkbox path {
+    transition: none;
+  }
+}
