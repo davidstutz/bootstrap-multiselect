@@ -429,6 +429,7 @@
             selectAllJustVisible: true,
             enableFiltering: false,
             enableCaseInsensitiveFiltering: false,
+            enableAccentInsensitiveFiltering: false,
             enableFullValueFiltering: false,
             enableClickableOptGroups: false,
             enableCollapsibleOptGroups: false,
@@ -1258,6 +1259,11 @@
                                         if (this.options.enableCaseInsensitiveFiltering) {
                                             filterCandidate = filterCandidate.toLowerCase();
                                             this.query = this.query.toLowerCase();
+                                        }
+
+                                        if (this.options.enableAccentInsensitiveFiltering) {
+                                            filterCandidate = filterCandidate.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                                            this.query = this.query.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                                         }
 
                                         if (this.options.enableFullValueFiltering && this.options.filterBehavior !== 'both') {
