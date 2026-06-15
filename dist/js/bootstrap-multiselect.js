@@ -463,7 +463,7 @@
                 buttonGroupReset: '<button type="button" class="multiselect-reset btn btn-secondary w-100"></button>',
                 option: '<button type="button" class="multiselect-option dropdown-item"></button>',
                 divider: '<div class="dropdown-divider"></div>',
-                optionGroup: '<button type="button" class="multiselect-group dropdown-item"></button>',
+                optionGroup: '<button type="button" class="multiselect-group dropdown-item closed"></button>',
                 resetButton: '<div class="multiselect-reset text-center p-2"><button type="button" class="btn btn-sm w-100 btn-outline-secondary"></button></div>'
             }
         },
@@ -788,6 +788,7 @@
                         $checkbox = groupItem.find(".form-check-input");
                         if ($checkbox.length > 0) {
                             $checkbox.prop('checked', !$checkbox.prop('checked'));
+                            $checkbox.prop('indeterminate', false);
                             $checkbox.change();
                         }
                     }
@@ -1855,25 +1856,36 @@
                     .not('.multiselect-filter-hidden')
                     .not('.disabled');
 
-                var checked = true;
+                var checkedCount = 0;
                 $options.each(function () {
                     var $input = $('input', this);
 
-                    if (!$input.prop('checked')) {
-                        checked = false;
+                    if ($input.prop('checked')) {
+                        checkedCount = checkedCount + 1;
                     }
                 });
 
-                if (selectedClass) {
-                    if (checked) {
+                var checked;
+                var indeterminate;
+                if (checkedCount === 0) {
+                    $(this).removeClass(selectedClass);
+                    checked = false;
+                    indeterminate = false;
+                }
+                else {
+                    checked = true;
+                    if (checkedCount === $options.length) {
                         $(this).addClass(selectedClass);
+                        indeterminate = false;
                     }
                     else {
                         $(this).removeClass(selectedClass);
+                        indeterminate = true;
                     }
                 }
 
                 $('input', this).prop('checked', checked);
+                $('input', this).prop('indeterminate', indeterminate);
             });
         },
 
@@ -1888,13 +1900,22 @@
                 var selectAllItem = $(".multiselect-all", this.$popupContainer);
                 var selectAllInput = selectAllItem.find("input");
 
-                if (checkedBoxesLength > 0 && checkedBoxesLength === allBoxesLength) {
-                    selectAllInput.prop("checked", true);
-                    selectAllItem.addClass(this.options.selectedClass);
+                if (checkedBoxesLength === 0) {
+                    selectAllInput.prop("checked", false);
+                    selectAllInput.prop("indeterminate", false);
+                    selectAllItem.removeClass(this.options.selectedClass);
                 }
                 else {
-                    selectAllInput.prop("checked", false);
-                    selectAllItem.removeClass(this.options.selectedClass);
+                    selectAllInput.prop("checked", true);
+
+                    if (checkedBoxesLength === allBoxesLength) {
+                        selectAllInput.prop("indeterminate", false);
+                        selectAllItem.addClass(this.options.selectedClass);
+                    }
+                    else {
+                        selectAllInput.prop("indeterminate", true);
+                        selectAllItem.removeClass(this.options.selectedClass);
+                    }
                 }
             }
         },
