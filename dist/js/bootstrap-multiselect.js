@@ -633,6 +633,11 @@
             // Bind the change event on the dropdown elements.
             $(this.$popupContainer).off('change', '> *:not(.multiselect-group) input[type="checkbox"], > *:not(.multiselect-group) input[type="radio"]');
             $(this.$popupContainer).on('change', '> *:not(.multiselect-group) input[type="checkbox"], > *:not(.multiselect-group) input[type="radio"]', $.proxy(function (event) {
+                if (this.$select.prop('disabled')) {
+                    this.refresh();
+                    return false;
+                }
+
                 var $target = $(event.target);
 
                 var checked = $target.prop('checked') || false;
@@ -853,6 +858,11 @@
                 $(".multiselect-group input", this.$popupContainer).off("change");
                 $(".multiselect-group input", this.$popupContainer).on("change", $.proxy(function (event) {
                     event.stopPropagation();
+
+                    if (this.$select.prop('disabled')) {
+                        this.refresh();
+                        return false;
+                    }
 
                     var $target = $(event.target);
                     var checked = $target.prop('checked') || false;

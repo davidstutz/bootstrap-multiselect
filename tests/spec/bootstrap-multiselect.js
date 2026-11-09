@@ -51,6 +51,21 @@ describe('Bootstrap Multiselect "Core".', function () {
         expect($('#multiselect option:selected').length).toBe(9);
     });
 
+    it('Should preserve selection when disabled while open.', function () {
+        var $select = $('#multiselect');
+        var $menu = $('#multiselect-container .dropdown-menu');
+        var onChange = spyOn($select.data('multiselect').options, 'onChange');
+        $('#multiselect-container .multiselect').click();
+        expect($menu.hasClass('show')).toBe(true);
+
+        $select.multiselect('disable');
+        $menu.find('input[value="10"]').click();
+
+        expect($select.find('option[value="10"]').prop('selected')).toBe(false);
+        expect($menu.find('input[value="10"]').prop('checked')).toBe(false);
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('Should be able to select options by value.', function () {
         $('#multiselect').multiselect('select', '10');
 
